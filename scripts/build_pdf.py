@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+"""Compile iclr_paper.tex → iclr_paper.pdf (flat Overleaf-ready layout)."""
+from __future__ import annotations
+
+import os
+import shutil
+import subprocess
+import sys
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEX_DIR = ROOT
+TEX = os.path.join(TEX_DIR, "iclr_paper.tex")
+OUT = os.path.join(TEX_DIR, "iclr_paper.pdf")
+
+
+def _engine() -> str | None:
+    env = os.environ.get("PDF_ENGINE")
+    if env and (os.path.isfile(env) or shutil.which(env)):
+        return env if os.path.isfile(env) else shutil.which(env)
+    for cand in ("/tmp/tectonic", "tectonic", "pdflatex", "xelatex"):
+        if cand.startswith("/") and os.path.isfile(cand) and os.access(cand, os.X_OK):
+            return cand
+        found = shutil.which(cand)
+        if found:
+            return found
+    return None
+
+
+def _run(cmd: list[str], cwd: str) -> int:
+    print("+", " ".join(cmd), flush=True)
+    return subprocess.call(cmd, cwd=cwd)
+
+
+def main() -> int:
+    if not os.path.isfile(TEX):
+        print(f"missing {TEX}", file=sys.stderr)
+        return 1
+    engine = _engine()
+    if not engine:
+        print("no PDF engine (tectonic/pdflatex/xelatex)", file=sys.stderr)
+        return 3
+    base = os.path.basename(TEX)
+    if os.path.basename(engine) == "tectonic" or engine.endswith("/tectonic"):
+        rc = _run([engine, "--keep-logs", "--keep-intermediates", "-o", TEX_DIR, TEX], cwd=TEX_DIR)
+    else:
+        for _ in range(2):
+            rc = _run([engine, "-interaction=nonstopmode", base], cwd=TEX_DIR)
+            if rc != 0:
+                break
+        bibtex = shutil.which("bibtex")
+        if bibtex and os.path.isfile(os.path.join(TEX_DIR, "iclr_paper.aux")):
+            _run([bibtex, "iclr_paper"], cwd=TEX_DIR)
+        for _ in range(2):
+            rc = _run([engine, "-interaction=nonstopmode", base], cwd=TEX_DIR)
+    if not os.path.isfile(OUT):
+        print("build produced no PDF", file=sys.stderr)
+        return 4
+    print(f"wrote {OUT} ({os.path.getsize(OUT)} bytes)")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
