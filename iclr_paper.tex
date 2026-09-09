@@ -4,7 +4,8 @@
 %
 % Overleaf: set main document to iclr_paper.tex (repo root)
 % Compile with pdfLaTeX or XeLaTeX + BibTeX (references.bib + iclr2026_conference.bst).
-% Uncomment \iclrfinalcopy for camera-ready (keeps authors visible).
+% \iclrfinalcopy is the only official sty flag that prints \author and drops
+% the left-margin submission ruler (see tex/iclr2026_conference.sty).
 \documentclass{article}
 \usepackage{iclr2026_conference,times}
 
@@ -20,34 +21,31 @@
 
 \title{Generation Recall, Not Verification, Binds LLM Structure Elucidation from Literature Spectra}
 
-% Anonymous for double-blind review. For camera-ready, uncomment \iclrfinalcopy and
-% replace the anonymous block with the author block below (same byline as the combined paper).
 \author{
-Anonymous authors\\
-Paper under double-blind review
+Ilkham Yabbarov\textsuperscript{1,$\dagger$},
+Rudra Sondhi\textsuperscript{1},
+Rodrigo A.\ Vargas-Hern\'andez\textsuperscript{1,2,3,$\dagger$}\\
+\textsuperscript{1}Department of Chemistry and Chemical Biology, McMaster University,
+Hamilton, Ontario L8S 4L8, Canada.\\
+\textsuperscript{2}Brockhouse Institute for Materials Research, McMaster University,
+Hamilton, Ontario L8S 4L8, Canada.\\
+\textsuperscript{3}School of Computational Science and Engineering, McMaster University,
+Hamilton, Ontario L8S 4L8, Canada.\\
+$\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
 }
-% Camera-ready byline (all three authors; R.\ Sondhi on benchmark / diagnosis):
-% \author{
-% Ilkham Yabbarov\textsuperscript{1,$\dagger$},
-% Rudra Sondhi\textsuperscript{1},
-% Rodrigo A.\ Vargas-Hern\'andez\textsuperscript{1,2,3,$\dagger$}\\
-% \textsuperscript{1}Department of Chemistry and Chemical Biology, McMaster University,
-% Hamilton, Ontario L8S 4L8, Canada.\\
-% \textsuperscript{2}Brockhouse Institute for Materials Research, McMaster University,
-% Hamilton, Ontario L8S 4L8, Canada.\\
-% \textsuperscript{3}School of Computational Science and Engineering, McMaster University,
-% Hamilton, Ontario L8S 4L8, Canada.\\
-% $\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
-% }
 
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
 
-% \iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+% Official ICLR 2026 switch: show \author and disable the submission linenumber
+% ruler. The same flag also sets the running header to "Published as...";
+% restore the under-review header after \maketitle (no separate linenumber option).
+\iclrfinalcopy
 
 \begin{document}
 
 \maketitle
+\lhead{Under review as a conference paper at ICLR 2026}
 
 \begin{abstract}
 Frontier large language models are often presented as near-solved structure elucidators on
