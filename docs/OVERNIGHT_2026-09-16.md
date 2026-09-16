@@ -45,3 +45,82 @@ Numbers in tables/abstract (28.4% / 15.2% / 34% / 89% (58/65) / formula-only 23%
 | Lead figure | `fig_wall` (diagnosis) |
 | Dataset URL in PDF | anonymous.4open `…/peaklist-corpus-review-10C4/` |
 | `\iclrfinalcopy` | OFF |
+
+---
+
+# Overnight note — 2026-09-16 (v0.11)
+
+Independent pre-registered **+106 expansion** is now locally scored (Opus). Reported as a
+**separate, non-headline** replication. **Headline stays n=194.** Do not pool to n=300.
+
+## Expansion facts (locked; do not round further)
+
+| Item | Value |
+|---|---|
+| Draw | n=106 pre-registered blind compounds |
+| Scoring | RDKit InChIKey-14 (constitution) |
+| Opus top-1 | **63/106 (59%)** |
+| Opus generation recall | **68/106 (64%)** |
+| Spectral validation | 101/106 clean; **5× ¹³C-overread flags** |
+| Clean subset | top-1 **61/101 (60%)**, recall **65/101 (64%)** |
+| Forward-verify on expansion | **not run** |
+| Fable cross-model arm | **incomplete (68/106)** |
+| Headline cohort | **n=194** until pooling is explicitly approved |
+| Pooling | licensed by pre-reg; **deferred** pending forward-verify + clean-flag handling |
+
+Source run: spectro-agent branch `claude/funny-maxwell-u5S31`. No pooled n=300 artefacts
+in this repo. Expansion top-1 is higher than the locked 28.4% headline; the paper frames
+that as **found on a new draw**, not as replacing the n=194 diagnosis.
+
+## What changed overnight (v0.11)
+
+- `iclr_paper.tex`: new Results subsection **§5.6 Pre-registered expansion** with the
+  exact counts above, plus Appendix B Table `tab:expansion`. One sentence each in
+  Discussion and Limitations (vi) that pooling is licensed but deferred and the
+  headline tables/CIs/Figure 1 stay n=194.
+- Headline Table 1, abstract, contributions, wall figure, and n=194 CIs **unchanged**.
+- Double-blind locks unchanged: `\iclrfinalcopy` OFF; companion bib Anonymous; dataset
+  URL only `https://anonymous.4open.science/r/peaklist-corpus-review-10C4/`; no
+  `ilkhamfy` / Hugging Face personal URLs in the PDF.
+- `docs/LEADERBOARD.md`: separate expansion block, explicitly **non-headline**.
+- `scripts/build_pdf.py`: Tectonic now gets `-Z search-path=tex/` (TEXINPUTS is ignored).
+
+## Compiled check (tectonic, 11 pages)
+
+- Anonymous authors / Paper under double-blind review; running header *Under review as a conference paper at ICLR 2026*.
+- 0 undefined refs; 0 `Yabbarov` / `ilkhamfy` / `huggingface` / `McMaster` hits in PDF text.
+- Companion bib prints **Anonymous (2026)** for IRexp.
+- Dataset URL is only the anonymous.4open review copy (line-wrapped in the PDF).
+- Figure 1 remains the n=194 diagnosis wall. Table 1 remains n=194 28.4% / 33.5%.
+- §5.6 + Appendix B Table 6 carry the expansion counts and the pooling-deferred sentence.
+- Main text through conclusion / reproducibility / ethics / acks lands on **p.9**; refs + appendix occupy p.9–11.
+
+## Morning checklist (v0.11)
+
+1. **Open PR, do not merge** unless trivially safe. Prefer morning human review: the
+   expansion rate (59%) is much higher than 28.4% and is easy to misread as a new
+   headline.
+2. Rebuild PDF on Overleaf. Confirm Figure 1 is still the n=194 diagnosis wall; Table 1
+   still n=194; new expansion table is labelled independent / not pooled.
+3. Blind scan: Anonymous authors; bibliography **Anonymous (2026)** for IRexp; 0
+   `Yabbarov` / `ilkhamfy` / `huggingface` / `McMaster` in PDF text.
+4. **Do not** rewrite headline n or CIs to 300. Pooling still waits on (i)
+   forward-verify on the 106, (ii) clean-flag handling of the 5 ¹³C-overread
+   records, (iii) explicit pooling approval. Fable arm is incomplete (68/106) and
+   must not be scored as a full expansion row.
+5. Frozen expansion predictions / score dump live in spectro-agent, not this postcard
+   repo. Copy them in before any pooled-n rewrite.
+
+## Locked facts (do not drift)
+
+| Item | Value |
+|---|---|
+| Headline n | 194 |
+| Headline top-1 / reweighted | 28.4% [22–35] / 15.2% |
+| Headline recall / precision \| recall | 34% (65/194) / 89% (58/65) |
+| Expansion n (non-headline) | 106 (clean 101) |
+| Expansion Opus top-1 / recall | 63/106 (59%) / 68/106 (64%) |
+| Lead figure | `fig_wall` (diagnosis, n=194) |
+| Dataset URL in PDF | anonymous.4open `…/peaklist-corpus-review-10C4/` |
+| `\iclrfinalcopy` | OFF |
+

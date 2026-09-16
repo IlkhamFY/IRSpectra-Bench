@@ -22,7 +22,7 @@ Blind structure elucidation from **molecular formula + IR + ¹H + ¹³C** peak l
 
 Bootstrap 95% CIs for the headline row: top-1 **28.4% [22–35]**, recall **33.5% [27–40]**. Corpus-reweighted top-1 (17.5% simple / 82.5% complex): **15.2% [11–20]**.
 
-**Locked headline:** n=194 until the +106 expansion (spectro-agent branch `claude/funny-maxwell-u5S31`) is fully scored under pre-reg. Do **not** rewrite this table to pooled n=300.
+**Locked headline:** n=194. The +106 expansion (spectro-agent branch `claude/funny-maxwell-u5S31`) is scored for Claude Opus under pre-reg and is reported **separately below**. Do **not** rewrite this table to pooled n=300. Pooling is licensed by pre-registration but deferred pending forward-verification, clean-flag handling, and explicit approval.
 
 **Key finding:** verification precision exceeds generation recall for every vendor tested — the binding constraint is *candidate proposal*, not spectral ranking.
 
@@ -33,6 +33,25 @@ Bootstrap 95% CIs for the headline row: top-1 **28.4% [22–35]**, recall **33.5
 | All | 194 | 28.4% | 33.5% |
 | Simple | 98 | 48.0% | 54.1% |
 | Complex | 96 | 8.3% | 12.5% |
+
+---
+
+## Pre-registered expansion (n = 106) — **not headline**
+
+Independent pre-registered blind draw, scored after the n=194 cohort was locked.
+Constitution scoring is RDKit InChIKey-14. **Do not cite these rows as the paper headline.**
+Pooling n=194+106 is licensed by pre-reg but deferred pending forward-verify + clean-flag
+handling and explicit approval.
+
+| Rank | Model / method | Top-1 ↑ | Recall (top-3) ↑ | Gen. recall | Verif. prec. \| recall | Notes |
+|---:|---|--:|--:|--:|--:|---|
+| — | Claude Opus (expansion, all) | **59%** (63/106) | 64% (68/106) | 64% (68/106) | — | Independent draw; forward-verify **not run** |
+| — | Claude Opus (expansion, clean) | **60%** (61/101) | 64% (65/101) | 64% (65/101) | — | 101/106 clean (5× ¹³C-overread flags) |
+| — | Claude Fable 5 (expansion) | — | — | — | — | Incomplete (68/106); not a full-arm row |
+
+The expansion top-1 (59%) is higher than the locked 28.4% headline. Treat that as a result
+**found on a new draw**, not as a replacement of the n=194 diagnosis, until a pooled
+analysis exists.
 
 ---
 
@@ -102,6 +121,7 @@ We will verify scoring with `scripts/score_submission.py` before adding a row.
 | Benchmark | n | Purpose |
 |---|---:|---|
 | **IRSpectra-Bench** (main + v3 + v2_ctrl) | 194 | Headline leaderboard |
+| IRSpectra-Bench (pre-reg expansion) | 106 | Independent replication; **not headline**; pooling deferred |
 | IRSpectra-Bench (main clean only) | 134 | Spectrally validated main round |
 | IRSpectra-Bench-Electrolyte | 46 | Battery-electrolyte functional classes |
 | Cross-vendor arm | 60 | Same compounds, multiple vendors (`docs/CROSS_VENDOR.md`) |
@@ -132,4 +152,4 @@ If you use IRSpectra-Bench or report numbers on it, please cite:
 }
 ```
 
-*Last updated: 2026-08-25 (JCIM editorial strengthen). External submissions listed after verification.*
+*Last updated: 2026-09-16 (v0.11 expansion row, non-headline). External submissions listed after verification.*
