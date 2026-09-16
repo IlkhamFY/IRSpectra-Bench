@@ -65,7 +65,7 @@ pool for only \textbf{34\%} of compounds, and where it does, training-free forwa
 selects it \textbf{89\%} of the time (58/65).
 The same recall $\ll$ precision asymmetry replicates across \textbf{four vendor families}.
 A formula-only control drops top-1 from 23\% $\to$ 5\%; accuracy is flat in source-paper year.
-Generating wider lifts recall 32\% $\to$ 42\% and top-1 23\% $\to$ 30\% on 60 compounds, while
+Generate-wide sampling lifts recall 32\% $\to$ 42\% and top-1 23\% $\to$ 30\% on 60 compounds, while
 verification alone moves whole-benchmark top-1 only 28\% $\to$ 30\%.
 Recovered from published top-$k$ figures, recall carries \textbf{68--83\%} of the accuracy
 collapse when systems move from curated or simulated data to real heterogeneous spectra.
@@ -82,8 +82,8 @@ LLM agents and puzzle benches report high recovery on curated or education
 spectra~\citep{kamber2026chemist,guo2024molpuzzle,zhuang2025treesearch,espejo2026agentic}.
 Cross-paper numbers swing wildly with harness (e.g.\ GPT-4o from 1.4\% to 57.8\% on MolPuzzle
 under different prompting~\citep{guo2024molpuzzle,zhuang2025treesearch}).
-What remains under-measured is the chemist's operational setting: \textbf{take peak lists as
-printed in open-access papers and recover constitution}, with a fixed molecular-representation
+What remains under-measured is the chemist's operational setting: \textbf{taking peak lists as
+printed in open-access papers and recovering constitution}, with a fixed molecular-representation
 scoring contract and an honest account of \textbf{which stage of elucidation binds}.
 
 We argue that end-to-end top-1 alone is the wrong reporting primitive.
@@ -152,7 +152,7 @@ Most prior suites use simulated or single-instrument spectra.
 IRSpectra-Bench uses literature-reported peak lists across thousands of laboratories and
 reports formula-only and recency controls (Section~\ref{sec:contamination}).
 Espejo Morales \textit{et al.}~\citep{espejo2026agentic} compare education vs industrial
-\emph{instrument files} (80.9\% $\to$ 20.6\%); they ask which architecture, we ask which stage
+\emph{instrument files} (80.9\% $\to$ 20.6\%); they ask which architecture, while we ask which stage
 binds on \textbf{published reports}.
 
 \paragraph{Forward verification and CASE.}
@@ -185,7 +185,7 @@ matches how language models consume literature.
 Problems are drawn from the structure-complete split of IRexp (\texttt{irexp\_resolved}; see
 companion Data Descriptor / HF card)~\citep{yabbarov2026irexp}.
 In 10/194, author peak assignments name a ring system; those are solved 1/10 vs 54/184 for
-the rest, so annotation does not carry the headline.
+the rest, so named-ring annotation does not drive the headline numbers.
 
 \subsection{Difficulty, balance, and scoring contract}
 
@@ -217,7 +217,7 @@ metric & definition \\
 \bottomrule
 \end{tabular}
 \end{center}
-CIs are bootstrap 95\%; paired model differences use McNemar with Holm correction.
+Confidence intervals are bootstrap 95\%; paired model differences use McNemar with Holm correction.
 
 \begin{figure}[t]
   \centering
@@ -454,7 +454,7 @@ Corpus-reweighted top-1 (\textbf{15.2\%}) is the better estimate for an arbitrar
 draw.
 
 Training is not foreclosed: IRexp fine-tuning lifts recall to 54\%.
-What compounds is open experimental data, honest benchmarks, and inference scaffolding that
+Those gains compound with open experimental data, honest benchmarks, and inference scaffolding that
 rides each new model.
 
 \section{Limitations}
@@ -495,7 +495,7 @@ diagnosis replicates across vendors and recovers from published top-$k$ figures.
 We release frozen predictions and a mechanical scorer so others can report the same three
 numbers.
 The redistributable experimental band-list corpus behind the bench is documented separately
-as a \textit{Scientific Data} Data Descriptor (in prep.)~\citep{yabbarov2026irexp} and mirrored
+as a \textit{Scientific Data} Data Descriptor (in preparation)~\citep{yabbarov2026irexp} and mirrored
 at \texttt{ilkhamfy/IRexp}.
 
 \section*{Reproducibility statement}
@@ -542,7 +542,7 @@ Electronic Supplementary Information of the combined archive.
 
 \section{Extended tables and figures}
 
-Supplementary figures currently shared with the combined manuscript under
+Supplementary figures archived under
 \texttt{docs/figures/}: \texttt{fig0\_overview}, \texttt{fig2\_size}, \texttt{fig4\_dataset},
 \texttt{fig5\_models}, \texttt{fig6\_electrolyte}, \texttt{fig7\_crossvendor},
 \texttt{fig\_contamination}, \texttt{fig\_generator\_probe}, \texttt{fig\_verifier}.
