@@ -195,7 +195,7 @@ The released benchmark is \textbf{50/50 by design}; the eligible corpus is 17.5\
 Reweighted to corpus composition, top-1 falls 28.4\% $\to$ \textbf{15.2\%} and recall 33.5\%
 $\to$ \textbf{19.8\%}.
 We report both; the reweighted figure is the better estimate for an arbitrary paper, the
-50/50 figure the comparable leaderboard number.
+50/50 figure the comparable leaderboard number (Table~\ref{tab:headline}).
 
 \textbf{Scoring.} A prediction is correct if RDKit InChIKey \textbf{connectivity} (first 14
 characters) matches --- we score \emph{constitution}.
@@ -216,13 +216,6 @@ metric & definition \\
 \end{tabular}
 \end{center}
 Confidence intervals are bootstrap 95\%; paired model differences use McNemar with Holm correction.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\linewidth]{fig1_difficulty.png}
-  \caption{Top-1 and recovered accuracy by difficulty ($n{=}194$), with bootstrap 95\% CIs.}
-  \label{fig:fig1-difficulty}
-\end{figure}
 
 \section{Experimental setup}
 \label{sec:setup}
@@ -252,7 +245,7 @@ $^{13}$C verifiers; small IRexp-fine-tuned generator probe (fenced from headline
 \label{sec:headline}
 
 \begin{table}[t]
-\caption{Headline elucidation on IRSpectra-Bench ($n{=}194$).}
+\caption{Headline elucidation on IRSpectra-Bench.}
 \label{tab:headline}
 \centering
 \begin{tabular}{@{}lrrr@{}}
