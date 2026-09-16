@@ -1,10 +1,9 @@
 # Generation Recall, Not Verification, Binds LLM Structure Elucidation from Literature Spectra
 
-<!-- ICLR track draft (anonymous-ready). Source: docs/archive/combined_PAPER.md
-     (snapshot of the combined JCIM-shaped manuscript). Do not edit docs/paper.tex
-     or treat this file as a replacement for docs/PAPER.md.
-     Companion Data Descriptor: Scientific Data manuscript (in prep) for IRexp.
-     Figure paths still point at docs/figures/* pending a dedicated ICLR figure pack. -->
+<!-- STALE markdown snapshot. Source of truth is iclr_paper.tex (Overleaf).
+     Headline as of v0.12 is pooled n=295 (116/295 = 39.3% top-1; 130/295 = 44.1% recall).
+     Do not copy this file into Overleaf; numbers below still quote the old n=194 lock.
+     Grounded counts: docs/POOLED_HEADLINE_2026-09-16.md -->
 
 **Anonymous authors**
 

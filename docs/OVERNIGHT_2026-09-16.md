@@ -124,3 +124,62 @@ that as **found on a new draw**, not as replacing the n=194 diagnosis.
 | Dataset URL in PDF | anonymous.4open `…/peaklist-corpus-review-10C4/` |
 | `\iclrfinalcopy` | OFF |
 
+---
+
+# Overnight note — 2026-09-16 (v0.12)
+
+User rejected keeping n=194 as the paper headline. **Headline is pooled n=295**
+(194 locked + 101 validate-clean expansion). Numbers from spectro-agent
+`docs/POOLED_HEADLINE_2026-09-16.md` / `scripts/score_pooled.py` — copied into this
+repo. Do not invent pooled fig_wall / forward-verify precision.
+
+## Headline facts (locked; do not round further)
+
+| Item | Value |
+|---|---|
+| Headline n | **295** (194 + 101; flags R12, R22, R25, R82, R91 excluded) |
+| Top-1 | **116/295 (39.3%) [34–45]** |
+| Generation recall | **130/295 (44.1%) [39–49]** |
+| Simple / complex top-1 | 87/147 (59.2%) / 29/148 (19.6%) |
+| Corpus-reweighted top-1 / recall | **26.5% [21–32]** / **31.3% [25–37]** |
+| Stereo top-1 | 93/295 (31.5%) |
+| Self-rank precision \| recall | 116/130 (89.2%) — **not** forward-verify |
+| Locked slice | 55/194 (28.4%) / 65/194 (33.5%) |
+| Expansion clean | 61/101 (60.4%) / 65/101 (64.4%) |
+| Sensitivity n=300 | 118/300 (39.3%) — not headline |
+| Forward-verify / fig_wall | n=194 only (58/7/129); expansion **pending** |
+| Fable expansion | 68/106; not scored; not pooled |
+
+## What changed (v0.12)
+
+- `iclr_paper.tex`: abstract, contributions, Table 1, difficulty/size, conclusion,
+  and expansion section now headline **n=295**. Slice table shows the 60% vs 28%
+  gap. Figure 1 caption states the wall is the locked n=194 diagnosis until
+  expansion fverify exists. Expansion is no longer “appendix only / pooling deferred.”
+- `docs/POOLED_HEADLINE_2026-09-16.md` copied from spectro-agent PR #40.
+- `docs/LEADERBOARD.md` headline row is pooled n=295; expansion is a slice, not
+  a non-headline appendix.
+- Cover letter numbers match the n=295 abstract.
+- Double-blind locks unchanged: `\iclrfinalcopy` OFF; companion bib Anonymous;
+  dataset URL only `https://anonymous.4open.science/r/peaklist-corpus-review-10C4/`.
+
+## Compiled check (tectonic, 12 pages)
+
+- Anonymous authors / Paper under double-blind review; running header *Under review as a conference paper at ICLR 2026*.
+- 0 `Yabbarov` / `ilkhamfy` / `huggingface` / `McMaster` / `Ilkham` in PDF text.
+- Companion bib prints **Anonymous (2026)** for IRexp.
+- Dataset URL is only the anonymous.4open review copy.
+- Table 1 is n=295 **39.3% [34–45] / 44.1% [39–49]**; Table 2 slice 28.4% vs 60.4%.
+- Figure 1 caption is the n=194 locked-slice wall (58/7/129); expansion fverify pending.
+- Main text through conclusion / reproducibility / ethics lands on **p.9**; refs + appendix occupy p.10–12.
+
+## Morning checklist (v0.12)
+
+1. Rebuild PDF on Overleaf. Table 1 is n=295 39.3% / 44.1%. Figure 1 caption is
+   n=194 locked-slice diagnosis. Bibliography **Anonymous (2026)** for IRexp.
+2. Blind scan: Anonymous authors; 0 `Yabbarov` / `ilkhamfy` / `huggingface` /
+   `McMaster` in PDF text.
+3. Do **not** invent pooled verification precision or a pooled wall figure.
+4. `docs/ICLR_PAPER.md` remains a stale markdown snapshot. Do not copy it into Overleaf.
+5. Merge this `release v0.12` PR if the n=295 headline and blind scan look clean.
+
