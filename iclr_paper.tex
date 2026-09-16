@@ -40,8 +40,7 @@ $\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
 % Official ICLR 2026 switch: show \author and disable the submission linenumber
 % ruler. The same flag also sets the running header to "Published as...";
 % restore the under-review header after \maketitle (no separate linenumber option).
-\iclrfinalcopy
-
+% \iclrfinalcopy  % OFF for double-blind submission; re-enable for camera-ready
 \begin{document}
 
 \maketitle
@@ -113,8 +112,7 @@ infrastructure at scale}.
 
 \paragraph{Dataset pointer (not this paper's primary object).}
 Experimental band lists come from \textbf{IRexp} (121,233 records; 43,060 structure-linked;
-33,201 full IR+$^1$H+$^{13}$C+structure quadruples), released on Hugging Face
-(\texttt{ilkhamfy/IRexp}).
+33,201 full IR+$^1$H+$^{13}$C+structure quadruples); an anonymized review mirror is linked in Appendix~\ref{app:dataset}.
 Construction, licensing, and technical validation of the corpus are the subject of a companion
 \textit{Scientific Data} manuscript (in preparation)~\citep{yabbarov2026irexp}.
 This ICLR paper \textbf{cites} that resource and does not re-present a Data Descriptor.
@@ -183,7 +181,7 @@ a different object from digitised-spectrum benchmarks~\citep{espejo2026agentic},
 matches how language models consume literature.
 
 Problems are drawn from the structure-complete split of IRexp (\texttt{irexp\_resolved}; see
-companion Data Descriptor / HF card)~\citep{yabbarov2026irexp}.
+companion Data Descriptor)~\citep{yabbarov2026irexp}.
 In 10/194, author peak assignments name a ring system; those are solved 1/10 vs 54/184 for
 the rest, so named-ring annotation does not drive the headline numbers.
 
@@ -496,7 +494,7 @@ We release frozen predictions and a mechanical scorer so others can report the s
 numbers.
 The redistributable experimental band-list corpus behind the bench is documented separately
 as a \textit{Scientific Data} Data Descriptor (in preparation)~\citep{yabbarov2026irexp} and mirrored
-at \texttt{ilkhamfy/IRexp}.
+at an anonymized review mirror (Appendix~\ref{app:dataset}).
 
 \section*{Reproducibility statement}
 Every training-free number regenerates from released questions, answers, frozen predictions
@@ -516,25 +514,23 @@ Licensing of redistributed numeric extractions is documented in the companion Da
 and dataset notices (PMC-OA terms are mixed --- not uniformly CC-BY; Chemotion is CC-BY-SA).
 
 \section*{Acknowledgements}
-We acknowledge the support of the Natural Sciences and Engineering Research Council of Canada (NSERC), funding reference number 596133-2025 (CREATE for Accelerated Discovery, AccelD), delivered through the Acceleration Consortium. We thank the Department of Chemistry and Chemical Biology, McMaster University, for institutional support.
-
+We acknowledge support from the Natural Sciences and Engineering Research Council of Canada (NSERC) through a CREATE training program. Institutional details and named funding references are omitted for double-blind review and will be restored in the camera-ready version.
 \bibliography{references}
 \bibliographystyle{iclr2026_conference}
 
 \appendix
 
 \section{Dataset pointer (IRexp)}
+\label{app:dataset}
 
 IRexp is \textbf{not} re-described here as a Data Descriptor.
-For counts, provenance, licensing caveats, transcription audit (560/560 bands on $n{=}60$),
-and file schema, see:
+During double-blind review, the commercial redistributable pool is available from an anonymized mirror (no author-identifying host):
 \begin{itemize}
-  \item Hugging Face: \url{https://huggingface.co/datasets/ilkhamfy/IRexp}
-  \item Companion manuscript: \textit{Scientific Data} Data Descriptor (in
-        preparation)~\citep{yabbarov2026irexp}
-  \item Combined archive (pre-split JCIM-shaped paper): \texttt{docs/archive/combined\_PAPER.md}
-  \item Feasibility audit: \texttt{docs/irexp\_scientific\_data\_audit.md}
+  \item Anonymized dataset mirror: \url{https://anonymous.4open.science/r/peaklist-corpus-review/}
+  \item Companion manuscript: anonymized \textit{Scientific Data} Data Descriptor (in preparation)~\citep{yabbarov2026irexp}
 \end{itemize}
+Named archival hosting will replace the mirror in the camera-ready version.
+File schema and aggregate counts ship with the mirror (\texttt{SCHEMA.md}, \texttt{data/}).
 
 Benchmark construction details beyond Section~\ref{sec:benchmark} (spectral validation
 filters, prompt-leakage audit, electrolyte SMARTS) live in \texttt{docs/BENCHMARK.md} and the
