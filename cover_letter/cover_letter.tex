@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\pagenumbering{gobble}
+
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+
+\renewcommand{\headrulewidth}{-4pt}
+\fancyhead[L]{
+\includegraphics[width=3cm]{./mcm-col_png.png}
+}
+\pagestyle{fancy}
+
+\begin{document}
+
+%\noindent
+$\;$\\
+\vspace{-0.3cm}
+
+\begin{flushright}
+\today
+\end{flushright}
+
+\vspace{-0.1cm}
+Dear Program Chairs,\\
+\vspace{0.2cm}
+
+
+%----------------------------------------------------------------------------------------
+We submit our manuscript entitled ``\emph{Generation Recall, Not Verification, Binds LLM Structure Elucidation from Literature Spectra}'' for consideration as a conference paper at \emph{ICLR 2026}.
+
+Frontier LLMs are often presented as near-solved structure elucidators on curated spectra. We ask a harder operational question: given the molecular formula and literature-reported IR / $^1$H / $^{13}$C peak lists---not digitised traces---can an off-the-shelf LLM recover the correct constitution, and which stage fails when it does not?
+
+We introduce \textbf{IRSpectra-Bench}, a blind, mechanically scored peak-list benchmark of 194 compounds drawn from redistributable experimental band lists (\textbf{IRexp}; companion Scientific Data Data Descriptor, in preparation), with a fixed RDKit InChIKey-connectivity scoring contract and decomposable generation-recall / verification-precision metrics.
+On IRSpectra-Bench, a frontier LLM recovers the correct constitution for 28.4\% top-1 (95\% CI 22--35), or 15.2\% once reweighted to corpus composition.
+The bottleneck is candidate proposal, not verification: the true structure enters the pool for only 34\% of compounds, and where it does, training-free forward-verification selects it 89\% of the time (58/65).
+The same recall $\ll$ precision asymmetry replicates across four vendor families.
+This ICLR paper cites IRexp as infrastructure and does not re-present a Data Descriptor.
+
+This work was supported by NSERC funding reference number 596133-2025 (CREATE for Accelerated Discovery, AccelD), delivered through the Acceleration Consortium.\\
+
+All authors confirm that this manuscript has not been previously published and is not under consideration elsewhere. The authors have approved the submitted version and agree to ICLR 2026's submission policies.
+
+\vspace{0.5cm}
+
+Best regards,\vspace{0.5cm}\\
+\begin{center}
+Rodrigo A. Vargas-Hern\'{a}ndez, on behalf of all authors \\
+email: vargashr@mcmaster.ca
+\end{center}
+\end{document}
