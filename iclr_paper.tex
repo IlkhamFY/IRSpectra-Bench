@@ -428,6 +428,39 @@ Recall binds where spectra are real and heterogeneous; ranking dominates on simu
 single-library data.
 The field almost never reports whether the true structure was proposed at all.
 
+\subsection{Pre-registered expansion}
+\label{sec:expansion}
+
+An independent pre-registered expansion of 106 blind compounds was scored after the
+headline cohort was locked, under the same InChIKey-14 constitution contract.
+Claude Opus recovers \textbf{63/106 (59\%)} top-1 and \textbf{68/106 (64\%)} generation
+recall.
+A spectral-validation pass flags five $^{13}$C-overread records (101/106 clean); on the
+clean subset, top-1 is 61/101 (60\%) and recall 65/101 (64\%).
+Forward-verification has not been run on the expansion, and a Fable cross-model arm is
+incomplete (68/106 scored).
+The expansion top-1 is higher than the locked 28.4\% headline; we report it as a result
+\textbf{found on a new draw}, not as a replacement of the $n{=}194$ diagnosis, until a
+pooled analysis exists.
+Pooling $n{=}194{+}106$ is licensed by the pre-registration but is deferred pending
+forward-verification and clean-flag handling.
+Headline tables, CIs, and Figure~\ref{fig:fig-wall} remain $n{=}194$.
+
+\begin{table}[t]
+\caption{Independent pre-registered expansion (Claude Opus, InChIKey-14). Not pooled
+into the headline.}
+\label{tab:expansion}
+\centering
+\begin{tabular}{@{}lrr@{}}
+\toprule
+ & all ($n{=}106$) & clean ($n{=}101$) \\
+\midrule
+top-1 & 63/106 (59\%) & 61/101 (60\%) \\
+generation recall & 68/106 (64\%) & 65/101 (64\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Discussion}
 \label{sec:discussion}
 
@@ -436,6 +469,8 @@ Frontier LLMs are \textbf{good verifiers} ($\approx$89\% conditional precision) 
 The primary research contribution of this paper is the \textbf{benchmark + stage
 decomposition + contamination/cross-vendor diagnosis}, not a solved elucidator and not a
 Data Descriptor for IRexp.
+An independent pre-registered expansion (Section~\ref{sec:expansion}) scored higher on a
+new draw; we do not replace the $n{=}194$ diagnosis until a pooled analysis exists.
 
 \paragraph{Reporting contract.}
 External work on IRSpectra-Bench should deposit ranked SMILES under the released protocol and
@@ -473,6 +508,9 @@ transformers and CASE were \textbf{not scored} on IRSpectra-Bench --- the LLM re
 not cleanly separated from harness or modality choice.
 \textbf{(vi) Cross-vendor scope.} Headline $n{=}194$ is Claude Opus; four-vendor replication is
 on 60 compounds; candidate budgets differ.
+A pre-registered $n{=}106$ expansion (Section~\ref{sec:expansion}) is reported separately;
+pooling is licensed by pre-registration but deferred pending forward-verification and
+clean-flag handling.
 \textbf{(vii) Deferred arms.} Expert-chemist audit of elucidation outputs formally deferred
 (not run). Leave-one-modality-out ablation abandoned for this manuscript. Extraction-recall
 human audit of the mining parser is deferred to the \textit{Scientific Data} companion.
@@ -540,5 +578,7 @@ forward-verification mechanism (Figure~\ref{fig:fig-mechanism}), and the inferen
 ladder (Figure~\ref{fig:fig3-method}).
 Additional archive plates are omitted here; they do not change the headline $n{=}194$
 diagnosis.
+The independent $n{=}106$ expansion (Section~\ref{sec:expansion}) is likewise not pooled
+into that headline.
 
 \end{document}
