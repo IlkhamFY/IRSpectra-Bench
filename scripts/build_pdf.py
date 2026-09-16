@@ -44,7 +44,20 @@ def main() -> int:
         return 3
     base = os.path.basename(TEX)
     if os.path.basename(engine) == "tectonic" or engine.endswith("/tectonic"):
-        rc = _run([engine, "--keep-logs", "--keep-intermediates", "-o", TEX_DIR, TEX], cwd=TEX_DIR)
+        tex_search = os.path.join(ROOT, "tex")
+        rc = _run(
+            [
+                engine,
+                "--keep-logs",
+                "--keep-intermediates",
+                "-Z",
+                f"search-path={tex_search}",
+                "-o",
+                TEX_DIR,
+                TEX,
+            ],
+            cwd=TEX_DIR,
+        )
     else:
         for _ in range(2):
             rc = _run([engine, "-interaction=nonstopmode", base], cwd=TEX_DIR)

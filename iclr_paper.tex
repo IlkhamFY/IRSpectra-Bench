@@ -432,7 +432,8 @@ The field almost never reports whether the true structure was proposed at all.
 \label{sec:expansion}
 
 An independent pre-registered expansion of 106 blind compounds was scored after the
-headline cohort was locked, under the same InChIKey-14 constitution contract.
+headline cohort was locked, under the same InChIKey-14 constitution contract
+(Table~\ref{tab:expansion}).
 Claude Opus recovers \textbf{63/106 (59\%)} top-1 and \textbf{68/106 (64\%)} generation
 recall.
 A spectral-validation pass flags five $^{13}$C-overread records (101/106 clean); on the
@@ -445,21 +446,6 @@ pooled analysis exists.
 Pooling $n{=}194{+}106$ is licensed by the pre-registration but is deferred pending
 forward-verification and clean-flag handling.
 Headline tables, CIs, and Figure~\ref{fig:fig-wall} remain $n{=}194$.
-
-\begin{table}[t]
-\caption{Independent pre-registered expansion (Claude Opus, InChIKey-14). Not pooled
-into the headline.}
-\label{tab:expansion}
-\centering
-\begin{tabular}{@{}lrr@{}}
-\toprule
- & all ($n{=}106$) & clean ($n{=}101$) \\
-\midrule
-top-1 & 63/106 (59\%) & 61/101 (60\%) \\
-generation recall & 68/106 (64\%) & 65/101 (64\%) \\
-\bottomrule
-\end{tabular}
-\end{table}
 
 \section{Discussion}
 \label{sec:discussion}
@@ -578,7 +564,21 @@ forward-verification mechanism (Figure~\ref{fig:fig-mechanism}), and the inferen
 ladder (Figure~\ref{fig:fig3-method}).
 Additional archive plates are omitted here; they do not change the headline $n{=}194$
 diagnosis.
-The independent $n{=}106$ expansion (Section~\ref{sec:expansion}) is likewise not pooled
-into that headline.
+
+\begin{table}[h]
+\caption{Independent pre-registered expansion (Claude Opus, InChIKey-14). Not pooled
+into the headline. Forward-verification has not been run; a Fable arm is incomplete
+(68/106). Pooling $n{=}194{+}106$ is licensed by pre-registration but deferred.}
+\label{tab:expansion}
+\centering
+\begin{tabular}{@{}lrr@{}}
+\toprule
+ & all ($n{=}106$) & clean ($n{=}101$) \\
+\midrule
+top-1 & 63/106 (59\%) & 61/101 (60\%) \\
+generation recall & 68/106 (64\%) & 65/101 (64\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \end{document}

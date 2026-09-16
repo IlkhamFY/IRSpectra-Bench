@@ -74,15 +74,26 @@ that as **found on a new draw**, not as replacing the n=194 diagnosis.
 
 ## What changed overnight (v0.11)
 
-- `iclr_paper.tex`: new Results subsection **§5.6 Pre-registered expansion** + compact
-  Table `tab:expansion` with the exact counts above. One sentence each in Discussion,
-  Limitations (vi), and Appendix B that pooling is licensed but deferred and the
+- `iclr_paper.tex`: new Results subsection **§5.6 Pre-registered expansion** with the
+  exact counts above, plus Appendix B Table `tab:expansion`. One sentence each in
+  Discussion and Limitations (vi) that pooling is licensed but deferred and the
   headline tables/CIs/Figure 1 stay n=194.
 - Headline Table 1, abstract, contributions, wall figure, and n=194 CIs **unchanged**.
 - Double-blind locks unchanged: `\iclrfinalcopy` OFF; companion bib Anonymous; dataset
   URL only `https://anonymous.4open.science/r/peaklist-corpus-review-10C4/`; no
   `ilkhamfy` / Hugging Face personal URLs in the PDF.
 - `docs/LEADERBOARD.md`: separate expansion block, explicitly **non-headline**.
+- `scripts/build_pdf.py`: Tectonic now gets `-Z search-path=tex/` (TEXINPUTS is ignored).
+
+## Compiled check (tectonic, 11 pages)
+
+- Anonymous authors / Paper under double-blind review; running header *Under review as a conference paper at ICLR 2026*.
+- 0 undefined refs; 0 `Yabbarov` / `ilkhamfy` / `huggingface` / `McMaster` hits in PDF text.
+- Companion bib prints **Anonymous (2026)** for IRexp.
+- Dataset URL is only the anonymous.4open review copy (line-wrapped in the PDF).
+- Figure 1 remains the n=194 diagnosis wall. Table 1 remains n=194 28.4% / 33.5%.
+- §5.6 + Appendix B Table 6 carry the expansion counts and the pooling-deferred sentence.
+- Main text through conclusion / reproducibility / ethics / acks lands on **p.9**; refs + appendix occupy p.9–11.
 
 ## Morning checklist (v0.11)
 
