@@ -50,31 +50,29 @@ $\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
 \lhead{Under review as a conference paper at ICLR 2026}
 
 \begin{abstract}
-Frontier large language models are often presented as near-solved structure elucidators on
-curated spectra. We ask a harder, more operational question: given the molecular formula and
-\textbf{literature-reported} IR / $^1$H / $^{13}$C \textbf{peak lists} --- not digitised traces ---
-can an off-the-shelf LLM recover the correct constitution, and \textbf{which stage fails} when
-it does not?
+Frontier large language models are often cast as near-solved structure elucidators on
+curated spectra. We ask the operational question: given only the molecular formula and
+\textbf{literature-reported} IR / $^1$H / $^{13}$C \textbf{peak lists}---not digitised
+traces---can an off-the-shelf LLM recover constitution, and \textbf{which stage fails}
+when it cannot?
 
-We introduce \textbf{IRSpectra-Bench}, a blind, mechanically scored peak-list benchmark of 295
-compounds (194 locked $+$ 101 spectrally-clean expansion; five $^{13}$C-overread records
-excluded before scoring) drawn from redistributable experimental band lists (\textbf{IRexp}; companion Data
-Descriptor)~\citep{yabbarov2026irexp}, with a fixed RDKit InChIKey-connectivity scoring contract
-and decomposable \textbf{generation recall} / \textbf{verification precision} metrics.
-On IRSpectra-Bench, a frontier LLM recovers the correct constitution for \textbf{39\%} top-1
-(116/295; 95\% CI 34--45), or \textbf{27\%} once reweighted to corpus composition; generation
-recall is \textbf{44\%} (130/295).
-The bottleneck is \textbf{candidate proposal, not verification}: on the $n{=}194$ slice with
-forward-verification, the true structure enters the pool for only \textbf{34\%} of compounds,
-and where it does, training-free forward-verification selects it \textbf{89\%} of the time (58/65).
-Expansion forward-verify is pending.
+We release \textbf{IRSpectra-Bench}, a blind, mechanically scored peak-list benchmark of
+\textbf{295} compounds drawn from redistributable experimental band lists
+(\textbf{IRexp})~\citep{yabbarov2026irexp}, with a fixed RDKit InChIKey-connectivity
+contract and decomposable \textbf{generation recall} / \textbf{verification precision}
+metrics.
+A frontier LLM recovers the correct constitution for \textbf{39\%} top-1
+(116/295; 95\% CI 34--45), or \textbf{27\%} after corpus reweighting; generation recall is
+\textbf{44\%} (130/295).
+The binding constraint is \textbf{candidate proposal, not verification}: on the
+forward-verified $n{=}194$ slice, the true structure enters the pool for only
+\textbf{34\%} of compounds, yet training-free forward-verification selects it
+\textbf{89\%} of the time once proposed (58/65).
 The same recall $\ll$ precision asymmetry replicates across \textbf{four vendor families}.
-A formula-only control ($n{=}60$) drops top-1 from 23\% $\to$ 5\%; accuracy is flat in source-paper year
-on the locked slice.
-Generate-wide sampling on that arm lifts recall 32\% $\to$ 42\% and top-1 23\% $\to$ 30\%, while
-verification alone moves $n{=}194$ top-1 only 28\% $\to$ 30\%.
+Formula-only controls collapse; accuracy is flat in source-paper year; generate-wide
+sampling lifts recall where verification alone barely moves top-1.
 Recovered from published top-$k$ figures, recall carries \textbf{68--83\%} of the accuracy
-collapse when systems move from curated or simulated data to real heterogeneous spectra.
+collapse from curated or simulated spectra to real heterogeneous peak lists.
 Frozen predictions, scorers and code are released for mechanical re-evaluation.
 \end{abstract}
 
