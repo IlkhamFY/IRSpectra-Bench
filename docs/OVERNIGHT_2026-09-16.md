@@ -163,6 +163,16 @@ repo. Do not invent pooled fig_wall / forward-verify precision.
 - Double-blind locks unchanged: `\iclrfinalcopy` OFF; companion bib Anonymous;
   dataset URL only `https://anonymous.4open.science/r/peaklist-corpus-review-10C4/`.
 
+## Compiled check (tectonic, 12 pages)
+
+- Anonymous authors / Paper under double-blind review; running header *Under review as a conference paper at ICLR 2026*.
+- 0 `Yabbarov` / `ilkhamfy` / `huggingface` / `McMaster` / `Ilkham` in PDF text.
+- Companion bib prints **Anonymous (2026)** for IRexp.
+- Dataset URL is only the anonymous.4open review copy.
+- Table 1 is n=295 **39.3% [34–45] / 44.1% [39–49]**; Table 2 slice 28.4% vs 60.4%.
+- Figure 1 caption is the n=194 locked-slice wall (58/7/129); expansion fverify pending.
+- Main text through conclusion / reproducibility / ethics lands on **p.9**; refs + appendix occupy p.10–12.
+
 ## Morning checklist (v0.12)
 
 1. Rebuild PDF on Overleaf. Table 1 is n=295 39.3% / 44.1%. Figure 1 caption is
@@ -171,4 +181,5 @@ repo. Do not invent pooled fig_wall / forward-verify precision.
    `McMaster` in PDF text.
 3. Do **not** invent pooled verification precision or a pooled wall figure.
 4. `docs/ICLR_PAPER.md` remains a stale markdown snapshot. Do not copy it into Overleaf.
+5. Merge this `release v0.12` PR if the n=295 headline and blind scan look clean.
 
