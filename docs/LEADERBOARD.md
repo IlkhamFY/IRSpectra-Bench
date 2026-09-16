@@ -22,6 +22,8 @@ Blind structure elucidation from **molecular formula + IR + ¹H + ¹³C** peak l
 
 Bootstrap 95% CIs for the headline row: top-1 **28.4% [22–35]**, recall **33.5% [27–40]**. Corpus-reweighted top-1 (17.5% simple / 82.5% complex): **15.2% [11–20]**.
 
+**Locked headline:** n=194 until the +106 expansion (spectro-agent branch `claude/funny-maxwell-u5S31`) is fully scored under pre-reg. Do **not** rewrite this table to pooled n=300.
+
 **Key finding:** verification precision exceeds generation recall for every vendor tested — the binding constraint is *candidate proposal*, not spectral ranking.
 
 ### By difficulty (Claude Opus, n = 194)
@@ -109,7 +111,7 @@ We will verify scoring with `scripts/score_submission.py` before adding a row.
 
 ## Related resources
 
-- **IRexp dataset (training):** https://huggingface.co/datasets/ilkhamfy/IRexp — use `data/train_no_bench.jsonl.gz` to avoid benchmark leakage (`data/irexp_release/README_HF.md`)
+- **IRexp dataset (review copy):** https://anonymous.4open.science/r/peaklist-corpus-review-10C4/ — use `data/train_no_bench.jsonl.gz` to avoid benchmark leakage. Named Hugging Face hosting is restored at camera-ready.
 - **Cross-vendor protocol:** `docs/CROSS_VENDOR.md`
 - **Forward-verification:** `docs/FORWARD_VERIFY.md`
 - **Full reproduction:** `README.md` in repository root
