@@ -33,10 +33,10 @@ python3 scripts/build_pdf.py
 
 This repo is **research/benchmark only**. Do not embed the full IRexp Data Descriptor
 Methods / Data Records / licence-pool narrative. Point to the companion Sci Data
-paper / HF dataset for data details.
+paper / anonymised review copy for data details.
 
 ## Related
 
-- Companion data paper: `IRexp` (Scientific Data)
-- Dataset: https://huggingface.co/datasets/ilkhamfy/IRexp
-- Historical monorepo: https://github.com/IlkhamFY/spectro-agent
+- Companion data paper: `IRexp` (Scientific Data, in preparation)
+- Dataset (double-blind review copy): https://anonymous.4open.science/r/peaklist-corpus-review-10C4/
+- Named Hugging Face / GitHub hosting is restored at camera-ready; do not put `ilkhamfy/*` URLs in the PDF

@@ -32,6 +32,9 @@ def _run(cmd: list[str], cwd: str) -> int:
 
 
 def main() -> int:
+    texinputs = os.path.join(ROOT, "tex") + "//:"
+    os.environ["TEXINPUTS"] = texinputs + os.environ.get("TEXINPUTS", "")
+    os.environ["BSTINPUTS"] = texinputs + os.environ.get("BSTINPUTS", "")
     if not os.path.isfile(TEX):
         print(f"missing {TEX}", file=sys.stderr)
         return 1
