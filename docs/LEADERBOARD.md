@@ -6,21 +6,21 @@ Blind structure elucidation from **molecular formula + IR + ¹H + ¹³C** peak l
 
 ---
 
-## Main benchmark (headline n = 295)
+## Main benchmark (headline n = 300)
 
-Paper headline is the **pooled generation cohort**: 194 locked + 101 validate-clean expansion
-(five ¹³C-overread flags R12, R22, R25, R82, R91 excluded). Counts from
-`docs/POOLED_HEADLINE_2026-09-16.md` / spectro-agent `scripts/score_pooled.py`.
-Forward-verification has **not** been run on the expansion — do not invent a pooled
-verification-precision or a pooled `fig_wall`. Sensitivity n=300 (194+all 106) is
-118/300 (39.3%) top-1; not the headline.
+Paper headline is the **pooled generation cohort**: 194 locked + all 106 expansion
+(five ¹³C-overread flags R12, R22, R25, R82, R91 **included**). Counts from
+`docs/POOLED_HEADLINE_2026-09-16.md` / spectro-agent `scripts/score_pooled.py`
+(n=300 sensitivity row). Validate-clean n=295 is appendix / sensitivity, not the
+lead number. Forward-verification is the n=194 instrumented slice — do not invent
+a pooled verification-precision or a pooled `fig_wall`.
 
 | Rank | Model / method | Top-1 ↑ | Recall (top-3) ↑ | Gen. recall | Verif. prec. \| recall | Notes |
 |---:|---|--:|--:|--:|--:|---|
 | 1 | Claude Fable 5 | **46%** | 54% | — | — | 24-compound subset only |
-| 2 | Claude Opus (solver self-rank, pooled) | **39.3%** (116/295) | 44.1% (130/295) | 44.1% | 89.2% (116/130 self-rank) | **Headline n=295**; self-rank ≠ forward-verify |
+| 2 | Claude Opus (solver self-rank, pooled) | **39.3%** (118/300) | 44.3% (133/300) | 44.3% | 88.7% (118/133 self-rank) | **Headline n=300**; self-rank ≠ forward-verify |
 | 3 | Claude Opus + generate-wide + forward-verify | **30%** | — | 42% | 72% | 60-compound arm |
-| 4 | Claude Opus + forward-verify | 30% | 33.5% | 34% | **89%** (58/65) | Locked n=194 only |
+| 4 | Claude Opus + forward-verify | 30% | 33.5% | 34% | **89%** (58/65) | Locked n=194 instrumented slice |
 | 5 | Claude Opus (solver self-rank, locked) | 28.4% | 33.5% | 34% | 85% | Locked n=194 slice |
 | 6 | Grok 4.6 | — | — | 53% | 62% | 60-compound arm |
 | 7 | Gemini 3.7 Flash | — | — | 50% | 73% | 60-compound arm |
@@ -28,44 +28,46 @@ verification-precision or a pooled `fig_wall`. Sensitivity n=300 (194+all 106) i
 | 9 | Claude Sonnet | 21% | 25% | — | — | 24-compound subset |
 | 10 | Claude Haiku | 0% | 4% | — | — | 24-compound subset |
 
-Bootstrap 95% CIs for the headline row: top-1 **39.3% [34–45]**, recall **44.1% [39–49]**.
-Corpus-reweighted (17.5% simple / 82.5% complex): top-1 **26.5% [21–32]**, recall **31.3% [25–37]**.
-Stereo-sensitive InChIKey top-1: **93/295 (31.5%)**.
+Bootstrap 95% CIs for the headline row: top-1 **39.3% [34–45]**, recall **44.3% [39–50]**.
+Corpus-reweighted (17.5% simple / 82.5% complex, validate-clean n=295): top-1 **26.5% [21–32]**, recall **31.3% [25–37]**.
+Stereo-sensitive InChIKey top-1 (n=295): **93/295 (31.5%)**.
 
 **Key finding:** verification precision exceeds generation recall for every vendor tested — the binding constraint is *candidate proposal*, not spectral ranking.
 
-### By difficulty (Claude Opus, headline n = 295)
+### By difficulty (Claude Opus, headline n = 300)
 
 | Stratum | n | Top-1 | Recall |
 |---|---:|--:|--:|
-| All | 295 | 116/295 (39.3%) | 130/295 (44.1%) |
-| Simple | 147 | 87/147 (59.2%) | 94/147 (63.9%) |
-| Complex | 148 | 29/148 (19.6%) | 36/148 (24.3%) |
+| All | 300 | 118/300 (39.3%) | 133/300 (44.3%) |
+| Simple | 151 | 88/151 (58.3%) | — |
+| Complex | 149 | 30/149 (20.1%) | — |
+
+Stratum recall is tabulated for validate-clean n=295 in the appendix / `docs/POOLED_HEADLINE_2026-09-16.md`.
 
 ### Honest slices (locked vs expansion)
 
-The expansion slice is easier for this solver than the locked 194 (60% vs 28% top-1).
+The expansion slice is easier for this solver than the locked 194 (59% vs 28% top-1).
 That gap is a result, not a reason to keep n=194 as the paper headline.
 
 | set | n | top-1 | recall |
 |---|---:|---|---|
 | locked 194 | 194 | 55/194 (28.4%) | 65/194 (33.5%) |
-| expansion clean | 101 | 61/101 (60.4%) | 65/101 (64.4%) |
-| **headline pool (194+101)** | **295** | **116/295 (39.3%)** | **130/295 (44.1%)** |
-| sensitivity (194+all 106) | 300 | 118/300 (39.3%) | 133/300 (44.3%) |
+| expansion all | 106 | 63/106 (59.4%) | 68/106 (64.2%) |
+| **headline pool (194+all 106)** | **300** | **118/300 (39.3%)** | **133/300 (44.3%)** |
+| validate-clean (194+101; appendix) | 295 | 116/295 (39.3%) | 130/295 (44.1%) |
 
 ---
 
-## Pre-registered expansion (n = 106) — pooled into n=295 after clean-flag exclusion
+## Pre-registered expansion (n = 106) — pooled into n=300
 
 Independent pre-registered blind draw, scored after the n=194 cohort was locked.
-Constitution scoring is RDKit InChIKey-14. Clean 101 compounds enter the paper headline;
-all-106 is a sensitivity row only. Forward-verify on the expansion is **pending**.
+Constitution scoring is RDKit InChIKey-14. All 106 enter the paper headline; clean 101
+is the appendix / sensitivity row. Forward-verify is the n=194 instrumented slice.
 
 | Rank | Model / method | Top-1 ↑ | Recall (top-3) ↑ | Gen. recall | Verif. prec. \| recall | Notes |
 |---:|---|--:|--:|--:|--:|---|
-| — | Claude Opus (expansion, all) | **59.4%** (63/106) | 64.2% (68/106) | 64.2% (68/106) | — | Sensitivity; flags included |
-| — | Claude Opus (expansion, clean) | **60.4%** (61/101) | 64.4% (65/101) | 64.4% (65/101) | — | Enters headline n=295 |
+| — | Claude Opus (expansion, all) | **59.4%** (63/106) | 64.2% (68/106) | 64.2% (68/106) | — | Enters headline n=300 |
+| — | Claude Opus (expansion, clean) | **60.4%** (61/101) | 64.4% (65/101) | 64.4% (65/101) | — | Appendix n=295 |
 | — | Claude Fable 5 (expansion) | — | — | — | — | Incomplete (68/106); never pooled |
 
 ---
@@ -113,10 +115,10 @@ python scripts/score_submission.py --predictions my_run.jsonl --stereo
 Reproduce the official headline numbers (spectro-agent):
 
 ```bash
-python scripts/score_pooled.py            # n=295 constitution → data/pooled_headline.json
-python scripts/score_pooled.py --stereo   # 93/295 (31.5%)
+python scripts/score_pooled.py            # constitution; n=300 paper headline is the 194+all 106 row
+python scripts/score_pooled.py --stereo   # 93/295 (31.5%) on validate-clean
 python scripts/score_main.py              # locked n=194 slice
-python scripts/forward_verify_all.py      # n=194 only until expansion fverify exists
+python scripts/forward_verify_all.py      # n=194 instrumented slice
 ```
 
 ### 4. Submit to the leaderboard
@@ -137,9 +139,10 @@ We will verify scoring with `scripts/score_submission.py` before adding a row.
 
 | Benchmark | n | Purpose |
 |---|---:|---|
-| **IRSpectra-Bench** (194 locked + 101 clean expansion) | 295 | Paper headline (generation) |
-| IRSpectra-Bench (locked main + v3 + v2_ctrl) | 194 | Locked slice; forward-verify / fig_wall |
-| IRSpectra-Bench (pre-reg expansion, clean / all) | 101 / 106 | Clean 101 in headline; all-106 sensitivity |
+| **IRSpectra-Bench** (194 locked + all 106 expansion) | 300 | Paper headline (generation) |
+| IRSpectra-Bench (194 locked + 101 clean expansion) | 295 | Appendix / sensitivity |
+| IRSpectra-Bench (locked main + v3 + v2_ctrl) | 194 | Instrumented slice; forward-verify / fig_wall |
+| IRSpectra-Bench (pre-reg expansion, all / clean) | 106 / 101 | All 106 in headline; clean 101 in appendix |
 | IRSpectra-Bench (main clean only) | 134 | Spectrally validated main round |
 | IRSpectra-Bench-Electrolyte | 46 | Battery-electrolyte functional classes |
 | Cross-vendor arm | 60 | Same compounds, multiple vendors (`docs/CROSS_VENDOR.md`) |
@@ -170,4 +173,4 @@ If you use IRSpectra-Bench or report numbers on it, please cite:
 }
 ```
 
-*Last updated: 2026-09-16 (v0.12 pooled headline n=295). External submissions listed after verification.*
+*Last updated: 2026-09-17 (v0.15 pooled headline n=300). External submissions listed after verification.*

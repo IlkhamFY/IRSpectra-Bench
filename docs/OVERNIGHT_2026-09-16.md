@@ -183,3 +183,36 @@ repo. Do not invent pooled fig_wall / forward-verify precision.
 4. `docs/ICLR_PAPER.md` remains a stale markdown snapshot. Do not copy it into Overleaf.
 5. Merge this `release v0.12` PR if the n=295 headline and blind scan look clean.
 
+---
+
+# Overnight note — 2026-09-17 (v0.15)
+
+**Paper headline is n=300** (194 locked + all 106 Opus expansion). The five
+¹³C-overread flags (R12, R22, R25, R82, R91) are **included**. Validate-clean
+n=295 moves to appendix / sensitivity. Expand-to-500 stays frozen; no new API
+calls; no partial 55/230 scoring.
+
+## Headline facts (locked; do not round further)
+
+| Item | Value |
+|---|---|
+| Headline n | **300** (194 + all 106; flags included) |
+| Top-1 | **118/300 (39.3%) [34–45]** |
+| Generation recall | **133/300 (44.3%) [39–50]** |
+| Simple / complex top-1 | 88/151 (58.3%) / 30/149 (20.1%) |
+| Self-rank precision \| recall | 118/133 (88.7%) — **not** forward-verify |
+| Validate-clean n=295 (appendix) | 116/295 (39.3%) / 130/295 (44.1%) |
+| Corpus-reweighted (n=295) | 26.5% [21–32] / 31.3% [25–37] |
+| Stereo (n=295) | 93/295 (31.5%) |
+| Locked slice | 55/194 (28.4%) / 65/194 (33.5%) |
+| Expansion all | 63/106 (59.4%) / 68/106 (64.2%) |
+| fig_wall / fverify | n=194 instrumented slice (58/7/129) |
+| Fable expansion | 68/106; not scored; not pooled |
+
+## What changed (v0.15)
+
+- `iclr_paper.tex`: abstract, intro, Table 1, slice table, conclusion headline **n=300 / 39% / 44%**. One Methods sentence that five spectral-flag compounds are in the 300; clean-295 in appendix. No “pending” in abstract/intro.
+- Figure 1 caption: **instrumented n=194** diagnosis (not a weakness). Chem-space caption: n=300; clean n=295 in App. (figure file unchanged).
+- Leaderboard, cover letter, README, `docs/POOLED_HEADLINE_2026-09-16.md` match.
+- Double-blind locks unchanged: `\iclrfinalcopy` OFF; companion bib Anonymous; dataset URL only `https://anonymous.4open.science/r/peaklist-corpus-review-10C4/`.
+

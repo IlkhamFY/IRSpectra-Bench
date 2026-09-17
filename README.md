@@ -2,8 +2,9 @@
 
 Clean manuscript repository for the **IRSpectra-Bench** ICLR-track paper
 (recall/verification diagnosis of LLM structure elucidation).
-**Headline:** pooled generation cohort **n=295** (194 locked + 101 validate-clean expansion).
-Forward-verify / Figure 1 remain the n=194 slice until expansion fverify exists. See `docs/POOLED_HEADLINE_2026-09-16.md`.
+**Headline:** pooled generation cohort **n=300** (194 locked + all 106 expansion).
+Validate-clean **n=295** is appendix / sensitivity. Figure 1 (`fig_wall`) is the n=194
+instrumented forward-verify slice. See `docs/POOLED_HEADLINE_2026-09-16.md`.
 
 **Main Overleaf file:** `iclr_paper.tex`  
 **Compiler:** pdfLaTeX or XeLaTeX (+ BibTeX)  

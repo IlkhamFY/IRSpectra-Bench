@@ -1,9 +1,9 @@
 # Generation Recall, Not Verification, Binds LLM Structure Elucidation from Literature Spectra
 
 <!-- STALE markdown snapshot. Source of truth is iclr_paper.tex (Overleaf).
-     Headline as of v0.12 is pooled n=295 (116/295 = 39.3% top-1; 130/295 = 44.1% recall).
-     Do not copy this file into Overleaf; numbers below still quote the old n=194 lock.
-     Grounded counts: docs/POOLED_HEADLINE_2026-09-16.md -->
+     Headline as of v0.15 is pooled n=300 (118/300 = 39.3% top-1; 133/300 = 44.3% recall).
+     Validate-clean n=295 is appendix / sensitivity. Do not copy this file into Overleaf;
+     body below still quotes older locks. Grounded counts: docs/POOLED_HEADLINE_2026-09-16.md -->
 
 **Anonymous authors**
 

@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Chemistry-space plate for the pooled IRSpectra-Bench headline (n=295).
+"""Chemistry-space plate for the pooled IRSpectra-Bench cohort.
+
+Paper headline is n=300 (194 locked + all 106 expansion). This plate is the
+validate-clean subset (n=295 = 194 + 101); five 13C-overread flags
+(R12, R22, R25, R82, R91) are excluded here. Caption in iclr_paper.tex:
+"n=300; clean n=295 in App."
 
 Panels: molecular weight, RDKit ring count, C–F bonds / molecule, N atoms / molecule.
-Locked (194) vs validate-clean expansion (101), stacked. Five 13C-overread flags
-(R12, R22, R25, R82, R91) are excluded. No accuracy metrics.
+Locked vs validate-clean expansion, stacked. No accuracy metrics.
 
 SMILES are read from spectro-agent (locked answers + unique (formula, IR, 13C)
 match of the expansion questions against irexp_resolved). Expansion answers2.jsonl
