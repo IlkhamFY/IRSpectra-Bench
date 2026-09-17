@@ -1,20 +1,23 @@
-# Pooled IRSpectra-Bench headline — 2026-09-16
+# Pooled IRSpectra-Bench headline — 2026-09-16 (paper lock 2026-09-17)
 
-Paper-facing headline is the **pooled generation cohort**, not n=194 with
-expansion as a side note. Every count below is regenerated from disk by
-`python scripts/score_pooled.py` (which calls `scripts/score_main.py` for the
-locked 194 and the same InChIKey-14 rule as `benchmark_v2.py score2` for the
-expansion). Bootstrap 95% CIs use `score_main.boot` (seed 0, 2000 resamples),
-the same interval the n=194 tables already used.
+**Paper-facing headline (locked 2026-09-17, Ilkham):** **n=300** =
+194 locked + **all 106** Opus expansion. The five ¹³C-overread flags
+(R12, R22, R25, R82, R91) are **included**. Validate-clean **n=295** is
+appendix / sensitivity, not the lead number.
 
-**Headline: n=295** = 194 locked + **101 validate-clean** expansion compounds.
-The five ¹³C-overread flags are **excluded** from the headline, matching the
-pre-registration stopping rule (same treatment as the six main-round exclusions).
-n=300 (194+all 106) is reported as a sensitivity row, not the headline.
+Every count below was regenerated from disk by `python scripts/score_pooled.py`
+(which calls `scripts/score_main.py` for the locked 194 and the same InChIKey-14
+rule as `benchmark_v2.py score2` for the expansion). Bootstrap 95% CIs use
+`score_main.boot` (seed 0, 2000 resamples), the same interval the n=194 tables
+already used.
+
+The 2026-09-16 compute note treated n=295 as headline and n=300 as sensitivity.
+That assignment is reversed for the ICLR manuscript (`iclr_paper.tex` v0.15).
+**Do not invent** pooled `fig_wall`, pooled verification-precision, or n=300
+scaffold / stereo / size-bin / reweight figures that were never scored.
 
 Forward-verification has **not** been run on the expansion. Pooled numbers are
-**generation top-1 / recall only**. Do not invent a pooled `fig_wall` or a
-pooled verification-precision.
+**generation top-1 / recall only**. `fig_wall` stays the n=194 instrumented slice.
 
 ## Reproduce
 
@@ -29,7 +32,17 @@ The expansion key is reconstructed only under `/tmp/blind/_key/` by unique
 This scorer refuses to run if `data/benchmark_expand/answers2.jsonl` is in the
 working tree. Fable is not scored and is not pooled.
 
-## Headline (n=295, five flags excluded)
+## Paper headline (n=300, flags included)
+
+| metric | overall (n=300) | simple (n=151) | complex (n=149) |
+|---|---|---|---|
+| top-1 exact constitution | **118/300 (39.3%)** [34–45] | 88/151 (58.3%) | 30/149 (20.1%) |
+| recovered / generation recall (top-3) | **133/300 (44.3%)** [39–50] | — | — |
+
+Self-ranking precision | recall on this generation pool: **118/133 (88.7%)**.
+That is *not* forward-verification precision.
+
+## Validate-clean sensitivity (n=295, five flags excluded)
 
 | metric | overall (n=295) | simple (n=147) | complex (n=148) |
 |---|---|---|---|
@@ -41,7 +54,7 @@ working tree. Fable is not scored and is not pooled.
 Self-ranking precision | recall on this generation pool: **116/130 (89.2%)**.
 That is *not* forward-verification precision.
 
-By size (headline n=295):
+By size (validate-clean n=295):
 
 | heavy atoms | n | top-1 | recall |
 |---|---:|---|---|
@@ -56,15 +69,15 @@ those weights): top-1 **26.5% [21–32]**, recall **31.3% [25–37]**.
 Full InChIKey (stereo) on the same 295: top-1 **93/295 (31.5%)** [26–37],
 recall 108/295 (36.6%) [31–42]. Locked n=194 stereo remains 41/194 (21.1%).
 
-## How 295 is built (slices)
+## How the pool is built (slices)
 
 | set | n | top-1 | recall | simple top-1 | complex top-1 |
 |---|---:|---|---|---|---|
 | locked rounds (main clean 134 + v3 40 + v2_ctrl 20) | 194 | 55/194 (28.4%) [22–35] | 65/194 (33.5%) [27–40] | 47/98 (48.0%) | 8/96 (8.3%) |
 | expansion, all deposited Opus | 106 | 63/106 (59.4%) [50–69] | 68/106 (64.2%) [56–73] | 41/53 (77.4%) | 22/53 (41.5%) |
 | expansion, validate-clean | 101 | 61/101 (60.4%) [50–69] | 65/101 (64.4%) [54–73] | 40/49 (81.6%) | 21/52 (40.4%) |
-| **headline pool (194+101)** | **295** | **116/295 (39.3%)** | **130/295 (44.1%)** | 87/147 (59.2%) | 29/148 (19.6%) |
-| sensitivity (194+all 106) | 300 | 118/300 (39.3%) [34–45] | 133/300 (44.3%) [39–50] | 88/151 (58.3%) | 30/149 (20.1%) |
+| **paper headline (194+all 106)** | **300** | **118/300 (39.3%)** | **133/300 (44.3%)** | 88/151 (58.3%) | 30/149 (20.1%) |
+| validate-clean (194+101; appendix) | 295 | 116/295 (39.3%) | 130/295 (44.1%) | 87/147 (59.2%) | 29/148 (19.6%) |
 
 Expansion integer percents previously frozen in
 `docs/EXPANSION_RESULTS_2026-09-16.md` (59% / 64%) are `round(100*k/n)` from
@@ -75,18 +88,19 @@ The expansion slice is substantially easier for this solver than the locked 194
 (59.4% vs 28.4% top-1). That difference is a **result**, not a reason to keep
 n=194 as the paper headline. The pooled number is the size-weighted mix.
 
-## Five flagged compounds — excluded from headline
+## Five flagged compounds — included in paper headline
 
 | | |
 |---|---|
 | qids | **R12, R22, R25, R82, R91** |
 | reason | ¹³C-overread (`scripts/validate_benchmark.py`); snapshot `data/benchmark_expand/clean_qids.json` |
-| when flagged | before these subset totals were computed (stopping rule) |
-| excluded from headline? | **yes** (n=295, not n=300) |
-| effect vs including them | 2 extra top-1 hits and 3 extra recall hits → 118/300 and 133/300 |
+| when flagged | before subset totals were computed (stopping rule) |
+| excluded from paper headline? | **no** (n=300, not n=295) |
+| effect vs excluding them | 2 extra top-1 hits and 3 extra recall hits → 118/300 and 133/300 |
 
-Including the five does not move the one-decimal headline (both 39.3% top-1).
-They are still excluded because the pre-reg says to, not because of the score.
+Including the five does not move the one-decimal top-1 (both 39.3%).
+They are included because the ICLR lock (2026-09-17) puts n=300 in the lead;
+validate-clean n=295 remains the appendix / sensitivity row.
 
 ## Forward-verify — still n=194 only
 
@@ -116,8 +130,8 @@ any pooled verified / mis-ranked / wall triple would be invented.
 | `docs/figures/fig1_difficulty.png` | `scripts/make_figures.py` | calls `score_main.load()`, which is still the 134+40+20 union and has **no pooled switch** | Teach `score_main.load()` to include expansion (key must be present), then re-run `make_figures.py` |
 | `fig2_size`, recency panel, miss-isomer 76.6% (137 misses), named-ring 10/194 | various | those analyses were never written against the expansion roster | re-run the named script with the pooled load; do not scale n=194 counts |
 
-Paper should keep Figure 1 as the **n=194 forward-verified diagnosis** and say
-so in the caption, while Table 1 / abstract headline n is **295 generation**.
+Paper should keep Figure 1 as the **n=194 instrumented forward-verified diagnosis** and say
+so in the caption, while Table 1 / abstract headline n is **300 generation**.
 Do not draw a pooled wall from self-ranking and label it forward-verify.
 
 ## What this does not change
@@ -134,13 +148,13 @@ Do not draw a pooled wall from self-ranking and label it forward-verify.
 
 | item | value |
 |---|---|
-| headline n | **295** (194+101; flags excluded) |
-| headline top-1 / recall | **116/295 (39.3%) [34–45] / 130/295 (44.1%) [39–49]** |
-| corpus-reweighted top-1 / recall | 26.5% [21–32] / 31.3% [25–37] |
-| sensitivity n=300 top-1 / recall | 118/300 (39.3%) / 133/300 (44.3%) |
+| paper headline n | **300** (194+all 106; flags included) |
+| paper headline top-1 / recall | **118/300 (39.3%) [34–45] / 133/300 (44.3%) [39–50]** |
+| validate-clean n=295 (appendix) | 116/295 (39.3%) / 130/295 (44.1%) |
+| corpus-reweighted top-1 / recall | 26.5% [21–32] / 31.3% [25–37] (n=295; not re-scored for n=300) |
 | expansion all / clean | 63/106 (59.4%) / 61/101 (60.4%) top-1 |
-| flagged | R12, R22, R25, R82, R91 — excluded from headline |
-| fverify / fig_wall | n=194, 58/7/129; expansion **pending** |
+| flagged | R12, R22, R25, R82, R91 — **included** in n=300; n=295 in appendix |
+| fverify / fig_wall | n=194 instrumented slice, 58/7/129 |
 | Fable | 68/106; not in the pool |
 | answers2.jsonl | re-withheld; do not commit |
 
