@@ -216,3 +216,24 @@ calls; no partial 55/230 scoring.
 - Leaderboard, cover letter, README, `docs/POOLED_HEADLINE_2026-09-16.md` match.
 - Double-blind locks unchanged: `\iclrfinalcopy` OFF; companion bib Anonymous; dataset URL only `https://anonymous.4open.science/r/peaklist-corpus-review-10C4/`.
 
+---
+
+# Overnight note — 2026-09-17 (v0.19)
+
+Layout pass only. **No metric changes.** Headline stays n=300 / 118/300 (39.3%) / 133/300 (44.3%). v0.18 substance kept (IR-Agent wedge, agentic section, scoring contract / blind payload, worked cases, mechanistic captions).
+
+## Compiled check (tectonic, 12 pages)
+
+- Main body through Conclusion **and** reproducibility / ethics / acknowledgements: **page 9**.
+- References start **page 10**; Appendix A starts **page 11**; Appendix B (case table + expansion + clean-295) on **page 12**.
+- 0 undefined refs; 0 overfull boxes.
+- `\iclrfinalcopy` OFF; Anonymous authors; dataset URL only anonymous.4open.
+
+## What moved vs stayed
+
+**Stayed in main:** headline n=300 numbers; IR-Agent contrast + 2-row table; Implications for agentic elucidation; scoring contract / blind payload (compressed); mechanistic figure captions; five main-text figures.
+
+**Moved to Appendix B:** full 3-row worked-case table (`tab:cases`); main keeps one dense paragraph (main-R06 / v3-R25 / v3-R26) pointing at App.
+
+**Compressed, not deleted:** Related Work (IR-Agent kept; positioning merge); Experimental setup paragraphs merged; Limitations still (i)–(viii); expansion restatement cut to four sentences.
+
