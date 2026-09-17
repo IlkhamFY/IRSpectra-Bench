@@ -16,6 +16,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage{enumitem}
+\usepackage{capt-of}
 \setlist{nosep,leftmargin=1.35em}
 
 \graphicspath{{figures/}{../figures/}{./}}
@@ -150,10 +151,43 @@ state honestly and leave to the released scorer.
 \paragraph{LLM agents and puzzle benches.}
 ChemCrow~\citep{mbran2024chemcrow}, Coscientist~\citep{boiko2023coscientist},
 SpectralLM~\citep{su2025spectrallm}, SpecMol~\citep{shen2025specmol}, tree-search
-elucidation~\citep{zhuang2025treesearch}, IR-Agent~\citep{noh2025iragent} and Priessner
+elucidation~\citep{zhuang2025treesearch} and Priessner
 \textit{et al.}~\citep{priessner2026reasoning} improve \emph{how} a model reads spectra or
 re-ranks a fixed pool.
 We fix one protocol and ask \textbf{which stage binds} once the spectra have been read.
+
+IR-Agent~\citep{noh2025iragent} is the closest concurrent multi-agent IR elucidator; the
+contrast is operational, not a scoreboard.
+It is a table-interpretation / retrieve / structure-elucidation expert stack on
+\textbf{NIST experimental IR spectra}: a Transformer translator proposes a SMILES pool;
+TI+Ret enrich local (peak-table) and global (retrieved-spectrum) features; an SE expert
+re-ranks that pool.
+The reported metric is Top-$k$ SMILES exact-match; atom types, scaffold, or carbon count
+can be prompt-injected without retraining.
+IRSpectra-Bench is a different object and a different question.
+Inputs are \textbf{literature peak lists} (IR bands + $^1$H/$^{13}$C shifts + formula as from
+HRMS) under a fixed closed-book protocol, with no name, SMILES, or scaffold hint.
+We do not tune an IR-reading agent; we measure \textbf{which stage binds} after spectra are
+read --- generation recall versus verification precision $|$ recall --- on pooled $n{=}300$,
+with instrumented forward-verify on $n{=}194$.
+The point of contact is exact: their SE expert over a \textbf{fixed candidate pool} is the
+regime our inference ladder diagnoses as recall-limited (proposal binds; conditional
+forward-verify $\approx$89\% on the instrumented slice, 58/65).
+Multi-agent TI+Ret can enrich local/global \emph{features}, but does \textbf{not} remove a
+proposal wall if the true structure never enters the pool.
+We do not claim to beat IR-Agent on NIST, and IR-Agent has not been scored on this bench.
+\begin{center}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llll@{}}
+\toprule
+ & input & metric & binds \\
+\midrule
+IR-Agent & NIST experimental IR & Top-$k$ SMILES & re-rank given pool \\
+this paper & lit.\ IR+$^1$H/$^{13}$C+formula lists & recall vs prec.$|$recall & proposal \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \paragraph{Contamination-aware and heterogeneous-data benches.}
 Most prior suites use simulated or single-instrument spectra.
@@ -174,8 +208,11 @@ We decompose error rather than chase a single top-1.
 \paragraph{Positioning.}
 Concurrent 2026 suites (MolQuest~\citep{han2026molquest}, SpecX~\citep{xiang2026specx},
 NMRGym~\citep{fang2026nmrgym}) bound related tasks.
-IRSpectra-Bench is an openly redistributable suite on literature peak lists with a \textbf{stage
-decomposition} measured on Claude and replicated across three other model families.
+IR-Agent~\citep{noh2025iragent} shows that TI+Ret experts can improve how a model reads
+experimental IR and re-ranks a translator pool; we ask the complementary question on
+literature peak lists: once the spectra are read, \textbf{which stage binds}.
+IRSpectra-Bench is an openly redistributable suite with that \textbf{stage decomposition},
+measured on Claude and replicated across three other model families.
 
 \section{IRSpectra-Bench}
 \label{sec:benchmark}
@@ -401,7 +438,7 @@ A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
   \label{fig:fig-mechanism}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[ht]
 \caption{Forward-verification decomposition on the instrumented slice ($n{=}194$).
 Pooled $n{=}300$ numbers in Table~\ref{tab:headline} are generation top-1 / recall only.}
 \label{tab:fverify}
@@ -434,7 +471,7 @@ recall 32\% $\to$ \textbf{42\%}, top-1 23\% $\to$ \textbf{30\%} (McNemar $p{=}0.
 verification precision falls 84\% $\to$ 72\%.
 The training-free ceiling remains recall-limited.
 
-\begin{figure}[t]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.58\linewidth]{fig3_method.png}
   \caption{Forward-verification inference ladder on the 60-compound arm.}
@@ -456,10 +493,9 @@ Any system reporting top-1 $= a$ and top-$k = b$ implies recall $\geq b$ and con
 precision $\leq a/b$.
 Applying this to published figures (\texttt{scripts/literature\_decomposition.py}):
 
-\begin{table}[t]
-\caption{Selected literature decomposition rows (connectivity-scored or as published).}
+\begin{center}
+\captionof{table}{Selected literature decomposition rows (connectivity-scored or as published).}
 \label{tab:lit-decomp}
-\centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}p{2.6cm}p{2.4cm}rrrr@{}}
@@ -476,7 +512,7 @@ Alberts, 6--13 atoms~\citep{alberts2025benchmarks} & NIST IR (3,455) & 63.8\% & 
 SpecX, scaffold split~\citep{xiang2026specx} & simulated (99,439) & 29.7\% & 50.6\% (10) & 50.6\% & 58.7\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{center}
 
 \textbf{Three groups changed only the data}, and recall carried \textbf{68\%} (NMR-Solver
 simulated $\to$ real), \textbf{70\%} (SpecX random $\to$ scaffold) and \textbf{83\%}
@@ -528,6 +564,44 @@ for an arbitrary literature draw.
 Training is not foreclosed: IRexp fine-tuning lifts recall to 54\%.
 Those gains compound with open experimental data, honest benchmarks, and inference scaffolding that
 transfers to each new model.
+
+\subsection{Implications for agentic elucidation}
+\label{sec:agentic}
+
+The diagnosis implies an \textbf{asymmetric pipeline}, not another verifier stacked on a thin
+pool.
+Proposal is the expensive stage: diversity, tool-use into enumeration / database search /
+formula-constrained decode, or generate-wide sampling that actually enlarges the pool.
+Verification is cheap: once the true constitution is proposed, training-free
+forward-verification selects it $\approx$89\% of the time on the instrumented $n{=}194$
+slice (58/65).
+Spending the budget on a second ranker cannot recover the 129/194 compounds that were never
+proposed.
+
+IR-Agent-style table-interpretation and retrieve tools~\citep{noh2025iragent} are complementary
+\emph{feature} agents --- they improve how a spectrum is read and how a given pool is
+re-ranked.
+The next layer this bench points to is \textbf{proposal tools}: formula-constrained
+generators, fragment assembly, and search that change $P(\text{true}\in\text{pool})$.
+We are \textbf{not} shipping another ChemCrow-for-IR: the bench is a reporting contract
+so external agents can be compared honestly on the same object.
+
+The horizon is a consequence of the proposal wall, not a wishlist.
+Multi-modal agents (IR + $^1$H/$^{13}$C + MS together, as the bench already supplies) raise
+recall only if they enlarge the pool, not if they re-describe peaks already in the prompt.
+Human-in-the-loop audit --- deferred here, not run --- is the natural check on structures
+the model never surfaces.
+Training on open experimental corpora (IRexp as the pointer, not this paper's object) is the
+one intervention we have already seen move recall (33.5\% $\to$ 54.1\% on the locked
+slice).
+Each of these spends compute where the wall sits: proposal.
+
+Nonsignificant ladder steps are \textbf{diagnostic}, not accuracy claims.
+Forward-verification versus self-ranking is unresolved (McNemar $p{=}0.55$);
+generate-wide top-1 on the 60-compound arm likewise ($p{=}0.34$), even though that probe
+lifted recall 32\% $\to$ 42\%.
+They tell us that re-ranking and modest pool expansion are the wrong primary bets;
+they do not license a solved-elucidator headline.
 
 \section{Limitations}
 \label{sec:limitations}
