@@ -128,12 +128,10 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig_wall.png}
-  \caption{Forward-verified diagnosis on the instrumented IRSpectra-Bench slice ($n{=}194$;
-  58 verified / 7 mis-ranked / 129 never proposed). Generation recall on the pooled
-  headline ($n{=}300$) is 133/300 (44\%). This plate is the locked slice on which
-  training-free forward-verification was run, not a pooled wall. Where the true structure
-  is never proposed, no ranker can recover it; where it is proposed, verification usually
-  selects it.}
+  \caption{Forward-verified diagnosis on the instrumented slice ($n{=}194$; 58 verified /
+  7 mis-ranked / 129 never proposed), not a pooled $n{=}300$ wall (expansion fverify
+  does not exist; headline recall is 133/300). The 129 never-proposed compounds are why
+  89\% conditional precision cannot raise end-to-end top-1.}
   \label{fig:fig-wall}
 \end{figure}
 
@@ -240,14 +238,12 @@ Figure~\ref{fig:fig-chemspace} summarises the chemistry space of the pooled head
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig_chemspace.png}
-  \caption{Chemistry space of the pooled IRSpectra-Bench expansion cohort
-  ($n{=}300$; clean $n{=}295$ in App.).
-  (a)~Molecular weight (median 306; range 131--847).
-  (b)~RDKit ring count (median 2).
-  (c)~C--F bonds per molecule (29/295 have $\geq$1; one molecule has six).
-  (d)~Nitrogen atoms per molecule (median 2).
-  Stacked bars split locked (dark) vs expansion (light).
-  Heavy-atom median 21 (range 8--60); aromatic-ring median 2 (27 fully aliphatic).}
+  \caption{Chemistry space of the pooled headline ($n{=}300$; C--F / size descriptors
+  scored on validate-clean $n{=}295$). (a)~MW (median 306; 131--847).
+  (b)~RDKit rings (median 2). (c)~C--F bonds (29/295 have $\geq$1).
+  (d)~N atoms (median 2). Stacked bars: locked (dark) vs expansion (light).
+  Heavy-atom median 21 (8--60). This is literature mid-size heterocycle space, not a
+  6--13 atom NIST IR toy set.}
   \label{fig:fig-chemspace}
 \end{figure}
 
@@ -288,19 +284,44 @@ Confidence intervals are bootstrap 95\%; paired model differences use McNemar wi
 \section{Experimental setup}
 \label{sec:setup}
 
+\paragraph{Blind payload.}
+The solver sees four JSON fields per \texttt{qid}: \texttt{formula} (as from HRMS),
+\texttt{ir\_bands\_cm-1}, \texttt{h\_nmr}, \texttt{c\_nmr} --- peak lists as printed.
+No name, SMILES, scaffold, atom-type hint, or retrieved spectrum; ground truth is scored
+offline.
+
 \paragraph{Solver.}
 Frontier LLM agent (Claude Opus via consumer subscription), closed-book, one sub-agent per
-batch, up to three ranked candidates, RDKit formula check only.
+batch, RDKit formula check only.
 No fine-tuning, no paid API for the core protocol.
 Inference is \textbf{not} exactly reproducible (no pinned snapshot, temperature or seed ---
 Section~\ref{sec:limitations}).
 \textbf{Scoring is reproducible}: frozen predictions, ground truth and scorers regenerate every
 training-free number.
 
+\paragraph{Candidate budget and generate-wide.}
+Headline protocol: $\leq$3 ranked SMILES per \texttt{qid}.
+On the 60-compound arm Claude returned mean 2.20 candidates vs 3.00 for the other vendors
+(recall rankings approximate).
+\textbf{Generate-wide} (that arm only): ten independent solvers $\times$ up to six SMILES,
+pooled then re-ranked --- not the $n{=}300$ reporting budget.
+
+\paragraph{Scoring contract.}
+A deposit is JSONL of \texttt{\{qid, candidates: [SMILES,\ldots]\}} under a stated budget.
+The scorer reports the three Section~\ref{sec:benchmark} metrics (top-1, generation recall,
+precision $|$ recall) at InChIKey-connectivity, with bootstrap 95\% CIs.
+Self-ranking vs forward-verified re-ranking must be labelled; they are not interchangeable.
+
 \paragraph{Forward-verification loop}
-(Section~\ref{sec:forward-verify}).
-Generate candidates $\to$ forward-predict each candidate's $^{13}$C (blind to observed spectrum)
-$\to$ re-rank by symmetric chamfer distance between predicted and observed $^{13}$C peak sets.
+(Section~\ref{sec:forward-verify}): generate $\to$ forward-predict $^{13}$C (blind to the
+observed list) $\to$ re-rank by symmetric chamfer on $^{13}$C peak sets.
+Instrumented on the locked $n{=}194$ only.
+
+\paragraph{Expansion protocol.}
+Pre-registered 106-compound draw from the same \texttt{irexp\_resolved} sampler after the
+$n{=}194$ lock, with the same $^{13}$C-overread audit (Section~\ref{sec:expansion}).
+Five flags stay in the $n{=}300$ headline; validate-clean $n{=}295$ is appendix.
+Expansion forward-verify was not run.
 
 \paragraph{Controls and probes.}
 Formula-only / recency (Section~\ref{sec:contamination}); four-vendor replication on a
@@ -392,8 +413,9 @@ We claim a \textbf{strong bound, not exclusion} of contamination
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig_robustness.png}
-  \caption{Robustness of the recall-bound diagnosis: formula-only vs full modality; accuracy
-  vs year; cross-vendor recall and precision.}
+  \caption{Robustness on the instrumented arms (formula-only / cross-vendor $n{=}60$;
+  recency $n{=}194$), not the $n{=}300$ headline: formula-only collapse, flat recency, and
+  four-vendor recall $\ll$ precision say the wall is the peak-list task, not one model.}
   \label{fig:fig-robustness}
 \end{figure}
 
@@ -433,12 +455,13 @@ A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig_mechanism.png}
-  \caption{Forward-verification on a regioisomer pair: inverse task is ambiguous;
-  forward-predicted $^{13}$C separates isomers.}
+  \caption{Locked v3-R25 (C$_{10}$H$_{14}$N$_{2}$O): self-rank prefers 3-pyridyl;
+  forward $^{13}$C recovers 2-pyridyl (chamfer 0.42 vs 1.30~ppm) --- a verify-save
+  (Table~\ref{tab:cases}), not a recall success.}
   \label{fig:fig-mechanism}
 \end{figure}
 
-\begin{table}[ht]
+\begin{table}[t]
 \caption{Forward-verification decomposition on the instrumented slice ($n{=}194$).
 Pooled $n{=}300$ numbers in Table~\ref{tab:headline} are generation top-1 / recall only.}
 \label{tab:fverify}
@@ -463,7 +486,41 @@ Where a choice existed ($n{=}37$), forward-verification is correct on 30/37 (81\
 The margin over self-ranking is \textbf{small and unresolved} (seven gained, four lost;
 McNemar $p{=}0.55$) --- we do \textbf{not} claim an accuracy advance.
 Precision is high while recall binds: no re-ranking repairs the 129/194 compounds on this
-slice where the true structure was never proposed (Figure~\ref{fig:fig-wall}).
+slice where the true structure was never proposed (Figure~\ref{fig:fig-wall};
+Table~\ref{tab:cases}).
+
+\paragraph{Worked cases.}
+Three deposited locked-slice examples instantiate the wall, a verify-save, and a peak-list
+near-miss (Table~\ref{tab:cases}).
+Expansion qids reuse R22/R25; the IDs below are \emph{locked-round} labels from the
+instrumented $n{=}194$ files, not the expansion flags.
+
+\begin{center}
+\captionof{table}{Locked $n{=}194$ cases from released candidate files (not the $n{=}300$
+generation pool). Chamfers are symmetric $^{13}$C distances in ppm; Tanimoto is Morgan $r{=}2$.}
+\label{tab:cases}
+\scriptsize
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lp{2.15cm}p{8.75cm}@{}}
+\toprule
+mode & id / formula & what failed \\
+\midrule
+\textbf{Proposal miss} &
+main-R06 / C$_{29}$H$_{30}$FNO$_{2}$ &
+True acridinedione never in the 3-candidate pool (Tanimoto-0.90 regioisomer: 4-fluorophenyl/phenyl swapped).
+IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused. \\
+\textbf{Verify-save} &
+v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
+True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
+Forward-verify recovers (chamfer 0.42 vs 1.30~ppm). IR 1679~cm$^{-1}$.
+Fig.~\ref{fig:fig-mechanism}. \\
+\textbf{Verify-fail} &
+v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$ &
+True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2); 2-nitro ranked first.
+Chamfer 1.35 vs 1.36~ppm. IR 1652, 1530, 1352~cm$^{-1}$. \\
+\bottomrule
+\end{tabular}
+\end{center}
 
 \paragraph{Generate-wide.}
 Ten solver agents, up to six candidates each, pooled and re-ranked on the 60-compound arm:
@@ -471,10 +528,12 @@ recall 32\% $\to$ \textbf{42\%}, top-1 23\% $\to$ \textbf{30\%} (McNemar $p{=}0.
 verification precision falls 84\% $\to$ 72\%.
 The training-free ceiling remains recall-limited.
 
-\begin{figure}[ht]
+\begin{figure}[t]
   \centering
   \includegraphics[width=0.58\linewidth]{fig3_method.png}
-  \caption{Forward-verification inference ladder on the 60-compound arm.}
+  \caption{Inference ladder on the 60-compound arm, not $n{=}300$: 23\% $\to$ 27\% $\to$
+  30\% top-1 (McNemar $p{=}0.55$ / $0.34$). Generate-wide lifts recall (32\% $\to$ 42\%);
+  the ladder diagnoses a proposal wall, not an accuracy advance.}
   \label{fig:fig3-method}
 \end{figure}
 
@@ -651,7 +710,6 @@ The redistributable experimental band-list corpus behind the bench is documented
 as a \textit{Scientific Data} Data Descriptor (in preparation)~\citep{yabbarov2026irexp}, with an
 anonymised review copy linked in Appendix~\ref{app:dataset}.
 
-\newpage
 \section*{Reproducibility statement}
 Every training-free number regenerates from released questions, answers, frozen predictions
 and scripts in the code release.
