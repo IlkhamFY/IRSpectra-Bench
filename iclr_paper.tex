@@ -131,10 +131,9 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig_wall.png}
-  \caption{Forward-verified diagnosis on the instrumented slice ($n{=}194$; 58 verified /
-  7 mis-ranked / 129 never proposed), not a pooled $n{=}300$ wall (expansion fverify
-  does not exist; headline recall is 133/300). The 129 never-proposed compounds are why
-  89\% conditional precision cannot raise end-to-end top-1.}
+  \caption{Instrumented forward-verify (58 verified / 7 mis-ranked / 129 never proposed).
+  Expansion has no fverify; headline recall is 133/300. Never-proposed cases bind top-1
+  despite 89\% conditional precision.}
   \label{fig:fig-wall}
 \end{figure}
 
@@ -228,12 +227,9 @@ Figure~\ref{fig:fig-chemspace} summarises the chemistry space of the pooled head
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.92\linewidth]{fig_chemspace.png}
-  \caption{Chemistry space of the pooled headline ($n{=}300$; C--F / size descriptors
-  scored on validate-clean $n{=}295$). (a)~MW (median 306; 131--847).
-  (b)~RDKit rings (median 2). (c)~C--F bonds (29/295 have $\geq$1).
-  (d)~N atoms (median 2). Stacked bars: locked (dark) vs expansion (light).
-  Heavy-atom median 21 (8--60). This is literature mid-size heterocycle space, not a
-  6--13 atom NIST IR toy set.}
+  \caption{Pooled headline chemistry ($n{=}300$; panels on validate-clean $n{=}295$).
+  (a)~MW (median 306). (b)~RDKit rings (median 2). (c)~C--F bonds. (d)~N atoms.
+  Stacked: locked (dark) vs expansion (light). Mid-size literature space, not a NIST toy set.}
   \label{fig:fig-chemspace}
 \end{figure}
 
@@ -308,9 +304,8 @@ claims).
 \label{sec:headline}
 
 \begin{table}[ht]
-\caption{Headline elucidation on IRSpectra-Bench ($n{=}300{=}194$ locked $+$ $106$ expansion).
-Bootstrap 95\% CIs from the same scorer as the locked slice. Validate-clean $n{=}295$
-(scaffold / Tanimoto / size / stereo) in Appendix~\ref{app:extended}.}
+\caption{Headline elucidation ($n{=}300{=}194$ locked $+$ $106$ expansion).
+Bootstrap 95\% CIs; validate-clean $n{=}295$ in Appendix~\ref{app:extended}.}
 \label{tab:headline}
 \centering
 \small
@@ -338,8 +333,7 @@ asymmetry (Section~\ref{sec:limitations}); a battery-electrolyte subset ($n{=}46
 locked-slice regime (26\% top-1; recall-bound).
 
 \begin{table}[ht]
-\caption{Generation scores by slice. Headline is the pooled generation cohort
-($n{=}300$), not the locked 194 alone.}
+\caption{Generation by slice. Headline is pooled $n{=}300$, not locked 194 alone.}
 \label{tab:slices}
 \centering
 \small
@@ -385,9 +379,8 @@ We claim a \textbf{strong bound, not exclusion} of contamination
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.62\linewidth]{fig_robustness.png}
-  \caption{Robustness on the instrumented arms (formula-only / cross-vendor $n{=}60$;
-  recency $n{=}194$), not the $n{=}300$ headline: formula-only collapse, flat recency, and
-  four-vendor recall $\ll$ precision say the wall is the peak-list task, not one model.}
+  \caption{Robustness on instrumented arms (formula-only / cross-vendor $n{=}60$;
+  recency $n{=}194$): formula-only collapse, flat recency, four-vendor recall $\ll$ precision.}
   \label{fig:fig-robustness}
 \end{figure}
 
@@ -401,8 +394,7 @@ separates the paired gap for Claude (+52.5 points), GPT-5.6 Sol (+26.3) and Gemi
 Grok's gap (+9.2) is directional.
 
 \begin{table}[ht]
-\caption{Cross-vendor decomposition ($n{=}60$). Recall and precision have different
-denominators --- the claim is the inequality, not a difference.}
+\caption{Cross-vendor decomposition ($n{=}60$). Recall and precision use different denominators.}
 \label{tab:cross-vendor}
 \centering
 \small
@@ -428,15 +420,14 @@ A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.72\linewidth]{fig_mechanism.png}
-  \caption{Locked v3-R25 (C$_{10}$H$_{14}$N$_{2}$O): self-rank prefers 3-pyridyl;
-  forward $^{13}$C recovers 2-pyridyl (chamfer 0.42 vs 1.30~ppm) --- a verify-save
-  (Appendix Table~\ref{tab:cases}), not a recall success.}
+  \caption{Locked v3-R25: self-rank prefers 3-pyridyl; forward $^{13}$C recovers 2-pyridyl
+  (chamfer 0.42 vs 1.30~ppm) --- a verify-save, not a recall win (Table~\ref{tab:cases}).}
   \label{fig:fig-mechanism}
 \end{figure}
 
 \begin{table}[ht]
-\caption{Forward-verification decomposition on the instrumented slice ($n{=}194$).
-Pooled $n{=}300$ numbers in Table~\ref{tab:headline} are generation top-1 / recall only.}
+\caption{Forward-verify on the instrumented slice ($n{=}194$).
+Pooled $n{=}300$ in Table~\ref{tab:headline} is generation only.}
 \label{tab:fverify}
 \centering
 \small
@@ -481,9 +472,8 @@ The training-free ceiling remains recall-limited.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.52\linewidth]{fig3_method.png}
-  \caption{Inference ladder on the 60-compound arm, not $n{=}300$: 23\% $\to$ 27\% $\to$
-  30\% top-1 (McNemar $p{=}0.55$ / $0.34$). Generate-wide lifts recall (32\% $\to$ 42\%);
-  the ladder diagnoses a proposal wall, not an accuracy advance.}
+  \caption{Inference ladder on the 60-compound arm: 23\% $\to$ 27\% $\to$ 30\% top-1.
+  Generate-wide lifts recall (32\% $\to$ 42\%); the wall is proposal, not ranking.}
   \label{fig:fig3-method}
 \end{figure}
 
@@ -703,9 +693,8 @@ Additional archive plates are omitted here; they do not change the pooled $n{=}3
 generation headline or the $n{=}194$ instrumented wall.
 
 \begin{table}[h]
-\caption{Locked $n{=}194$ cases from released candidate files (not the $n{=}300$
-generation pool). Chamfers are symmetric $^{13}$C distances in ppm; Tanimoto is Morgan $r{=}2$.
-Expansion qids reuse R22/R25; these IDs are locked-round labels.}
+\caption{Locked $n{=}194$ cases from released candidate files.
+$^{13}$C chamfers in ppm; Tanimoto Morgan $r{=}2$. IDs are locked-round labels.}
 \label{tab:cases}
 \centering
 \scriptsize
@@ -732,10 +721,9 @@ Chamfer 1.35 vs 1.36~ppm. IR 1652, 1530, 1352~cm$^{-1}$. \\
 \end{table}
 
 \begin{table}[h]
-\caption{Expansion round (Claude Opus, InChIKey-14). Headline $n{=}300$ includes every
-deposited expansion compound. Five $^{13}$C-overread flags (R12, R22, R25, R82, R91)
-are included in the 300; validate-clean $n{=}295$ is Table~\ref{tab:clean295}.
-A Fable arm is incomplete (68/106) and is never pooled.}
+\caption{Expansion round (Claude Opus, InChIKey-14). Five $^{13}$C-overread flags stay in
+the $n{=}300$ headline; validate-clean $n{=}295$ in Table~\ref{tab:clean295}.
+Incomplete Fable arm (68/106) is never pooled.}
 \label{tab:expansion}
 \centering
 \begin{tabular}{@{}lrr@{}}
@@ -749,9 +737,8 @@ generation recall & 68/106 (64.2\%) & 65/101 (64.4\%) \\
 \end{table}
 
 \begin{table}[h]
-\caption{Validate-clean sensitivity ($n{=}295{=}194$ locked $+$ $101$ expansion; five
-$^{13}$C-overread flags excluded). Same scorer as Table~\ref{tab:headline}. Not the paper
-headline.}
+\caption{Validate-clean sensitivity ($n{=}295$; five $^{13}$C-overread flags excluded).
+Same scorer as Table~\ref{tab:headline}; not the headline.}
 \label{tab:clean295}
 \centering
 \scriptsize
