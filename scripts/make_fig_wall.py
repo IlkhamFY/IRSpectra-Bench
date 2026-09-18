@@ -88,19 +88,7 @@ def main() -> None:
     ]
     for x, lab in labels:
         ax.text(x, y0 - 0.12, lab, ha="center", va="top", fontsize=8, color=C_NOTE)
-
-    # Quiet n=194 cue, right
-    ax.text(
-        N,
-        y0 + h + 0.08,
-        f"n = {N}",
-        ha="right",
-        va="bottom",
-        fontsize=7.5,
-        color=C_NOTE,
-    )
-
-    out = Path(__file__).resolve().parents[1] / "figures" / "fig_wall"
+out = Path(__file__).resolve().parents[1] / "figures" / "fig_wall"
     fig.savefig(str(out) + ".png", dpi=600, facecolor="white", bbox_inches="tight", pad_inches=0.08)
     fig.savefig(str(out) + ".pdf", facecolor="white", bbox_inches="tight", pad_inches=0.08)
     plt.close(fig)
