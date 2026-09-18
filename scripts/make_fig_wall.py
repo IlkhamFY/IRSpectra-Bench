@@ -49,7 +49,6 @@ def main() -> None:
                 boxstyle="square,pad=0",
                 linewidth=0,
                 facecolor=color,
-                mutation_aspect=None,
                 clip_on=False,
             )
         )
@@ -69,7 +68,13 @@ def main() -> None:
     # Bracket over recalled (verified + mis-ranked)
     bx0, bx1 = 0.0, float(RECALLED)
     by = y0 + h + 0.08
-    ax.plot([bx0, bx0, bx1, bx1], [by - 0.04, by, by, by - 0.04], color=fs.INK, lw=0.7, solid_capstyle="butt")
+    ax.plot(
+        [bx0, bx0, bx1, bx1],
+        [by - 0.04, by, by, by - 0.04],
+        color=fs.INK,
+        lw=0.7,
+        solid_capstyle="butt",
+    )
     ax.text(
         RECALLED / 2,
         by + 0.06,
@@ -88,7 +93,8 @@ def main() -> None:
     ]
     for x, lab in labels:
         ax.text(x, y0 - 0.12, lab, ha="center", va="top", fontsize=8, color=C_NOTE)
-out = Path(__file__).resolve().parents[1] / "figures" / "fig_wall"
+
+    out = Path(__file__).resolve().parents[1] / "figures" / "fig_wall"
     fig.savefig(str(out) + ".png", dpi=600, facecolor="white", bbox_inches="tight", pad_inches=0.08)
     fig.savefig(str(out) + ".pdf", facecolor="white", bbox_inches="tight", pad_inches=0.08)
     plt.close(fig)
