@@ -24,7 +24,8 @@
 
 \graphicspath{{figures/}{../figures/}{./}}
 
-\title{Generation Recall, Not Verification, Binds LLM Structure Elucidation from Literature Spectra}
+% \title{Generation Recall, Not Verification, Identifies LLM Structure Elucidation from Literature Spectra}
+\title{Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, $^1$H, and $^{13}$C NMR Peak Lists}
 
 \author{
 Ilkham Yabbarov\textsuperscript{1,$\dagger$},
@@ -51,43 +52,23 @@ $\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
 \begin{document}
 
 \maketitle
-\lhead{Under review as a conference paper at ICLR 2026}
+\lhead{Under review as a conference paper at ICLR 2027}
 
 \begin{abstract}
-Frontier large language models are often cast as near-solved structure elucidators on
-curated spectra. We ask the operational question: given only the molecular formula and
-\textbf{literature-reported} IR / $^1$H / $^{13}$C \textbf{peak lists} - not digitised
-traces - can an off-the-shelf LLM recover constitution, and \textbf{which stage fails}
-when it cannot?
-
-We release \textbf{IRSpectra-Bench}, a blind, mechanically scored peak-list benchmark of
-\textbf{300} compounds drawn from redistributable experimental band lists
-(\textbf{IRexp})~\citep{yabbarov2026irexp}, with a fixed RDKit InChIKey-connectivity
-contract and decomposable \textbf{generation recall} / \textbf{verification precision}
-metrics.
-A frontier LLM recovers the correct constitution for \textbf{39\%} top-1
-(118/300; 95\% CI 34--45), or \textbf{27\%} after corpus reweighting; generation recall is
-\textbf{44\%} (133/300).
-The binding constraint is \textbf{candidate proposal, not verification}: on the
-forward-verified $n{=}194$ slice, the true structure enters the pool for only
-\textbf{34\%} of compounds, yet training-free forward-verification selects it
-\textbf{89\%} of the time once proposed (58/65).
-The same recall $\ll$ precision asymmetry replicates across \textbf{four vendor families}.
-Formula-only controls collapse; accuracy is flat in source-paper year; generate-wide
-sampling lifts recall where verification alone barely moves top-1.
-Recovered from published top-$k$ figures, recall carries \textbf{68--83\%} of the accuracy
-collapse from curated or simulated spectra to real heterogeneous peak lists.
-Frozen predictions, scorers and code are released for mechanical re-evaluation.
+Frontier models have shown striking performance on molecular structure elucidation tasks, raising the question of how well these capabilities transfer to heterogeneous, experimentally reported spectral data. In this work, we ask an operational question: given only a molecular formula and literature-reported IR, and $^1$H and $^{13}$C NMR peak lists, not digitized spectral images, can an ``off-the-shelf'' frontier model recover the correct molecular constitution, and which stage fails when it cannot? We introduce IRExp-Data, built by agentic extraction of literature peak lists for mining and structuring experimentally reported spectroscopic information from the organic chemistry and materials literature, together with the resulting redistributable collection of approximately 43K IR, and $^1$H and $^{13}$C NMR peak lists. Using this resource, we construct IRSpectra-Bench, a mechanically scored benchmark of compounds drawn from redistributable experimental peak lists, with a fixed RDKit InChIKey-connectivity contract and decomposable generation recall and verification precision metrics. We evaluate frontier models on an answer-blind evaluation of 300 molecules. Among the evaluated models, Claude Opus achieves the highest top-1 constitution recovery rate of 39\% (95\% CI: 34-45), or 27\% after corpus reweighting, with a generation recall of 44\%. The dominant bottleneck is candidate proposal rather than verification: on the forward-verified $n=194$ subset, the correct structure enters the candidate pool for only 34\% of compounds, yet a training-free forward-verification procedure selects it 89\% of the time once proposed (58/65). The same recall $\ll$ precision asymmetry is observed across model families including Claude, Grok, Gemini, and GPT. Molecular formula-only controls collapse, accuracy is largely insensitive to source-publication year, and broader generation sampling substantially improves recall, whereas verification alone has little effect on top-1 accuracy. Across published top-k results, we estimate that reduced recall accounts for 68–83\% of the performance drop from curated or simulated spectra to real heterogeneous peak lists. 
+% Frozen predictions, scorers, and code are released to enable fully mechanical re-evaluation.
 \end{abstract}
+
+
+We introduce \textbf{IRExp-Data}, an agentic framework and 43K-compound experimental spectroscopy resource, and \textbf{IRSpectra-Bench}, a blind benchmark of 300 molecules showing that frontier models can verify the correct molecular structure when proposed, but still struggle to generate it from literature-reported IR, $^1$H NMR, and $^{13}$C NMR peak lists.
 
 \section{Introduction}
 \label{sec:introduction}
-
-Structure elucidation from spectra sits at the centre of synthetic and analytical chemistry,
-and machine learning increasingly treats it as a sequence or agent task.
+Structure elucidation from spectra is at the center of synthetic and analytical chemistry,
+and machine learning increasingly treats it as a sequence or agent task~\citep{guo2025aispectroscopy,westermayr2025mlspectroscopy}.
 Encoder--decoder models train on paired corpora~\citep{chacko2024spectro,ottomano2025nmiracle,alberts2024ir};
-LLM agents and puzzle benches report high recovery on curated or education
-spectra~\citep{kamber2026chemist,guo2024molpuzzle,zhuang2025treesearch,espejo2026agentic}.
+LLM agents and puzzle benches report high recovery on curated or educational
+spectra~\citep{guo2024molpuzzle,zhuang2025treesearch,espejo2026agentic}.
 Cross-paper numbers swing wildly with harness (e.g.\ GPT-4o from 1.4\% to 57.8\% on MolPuzzle
 under different prompting~\citep{guo2024molpuzzle,zhuang2025treesearch}).
 What remains under-measured is the chemist's operational task: \textbf{taking peak lists as
@@ -103,7 +84,7 @@ Any system that returns a ranked candidate list factorises as
 \end{equation}
 These rates have different denominators and must not be differenced.
 Prior work already notes that re-ranking cannot recover a missing
-candidate~\citep{priessner2026reasoning}; we supply the missing \textbf{measurement
+candidate~\citep{priessner2026reasoning,schymanski2017casmi,elyashberg2021acdse}; we supply the missing \textbf{measurement
 infrastructure at scale}.
 
 \paragraph{Contributions.}
@@ -143,7 +124,7 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 \paragraph{Trained spectra $\to$ structure models.}
 Sequence and graph decoders on paired
 corpora~\citep{chacko2024spectro,hu2024multitask,yang2026nmrtrans,ottomano2025nmiracle,alberts2024ir,alberts2025benchmarks}
-are accurate in-distribution but typically scored end-to-end.
+are accurate in-distribution but typically scored end-to-end~\citep{pesek2021database}.
 We do not claim to beat them on IRSpectra-Bench; Spectro, NMIRacle, Alberts IR transformers
 and CASE are \textbf{not yet scored} on our bench (Section~\ref{sec:limitations}) --- a gap we
 state honestly and leave to the released scorer.
@@ -153,7 +134,7 @@ ChemCrow~\citep{mbran2024chemcrow}, Coscientist~\citep{boiko2023coscientist},
 SpectralLM~\citep{su2025spectrallm}, SpecMol~\citep{shen2025specmol}, tree-search
 elucidation~\citep{zhuang2025treesearch} and Priessner
 \textit{et al.}~\citep{priessner2026reasoning} improve \emph{how} a model reads spectra or
-re-ranks a fixed pool.
+re-ranks a fixed pool~\citep{zhuang2025treesearch}.
 IR-Agent~\citep{noh2025iragent} is the closest concurrent multi-agent IR elucidator; the
 contrast is operational, not a scoreboard.
 On \textbf{NIST experimental IR} a Transformer translator proposes a SMILES pool, TI+Ret
@@ -192,9 +173,9 @@ Espejo Morales \textit{et al.}~\citep{espejo2026agentic} compare education vs in
 binds on \textbf{published reports}.
 Matching predicted to observed shifts --- DP4~\citep{smith2010dp4},
 CASE~\citep{elyashberg2012case}, NMR-Solver~\citep{jin2025nmrsolver},
-NMRAgent~\citep{fang2026nmragent} --- is easier than inverse generation; CASE enumerators
+NMRAgent~\citep{fang2026nmragent} --- is easier than inverse generation~\citep{buevich2016synergistic}; CASE enumerators
 have exhaustive recall by construction, while the LLM literature almost never reports whether
-the true structure was proposed at all.
+the true structure was proposed at all. This contract is standard in CASE and in MS-based identification; it is absent in LLM elucidation, and we supply it~\citep{schymanski2017casmi,elyashberg2021acdse,stravs2022msnovelist,duhrkop2015csifingerid}.  
 Concurrent 2026 suites (MolQuest~\citep{han2026molquest}, SpecX~\citep{xiang2026specx},
 NMRGym~\citep{fang2026nmrgym}) bound related tasks.
 IRSpectra-Bench is an openly redistributable literature-peak-list suite with a \textbf{stage
