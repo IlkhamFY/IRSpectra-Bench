@@ -8,14 +8,14 @@ instrumented forward-verify slice. See `docs/POOLED_HEADLINE_2026-09-16.md`.
 
 **Main Overleaf file:** `iclr_paper.tex`  
 **Compiler:** pdfLaTeX or XeLaTeX (+ BibTeX)  
-**Template:** ICLR 2026 conference style (vendored)
+**Template:** ICLR 2027 conference style (vendored)
 
 ## Layout
 
 ```
 iclr_paper.tex              # source of truth
 references.bib
-iclr2026_conference.sty/.bst
+iclr2027_conference.sty/.bst
 fancyhdr.sty, natbib.sty
 figures/                    # figures cited by the paper
 docs/LEADERBOARD.md
