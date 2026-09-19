@@ -1,0 +1,134 @@
+{
+ "verifier": "gnn_scripted_13C_chamfer",
+ "not_llm_fverify": true,
+ "n": 106,
+ "verified": 45,
+ "misranked": 23,
+ "wall": 38,
+ "recalled": 68,
+ "self_ranked": 63,
+ "conditional_verify": [
+  45,
+  68
+ ],
+ "conditional_self": [
+  63,
+  68
+ ],
+ "mcnemar_cond": {
+  "self_only": 20,
+  "verify_only": 2,
+  "p": 0.0
+ },
+ "multi": {
+  "n": 68,
+  "self": 63,
+  "verify": 45,
+  "mcnemar": {
+   "self_only": 20,
+   "verify_only": 2,
+   "p": 0.0
+  }
+ },
+ "clean101": {
+  "n": 101,
+  "recalled": 65,
+  "self_ranked": 61,
+  "verified": 43,
+  "misranked": 22,
+  "wall": 36,
+  "conditional_verify": [
+   43,
+   65
+  ],
+  "conditional_self": [
+   61,
+   65
+  ],
+  "mcnemar_cond": {
+   "self_only": 19,
+   "verify_only": 1,
+   "p": 0.0
+  },
+  "single_candidate_on_recall": 0,
+  "multi": {
+   "n": 65,
+   "self": 61,
+   "verify": 43,
+   "mcnemar": {
+    "self_only": 19,
+    "verify_only": 1,
+    "p": 0.0
+   }
+  }
+ },
+ "locked_llm_wall_unchanged": {
+  "n": 194,
+  "verified": 58,
+  "misranked": 7,
+  "wall": 129,
+  "recalled": 65,
+  "note": "LLM forward-verify; do not replace with expansion GNN counts"
+ },
+ "locked_gnn_calibration": {
+  "status": "ok",
+  "n_compounds_with_parseable_cands": 192,
+  "recalled": 65,
+  "self_ranked": 55,
+  "gnn_verified": 59,
+  "conditional_gnn": [
+   59,
+   65
+  ],
+  "published_locked_gnn_conditional": [
+   59,
+   65
+  ],
+  "published_locked_llm_conditional": [
+   58,
+   65
+  ],
+  "matches_published_59_65": true
+ },
+ "llm_overlap": {
+  "locked_llm_unique_smiles_with_pred": 373,
+  "expand_unique_smiles": 301,
+  "overlap_unique_smiles": 0,
+  "overlap_frac": 0.0
+ },
+ "llm_campaign": {
+  "status": "not run",
+  "blocker": "no data/fverify_expand/raw/*.json LLM 13C deposits",
+  "unique_smiles_to_predict": 301,
+  "already_have_locked_llm_pred": 0,
+  "batches_if_prep": null,
+  "protocol": "same as scripts/forward_verify_main.py: blind Opus, SMILES only, no tools",
+  "approx_cost": "301 unique SMILES in batches of 17 \u2248 18 Opus forward-predict jobs; no new solver elucidation"
+ },
+ "calibration_ppm": {
+  "0-2": [
+   39,
+   81
+  ],
+  "2-4": [
+   2,
+   21
+  ],
+  "4-8": [
+   3,
+   3
+  ],
+  "8-999": [
+   1,
+   1
+  ]
+ },
+ "flagged_qids": [
+  "R12",
+  "R22",
+  "R25",
+  "R82",
+  "R91"
+ ],
+ "key_handling": "reconstructed under /tmp/blind/_key/; answers2.jsonl not in tree"
+}

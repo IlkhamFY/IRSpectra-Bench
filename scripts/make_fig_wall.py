@@ -13,7 +13,9 @@ from matplotlib.patches import FancyBboxPatch
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import figstyle as fs
 
-# Counts (locked instrumented slice; do not invent pooled fverify)
+# Counts (locked LLM instrumented slice; do not invent pooled fverify).
+# Expansion GNN-scripted wall is 45/23/38 (data/fverify_expand/diagnosis.json) and
+# must not replace these constants or be drawn as fig_wall.
 N = 194
 VERIFIED = 58
 MISRANKED = 7
