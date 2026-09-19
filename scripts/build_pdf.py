@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile iclr_paper.tex → iclr_paper.pdf (flat Overleaf-ready layout)."""
+"""Compile main.tex → main.pdf (flat Overleaf-ready layout)."""
 from __future__ import annotations
 
 import os
@@ -9,8 +9,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEX_DIR = ROOT
-TEX = os.path.join(TEX_DIR, "iclr_paper.tex")
-OUT = os.path.join(TEX_DIR, "iclr_paper.pdf")
+TEX = os.path.join(TEX_DIR, "main.tex")
+OUT = os.path.join(TEX_DIR, "main.pdf")
 
 
 def _engine() -> str | None:
@@ -64,8 +64,8 @@ def main() -> int:
             if rc != 0:
                 break
         bibtex = shutil.which("bibtex")
-        if bibtex and os.path.isfile(os.path.join(TEX_DIR, "iclr_paper.aux")):
-            _run([bibtex, "iclr_paper"], cwd=TEX_DIR)
+        if bibtex and os.path.isfile(os.path.join(TEX_DIR, "main.aux")):
+            _run([bibtex, "main"], cwd=TEX_DIR)
         for _ in range(2):
             rc = _run([engine, "-interaction=nonstopmode", base], cwd=TEX_DIR)
     if not os.path.isfile(OUT):
