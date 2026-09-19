@@ -6,14 +6,16 @@ Clean manuscript repository for the **IRSpectra-Bench** ICLR-track paper
 Validate-clean **n=295** is appendix / sensitivity. Figure 1 (`fig_wall`) is the n=194
 instrumented forward-verify slice. See `docs/POOLED_HEADLINE_2026-09-16.md`.
 
-**Main Overleaf file:** `iclr_paper.tex`  
+**Main Overleaf file:** `main.tex`  
 **Compiler:** pdfLaTeX or XeLaTeX (+ BibTeX)  
 **Template:** ICLR 2027 conference style (vendored)
 
 ## Layout
 
 ```
-iclr_paper.tex              # source of truth
+main.tex                    # source of truth (Overleaf main document)
+iclr_paper.tex              # compatibility shim: \input{main}
+main_IRExpBench_only.tex    # optional orphan alternate; not the ICLR build root
 references.bib
 iclr2027_conference.sty/.bst
 fancyhdr.sty, natbib.sty
