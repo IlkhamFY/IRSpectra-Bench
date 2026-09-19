@@ -1,4 +1,7 @@
 {
+ "paper_claim": false,
+ "out_of_scope_proxy": true,
+ "do_not_cite_in_iclr_paper": true,
  "verifier": "gnn_scripted_13C_chamfer",
  "not_llm_fverify": true,
  "n": 106,

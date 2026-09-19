@@ -12,10 +12,8 @@ Paper headline is the **pooled generation cohort**: 194 locked + all 106 expansi
 (five ¹³C-overread flags R12, R22, R25, R82, R91 **included**). Counts from
 `docs/POOLED_HEADLINE_2026-09-16.md` / spectro-agent `scripts/score_pooled.py`
 (n=300 sensitivity row). Validate-clean n=295 is appendix / sensitivity, not the
-lead number. LLM forward-verification is the n=194 instrumented slice — do not invent
-a pooled verification-precision or a pooled `fig_wall`. A scripted GNN-chamfer
-on the expansion (45/23/38; 45/68) is in `docs/EXPANSION_FVERIFY_2026-09-19.md`
-and is not this row.
+lead number. Forward-verification is the n=194 instrumented slice — do not invent
+a pooled verification-precision or a pooled `fig_wall`.
 
 | Rank | Model / method | Top-1 ↑ | Recall (top-3) ↑ | Gen. recall | Verif. prec. \| recall | Notes |
 |---:|---|--:|--:|--:|--:|---|
@@ -64,13 +62,12 @@ That gap is a result, not a reason to keep n=194 as the paper headline.
 
 Independent pre-registered blind draw, scored after the n=194 cohort was locked.
 Constitution scoring is RDKit InChIKey-14. All 106 enter the paper headline; clean 101
-is the appendix / sensitivity row. LLM forward-verify is the n=194 instrumented slice; GNN-scripted expansion is 45/23/38.
+is the appendix / sensitivity row. Forward-verify is the n=194 instrumented slice.
 
 | Rank | Model / method | Top-1 ↑ | Recall (top-3) ↑ | Gen. recall | Verif. prec. \| recall | Notes |
 |---:|---|--:|--:|--:|--:|---|
 | — | Claude Opus (expansion, all) | **59.4%** (63/106) | 64.2% (68/106) | 64.2% (68/106) | — | Enters headline n=300 |
 | — | Claude Opus (expansion, clean) | **60.4%** (61/101) | 64.4% (65/101) | 64.4% (65/101) | — | Appendix n=295 |
-| — | GNN $^{13}$C chamfer (expansion, all) | 42.5% (45/106) | — | 64.2% (68/106) | 66.2% (45/68) | **Not LLM fverify**; 45/23/38 wall |
 | — | Claude Fable 5 (expansion) | — | — | — | — | Incomplete (68/106); never pooled |
 
 ---

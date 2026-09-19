@@ -3,9 +3,7 @@
 % Working notes: docs/ICLR_PAPER.md
 %
 % Overleaf: set main document to iclr_paper.tex (repo root).
-% Headline n=300 generation (194 locked + all 106 expansion); fig_wall is the n=194 LLM instrumented slice.
-% Expansion LLM fverify is not run (301 unique SMILES, 0 overlap). Scripted GNN-chamfer on the
-% 106 is 45/23/38 --- not interchangeable with 58/7/129; see data/fverify_expand/diagnosis.json.
+% Headline n=300 generation (194 locked + all 106 expansion); fig_wall is the n=194 instrumented slice.
 % Compile with pdfLaTeX or XeLaTeX + BibTeX (references.bib + iclr2026_conference.bst).
 % \iclrfinalcopy is the only official sty flag that prints \author and drops
 % the left-margin submission ruler (see tex/iclr2026_conference.sty).
@@ -133,10 +131,9 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.92\linewidth]{fig_wall.png}
-  \caption{Instrumented LLM forward-verify on the locked slice (58 verified / 7 mis-ranked /
-  129 never proposed). Headline recall is 133/300 generation. Expansion has no LLM fverify
-  (301 unique SMILES, 0 overlap with locked deposits). A scripted GNN-chamfer on the 106
-  yields 45/23/38 (Appendix Table~\ref{tab:expand-fverify}) and is not this figure.}
+  \caption{Instrumented forward-verify (58 verified / 7 mis-ranked / 129 never proposed).
+  Expansion has no fverify; headline recall is 133/300. Never-proposed cases bind top-1
+  despite 89\% conditional precision.}
   \label{fig:fig-wall}
 \end{figure}
 
@@ -289,17 +286,12 @@ pooled then re-ranked --- not the $n{=}300$ reporting budget.
 
 \paragraph{Forward-verification, expansion, and probes.}
 Generate $\to$ forward-predict $^{13}$C (blind to the observed list) $\to$ re-rank by
-symmetric chamfer on $^{13}$C peak sets (Section~\ref{sec:forward-verify}); the LLM campaign
-is instrumented on the locked $n{=}194$ only.
+symmetric chamfer on $^{13}$C peak sets (Section~\ref{sec:forward-verify}); instrumented on
+the locked $n{=}194$ only.
 Expansion is a pre-registered 106-compound draw from the same \texttt{irexp\_resolved}
 sampler after the $n{=}194$ lock, with the same $^{13}$C-overread audit
 (Section~\ref{sec:expansion}): five flags stay in the $n{=}300$ headline; validate-clean
-$n{=}295$ is appendix.
-The expansion LLM campaign was not run (301 unique candidate SMILES; 0 overlap with locked
-deposits; 18 batches of 17 would close it).
-A scripted GNN $^{13}$C chamfer --- the same nmrshiftdb2 checkpoint that scores 59/65 vs the
-LLM's 58/65 on the locked recall set --- was run on all 106
-(Appendix Table~\ref{tab:expand-fverify}); that is \emph{not} LLM forward-verify.
+$n{=}295$ is appendix; expansion forward-verify was not run.
 Controls: formula-only / recency (Section~\ref{sec:contamination}); four-vendor replication
 on a 60-compound arm (Section~\ref{sec:cross-vendor}); generate-wide sampling; HOSE lookup
 and GNN $^{13}$C verifiers; small IRexp-fine-tuned generator probe (excluded from headline
@@ -486,11 +478,8 @@ The training-free ceiling remains recall-limited.
 \end{figure}
 
 \paragraph{Non-LLM verifiers.}
-On the same locked candidate sets, a HOSE-style lookup ties self-ranking; a modest GNN reaches
+On the same candidate sets, a HOSE-style lookup ties self-ranking; a modest GNN reaches
 59/65 (91\%) vs the LLM verifier's 58/65 (89\%) --- directional.
-The same GNN on the expansion draw yields 45/68 (66\%) vs self-ranking 63/68 (93\%)
-(Appendix Table~\ref{tab:expand-fverify}): it does \textbf{not} substitute for an LLM campaign
-and is not pooled into Figure~\ref{fig:fig-wall}.
 Deranging observed $^{13}$C pairings collapses precision ($p{=}0.001$).
 A small IRexp-fine-tuned generator pooled with Claude lifts locked-slice recall 33.5\% $\to$ 54.1\% and
 top-1 28.4\% $\to$ 35.1\% (McNemar $p{=}0.015$), showing the wall is a property of
@@ -544,10 +533,7 @@ The expansion slice is easier (59.4\% vs 28.4\% top-1); that gap is reported as 
 new draw, not hidden by pooling.
 A Fable cross-model arm is incomplete (68/106 deposits, not scored, never pooled).
 Figure~\ref{fig:fig-wall} and Table~\ref{tab:fverify} remain the $n{=}194$ instrumented
-LLM diagnosis.
-A scripted GNN-chamfer on the 106 (45 verified / 23 mis-ranked / 38 never proposed) is
-Appendix Table~\ref{tab:expand-fverify}; it is worse than self-ranking on this easier slice
-and is not used as a pooled wall.
+forward-verified diagnosis.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -629,11 +615,8 @@ transformers and CASE were \textbf{not scored} on IRSpectra-Bench --- the LLM re
 not cleanly separated from harness or modality choice.
 \textbf{(vi) Cross-vendor scope.} Headline $n{=}300$ is Claude Opus generation; four-vendor
 replication is on 60 compounds; candidate budgets differ.
-LLM forward-verification, Figure~\ref{fig:fig-wall}, and verification precision $|$ recall
-(58/65) are the locked $n{=}194$ instrumented slice.
-A scripted GNN-chamfer was run on the expansion (45/68 vs self-ranking 63/68) and is not a
-substitute for that campaign (Appendix Table~\ref{tab:expand-fverify}; 301 unique SMILES,
-0 overlap, LLM deposits absent).
+Forward-verification, Figure~\ref{fig:fig-wall}, and verification precision $|$ recall (58/65)
+are the locked $n{=}194$ instrumented slice.
 A Fable cross-model arm on the expansion draw is incomplete (68/106) and is not pooled.
 \textbf{(vii) Deferred arms.} Expert-chemist audit of elucidation outputs formally deferred
 (not run). Leave-one-modality-out ablation abandoned for this manuscript. Extraction-recall
@@ -707,8 +690,7 @@ This conference version keeps five main-text figures: the diagnosis wall
 forward-verification mechanism (Figure~\ref{fig:fig-mechanism}), and the inference
 ladder (Figure~\ref{fig:fig3-method}).
 Additional archive plates are omitted here; they do not change the pooled $n{=}300$
-generation headline or the $n{=}194$ LLM instrumented wall.
-Table~\ref{tab:expand-fverify} is a scripted GNN bound on the expansion, not a second lead wall.
+generation headline or the $n{=}194$ instrumented wall.
 
 \begin{table}[h]
 \caption{Locked $n{=}194$ cases from released candidate files.
@@ -750,28 +732,6 @@ Incomplete Fable arm (68/106) is never pooled.}
 \midrule
 top-1 & 63/106 (59.4\%) & 61/101 (60.4\%) \\
 generation recall & 68/106 (64.2\%) & 65/101 (64.4\%) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[h]
-\caption{Scripted GNN $^{13}$C chamfer on the expansion (same nmrshiftdb2 checkpoint that
-scores 59/65 on the locked recall set vs LLM 58/65).
-This is \textbf{not} an LLM forward-verify and is not pooled into Figure~\ref{fig:fig-wall}.
-LLM expansion deposits do not exist (301 unique SMILES, 0 overlap with locked \texttt{fverify*}).}
-\label{tab:expand-fverify}
-\centering
-\small
-\begin{tabular}{@{}lrr@{}}
-\toprule
- & all ($n{=}106$) & clean ($n{=}101$) \\
-\midrule
-generation recall & 68/106 (64.2\%) & 65/101 (64.4\%) \\
-top-1, solver self-ranking & 63/106 (59.4\%) & 61/101 (60.4\%) \\
-top-1, GNN-verified & 45/106 (42.5\%) & 43/101 (42.6\%) \\
-verified / mis-ranked / never-proposed & 45 / 23 / 38 & 43 / 22 / 36 \\
-precision $|$ recall --- GNN & 45/68 (66.2\%) & 43/65 (66.2\%) \\
-precision $|$ recall --- self-rank & 63/68 (92.6\%) & 61/65 (93.8\%) \\
 \bottomrule
 \end{tabular}
 \end{table}

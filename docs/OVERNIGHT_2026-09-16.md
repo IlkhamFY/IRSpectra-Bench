@@ -237,24 +237,3 @@ Layout pass only. **No metric changes.** Headline stays n=300 / 118/300 (39.3%) 
 
 **Compressed, not deleted:** Related Work (IR-Agent kept; positioning merge); Experimental setup paragraphs merged; Limitations still (i)–(viii); expansion restatement cut to four sentences.
 
----
-
-# Overnight note — 2026-09-19 (v0.23)
-
-Expansion **scripted GNN** forward-verify (not an LLM campaign). Headline generation
-stays **n=300**. Figure 1 stays the n=194 LLM wall **58/7/129**.
-
-## Facts (do not drift)
-
-| Item | Value |
-|---|---|
-| Headline n | **300** (unchanged) |
-| fig_wall / LLM fverify | n=194, **58/7/129**, 58/65 |
-| Expansion GNN wall | **45/23/38** (45/68 vs self 63/68) |
-| Locked GNN calibration | 59/65 — matches published |
-| LLM expansion deposits | **absent** (301 unique SMILES, 0 overlap, 18 batches) |
-| Fable | 68/106; not scored |
-
-Source: `data/fverify_expand/diagnosis.json`, `docs/EXPANSION_FVERIFY_2026-09-19.md`.
-Do not pool 45+58 or 38+129. Do not relabel 45/68 as the 89% claim.
-

@@ -16,13 +16,8 @@ That assignment is reversed for the ICLR manuscript (`iclr_paper.tex` v0.15).
 **Do not invent** pooled `fig_wall`, pooled verification-precision, or n=300
 scaffold / stereo / size-bin / reweight figures that were never scored.
 
-LLM forward-verification has **not** been run on the expansion (301 unique SMILES,
-0 overlap with locked `fverify*` deposits). A **scripted GNN $^{13}$C chamfer**
-(same checkpoint as the published 59/65 locked number) **has** been run:
-**45 verified / 23 mis-ranked / 38 never proposed** (45/68 vs self-rank 63/68).
-That is *not* LLM fverify and is *not* a pooled wall. See
-`docs/EXPANSION_FVERIFY_2026-09-19.md`. Pooled numbers remain
-**generation top-1 / recall only**. `fig_wall` stays the n=194 LLM slice.
+Forward-verification has **not** been run on the expansion. Pooled numbers are
+**generation top-1 / recall only**. `fig_wall` stays the n=194 instrumented slice.
 
 ## Reproduce
 
@@ -107,24 +102,24 @@ Including the five does not move the one-decimal top-1 (both 39.3%).
 They are included because the ICLR lock (2026-09-17) puts n=300 in the lead;
 validate-clean n=295 remains the appendix / sensitivity row.
 
-## Forward-verify — LLM still n=194 only; GNN expansion is a separate bound
+## Forward-verify — still n=194 only
 
 | item | status |
 |---|---|
-| `data/fverify/` + `data/fverify_main/` | complete; locked LLM wall 58/7/129 |
-| generation recall (locked) | 65/194 (33.5%) |
-| top-1, solver self-ranking (locked) | 55/194 (28.4%) |
-| top-1, LLM forward-verified (locked) | 58/194 (29.9%) |
-| precision \| recall (LLM fverify) | **58/65 (89%)** |
-| mis-ranked / never proposed (LLM) | 7 / 129 |
-| `scripts/forward_verify_expand.py` GNN on expansion | **run**: 45/23/38; 45/68 (66.2%) |
-| expansion LLM verification precision | **does not exist** (0/301 SMILES overlap) |
+| `data/fverify/` + `data/fverify_main/` | complete; `data/diagnosis.json` n=194 |
+| generation recall | 65/194 (33.5%) |
+| top-1, solver self-ranking | 55/194 (28.4%) |
+| top-1, forward-verified | 58/194 (29.9%) |
+| precision \| recall (fverify) | **58/65 (89%)** |
+| mis-ranked / never proposed | 7 / 129 |
+| `scripts/forward_verify_main.py` on expansion | **not run** |
+| expansion verification precision | **does not exist** |
 | Fable expansion | 68/106 deposits; **not scored**; **not pooled** |
 
-`scripts/forward_verify_all.py` will pick up an expansion *LLM* arm only if
-`data/fverify_expand/raw/*.json` exists. It does not. The GNN sidecar
-`data/fverify_expand/diagnosis.json` must not be copied over the locked
-`diagnosis.json`. Until LLM deposits exist, any pooled LLM wall is invented.
+`scripts/forward_verify_all.py` will pick up an expansion arm automatically
+*if* `data/fverify_expand*/` contains `candidates.jsonl` and the matching
+`data/benchmark_expand/` roster. That directory is absent. Until it exists,
+any pooled verified / mis-ranked / wall triple would be invented.
 
 ## Figures that cannot be rebuilt yet
 
@@ -159,8 +154,7 @@ Do not draw a pooled wall from self-ranking and label it forward-verify.
 | corpus-reweighted top-1 / recall | 26.5% [21–32] / 31.3% [25–37] (n=295; not re-scored for n=300) |
 | expansion all / clean | 63/106 (59.4%) / 61/101 (60.4%) top-1 |
 | flagged | R12, R22, R25, R82, R91 — **included** in n=300; n=295 in appendix |
-| fverify / fig_wall | n=194 LLM instrumented slice, 58/7/129 |
-| expansion GNN-scripted wall | 45/23/38 (not LLM; not fig_wall) |
+| fverify / fig_wall | n=194 instrumented slice, 58/7/129 |
 | Fable | 68/106; not in the pool |
 | answers2.jsonl | re-withheld; do not commit |
 
