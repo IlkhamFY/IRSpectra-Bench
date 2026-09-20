@@ -57,9 +57,11 @@ Locked facts used (do not invent beyond these):
    updated. Required AI-use statement added (does not count toward 9 pages).
 
 9. **“They have a hidden n=500 result / they under-claim scale.”**
-   §5.6 scale-roadmap + Limitations (vi) + FAQ: 230/230 deposits exist;
-   **no top-1**; key withheld; thinking-tier arm ≠ no-thinking headline.
-   Headline stays n=300. Do not invent 519/524 pooled n.
+   §5.6 scale-roadmap + Limitations (vi) + FAQ + SI: 230/230 is now
+   generation-scored (**129/230** top-1, **138/230** recall; clean 127/224)
+   in appendix/SI only. **No CIs. No fverify precision.** Thinking-tier arm
+   ≠ no-thinking headline. Headline stays n=300. Exploratory 519/524/530
+   are SI rows, not a replacement headline.
 
 10. **“Agentic literature (IR-Agent ICLR 2026 / MolQuest / Espejo) already
     solved this; this is a thin bench.”**

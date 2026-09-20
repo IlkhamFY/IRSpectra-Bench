@@ -1,44 +1,33 @@
 # Overnight note — 2026-09-20 (ICLR night strengthen)
 
-No new experimental scores. Headline stays **n=300** generation / **n=194** fverify.
+Headline stays **n=300** generation / **n=194** fverify.
 
 ## What is true this morning
 
 - Source of truth: `main.tex` on `cursor/iclr-night-strengthen-20260920-c33d`.
-- **Fig 1** is now `fig1_overview` (pipeline + closed-book peak reasoning + n=194 wall).
-  The old `fig_wall` stays as a diagnostic figure in §5.4 (same 58/7/129 slice).
+- **Fig 1** is `fig1_overview` (pipeline + closed-book peak reasoning + n=194 wall).
+  The old `fig_wall` is an appendix diagnostic (same 58/7/129 slice).
   Listing 1 is the IRexp JSON+molecule box (v3-R25; gold held out).
 - Abstract / intro / Table 1 still lock **118/300 (39.3%)** / **133/300 (44.3%)**.
-- `fig_wall` caption still: locked n=194 only; expansion has no fverify.
-- expand-500: **230/230 deposited, unscored** (companion STATUS; local pointer
-  `docs/EXPAND500_POINTER_2026-09-20.md`). No top-1 in the PDF.
+- expand-500 is **generation-scored** in appendix + SI only: **129/230 (56.1%)** top-1, **138/230 (60.0%)** recall; clean **127/224**. No CIs. No fverify precision. Thinking-tier arm. Not the headline.
 - IRexp remains a companion Sci Data pointer (Listing 1 + Appendix A). Not merged.
 
 ## What changed overnight
 
-- Related Work densified into three agentic regimes (lab tools / spectrum-native
-  re-rankers / agentic-search benches). IR-Agent bib → ICLR 2026.
-- Bottleneck wording: propose ≫ verify (proposal is the expensive stage).
-- §5.6 scale-roadmap paragraph: 230/230 deposits; scoring deferred; thinking-tier
-  caveat; not pooled.
-- Limitations (vi) + Appendix FAQ: fverify not on 106 **or** 230; no n≈500 top-1.
-- Soft-reject memo updated.
-- **Figure pack:** lead Fig.~1 (`fig1_overview`: pipeline / peak reasoning / n=194
-  wall); old wall kept as §5.4 diagnostic; Listing 1 upgraded to IRexp
-  JSON+molecule box. No new metrics.
+- Related Work densified into three agentic regimes; then compressed so the body fits 9 ICLR pages through the Conclusion.
+- Bottleneck wording: propose ≫ verify.
+- Six used display-equation blocks (7 numbered identities): factorisation, InChIKey-14, top-1, recall@k, prec.|recall, 13C chamfer, pooled estimator.
+- **Figure pack (canonical):** lead Fig.~1 (`fig1_overview`); wall kept as appendix diagnostic; Listing 1 is IRexp JSON+molecule (v3-R25).
+- Standalone SI (`si/supplement.tex`) grown: protocol, night-pool tables, cases, prompts, model card, fverify gaps, repro checklist.
+- Limitations (vi) + FAQ: fverify not on 106; expand-500 fverify incomplete (31/41).
 
 ## What still needs Ilkham / Rodrigo
 
 1. Page-9 / 9-page-main visual check on Overleaf after compile.
-   Tectonic build is 14 pages total; Conclusion currently opens page 10
-   (Limitations fills page 9). Fig 1 is taller than the old wall. No text was
-   cut to fake a 9-page main.
+   Tectonic: Conclusion on page 9; 14 pages total (refs + appendix).
 2. ChemRxiv Cloudflare (human; not this pass).
-3. Whether to restore the expand-500 key and score **after** ICLR PDF freeze —
-   not before, unless you explicitly unlock it. Scoring needs
-   `scripts/export_round.py --restore` on spectro-agent; this postcard repo
-   cannot re-score.
-4. Do not treat STATUS.md's stale “headline stays n=295” line as the ICLR lock.
+3. Do not merge spectro-agent #41 as a silent headline replacement.
+4. Key restore only if someone re-scores; `answers2.jsonl` stays out of git.
 
 ## Locked facts (do not drift)
 
@@ -46,7 +35,8 @@ No new experimental scores. Headline stays **n=300** generation / **n=194** fver
 |---|---|
 | Headline n | **300** (194 + all 106; flags in) |
 | Top-1 / recall | **118/300 (39.3%) [34–45] / 133/300 (44.3%) [39–50]** |
-| fig_wall / fverify | n=194; 58/7/129; 58/65 (89%) |
+| Fig 1 / fverify | n=194; 58/7/129; 58/65 (89%) |
 | expand-106 fverify | not run |
-| expand-500 | 230/230 deposited; **unscored**; no fverify |
+| expand-500 | 129/230 / 138/230; clean 127/224; SI/appendix only |
+| pools | 300 headline; 524 / 519 / 530 exploratory |
 | IRexp | companion pointer only |

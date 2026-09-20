@@ -1,32 +1,22 @@
-# expand-500 pointer — 2026-09-20 (ICLR night pass)
+# expand-500 pointer — 2026-09-20
 
-Companion source of truth (spectro-agent, not this postcard repo):
+Companion sources (spectro-agent `cursor/expand-bench-500-b78b`):
 
-- branch: `cursor/expand-bench-500-b78b`
-- file: `data/benchmark_expand_500/STATUS.md`
-- PR: IlkhamFY/spectro-agent#41 (draft; title still says 55/230 — STATUS is newer)
+- `data/benchmark_expand_500/NIGHT_POOL_2026-09-20.md` (copied here)
+- `data/fverify_expand_500/INVENTORY_2026-09-20.md` (copied here)
+- `data/benchmark_expand_500/STATUS.md`
 
-**Cite only these facts in the ICLR PDF. Do not invent a top-1.**
+**Paper headline stays n=300.** No CIs. No fverify precision.
 
 | item | value |
 |---|---|
-| draw | 230 compounds; seed 2026500; 115 simple / 115 complex |
-| exclusion | 375 prior InChIKey-14s (locked 194 + withheld +106) |
-| collisions with prior rounds | 0 InChIKey-14; 0 (formula, IR, ¹³C) |
-| pre-solver ¹³C-overread flags | 6 (R26, R31, R102, R105, R107, R138); 224 spectrally clean |
-| Opus deposits | **230/230 (100%)** |
-| `predictions2.jsonl` | written; 230 lines; 690 candidates |
-| `score2` / top-1 / recall | **not run** |
-| expand-500 fverify | **not run** |
-| expansion-106 fverify | **not run** (unchanged) |
-| paper headline | **n=300** (194 locked + all 106). STATUS.md still says n=295 — that lock is stale. |
-| key | withheld (`answers2.jsonl` not in tree) |
-| protocol note | deposits used `claude-opus-5-thinking-high` — **not** interchangeable with the no-thinking n=300 headline until scored under a declared contract |
-
-Do **not**:
-
-- write an expand-500 top-1, CI, or recall
-- draw a pooled n=500 or n=524 wall
-- treat 295+224=519 or 300+224=524 as a result
-- merge expand-500 into the ICLR headline
-- claim expansion-106 fverify
+| draw | 230; seed 2026500; 115/115; 6 flags (R26, R31, R102, R105, R107, R138) |
+| deposits | 230/230; 690 candidates |
+| all-230 generation | **129/230 (56.1%)** top-1; **138/230 (60.0%)** recall@3 |
+| clean-224 | **127/224 (56.7%)** / **135/224 (60.3%)** |
+| exploratory n=524 | 194+all106+clean224 → 245/524 (46.8%) / 268/524 (51.1%) |
+| alt n=519 | 194+clean101+clean224 → 243/519 / 265/519 |
+| n=530 | 194+all106+all230 → 247/530 / 271/530 |
+| fverify-500 | 31/41 batches; missing f16–f20 & f31–f35; 516/681 SMILES; **no precision** |
+| protocol | thinking-tier arm — not interchangeable with no-thinking headline |
+| key | withheld after the score pass |

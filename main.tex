@@ -5,8 +5,8 @@
 % Overleaf: set main document to main.tex (repo root).
 % iclr_paper.tex is a compatibility \input{main} shim for older compile notes.
 % main_IRExpBench_only.tex is an optional orphan alternate --- not the ICLR build root.
-% Headline n=300 generation (194 locked + all 106 expansion); fig_wall is the n=194 instrumented slice.
-% expand-500: 230/230 deposited, unscored --- do not invent top-1 or a pooled wall.
+% Headline n=300 generation (194 locked + all 106 expansion); Fig 1 = fig1_overview; wall = appendix diagnostic.
+% expand-500: 129/230 top-1 / 138/230 recall in appendix+SI only; no CIs; no fverify precision.
 % Compile with pdfLaTeX or XeLaTeX + BibTeX (references.bib + iclr2027_conference.bst).
 % \iclrfinalcopy is the only official sty flag that prints \author and drops
 % the left-margin submission ruler (see tex/iclr2027_conference.sty).
@@ -89,8 +89,8 @@ On the forward-verified $n{=}194$ slice the true structure enters the pool for o
 \textbf{34\%} of compounds, yet training-free forward-verification selects it
 \textbf{89\%} of the time once proposed (58/65).
 The expansion slice is easier (59\% vs 28\% top-1) and is disclosed, not hidden.
-A larger deposited blind round toward $n{\approx}500$ is \textbf{unscored} and is
-not in this headline.
+A larger deposited blind round toward $n{\approx}500$ is generation-scored in the
+SI (thinking-tier; no CIs) and is not this headline.
 The same recall $\ll$ precision asymmetry replicates across \textbf{four vendor families}.
 Formula-only controls collapse; accuracy is flat in source-paper year; generate-wide
 sampling lifts recall where verification alone barely moves top-1.
@@ -117,11 +117,13 @@ a fixed molecular-representation scoring contract, and an honest account of
 We argue that end-to-end top-1 alone is the wrong reporting primitive.
 Any system that returns a ranked candidate list factorises as
 \begin{equation}
+\label{eq:factor}
 \text{top-1} \;=\; \underbrace{P(\text{true} \in \text{pool})}_{\text{generation recall}}
 \times
 \underbrace{P(\text{rank}=1 \mid \text{true} \in \text{pool})}_{\text{verification precision}}.
 \end{equation}
-These rates have different denominators and must not be differenced.
+These rates have different denominators and must not be differenced
+(Eqs.~\ref{eq:top1}--\ref{eq:prec}).
 Prior work already notes that re-ranking cannot recover a missing
 candidate~\citep{priessner2026reasoning}; we supply the missing \textbf{measurement
 infrastructure at scale}.
@@ -155,7 +157,8 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
   \caption{IRSpectra-Bench protocol.
   (a)~Printed IR/$^1$H/$^{13}$C lists $+$ formula $\rightarrow$ closed-book LLM
   proposes top-$k$ SMILES (RDKit formula check) $\rightarrow$ forward $^{13}$C
-  (blind) $\rightarrow$ chamfer re-rank $\rightarrow$ InChIKey-14.
+  (blind) $\rightarrow$ chamfer re-rank (Eq.~\ref{eq:chamfer}) $\rightarrow$
+  InChIKey-14 (Eq.~\ref{eq:ik14}).
   (b)~Evidence is the lists themselves (no peak-table tool, no retrieval).
   Running example v3-R25 (IR 1679~cm$^{-1}$; chamfer 0.42 vs 1.30~ppm).
   (c)~Locked $n{=}194$ instrumented wall: 58 verified / 7 mis-ranked / 129 never
@@ -179,40 +182,30 @@ state honestly and leave to the released scorer.
 \paragraph{Agentic elucidation: three regimes.}
 The contrast is the \textbf{setting and the stage split}, not a method scoreboard.
 (i)~\emph{Tool-using lab agents} --- ChemCrow~\citep{mbran2024chemcrow},
-Coscientist~\citep{boiko2023coscientist} --- show that LLMs can call instruments and
-planners; they do not measure which elucidation stage binds.
-(ii)~\emph{Spectrum-native agents} improve \emph{how} a model reads a spectrum or
-re-ranks a \textbf{fixed} pool: tree-search~\citep{zhuang2025treesearch},
-SpecMol~\citep{shen2025specmol}, Priessner \textit{et al.}~\citep{priessner2026reasoning},
+Coscientist~\citep{boiko2023coscientist} --- call instruments; they do not measure
+which elucidation stage binds.
+(ii)~\emph{Spectrum-native agents} re-rank a \textbf{fixed} pool:
+tree-search~\citep{zhuang2025treesearch}, SpecMol~\citep{shen2025specmol},
+Priessner \textit{et al.}~\citep{priessner2026reasoning},
 NMR-Solver~\citep{jin2025nmrsolver}, NMRAgent~\citep{fang2026nmragent}.
 Priessner already notes that re-ranking cannot recover a missing candidate; we measure
 that failure at literature-peak-list scale.
-SpectraLLM~\citep{su2025spectrallm} is a \textbf{fine-tuned} multi-spectral elucidator
-on \textbf{simulated} corpora (QM9S DFT; Alberts USPTO multimodal) --- a different object
-and a different training regime; we do not score it here.
-IR-Agent~\citep{noh2025iragent} (ICLR 2026) is the closest concurrent multi-agent IR
-elucidator: on \textbf{NIST experimental IR} a translator proposes a SMILES pool, TI+Ret
-enrich local (peak-table) and global (retrieved-spectrum) features, and an SE expert
-re-ranks (Top-$k$ SMILES; atom type / scaffold / carbon count may be prompt-injected).
+SpectraLLM~\citep{su2025spectrallm} is a \textbf{fine-tuned} elucidator on
+\textbf{simulated} corpora --- a different object; we do not score it here.
+IR-Agent~\citep{noh2025iragent} (ICLR 2026) is the closest concurrent IR elucidator
+(NIST experimental IR; TI+Ret features + SE re-rank over a proposed pool).
 (iii)~\emph{Agentic-search benches} --- MolQuest~\citep{han2026molquest},
 NMRGym~\citep{fang2026nmrgym}, Espejo Morales \textit{et al.}~\citep{espejo2026agentic}
-(education $\to$ industrial instrument files: 80.9\% $\to$ 20.6\%) --- ask which
-architecture or abductive loop wins.
-IRSpectra-Bench is the harder operational object: \textbf{literature peak lists}
-(IR+$^1$H/$^{13}$C+formula as from HRMS), \textbf{off-the-shelf} closed-book models, no
-name, SMILES, or scaffold hint.
-We measure \textbf{which stage binds} after spectra are read --- generation recall versus
-verification precision $|$ recall --- on pooled $n{=}300$, with instrumented
-forward-verify on $n{=}194$.
-IR-Agent's SE expert over a \textbf{fixed candidate pool} is exactly the regime our
-ladder diagnoses as recall-limited (proposal binds; conditional forward-verify
-$\approx$89\%, 58/65).
-TI+Ret can enrich \emph{features} but does \textbf{not} remove a proposal wall if the true
-structure never enters the pool.
-Architecture search that does not change $P(\text{true}\in\text{pool})$ cannot move
-top-1 on a recall-bound bench.
-We do not claim to beat SpectraLLM or IR-Agent on their native sets; neither is scored
-here.
+(education $\to$ industrial: 80.9\% $\to$ 20.6\%) --- ask which architecture wins.
+IRSpectra-Bench measures \textbf{which stage binds} on literature peak lists with an
+off-the-shelf closed-book model (Eqs.~\ref{eq:top1}--\ref{eq:prec}): generation
+recall vs verification precision $|$ recall on $n{=}300$, instrumented forward-verify
+on $n{=}194$.
+IR-Agent's SE expert over a \textbf{fixed pool} is the regime our ladder diagnoses as
+recall-limited (proposal binds; $58/65$ once proposed).
+TI+Ret does \textbf{not} remove a proposal wall if the true structure never enters the
+pool.
+We do not claim to beat SpectraLLM or IR-Agent on their native sets.
 \begin{center}
 \scriptsize
 \setlength{\tabcolsep}{4pt}
@@ -263,12 +256,12 @@ companion Data Descriptor)~\citep{yabbarov2026irexp}.
 On the locked 194, author peak assignments name a ring system in 10/194; those are solved
 1/10 vs 54/184 for the rest, so named-ring annotation does not drive that slice.
 Figure~\ref{fig:fig-chemspace} summarises the chemistry space of the pooled headline.
-Figure~\ref{lst:payload} is the solver-facing contract: formula plus printed peak lists,
+Listing~\ref{lst:payload} is the solver-facing contract: formula plus printed peak lists,
 gold constitution held out.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.92\linewidth]{fig_chemspace.png}
+  \includegraphics[width=0.88\linewidth]{fig_chemspace.png}
   \caption{Pooled headline chemistry ($n{=}300$; panels on validate-clean $n{=}295$).
   (a)~MW (median 306). (b)~RDKit rings (median 2). (c)~C--F bonds. (d)~N atoms.
   Stacked: locked (dark) vs expansion (light). Mid-size literature space, not a NIST toy set.}
@@ -288,15 +281,36 @@ Reweighted to corpus composition on the validate-clean subset, top-1 falls 39.3\
 We report both: the reweighted figure is the better estimate for an arbitrary paper, and the
 50/50 figure is the comparable leaderboard number (Table~\ref{tab:headline}).
 
-\textbf{Scoring.} A prediction is correct if RDKit InChIKey \textbf{connectivity} (first 14
-characters) matches --- we score \emph{constitution}.
+\textbf{Scoring.} A candidate $\hat y$ is correct at constitution iff the first 14
+characters of the RDKit InChIKey match
+\begin{equation}
+\label{eq:ik14}
+s(\hat y, y^\star)
+\;=\;
+\mathbf{1}\!\big[\mathrm{IK}_{14}(\hat y)=\mathrm{IK}_{14}(y^\star)\big].
+\end{equation}
 Full stereo-sensitive InChIKey is reported on the validate-clean subset
 (Appendix~\ref{app:extended}).
 External submissions: up to three ranked SMILES per \texttt{qid}, no structure hints
 (\texttt{docs/LEADERBOARD.md}; \texttt{scripts/score\_submission.py}).
-Primary metrics (report all three): \textbf{top-1} (best-ranked candidate matches at
-connectivity); \textbf{generation recall} (reference in the pool \emph{before} re-ranking);
-\textbf{verification precision $|$ recall} (correct top-1 among recall-positive compounds).
+With a ranked pool $\mathcal{C}_i=(c_{i1},\ldots,c_{ik})$, $k\leq 3$,
+\begin{align}
+\label{eq:top1}
+\mathrm{top\text{-}1}
+&\;=\;
+\frac1n\sum_{i=1}^n s(c_{i1}, y_i^\star),\\
+\label{eq:recall}
+\mathrm{recall}@k
+&\;=\;
+\frac1n\sum_{i=1}^n \mathbf{1}\!\big[\exists\,j\leq k:\; s(c_{ij}, y_i^\star)=1\big],\\
+\label{eq:prec}
+\mathrm{prec.}|\mathrm{recall}
+&\;=\;
+\frac{\sum_i s(c_{i1}, y_i^\star)}
+{\sum_i \mathbf{1}[y_i^\star\in\mathcal{C}_i]}.
+\end{align}
+Eq.~\ref{eq:factor} is exactly $\mathrm{top\text{-}1}=(\mathrm{recall}@k)\times(\mathrm{prec.}|\mathrm{recall})$
+when the pool used for recall is the same ranked list.
 Confidence intervals are bootstrap 95\%; paired model differences use McNemar with Holm correction.
 
 \section{Experimental setup}
@@ -305,7 +319,7 @@ Confidence intervals are bootstrap 95\%; paired model differences use McNemar wi
 \paragraph{Blind payload and solver.}
 The solver sees four JSON fields per \texttt{qid}: \texttt{formula} (as from HRMS),
 \texttt{ir\_bands\_cm-1}, \texttt{h\_nmr}, \texttt{c\_nmr} --- peak lists as printed
-(Figure~\ref{lst:payload}).
+(Listing~\ref{lst:payload}).
 No name, SMILES, scaffold, atom-type hint, or retrieved spectrum; ground truth is scored
 offline.
 Frontier LLM agent (Claude Opus via consumer subscription), closed-book, one sub-agent per
@@ -341,7 +355,8 @@ training-free number.
 \end{framed}
 \end{minipage}
 \caption{\textbf{Listing 1.} Solver-facing payload (abridged), IRexp
-JSON$+$molecule layout. Gold constitution (right) is held out.
+JSON$+$molecule layout. Gold constitution (right) is held out and scored
+only by Eq.~\ref{eq:ik14}.
 Only disclosed fragments are shown (v3-R25 / C$_{10}$H$_{14}$N$_{2}$O / IR 1679);
 full lists ship with the bench. Source: IRexp~\citep{yabbarov2026irexp};
 this PDF is not a Data Descriptor.}
@@ -361,13 +376,22 @@ pooled then re-ranked --- not the $n{=}300$ reporting budget.
 
 \paragraph{Forward-verification, expansion, and probes.}
 Generate $\to$ forward-predict $^{13}$C (blind to the observed list) $\to$ re-rank by
-symmetric chamfer on $^{13}$C peak sets (Section~\ref{sec:forward-verify}); instrumented on
-the locked $n{=}194$ only.
+symmetric chamfer on $^{13}$C peak sets $P,Q\subset\mathbb{R}$
+\begin{equation}
+\label{eq:chamfer}
+d(P,Q)
+\;=\;
+\frac1{|P|}\sum_{p\in P}\min_{q\in Q}|p-q|
+\;+\;
+\frac1{|Q|}\sum_{q\in Q}\min_{p\in P}|q-p|
+\end{equation}
+(Section~\ref{sec:forward-verify}); instrumented on the locked $n{=}194$ only.
 Expansion is a pre-registered 106-compound draw from the same \texttt{irexp\_resolved}
 sampler after the $n{=}194$ lock, with the same $^{13}$C-overread audit
 (Section~\ref{sec:expansion}): five flags stay in the $n{=}300$ headline; validate-clean
 $n{=}295$ is appendix; expansion-106 forward-verify was not run.
-A later 230-compound draw toward $n{\approx}500$ is deposited and unscored
+A later 230-compound draw toward $n{\approx}500$ is scored for generation in
+Appendix~\ref{app:extended} / SI; it is \textbf{not} the headline
 (Section~\ref{sec:expansion}).
 Controls: formula-only / recency (Section~\ref{sec:contamination}); four-vendor replication
 on a 60-compound arm (Section~\ref{sec:cross-vendor}); generate-wide sampling; HOSE lookup
@@ -455,7 +479,7 @@ We claim a \textbf{strong bound, not exclusion} of contamination
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.62\linewidth]{fig_robustness.png}
+  \includegraphics[width=0.56\linewidth]{fig_robustness.png}
   \caption{Robustness on instrumented arms (formula-only / cross-vendor $n{=}60$;
   recency $n{=}194$): formula-only collapse, flat recency, four-vendor recall $\ll$ precision.}
   \label{fig:fig-robustness}
@@ -496,7 +520,7 @@ A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.72\linewidth]{fig_mechanism.png}
+  \includegraphics[width=0.64\linewidth]{fig_mechanism.png}
   \caption{Locked v3-R25: self-rank prefers 3-pyridyl; forward $^{13}$C recovers 2-pyridyl
   (chamfer 0.42 vs 1.30~ppm) --- a verify-save, not a recall win (Table~\ref{tab:cases}).}
   \label{fig:fig-mechanism}
@@ -549,7 +573,7 @@ The training-free ceiling remains recall-limited.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.52\linewidth]{fig3_method.png}
+  \includegraphics[width=0.46\linewidth]{fig3_method.png}
   \caption{Inference ladder on the 60-compound arm: 23\% $\to$ 27\% $\to$ 30\% top-1.
   Generate-wide lifts recall (32\% $\to$ 42\%); the wall is proposal, not ranking.}
   \label{fig:fig3-method}
@@ -604,121 +628,91 @@ forward-verify row is the instrumented $n{=}194$ slice (58/65) --- not interchan
 \label{sec:expansion}
 
 The $n{=}300$ headline is the pre-registered pool of the locked 194 and a 106-compound
-expansion draw (Table~\ref{tab:slices}; Appendix Tables~\ref{tab:expansion},~\ref{tab:clean295}).
-Five $^{13}$C-overread flags (R12, R22, R25, R82, R91) stay in the 300; validate-clean is
-116/295 (39.3\%) top-1 / 130/295 (44.1\%) recall.
+expansion draw (Table~\ref{tab:slices}).
+Five $^{13}$C-overread flags stay in the 300; validate-clean $n{=}295$ is appendix.
 The expansion slice is easier (59.4\% vs 28.4\% top-1) --- disclosed, not hidden.
-A Fable arm is incomplete (68/106; not scored; never pooled).
-Figure~\ref{fig:fig-wall} and Table~\ref{tab:fverify} remain the $n{=}194$ instrumented
-forward-verified diagnosis; expansion-106 fverify was \textbf{not} run.
+Figure~\ref{fig:fig-wall} remains the $n{=}194$ instrumented wall; expansion-106
+fverify was \textbf{not} run.
 
 \paragraph{Scale roadmap / larger blind round.}
-A second pre-registered draw toward $n{\approx}500$ (230 compounds; 115/115 simple/complex;
-six $^{13}$C-overread flags known \emph{before} any solve) now has \textbf{230/230} Opus
-deposits and a frozen 690-candidate file.
-Scoring is \textbf{deferred}: the answer key is withheld, no top-1 or recall exists, and
-forward-verify was not run on this round.
-Those deposits used a thinking-tier consumer arm and are not interchangeable with the
-no-thinking $n{=}300$ protocol until scored under a declared contract.
-This round is \textbf{not} pooled into the headline and is not a wall figure.
+A second pre-registered draw toward $n{\approx}500$ (230; 115/115; six flags known
+\emph{before} any solve) is generation-scored on a withheld key
+(Appendix Table~\ref{tab:scale}; SI):
+\textbf{129/230} (56.1\%) top-1 and \textbf{138/230} (60.0\%) recall@3; clean
+\textbf{127/224}.
+No CIs; thinking-tier arm, not the no-thinking $n{=}300$ protocol; fverify incomplete
+(31/41 batches).
+Exploratory $n{=}524$ / $n{=}519$ pools stay appendix-only.
+The headline remains $\mathcal{S}=\{1,\ldots,300\}$ in
+\begin{equation}
+\label{eq:pool}
+\hat p_{\mathcal{S}}
+=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} s(c_{i1}, y_i^\star).
+\end{equation}
 
 \section{Discussion}
 \label{sec:discussion}
 
-Frontier LLMs are \textbf{good verifiers} ($\approx$89\% conditional precision on the
-$n{=}194$ instrumented slice) and \textbf{weak proposers} (44\% generation recall on
-$n{=}300$; 34\% on the instrumented 194) on real literature peak lists --- propose $\gg$
-verify, not the reverse.
-The primary research contribution is the \textbf{benchmark + stage decomposition +
-contamination/cross-vendor diagnosis}, not a solved elucidator and not a Data Descriptor
-for IRexp.
-The expansion slice scored higher than the locked 194 (Section~\ref{sec:expansion}); pooling
-does not erase that gap.
-The $n{\approx}500$ deposits do not yet change any scored number.
+Frontier LLMs are \textbf{good verifiers} ($\approx$89\% on $n{=}194$) and
+\textbf{weak proposers} (44\% recall on $n{=}300$) --- propose $\gg$ verify.
+The contribution is the \textbf{benchmark + stage decomposition}, not a solved
+elucidator and not an IRexp Data Descriptor.
+The expansion slice is easier (Section~\ref{sec:expansion}); 129/230 does not
+replace Eq.~\ref{eq:pool}'s headline $\mathcal{S}$ of 300.
 
 \paragraph{Reporting contract.}
-External work on IRSpectra-Bench should deposit ranked SMILES under the released protocol and
-report, at minimum: (i) top-1 constitution, (ii) generation recall, (iii) verification
-precision $|$ recall, with bootstrap CIs and candidate budget.
-Top-1 alone conflates the two stages.
-Nonsignificant ladder gains (forward-verification vs self-ranking, $p{=}0.55$; generate-wide
-top-1, $p{=}0.34$) should be cited as \textbf{diagnostic}, not as accuracy advances.
-Corpus-reweighted top-1 (\textbf{26.5\%} on the validate-clean subset) is the better estimate
-for an arbitrary literature draw.
-Training is not foreclosed: IRexp fine-tuning lifts recall to 54\%.
-Those gains compound with open experimental data, honest benchmarks, and inference scaffolding that
-transfers to each new model.
+External work should deposit ranked SMILES and report (i)~top-1 constitution
+(Eq.~\ref{eq:top1}), (ii)~generation recall (Eq.~\ref{eq:recall}), (iii)~verification
+precision $|$ recall (Eq.~\ref{eq:prec}), with bootstrap CIs and candidate budget.
+Nonsignificant ladder gains (forward-verification vs self-ranking, $p{=}0.55$;
+generate-wide top-1, $p{=}0.34$) are \textbf{diagnostic}, not accuracy advances.
+Corpus-reweighted top-1 (\textbf{26.5\%} on validate-clean $n{=}295$) is the better
+estimate for an arbitrary literature draw.
+IRexp fine-tuning already lifts locked-slice recall $33.5\%\to54.1\%$.
 
-\subsection{Implications for agentic elucidation}
+\paragraph{Implications for agentic elucidation.}
 \label{sec:agentic}
-
-The diagnosis implies an \textbf{asymmetric pipeline}, not another verifier stacked on a thin
-pool.
-Proposal is the expensive stage: diversity, tool-use into enumeration / database search /
-formula-constrained decode, or generate-wide sampling that actually enlarges the pool.
-Verification is cheap: once the true constitution is proposed, training-free
-forward-verification selects it $\approx$89\% of the time on the instrumented $n{=}194$
-slice (58/65).
-Spending the budget on a second ranker cannot recover the 129/194 compounds that were never
-proposed.
-
-IR-Agent-style table-interpretation and retrieve tools~\citep{noh2025iragent} are complementary
-\emph{feature} agents --- they improve how a spectrum is read and how a given pool is
-re-ranked.
+Proposal is the expensive stage: diversity, enumeration / database search,
+formula-constrained decode, or generate-wide sampling that enlarges the pool.
+Verification is cheap: once proposed, training-free forward-verification selects the
+true constitution $58/65$ times on $n{=}194$.
+A second ranker cannot recover the $129/194$ never proposed.
+IR-Agent-style TI+Ret~\citep{noh2025iragent} are complementary \emph{feature} agents;
 MolQuest- and Espejo-style architecture search~\citep{han2026molquest,espejo2026agentic}
-still needs this stage contract: a better reader that does not change
-$P(\text{true}\in\text{pool})$ cannot move top-1 on a recall-bound bench.
-The next ICLR-relevant agent is a \textbf{proposer}, not a second verifier:
-formula-constrained generators, fragment assembly, and search that change that probability.
-We are \textbf{not} shipping another ChemCrow-for-IR or a SpectraLLM-style fine-tune:
-the bench is a reporting contract so external agents can be compared honestly on the same
-object.
-Multi-modal agents raise recall only if they enlarge the pool.
-Training on open experimental corpora (IRexp as the pointer, not this paper's object) is the
-one intervention we have already seen move recall (33.5\% $\to$ 54.1\% on the locked slice).
-Nonsignificant ladder steps are \textbf{diagnostic}, not accuracy claims
-(forward-verification vs self-ranking McNemar $p{=}0.55$; generate-wide top-1 $p{=}0.34$):
-re-ranking is the wrong primary bet and does not license a solved-elucidator headline.
+still needs this stage contract.
+The next ICLR-relevant agent is a \textbf{proposer}.
+Nonsignificant ladder steps do not license a solved-elucidator headline.
 
 \section{Limitations}
 \label{sec:limitations}
 
 Scoring is mechanical; solver runs were transcript-audited for zero ground-truth access.
-\textbf{(i) Consumer harness.} Claude Opus via consumer subscription; no model snapshot,
-temperature, seed, or thinking tier. Exact inference is not reproducible; scoring is.
-Batch instruction text was not captured --- only per-compound payloads are released.
-We do \textbf{not} recommend thinking-high follow-ups as a path to a method result.
-\textbf{(ii) Pretraining contamination} is bounded by formula-only (23\% $\to$ 5\%) and flat
-recency but \textbf{not excluded}; verbatim spectral strings from PMC in the prompt remain a
-retrieval confound.
-\textbf{(iii) Object type, formula and scoring.} Band/shift lists, not raw traces; formula
-supplied (as from HRMS) --- absolute accuracies are not interchangeable with no-formula
-systems. Headline metrics score constitution; with stereochemistry, top-1 is 93/295 (31.5\%)
-on the validate-clean subset.
-\textbf{(iv) Statistical honesty.} Forward-verification vs self-ranking unresolved ($p{=}0.55$);
-generate-wide top-1 likewise ($p{=}0.34$). Four-model comparison at $n{=}24$ underpowered for
-adjacent ranks with disclosed protocol asymmetry. The inference ladder \textbf{diagnoses a
-bottleneck}; it is not a demonstrated accuracy advance.
-\textbf{(v) No method SOTA chase.} SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR
-transformers and CASE were \textbf{not scored} on IRSpectra-Bench. The contribution is the
-bench and the proposal$\ll$verification split, not a claim that an off-the-shelf LLM beats
-trained elucidators.
-\textbf{(vi) Expansion difficulty gap; fverify not on 106 or 230.} Expansion top-1 is 59\% vs 28\%
-on the locked 194; pooling to $n{=}300$ does \textbf{not} hide that gap
-(Table~\ref{tab:slices}). Figure~\ref{fig:fig-wall} and 58/65 are the locked $n{=}194$
-instrumented slice; forward-verify was not run on the 106 or on the 230-compound
-$n{\approx}500$ deposits. The $n{\approx}500$ round is deposited (230/230) and
-\textbf{unscored} --- no top-1 --- and used a thinking-tier consumer arm, so it is not a
-no-thinking replication. Headline $n{=}300$ is Claude Opus generation (no thinking
-tier); four-vendor replication is on 60 compounds; candidate budgets differ.
-A Fable expansion arm is incomplete (68/106) and is not pooled.
-\textbf{(vii) Deferred arms.} Expert-chemist audit formally deferred (not run).
-Leave-one-modality-out abandoned. Extraction-recall human audit of the mining parser is
-deferred to the \textit{Scientific Data} companion.
-\textbf{(viii) Scope.} Battery subset uses literature electrolyte chemistry, not operando
-spectra; single-sample scoring per compound; organic literature bias of PMC-OA sources.
-Short answers to the same attacks are collected in Appendix~\ref{app:faq}.
+\textbf{(i) Consumer harness.} Claude Opus via consumer subscription; no snapshot,
+temperature, seed, or thinking tier. Inference is not bit-exact; scoring is.
+Batch instruction text was not captured. We do \textbf{not} recommend thinking-high
+follow-ups as a method result.
+\textbf{(ii) Contamination} is bounded by formula-only ($23\%\to5\%$) and flat recency
+but \textbf{not excluded}.
+\textbf{(iii) Object / formula / stereo.} Band lists, not traces; formula supplied
+(as from HRMS). Stereo top-1 is $93/295$ (31.5\%) on validate-clean $n{=}295$.
+\textbf{(iv) Statistics.} Forward-verify vs self-rank unresolved ($p{=}0.55$);
+generate-wide top-1 likewise ($p{=}0.34$). The $n{=}24$ four-model arm is underpowered.
+The ladder \textbf{diagnoses a bottleneck}; it is not an accuracy advance.
+\textbf{(v) No SOTA chase.} SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR
+transformers and CASE are \textbf{not scored} here.
+\textbf{(vi) Expansion gap; fverify coverage.} Expansion top-1 is 59\% vs 28\% on the
+locked 194 (Table~\ref{tab:slices}). Figure~\ref{fig:fig-wall} and $58/65$ are $n{=}194$
+only; fverify was not run on the 106, and expand-500 fverify is incomplete
+(31/41 batches; no precision). The $n{\approx}500$ round is generation-scored
+(129/230; Appendix~\ref{app:extended}) on a thinking-tier arm and is
+\textbf{not} the headline. Fable expansion (68/106) is not pooled.
+\textbf{(vii) Deferred.} Expert-chemist audit not run; leave-one-modality abandoned;
+parser audit deferred to the Sci.\ Data companion.
+\textbf{(viii) Scope.} Battery subset is literature electrolyte chemistry, not operando;
+single-sample scoring; PMC-OA organic bias.
+Appendix~\ref{app:faq} restates these attacks.
 
+\enlargethispage{3\baselineskip}
 \section{Conclusion}
 \label{sec:conclusion}
 
@@ -805,10 +799,9 @@ Not run. Conditional 89\% (58/65) is $n{=}194$ only.
 Do not invent a pooled $n{=}300$ wall.
 
 \textbf{Where is the $n{\approx}500$ top-1?}
-Nowhere. A 230-compound blind round is deposited (230/230; 690 candidates);
-scoring is deferred (key withheld). Deposit counts are not accuracy.
-Headline stays $n{=}300$. Those deposits used a thinking-tier arm and are not
-interchangeable with the no-thinking protocol.
+Appendix Table~\ref{tab:scale} / SI, not the headline: 129/230 (56.1\%) top-1,
+138/230 recall. Thinking-tier arm; no CIs; no fverify precision.
+Headline stays $n{=}300$ (Eq.~\ref{eq:pool}).
 
 \textbf{Consumer harness / no snapshot / no thinking tier?}
 Correct and intentional for the scored headline. Scoring of frozen deposits is
@@ -821,7 +814,7 @@ None is scored on this bench. The paper is a stage diagnosis, not a method race.
 
 \textbf{Is IRexp a second ICLR paper?}
 No. IRexp is a companion resource pointer (Appendix~\ref{app:dataset};
-Figure~\ref{lst:payload}).
+Listing~\ref{lst:payload}).
 Corpus construction belongs in the \textit{Scientific Data} descriptor.
 
 \section{Extended tables and figures}
@@ -919,5 +912,36 @@ Full InChIKey (stereo): 93/295 (31.5\%) top-1 [26--37], recall 108/295 (36.6\%) 
 Corpus-reweighted (17.5\% simple / 82.5\% complex): top-1 \textbf{26.5\%} [21--32], recall
 \textbf{31.3\%} [25--37].
 Self-ranking precision $|$ recall: 116/130 (89.2\%).
+
+\begin{table}[h]
+\caption{Scale / larger blind round (generation only; InChIKey-14).
+Copied from spectro-agent \texttt{NIGHT\_POOL\_2026-09-20.md}.
+\textbf{No CIs. No fverify precision.} Headline remains $n{=}300$
+(Eq.~\ref{eq:pool}). Thinking-tier arm on the 230.
+Standalone SI (\texttt{si/supplement.pdf}): full protocol, prompts, model card,
+extra cases, and reproducibility checklist.}
+\label{tab:scale}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+set & $n$ & top-1 & recall@3 \\
+\midrule
+expand-500 all deposited & 230 & 129/230 (56.1\%) & 138/230 (60.0\%) \\
+expand-500 validate-clean & 224 & 127/224 (56.7\%) & 135/224 (60.3\%) \\
+\textbf{headline} $194+$all 106 & \textbf{300} & \textbf{118/300 (39.3\%)} & \textbf{133/300 (44.3\%)} \\
+exploratory $194+$all 106$+$clean 224 & 524 & 245/524 (46.8\%) & 268/524 (51.1\%) \\
+alt.\ clean-filtered pool & 519 & 243/519 (46.8\%) & 265/519 (51.1\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+expand-500 strata (all 230; 115/115): simple 82/115 (71\%) top-1 / 87/115 (76\%) recall;
+complex 47/115 (41\%) / 51/115 (44\%).
+Flagged expand-500 qids (in the 230, out of the 224): R26, R31, R102, R105, R107, R138.
+fverify-500 coverage: 31/41 $^{13}$C batches (f1--f15, f21--f30, f36--f41);
+missing f16--f20 and f31--f35; 516/681 unique SMILES (75.77\%).
+No $\mathrm{prec.}|\mathrm{recall}$ on this round.
 
 \end{document}
