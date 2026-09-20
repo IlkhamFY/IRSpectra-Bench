@@ -30,6 +30,9 @@ No new experimental scores. Headline stays **n=300** generation / **n=194** fver
 ## What still needs Ilkham / Rodrigo
 
 1. Page-9 / 9-page-main visual check on Overleaf after compile.
+   Tectonic build is 14 pages total; Conclusion currently opens page 10
+   (Limitations fills page 9). Fig 1 is taller than the old wall. No text was
+   cut to fake a 9-page main.
 2. ChemRxiv Cloudflare (human; not this pass).
 3. Whether to restore the expand-500 key and score **after** ICLR PDF freeze —
    not before, unless you explicitly unlock it. Scoring needs

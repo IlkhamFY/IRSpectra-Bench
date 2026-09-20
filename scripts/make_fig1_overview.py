@@ -260,10 +260,10 @@ def panel_c(ax):
 
 def main() -> None:
     fs.apply()
-    fig = plt.figure(figsize=(6.30, 3.72))
-    ax_a = fig.add_axes([0.026, 0.535, 0.960, 0.430])
-    ax_b = fig.add_axes([0.026, 0.045, 0.548, 0.455])
-    ax_c = fig.add_axes([0.600, 0.045, 0.386, 0.455])
+    fig = plt.figure(figsize=(6.30, 3.38))
+    ax_a = fig.add_axes([0.026, 0.530, 0.960, 0.435])
+    ax_b = fig.add_axes([0.026, 0.040, 0.548, 0.455])
+    ax_c = fig.add_axes([0.600, 0.040, 0.386, 0.455])
     panel_a(ax_a)
     panel_b(ax_b)
     panel_c(ax_c)

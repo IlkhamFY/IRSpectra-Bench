@@ -149,31 +149,19 @@ Construction and licensing live in a \textit{Scientific Data} manuscript (in
 preparation)~\citep{yabbarov2026irexp}.
 This ICLR paper \textbf{cites} that resource and does not re-present a Data Descriptor.
 
-Figure~\ref{fig:fig1} states the protocol: printed peak lists, closed-book proposal,
-training-free forward $^{13}$C verification, and the instrumented wall.
-Panel (c) is the locked $n{=}194$ slice, not the pooled $n{=}300$ headline
-(Table~\ref{tab:headline}); the same bar is repeated as a diagnostic in
-Figure~\ref{fig:fig-wall}.
-
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig1_overview.pdf}
-  \caption{\textbf{IRSpectra-Bench protocol and the proposal wall.}
-  (a)~Blind literature peak lists (formula $+$ IR / $^1$H / $^{13}$C as printed)
-  are read by a closed-book LLM that proposes a top-$k$ SMILES pool
-  (RDKit formula check only). Each candidate is forward-predicted for $^{13}$C
-  (blind to the observed list) and re-ranked by symmetric chamfer; the scorer
-  reports InChIKey connectivity.
-  (b)~Local evidence is the printed lists themselves --- functional-group
-  hypotheses from IR bands, proton/carbon environments from NMR lists,
-  composition from the formula. No peak-table assigner, spectral retriever, or
-  scaffold hint. Running example: locked v3-R25 (IR 1679~cm$^{-1}$;
-  chamfer 0.42 vs 1.30~ppm; Figure~\ref{fig:fig-mechanism}).
-  (c)~Instrumented forward-verify wall on the locked $n{=}194$ slice
-  (58 verified / 7 mis-ranked / 129 never proposed).
-  Re-ranking cannot recover a missing candidate.
-  Headline generation is the pooled $n{=}300$ cohort (Table~\ref{tab:headline});
-  panel (c) is \textbf{not} a pooled wall.}
+  \caption{IRSpectra-Bench protocol.
+  (a)~Printed IR/$^1$H/$^{13}$C lists $+$ formula $\rightarrow$ closed-book LLM
+  proposes top-$k$ SMILES (RDKit formula check) $\rightarrow$ forward $^{13}$C
+  (blind) $\rightarrow$ chamfer re-rank $\rightarrow$ InChIKey-14.
+  (b)~Evidence is the lists themselves (no peak-table tool, no retrieval).
+  Running example v3-R25 (IR 1679~cm$^{-1}$; chamfer 0.42 vs 1.30~ppm).
+  (c)~Locked $n{=}194$ instrumented wall: 58 verified / 7 mis-ranked / 129 never
+  proposed. \textbf{Not} a pooled $n{=}300$ wall
+  (headline generation: Table~\ref{tab:headline}; diagnostic repeat:
+  Figure~\ref{fig:fig-wall}).}
   \label{fig:fig1}
 \end{figure}
 
@@ -333,7 +321,7 @@ training-free number.
 \begin{minipage}{0.98\linewidth}
 \begin{framed}
 \noindent
-\begin{minipage}[c]{0.60\linewidth}
+\begin{minipage}[c]{0.56\linewidth}
 \begin{lstlisting}[style=benchjson]
 {
   "qid": "v3-R25",
@@ -344,23 +332,19 @@ training-free number.
 }
 \end{lstlisting}
 \end{minipage}\hfill
-\begin{minipage}[c]{0.36\linewidth}
+\begin{minipage}[c]{0.40\linewidth}
 \centering
-\includegraphics[width=0.92\linewidth]{fig_listing_mol.pdf}\\[0.25em]
-{\scriptsize\itshape gold held out}\\[-0.15em]
+\includegraphics[width=\linewidth]{fig_listing_mol.pdf}\\[0.2em]
+{\scriptsize\itshape gold held out}\\[-0.1em]
 {\scriptsize 2-pyridyl picolinamide}
 \end{minipage}
 \end{framed}
 \end{minipage}
-\caption{\textbf{Listing 1.} Solver-facing peak-list payload (abridged),
-IRexp JSON$+$molecule layout.
-Numeric band/shift lists are author-transcribed experimental reports from the
-\textbf{IRexp} companion resource~\citep{yabbarov2026irexp}; this PDF is not a Data
-Descriptor.
-The solver never sees the gold constitution (right).
-Only already-disclosed fragments are shown (v3-R25 / C$_{10}$H$_{14}$N$_{2}$O /
-IR 1679); full lists ship with the bench release
-(Figure~\ref{fig:fig-mechanism}).}
+\caption{\textbf{Listing 1.} Solver-facing payload (abridged), IRexp
+JSON$+$molecule layout. Gold constitution (right) is held out.
+Only disclosed fragments are shown (v3-R25 / C$_{10}$H$_{14}$N$_{2}$O / IR 1679);
+full lists ship with the bench. Source: IRexp~\citep{yabbarov2026irexp};
+this PDF is not a Data Descriptor.}
 \label{lst:payload}
 \end{figure}
 
@@ -544,20 +528,8 @@ Where a choice existed ($n{=}37$), forward-verification is correct on 30/37 (81\
 The margin over self-ranking is \textbf{small and unresolved} (seven gained, four lost;
 McNemar $p{=}0.55$) --- we do \textbf{not} claim an accuracy advance.
 Precision is high while recall binds: no re-ranking repairs the 129/194 compounds on this
-slice where the true structure was never proposed (Figure~\ref{fig:fig-wall};
-Figure~\ref{fig:fig1}c).
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.92\linewidth]{fig_wall.pdf}
-  \caption{Diagnostic wall on the \textbf{locked $n{=}194$ instrumented slice} only
-  (58 verified / 7 mis-ranked / 129 never proposed).
-  Expansion-106 has no forward-verify; this is \textbf{not} a pooled $n{=}300$ wall.
-  Headline generation recall is 133/300.
-  Never-proposed cases bind top-1 despite 89\% conditional precision (58/65).
-  Panel (c) of Figure~\ref{fig:fig1} restates the same slice.}
-  \label{fig:fig-wall}
-\end{figure}
+slice where the true structure was never proposed (Figure~\ref{fig:fig1}c;
+diagnostic repeat in Figure~\ref{fig:fig-wall}).
 
 \paragraph{Worked cases.}
 Three locked-slice deposits instantiate the wall (Appendix Table~\ref{tab:cases}; expansion
@@ -856,14 +828,27 @@ Corpus construction belongs in the \textit{Scientific Data} descriptor.
 \label{app:extended}
 
 This conference version keeps the protocol plate
-(Figure~\ref{fig:fig1}), the diagnosis wall on the $n{=}194$ instrumented slice
-(Figure~\ref{fig:fig-wall}), chemistry space
+(Figure~\ref{fig:fig1}), chemistry space
 (Figure~\ref{fig:fig-chemspace}), Listing~1 payload (Figure~\ref{lst:payload}),
 robustness (Figure~\ref{fig:fig-robustness}), the
 forward-verification mechanism (Figure~\ref{fig:fig-mechanism}), and the inference
 ladder (Figure~\ref{fig:fig3-method}).
+The diagnosis wall on the $n{=}194$ instrumented slice is repeated below
+(Figure~\ref{fig:fig-wall}) so the lead figure is not the only copy.
 Additional archive plates are omitted here; they do not change the pooled $n{=}300$
 generation headline or the $n{=}194$ instrumented wall.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.92\linewidth]{fig_wall.pdf}
+  \caption{Diagnostic wall: \textbf{locked $n{=}194$ instrumented slice}
+  (58 verified / 7 mis-ranked / 129 never proposed).
+  Expansion-106 has no forward-verify; this is \textbf{not} a pooled $n{=}300$ wall.
+  Headline generation recall is 133/300.
+  Never-proposed cases bind top-1 despite 89\% conditional precision (58/65).
+  Same slice as Figure~\ref{fig:fig1}c.}
+  \label{fig:fig-wall}
+\end{figure}
 
 \begin{table}[h]
 \caption{Locked $n{=}194$ cases from released candidate files.
