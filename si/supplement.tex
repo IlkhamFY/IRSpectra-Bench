@@ -99,6 +99,10 @@ Fig.~\texttt{fig3-method} &
 App.\ Tables 7--10 &
   cases / +106 / $n{=}295$ / scale &
   Same integers as \S\ref{si:n300}--\ref{si:pools}. \\
+SI Figs.~S1--S3 &
+  reprints &
+  Same three files as main Fig.~1 / Listing~1 / appendix wall
+  (\S\ref{si:plates}). Not a second lead figure. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -108,6 +112,52 @@ factorisation, InChIKey-14 indicator, top-1, recall@$k$,
 prec.$|$recall, $^{13}$C chamfer, pooled estimator.
 They are restated in \S\ref{si:eqs} with the same meaning.
 No new metric is defined.
+
+%======================================================================
+\section{Visual plates (reprints; not a second Figure~1)}
+\label{si:plates}
+
+The files below are the same as the main PDF. They are reprinted so this
+SI is readable alone. Main-text Figure~1
+(\texttt{fig1\_lead\_overview}) remains the \textbf{only} lead diagram.
+Panel letters (a)/(b)/(c) from an earlier draft do \textbf{not} apply:
+the Figma Bro plate is one figure (protocol strip, factorisation, wall).
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
+\caption{Reprint of main-text Figure~1.
+Input $\to$ generate $\to$ verify; $30\%\approx 34\%\times 89\%$;
+locked $n{=}194$ wall $58/7/129$.
+\textbf{Not} a pooled $n{=}300$ wall.}
+\label{si:fig:lead}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.92\linewidth]{listing1_irexp_record.pdf}
+\caption{Reprint of main-text Listing~1
+(\texttt{listing1\_irexp\_record}).
+IRexp JSON$+$molecule (C$_{12}$H$_{16}$N$_{2}$O$_{2}$;
+\texttt{NTJIYHYWVZYBEX-UHFFFAOYSA-N}).
+SMILES / InChIKey are resource fields, not solver payload.
+Not a Data Descriptor dump. Locked v3-R25 is the mechanism case
+(Figure~\ref{si:fig:r25}), not this listing.}
+\label{si:fig:listing}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
+\caption{Reprint of the appendix diagnostic wall
+(\texttt{fig\_wall\_diagnostic}):
+$58$ verified / $7$ mis-ranked / $129$ never proposed on the locked
+$n{=}194$ slice. Same integers as Figure~\ref{si:fig:lead}.
+No expansion-106 or expand-500 wall exists.}
+\label{si:fig:wall}
+\end{figure}
 
 %======================================================================
 \section{Blind protocol and pre-registration}
@@ -489,7 +539,8 @@ McNemar vs self-rank & --- & $p{=}0.55$ (7 gained, 4 lost) \\
 \end{tabular}
 \end{table}
 
-Main-text Figure~1(b) is this wall. It is \textbf{not} a pooled $n{=}300$ wall.
+Main-text Figure~1 includes this wall (reprinted as Figure~\ref{si:fig:wall}).
+It is \textbf{not} a pooled $n{=}300$ wall.
 
 \subsection{Expansion-106 --- not run}
 
@@ -546,6 +597,37 @@ Deranging observed $^{13}$C pairings collapses precision ($p{=}0.001$).
 The three locked-slice modes in the main appendix, plus extra panels that
 use only already-reported numbers. IDs below are locked-round labels
 (expansion qids reuse R22/R25).
+No SMILES are invented for R06/R26; only v3-R25 molecules are drawn
+(Figure~\ref{si:fig:r25}).
+
+\begin{table}[h]
+\caption{Three-mode case grid (disclosed facts only). Same integers as
+main-text Table~\texttt{tab:cases}.}
+\centering
+\small
+\begin{tabular}{@{}llp{7.4cm}@{}}
+\toprule
+mode & id / formula & disclosed facts \\
+\midrule
+Proposal miss &
+main-R06 / C$_{29}$H$_{30}$FNO$_{2}$ &
+True acridinedione never in the 3-candidate pool
+(Tanimoto-0.90 regioisomer: 4-fluorophenyl / phenyl swapped).
+IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused.
+This is the 129/194 wall. \\
+Verify-save &
+v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
+True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
+Forward-verify recovers (chamfer 0.42 vs 1.30~ppm). IR 1679~cm$^{-1}$.
+Figure~\ref{si:fig:r25}. Not Listing~1. \\
+Verify-fail &
+v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$ &
+True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2);
+2-nitro ranked first. Chamfer 1.35 vs 1.36~ppm.
+IR 1652, 1530, 1352~cm$^{-1}$. \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Proposal miss --- main-R06 / C$_{29}$H$_{30}$FNO$_{2}$}
 
@@ -559,13 +641,17 @@ re-ranking cannot recover a structure that was never proposed
 
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm, Eq.~\ref{si:eq:chamfer}).
-IR 1679~cm$^{-1}$. Main-text Figure~5.
+IR 1679~cm$^{-1}$. Main-text Figure~5; SI Figure~\ref{si:fig:r25}.
 
-\begin{center}
-\includegraphics[width=0.72\linewidth]{fig_mechanism.png}\\
-{\scriptsize Locked v3-R25: self-rank prefers 3-pyridyl; forward $^{13}$C
-recovers 2-pyridyl. A verify-save, not a recall win.}
-\end{center}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.72\linewidth]{fig_mechanism.png}
+\caption{Locked v3-R25 verify-save (main-text Figure~5).
+Self-rank prefers 3-pyridyl; forward $^{13}$C recovers 2-pyridyl
+(chamfer 0.42 vs 1.30~ppm). A verify-save, not a recall win.
+Not Listing~1.}
+\label{si:fig:r25}
+\end{figure}
 
 \subsection{Verify-fail --- v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$}
 
@@ -586,10 +672,7 @@ Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
 Locked v3-R25 remains the mechanism worked case (main-text Figure~5),
 not Listing~1.
 
-\begin{center}
-\includegraphics[width=0.72\linewidth]{listing1_irexp_record.pdf}\\
-{\scriptsize Listing~1 plate (Figma Bro). Not a Data Descriptor dump.}
-\end{center}
+The plate is reprinted as Figure~\ref{si:fig:listing}.
 
 \subsection{Extra panels (already-reported numbers)}
 
@@ -856,7 +939,7 @@ item does not apply; gaps are named.
         SpectraLLM / IR-Agent / Spectro / NMIRacle / Alberts / CASE
         not scored on this bench.
   \item \textbf{Figure rebuild limits.}
-        \texttt{fig\_wall} / Fig.~1(b) reads $n{=}194$
+        \texttt{fig\_wall\_diagnostic} / Fig.~1 wall reads $n{=}194$
         \texttt{diagnosis.json}. No expansion fverify bundle exists, so a
         pooled wall cannot be rebuilt.
         Size / recency / miss-isomer / named-ring analyses were never
@@ -889,7 +972,7 @@ They add no new metrics.
 
 \textbf{Why is top-1 39\% if the wall figure looks worse?}
 Headline generation is $n{=}300$ (118/300 top-1; 133/300 recall).
-Figure~1(b) is the locked $n{=}194$ forward-verified slice (58/7/129).
+Figure~1 includes the locked $n{=}194$ forward-verified wall (58/7/129).
 Do not read the wall as a pooled $n{=}300$ diagnosis.
 
 \textbf{Is the expansion hidden in the pool?}

@@ -16,19 +16,20 @@ No expand-500 fverify precision. No invented CIs.
 ## Sections (growth vs the first night stub)
 
 1. Figure / listing map (Fig 1 = `fig1_lead_overview`; Listing 1 = `listing1_irexp_record`; wall = `fig_wall_diagnostic`)
-2. Full blind protocol + pre-reg pointers + stopping rules
-3. Scoring equations (same 7 identities as the main text; no new metrics)
-4. Locked n=194 / +106 / n=300 / n=295 tables with strata
-5. expand-500 generation (129/230, 138/230; clean 127/224)
-6. Pool options 300 / 524 / 519 / 530 / 295
-7. Honest fverify coverage (194 complete; 106 not run; 500 = 31/41)
-8. Extra failure / success case panels
-9. Prompt skeletons + deposit schema
-10. Hyperparameters / model cards / hardware
-11. Two-paper split + anonymity
-12. Reproducibility checklist + FAQ
+2. Visual plate reprints (SI Figs. S1--S3: same three files; not a second Fig 1)
+3. Full blind protocol + pre-reg pointers + stopping rules
+4. Scoring equations (same 7 identities as the main text; no new metrics)
+5. Locked n=194 / +106 / n=300 / n=295 tables with strata
+6. expand-500 generation (129/230, 138/230; clean 127/224)
+7. Pool options 300 / 524 / 519 / 530 / 295
+8. Honest fverify coverage (194 complete; 106 not run; 500 = 31/41)
+9. Extra failure / success case panels (text grid; R25 mols only)
+10. Prompt skeletons + deposit schema
+11. Hyperparameters / model cards / hardware
+12. Two-paper split + anonymity
+13. Reproducibility checklist + FAQ
 
 ## Figure numbering
 
-Does **not** re-number main-text Fig 1 (framework + wall) or Listing 1.
-SI reuses those files as extra panels only.
+Does **not** re-number main-text Fig 1 or Listing 1.
+SI reprints those files as Figs. S1--S3 so the SI is readable alone.

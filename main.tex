@@ -155,19 +155,6 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 
 \begin{figure}[t]
   \centering
-<<<<<<< HEAD
-  \includegraphics[width=\linewidth]{fig1_overview.pdf}
-  \caption{IRSpectra-Bench overview.
-  (a)~Overall framework: printed peak lists $\rightarrow$ closed-book LLM
-  propose (top-$k$ SMILES, RDKit formula check). The pool either enters
-  forward $^{13}$C verification (chamfer re-rank, Eq.~\ref{eq:chamfer}
-  $\rightarrow$ InChIKey-14, Eq.~\ref{eq:ik14}) or is never proposed.
-  (b)~Peak-list reasoning on disclosed v3-R25 (IR 1679~cm$^{-1}$;
-  chamfer 0.42 vs 1.30~ppm). No peak-table tool, no retrieval.
-  (c)~Locked $n{=}194$ instrumented wall: 58 / 7 / 129.
-  \textbf{Not} a pooled $n{=}300$ wall
-  (Table~\ref{tab:headline}; Figure~\ref{fig:fig-wall}).}
-=======
   \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
   \caption{IRSpectra-Bench protocol and the $n{=}194$ wall.
   Blind peak lists $+$ formula $\rightarrow$ closed-book LLM proposes a ranked
@@ -177,8 +164,8 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
   forward-verification selects the true structure $58/65$ (89\%)
   ($30\%\approx 34\%\times 89\%$; wall $58/7/129$).
   \textbf{Not} a pooled $n{=}300$ wall (headline: Table~\ref{tab:headline};
-  diagnostic repeat: Figure~\ref{fig:fig-wall}).}
->>>>>>> a665140 (Wire Figma Bro Fig 1, Listing 1, and wall diagnostic)
+  diagnostic repeat: Figure~\ref{fig:fig-wall}).
+  SI reprints this plate, Listing~1, and the wall (SI Figs.~S1--S3).}
   \label{fig:fig1}
 \end{figure}
 
@@ -556,6 +543,7 @@ pool (Tanimoto-0.90 regioisomer); verifier unused.
 forward $^{13}$C recovers 2-pyridyl (chamfer 0.42 vs 1.30~ppm; Figure~\ref{fig:fig-mechanism}).
 \textbf{v3-R26} (C$_{14}$H$_{11}$N$_{3}$O$_{3}$): verify-fail --- true 3-nitrophenyl isomer in
 the pool but 2-nitro ranked first (chamfer 1.35 vs 1.36~ppm).
+Same three modes, disclosed facts only, in the SI case grid.
 
 \paragraph{Generate-wide.}
 Ten solver agents, up to six candidates each, pooled and re-ranked on the 60-compound arm:
@@ -909,8 +897,8 @@ Self-ranking precision $|$ recall: 116/130 (89.2\%).
 Copied from spectro-agent \texttt{NIGHT\_POOL\_2026-09-20.md}.
 \textbf{No CIs. No fverify precision.} Headline remains $n{=}300$
 (Eq.~\ref{eq:pool}). Thinking-tier arm on the 230.
-Standalone SI (\texttt{si/supplement.pdf}): full protocol, prompts, model card,
-extra cases, and reproducibility checklist.}
+Standalone SI (\texttt{si/supplement.pdf}): plate reprints (Figs.~S1--S3),
+full protocol, prompts, model card, extra cases, and reproducibility checklist.}
 \label{tab:scale}
 \centering
 \scriptsize
