@@ -6,7 +6,7 @@ Companion sources (spectro-agent `cursor/expand-bench-500-b78b`):
 - `data/fverify_expand_500/INVENTORY_2026-09-20.md` (copied here)
 - `data/benchmark_expand_500/STATUS.md`
 
-**Paper headline stays n=300.** No CIs. No fverify precision.
+**Paper headline stays n=300.** No CIs. Official fverify is SI-only.
 
 | item | value |
 |---|---|
@@ -17,6 +17,6 @@ Companion sources (spectro-agent `cursor/expand-bench-500-b78b`):
 | exploratory n=524 | 194+all106+clean224 → 245/524 (46.8%) / 268/524 (51.1%) |
 | alt n=519 | 194+clean101+clean224 → 243/519 / 265/519 |
 | n=530 | 194+all106+all230 → 247/530 / 271/530 |
-| fverify-500 | 31/41 batches; missing f16–f20 & f31–f35; 516/681 SMILES; **no precision** |
+| fverify-500 | **41/41**, 681/681. Official score: verify **103/230 (44.8%)** vs self **129/230**; verify\|recall **103/138 (74.6%)**. Clean: 103/224 / 103/135. **No CIs. Not a wall.** |
 | protocol | thinking-tier arm — not interchangeable with no-thinking headline |
 | key | withheld after the score pass |

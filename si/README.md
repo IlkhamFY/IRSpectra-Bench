@@ -11,7 +11,7 @@ Standalone SI for the ICLR manuscript. **Does not count toward the 9-page main.*
   (copied from spectro-agent `cursor/expand-bench-500-b78b`).
 
 **Headline stays n=300.** Exploratory n=524 / n=519 / n=530 are SI/appendix only.
-No expand-500 fverify precision. No invented CIs.
+Official expand-500 fverify: 103/230 verify vs 129/230 self (no CIs; not a wall).
 
 ## Sections (growth vs the first night stub)
 
@@ -22,7 +22,7 @@ No expand-500 fverify precision. No invented CIs.
 5. Locked n=194 / +106 / n=300 / n=295 tables with strata
 6. expand-500 generation (129/230, 138/230; clean 127/224)
 7. Pool options 300 / 524 / 519 / 530 / 295
-8. Honest fverify coverage (194 complete; 106 not run; 500 = 31/41)
+8. Honest fverify (194 wall; 106 not run; 500 official 103/230 vs 129/230)
 9. Extra failure / success case panels (text grid; R25 mols only)
 10. Prompt skeletons + deposit schema
 11. Hyperparameters / model cards / hardware

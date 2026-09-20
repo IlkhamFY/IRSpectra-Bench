@@ -143,7 +143,7 @@ We will verify scoring with `scripts/score_submission.py` before adding a row.
 | IRSpectra-Bench (194 locked + 101 clean expansion) | 295 | Appendix / sensitivity |
 | IRSpectra-Bench (locked main + v3 + v2_ctrl) | 194 | Instrumented slice; forward-verify / fig_wall |
 | IRSpectra-Bench (pre-reg expansion, all / clean) | 106 / 101 | All 106 in headline; clean 101 in appendix |
-| expand-500 (pre-reg draw toward n≈500) | 230 / 224 clean | **SI only.** 129/230 (56.1%) top-1; 138/230 recall. No CIs. No fverify. Not the n=300 headline. |
+| expand-500 (pre-reg draw toward n≈500) | 230 / 224 clean | **SI only.** 129/230 (56.1%) top-1; 138/230 recall. Official fverify 103/230 vs self 129/230. No CIs. Not a wall. Not the n=300 headline. |
 | IRSpectra-Bench (main clean only) | 134 | Spectrally validated main round |
 | IRSpectra-Bench-Electrolyte | 46 | Battery-electrolyte functional classes |
 | Cross-vendor arm | 60 | Same compounds, multiple vendors (`docs/CROSS_VENDOR.md`) |
@@ -174,4 +174,4 @@ If you use IRSpectra-Bench or report numbers on it, please cite:
 }
 ```
 
-*Last updated: 2026-09-20 (headline n=300 unchanged; expand-500 SI-only 129/230 top-1, 138/230 recall; no CIs; no fverify). External submissions listed after verification.*
+*Last updated: 2026-09-20 (headline n=300 unchanged; expand-500 SI-only 129/230 top-1, 138/230 recall; official fverify 103/230 vs 129/230 self; no CIs). External submissions listed after verification.*

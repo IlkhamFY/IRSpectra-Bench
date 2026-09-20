@@ -16,7 +16,7 @@ From spectro-agent `data/benchmark_expand_500/NIGHT_POOL_2026-09-20.md`
 - Generation: **129/230 (56.1%)** top-1; **138/230 (60.0%)** recall@3.
 - Clean 224: **127/224 (56.7%)** / **135/224 (60.3%)**.
 - Exploratory pools: 524 = 245/524 / 268/524; 519 = 243/519 / 265/519; 530 = 247/530 / 271/530.
-- **No CIs.** expand-500 fverify incomplete (31/41; missing f16–f20 & f31–f35; 516/681 SMILES). **No precision.**
+- **No CIs.** expand-500 fverify official score: 41/41, 681/681; verify **103/230 (44.8%)** vs self **129/230**; verify\|recall **103/138 (74.6%)**. Clean 103/224 / 103/135. **Not a wall.**
 - Deposits used a thinking-tier arm — not interchangeable with the no-thinking headline.
 - Headline stays n=300.
 

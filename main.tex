@@ -8,7 +8,7 @@
 % Headline n=300 generation (194 locked + all 106 expansion).
 % Fig 1 = fig1_lead_overview (Figma Bro); Listing 1 = listing1_irexp_record;
 % wall diagnostic = fig_wall_diagnostic (n=194 only).
-% expand-500: 129/230 top-1 / 138/230 recall in appendix+SI only; no CIs; no fverify precision.
+% expand-500: 129/230 top-1 / 138/230 recall in appendix+SI only; official fverify 103/230 vs self 129/230 (SI); no CIs; headline n=300.
 % Compile with pdfLaTeX or XeLaTeX + BibTeX (references.bib + iclr2027_conference.bst).
 % \iclrfinalcopy is the only official sty flag that prints \author and drops
 % the left-margin submission ruler (see tex/iclr2027_conference.sty).
@@ -618,8 +618,8 @@ A second pre-registered draw toward $n{\approx}500$ (230; 115/115; six flags kno
 (Appendix Table~\ref{tab:scale}; SI):
 \textbf{129/230} (56.1\%) top-1 and \textbf{138/230} (60.0\%) recall@3; clean
 \textbf{127/224}.
-No CIs; thinking-tier arm, not the no-thinking $n{=}300$ protocol; fverify incomplete
-(31/41 batches).
+No CIs; thinking-tier arm, not the no-thinking $n{=}300$ protocol.
+Official fverify is SI-only (103/230 verify vs 129/230 self; not a wall).
 Exploratory $n{=}524$ / $n{=}519$ pools stay appendix-only.
 The headline remains $\mathcal{S}=\{1,\ldots,300\}$ in
 \begin{equation}
@@ -681,9 +681,9 @@ The ladder \textbf{diagnoses a bottleneck}; it is not an accuracy advance.
 transformers and CASE are \textbf{not scored} here.
 \textbf{(vi) Expansion gap; fverify coverage.} Expansion top-1 is 59\% vs 28\%
 (Table~\ref{tab:slices}). Figure~\ref{fig:fig1} / $58/65$ are $n{=}194$ only;
-fverify was not run on the 106, and expand-500 fverify is incomplete (31/41;
-no precision). 129/230 is thinking-tier, appendix-only, \textbf{not} the
-headline. Fable 68/106 is not pooled.
+fverify was not run on the 106. expand-500 official score is SI-only
+(103/230 verify vs 129/230 self; no CIs). 129/230 is thinking-tier,
+appendix-only, \textbf{not} the headline. Fable 68/106 is not pooled.
 \textbf{(vii) Deferred.} Expert-chemist audit not run; leave-one-modality abandoned;
 parser audit deferred to the Sci.\ Data companion.
 \textbf{(viii) Scope.} Battery subset is literature electrolyte chemistry, not operando;
@@ -777,7 +777,8 @@ Do not invent a pooled $n{=}300$ wall.
 
 \textbf{Where is the $n{\approx}500$ top-1?}
 Appendix Table~\ref{tab:scale} / SI, not the headline: 129/230 (56.1\%) top-1,
-138/230 recall. Thinking-tier arm; no CIs; no fverify precision.
+138/230 recall. Thinking-tier arm; no CIs.
+Official fverify (SI): 103/230 verify vs 129/230 self.
 Headline stays $n{=}300$ (Eq.~\ref{eq:pool}).
 
 \textbf{Consumer harness / no snapshot / no thinking tier?}
@@ -893,8 +894,8 @@ Self-ranking precision $|$ recall: 116/130 (89.2\%).
 \begin{table}[h]
 \caption{Scale / larger blind round (generation only; InChIKey-14).
 Copied from spectro-agent \texttt{NIGHT\_POOL\_2026-09-20.md}.
-\textbf{No CIs. No fverify precision.} Headline remains $n{=}300$
-(Eq.~\ref{eq:pool}). Thinking-tier arm on the 230.
+\textbf{No CIs.} Official fverify in the note below; not a wall.
+Headline remains $n{=}300$ (Eq.~\ref{eq:pool}). Thinking-tier arm on the 230.
 Standalone SI (\texttt{si/supplement.pdf}): plate reprints (Figs.~S1--S3),
 full protocol, prompts, model card, extra cases, and reproducibility checklist.}
 \label{tab:scale}
@@ -917,8 +918,31 @@ alt.\ clean-filtered pool & 519 & 243/519 (46.8\%) & 265/519 (51.1\%) \\
 expand-500 strata (all 230; 115/115): simple 82/115 (71\%) top-1 / 87/115 (76\%) recall;
 complex 47/115 (41\%) / 51/115 (44\%).
 Flagged expand-500 qids (in the 230, out of the 224): R26, R31, R102, R105, R107, R138.
-fverify-500 coverage: 31/41 $^{13}$C batches (f1--f15, f21--f30, f36--f41);
-missing f16--f20 and f31--f35; 516/681 unique SMILES (75.77\%).
-No $\mathrm{prec.}|\mathrm{recall}$ on this round.
+
+\paragraph{expand-500 official fverify (NIGHT\_POOL / STATUS; not a wall).}
+\texttt{forward\_verify\_main.py score()} on the deposited 230-qid bundle
+(41/41 batches; 681/681 unique SMILES). \textbf{No CIs.} Verify does not
+beat self-rank. Headline stays $n{=}300$.
+
+\begin{table}[h]
+\caption{expand-500 official chamfer score. Copied from spectro-agent
+\texttt{NIGHT\_POOL\_2026-09-20.md} / fverify \texttt{STATUS.md} /
+\texttt{results.txt}. Not a pooled wall. Not the headline.}
+\label{tab:fverify500}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+set & $n$ & recall & self top-1 & verify top-1 & verify $|$ recall \\
+\midrule
+all deposited & 230 & 138/230 (60.0\%) & 129/230 (56.1\%) & 103/230 (44.8\%) & 103/138 (74.6\%) \\
+validate-clean & 224 & 135/224 (60.3\%) & 127/224 (56.7\%) & 103/224 (46.0\%) & 103/135 (76.3\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Multi-candidate only: all-230 self 128/137, verify 102/137; clean-224 self 126/134,
+verify 102/134. Expansion-106 fverify was still not run.
 
 \end{document}

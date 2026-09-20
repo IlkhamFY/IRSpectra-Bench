@@ -7,7 +7,7 @@ Validate-clean **n=295** is appendix / sensitivity. Figure 1 is the Figma Bro
 lead plate (`fig1_lead_overview`). Listing 1 is `listing1_irexp_record`.
 The diagnostic wall (`fig_wall_diagnostic`) repeats the locked n=194 slice in
 the appendix. A larger expand-500 round is generation-scored in the SI
-(129/230 top-1; 138/230 recall; no CIs; no fverify precision) and is
+(129/230 top-1; 138/230 recall; official fverify 103/230 vs self 129/230; no CIs) and is
 **not** the n=300 headline — see `docs/NIGHT_POOL_2026-09-20.md`.
 
 **Main Overleaf file:** `main.tex`  
@@ -44,8 +44,9 @@ python3 scripts/build_si.py           # standalone SI → si/supplement.pdf
 ```
 
 The SI holds the full blind protocol, expand-500 / pool tables (headline stays n=300),
-prompt skeletons, model card, extra cases, honest fverify coverage, and the
-reproducibility checklist. Main text stays ≤9 ICLR pages through the Conclusion.
+prompt skeletons, model card, extra cases, official expand-500 fverify
+(103/230 vs 129/230; not a wall), and the reproducibility checklist.
+Main text stays ≤9 ICLR pages through the Conclusion.
 
 ## Fence
 

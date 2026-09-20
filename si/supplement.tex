@@ -224,8 +224,9 @@ committed note rather than a reconstructed story.
         The existing 224-qid snapshot is used.
   \item \texttt{collect\_round.py} was \textbf{not} run; 230
         \texttt{raw/single\_R*.json} files were left untouched.
-  \item \texttt{forward\_verify\_main.py score} was \textbf{not} run on
-        expand-500 (\S\ref{si:fverify}).
+  \item \texttt{forward\_verify\_main.py score} \textbf{did} run on
+        expand-500 (\S\ref{si:fverify}): 103/230 verify vs 129/230 self.
+        Official \texttt{prep} was \textbf{not} re-run.
   \item \texttt{--ci} / bootstrap was \textbf{not} run on expand-500.
         Do not invent CIs.
 \end{itemize}
@@ -293,9 +294,9 @@ d(P,Q)
 +\frac1{|Q|}\sum_{q\in Q}\min_{p\in P}|q-p|,
 \end{equation}
 where $\hat P(c)$ is predicted \emph{blind} to the observed list $P_{\mathrm{obs}}$.
-Instrumented only on the locked $n{=}194$ (58/65).
-Expansion-106: not run. expand-500: incomplete coverage, no score
-(\S\ref{si:fverify}).
+Instrumented wall only on the locked $n{=}194$ (58/65).
+Expansion-106: not run. expand-500 official score is in
+\S\ref{si:fverify} (103/230 verify vs 129/230 self; no CIs; not a wall).
 
 A pool estimator on an index set $\mathcal{S}$ is
 \begin{equation}
@@ -521,7 +522,9 @@ leads with $n{=}300$ (flags in on +106).
 Source: \texttt{data/diagnosis.json} / \texttt{scripts/forward\_verify\_all.py}.
 
 \begin{table}[h]
-\caption{Instrumented forward-verify. This is the only complete fverify arm.}
+\caption{Instrumented forward-verify. This is the only $n{=}194$ wall
+(\texttt{diagnosis.json}). expand-500 has an official score in the next subsection,
+not a wall.}
 \centering
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -547,43 +550,41 @@ It is \textbf{not} a pooled $n{=}300$ wall.
 No \texttt{data/fverify\_expand/} bundle. No precision number.
 Self-ranking $118/133$ on $n{=}300$ is not a substitute.
 
-\subsection{expand-500 --- coverage only, no score}
+\subsection{expand-500 --- official score (not a wall)}
 
-Inventory \texttt{docs/FVERIFY\_EXPAND500\_INVENTORY\_2026-09-20.md}.
-Blind $^{13}$C campaign over 681 unique candidate SMILES prepared by
-\texttt{scripts/forward\_verify\_expand500\_keyless.py}.
-\texttt{is\_true} is still absent.
-\texttt{forward\_verify\_main.py score} was not run.
+Source: spectro-agent \texttt{data/fverify\_expand\_500/STATUS.md},
+\texttt{results.txt}, and \texttt{NIGHT\_POOL\_2026-09-20.md}
+(\texttt{cursor/expand-bench-500-b78b}).
+Blind $^{13}$C campaign over 681 unique candidate SMILES
+(\texttt{f1}--\texttt{f41} all present). Official
+\texttt{forward\_verify\_main.py score()} ran 2026-09-20
+(\texttt{is\_true} filled under \texttt{/tmp} only; committed
+\texttt{candidates.jsonl} still omits it; official \texttt{prep} was
+\textbf{not} re-run). \textbf{No CIs.} Verify does not beat self-rank.
+Headline remains $n{=}300$. This is not a pooled wall and does not
+replace the $n{=}194$ \texttt{diagnosis.json} plate.
 
 \begin{table}[h]
-\caption{expand-500 fverify coverage only. Not a score.}
+\caption{expand-500 official chamfer score. Copied from NIGHT\_POOL /
+fverify STATUS. Not a wall. Not the headline.}
 \centering
-\begin{tabular}{@{}lr@{}}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrr@{}}
 \toprule
-item & count \\
+set & $n$ & recall & self top-1 & verify top-1 & verify $|$ recall \\
 \midrule
-prep unique SMILES & 681 \\
-fbatch files & 41/41 \\
-\texttt{raw/f*.json} present & 31/41 \\
-unique SMILES with a numeric $^{13}$C list & 516/681 (75.77\%) \\
-unique SMILES still missing & 165 \\
-present batches (complete vs fbatch) & f1--f15, f21--f30, f36--f41 \\
-missing batches & f16--f20, f31--f35 \\
-present SMILES by block & f1--15: 255; f21--25: 85; f26--30: 80; f36--41: 96 \\
-missing SMILES by block & f16--20: 85; f31--35: 80 \\
-qids with every candidate covered & 129/230 \\
-qids with at least one candidate covered & 230/230 \\
-\texttt{forward\_verify\_main.py score} & \textbf{not run} \\
-verification precision & \textbf{does not exist} \\
+all deposited & 230 & 138/230 (60.0\%) & 129/230 (56.1\%) & 103/230 (44.8\%) & 103/138 (74.6\%) \\
+validate-clean & 224 & 135/224 (60.3\%) & 127/224 (56.7\%) & 103/224 (46.0\%) & 103/135 (76.3\%) \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Sibling packing in the keyless prep put a qid's three candidates in
-different batches, so a hole in f16--f20 / f31--f35 still leaves every
-qid with at least one covered SMILES.
-That is \textbf{not} a reason to quote precision: a complete-qid subset
-of 129 would still be an uncommitted, post-hoc slice.
+Coverage: 41/41 batches; 681/681 unique SMILES; 230/230 qids fully
+covered. Multi-candidate only: all-230 self 128/137, verify 102/137;
+clean-224 self 126/134, verify 102/134.
+\texttt{forward\_verify\_all.py} was not run (no expand-500
+\texttt{diagnosis.json}).
 
 HOSE-style lookup on the locked $n{=}194$ candidate sets ties
 self-ranking; a modest GNN reaches 59/65 (91\%) vs the LLM verifier's
@@ -918,8 +919,9 @@ item does not apply; gaps are named.
   \item \textbf{Do not commit} \texttt{answers2.jsonl} for $+106$ or
         expand-500.
   \item \textbf{Do not invent CIs} for expand-500; \texttt{--ci} was not run.
-  \item \textbf{Do not run or quote} \texttt{forward\_verify\_main.py score}
-        on expand-500 until f16--f20 and f31--f35 exist.
+  \item \textbf{expand-500 fverify score} is already in NIGHT\_POOL /
+        fverify STATUS (103/230 verify vs 129/230 self). Do not invent
+        CIs or a wall. Do not re-run official \texttt{prep}.
   \item \textbf{Double-blind.} Companion bib is Anonymous; dataset URL in
         the PDF is only the anonymous.4open review copy.
   \item \textbf{Fine-tunes} must use \texttt{data/train\_no\_bench.jsonl.gz}.
@@ -940,7 +942,8 @@ item does not apply; gaps are named.
         not scored on this bench.
   \item \textbf{Figure rebuild limits.}
         \texttt{fig\_wall\_diagnostic} / Fig.~1 wall reads $n{=}194$
-        \texttt{diagnosis.json}. No expansion fverify bundle exists, so a
+        \texttt{diagnosis.json}. expand-500 has an official
+        \texttt{score()} but no \texttt{diagnosis.json}, so a
         pooled wall cannot be rebuilt.
         Size / recency / miss-isomer / named-ring analyses were never
         written against the expansion roster.
@@ -959,8 +962,9 @@ item does not apply; gaps are named.
         \texttt{docs/NIGHT\_POOL\_2026-09-20.md}.
   \item Fig.~1 caption, Table~2, Limitations~(vi), and Appendix FAQ agree:
         wall $=$ $n{=}194$; headline $=$ $n{=}300$ generation.
-  \item expand-500 rows always carry ``no CIs / no fverify precision /
-        thinking-tier / not the headline''.
+  \item expand-500 rows always carry ``no CIs / thinking-tier /
+        not the headline''. Official fverify is 103/230 verify vs
+        129/230 self (SI only; not a wall).
 \end{itemize}
 
 %======================================================================
@@ -984,7 +988,8 @@ Not run. Conditional 89\% (58/65) is $n{=}194$ only.
 
 \textbf{Where is the $n{\approx}500$ top-1?}
 This SI / main appendix, not the headline: 129/230 (56.1\%) top-1,
-138/230 recall. Thinking-tier arm; no CIs; no fverify precision.
+138/230 recall. Thinking-tier arm; no CIs.
+Official fverify: 103/230 verify vs 129/230 self (\S\ref{si:fverify}).
 Headline stays $n{=}300$ (Eq.~\ref{si:eq:pool}).
 
 \textbf{Consumer harness / no snapshot / no thinking tier?}
@@ -1004,7 +1009,7 @@ No. Eq.~\ref{si:eq:pool} uses $\mathcal{S}$ of 300.
 no-thinking headline protocol.
 
 \section*{What this SI is not}
-A Data Descriptor. A pooled wall. An expand-500 fverify result.
+A Data Descriptor. A pooled wall. An expand-500 wall or a new headline.
 A recommendation to switch the ICLR headline to $n{=}524$.
 A source of invented CIs or new metrics.
 
