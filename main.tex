@@ -36,17 +36,21 @@
   frame=none,
   literate={-}{-}1
 }
-% Image plate numbered as Listing, not Figure (reuses listings' lstlisting counter).
+% Image plate numbered as Listing N, not Figure N (own counter; do not reuse
+% listings' \fnum@lstlisting, which is name-only and prints ``Listing:'').
 \makeatletter
-\@ifundefined{fps@lstlisting}{\def\fps@lstlisting{htbp}}{}
-\@ifundefined{ftype@lstlisting}{\def\ftype@lstlisting{4}}{}
-\@ifundefined{ext@lstlisting}{\def\ext@lstlisting{lol}}{}
-\@ifundefined{fnum@lstlisting}{\def\fnum@lstlisting{\lstlistingname~\thelstlisting}}{}
+\newcounter{listing}
+\renewcommand{\thelisting}{\arabic{listing}}
+\newcommand{\listingname}{Listing}
+\def\fps@listing{htbp}
+\def\ftype@listing{4}
+\def\ext@listing{lol}
+\def\fnum@listing{\listingname~\thelisting}
+\@ifundefined{theHlisting}{\def\theHlisting{listing.\thelisting}}{}
 \newenvironment{listing}
-  {\@float{lstlisting}}
+  {\@float{listing}}
   {\end@float}
 \makeatother
-\urldef\irexpinchikey\path{NTJIYHYWVZYBEX-UHFFFAOYSA-N}
 \setlist{nosep,leftmargin=1.35em}
 \setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
 \setlength{\floatsep}{8pt plus 2pt minus 2pt}
@@ -344,7 +348,7 @@ training-free number.
   \centering
   \includegraphics[width=0.92\linewidth]{listing1_irexp_record.pdf}
   \caption{IRexp JSON record (commercial DoR;
-  \irexpinchikey)~\citep{yabbarov2026irexp}.
+  \texttt{NTJIYHYWVZYBEX})~\citep{yabbarov2026irexp}.
   Solvers see only formula and printed peak lists; SMILES / InChIKey are
   resource fields. Gold scored by Eq.~\ref{eq:ik14}.
   v3-R25 remains the mechanism case (Figure~\ref{fig:fig-mechanism}).}
