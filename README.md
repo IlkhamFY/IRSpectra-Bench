@@ -2,18 +2,13 @@
 
 Clean manuscript repository for the **IRSpectra-Bench** ICLR-track paper
 (recall/verification diagnosis of LLM structure elucidation).
-**Headline:** pooled generation cohort **n=500** (194 locked + all 106
-expansion + 200 validate-clean expand-500; clean-first, string-sorted
-qid, R01–R75 cut): **227/500 (45.4%)** top-1; **249/500 (49.8%)** recall.
-List: `docs/headline500_expand200_qids.json`. No CIs. Do not quote 243/519.
-Former **n=300** and n=524 / n=530 are appendix / sensitivity. Figure 1 is
-the Figma Bro lead plate (`fig1_lead_overview`). Listing 1 is
-`listing1_irexp_record`. The diagnostic wall (`fig_wall_diagnostic`)
-is the **n=500 generation decomposition** (227 exact top-1 / 22 in pool,
-not top-1 / 251 never proposed; 249 recalled, 49.8%). Old fverify
-58/7/129 is SI protocol-slice only. expand-500 official fverify
-(103/230 vs self 129/230) is SI only — see
-`docs/HEADLINE_N500_2026-09-20.md`.
+**Headline:** generation cohort **n=500** only: **227/500 (45.4%)** top-1;
+**249/500 (49.8%)** recall. Wall: **227 / 22 / 251** (propose is the wall,
+not verify). Roster: frozen qid lists in the code release. No CIs.
+Do not quote 243/519. Figure 1 is `fig1_lead_overview`. Listing 1 is
+`listing1_irexp_record`. `fig_wall_diagnostic` is the n=500 generation
+wall. Instrumented fverify (58/7/129) and expand-500 official fverify
+(103/230 vs self 129/230) are SI only.
 
 **Main Overleaf file:** `main.tex`  
 **Compiler:** pdfLaTeX or XeLaTeX (+ BibTeX)  

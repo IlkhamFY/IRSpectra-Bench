@@ -2,21 +2,16 @@
 
 ## Locked paper numbers (Ilkham decision)
 
-- Headline generation **n=500** = 194 locked + all 106 Opus + 200 of
-  expand-500 (clean-first, Python `sorted(qid)`, R01–R75 cut):
+- Headline generation **n=500 only**:
   **227/500 (45.4%)** top-1; **249/500 (49.8%)** recall.
-  List: `docs/headline500_expand200_qids.json`.
+  Wall: **227 / 22 / 251**. Roster: frozen qid lists.
   Source: spectro-agent PR #41 commit `48fcd30`
   (`HEADLINE_n500_2026-09-20.md`). **No CIs.**
-- 200-alone: 109/200 (54.5%) / 116/200 (58.0%).
 - Strata n=500: simple 161/248 & 172/248; complex 66/252 & 77/252.
-- **Do not quote 243/519** (drops flagged +106).
-- Sensitivity appendix only: n=524 245/524 / 268/524; n=530 247/530 /
-  271/530; former n=300 118/300 / 133/300.
-- Fig 1 / wall is the **n=500 generation decomposition** (227/22/251;
-  249 recalled, 49.8%). Instrumented fverify 58/65 stays n=194;
-  58/7/129 is SI protocol-slice only.
-- Expansion-106 fverify was **not run**. Do not invent a pooled fverify wall.
+- **Do not quote 243/519**.
+- Fig 1 / `fig_wall_diagnostic` = n=500 generation wall.
+- Instrumented fverify 58/7/129 is SI-only (protocol slice). Do not
+  invent a pooled wall.
 
 ## expand-500 (NIGHT_POOL; 200 in headline, all-230 in SI)
 
@@ -30,8 +25,9 @@
 
 ## Paper
 
-- Fig 1 = Figma Bro `fig1_lead_overview` (protocol + n=500 generation wall).
+- Fig 1 = `fig1_lead_overview` (protocol + n=500 generation wall 227/22/251).
 - Listing 1 = `listing1_irexp_record`.
-- Wall diagnostic = `fig_wall_diagnostic` (appendix; n=500, 227/22/251).
+- Wall diagnostic = `fig_wall_diagnostic` (same 227/22/251).
+- Instrumented fverify 58/7/129 is SI-only (`fig_wall_fverify_slice`).
 - Main compressed so body through Conclusion targets ≤9 ICLR pages.
 - Do **not** merge. Do **not** touch ChemRxiv.

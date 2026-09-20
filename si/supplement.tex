@@ -1,8 +1,6 @@
 % IRSpectra-Bench --- supplementary information (does not count toward ICLR 9 pp)
-% Numbers: headline n=500 from docs/HEADLINE_N500_2026-09-20.md (spectro-agent 48fcd30)
-% plus n=500 generation wall (227/22/251) + docs/NIGHT_POOL_2026-09-20.md.
-% Old fverify 58/7/129 is protocol-slice diagnostic only.
-% No invented CIs. Do not quote 243/519 as the headline.
+% Headline n=500 only: 227/500 (45.4%) top-1; 249/500 (49.8%) recall.
+% Main wall = generation 227/22/251. No invented CIs. Do not quote 243/519.
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{times}
@@ -48,12 +46,12 @@ from Literature Spectra}
 This SI holds volume that does not belong on the 9-page ICLR main text.
 Every accuracy number is copied from a committed lock
 (\texttt{docs/HEADLINE\_N500\_2026-09-20.md}, spectro-agent PR~\#41
-\texttt{48fcd30}; \texttt{docs/POOLED\_HEADLINE\_2026-09-16.md};
-\texttt{docs/NIGHT\_POOL\_2026-09-20.md}).
-\textbf{No CIs are invented} for $n{=}500$ / expand-500.
-\textbf{No forward-verify precision} is claimed on the 106 or the 230.
+\texttt{48fcd30}; \texttt{docs/NIGHT\_POOL\_2026-09-20.md}).
+\textbf{No CIs are invented} for $n{=}500$.
 The paper headline is $n{=}500$ (227/500 top-1; 249/500 recall).
+The main wall is the generation decomposition $227/22/251$.
 Do \textbf{not} quote 243/519.
+Roster: frozen \texttt{qid} lists in the code release.
 Figure and listing numbers below refer to the main PDF
 (Fig.~1 = protocol + $n{=}500$ generation wall; Listing~1 = IRexp payload).
 They are not re-numbered here.
@@ -78,18 +76,18 @@ main label & object & SI role \\
 \midrule
 Fig.~\texttt{fig1} &
   Fig.~1 (\texttt{fig1\_lead\_overview}) &
-  Figma Bro lead: input $\to$ generate $\to$ verify, factorisation, and
+  Lead: input $\to$ generate $\to$ verify, factorisation, and
   $n{=}500$ generation wall $227/22/251$. \\
 Fig.~\texttt{fig-chemspace} &
   Fig.~2 &
-  $n{=}300$ chemistry; panels on validate-clean $n{=}295$. \\
+  Literature-cohort chemistry. \\
 Listing~\texttt{lst:payload} &
   Listing 1 (\texttt{listing1\_irexp\_record}) &
   IRexp JSON$+$molecule (NTJIYHYWVZYBEX; C$_{12}$H$_{16}$N$_{2}$O$_{2}$).
   SMILES/InChIKey are resource fields, not solver payload. \\
 Fig.~\texttt{fig-wall} &
   appendix (\texttt{fig\_wall\_diagnostic}) &
-  Repeat of the Fig.~1 $n{=}500$ generation wall ($227/22/251$). \\
+  Repeat of the Fig.~1 $n{=}500$ generation wall. \\
 Fig.~\texttt{fig-robustness} &
   Fig.~4 &
   Formula-only / recency / four-vendor. \\
@@ -99,13 +97,17 @@ Fig.~\texttt{fig-mechanism} &
 Fig.~\texttt{fig3-method} &
   Fig.~6 &
   Inference ladder on the 60-compound arm. \\
-App.\ Tables 7--10 &
-  cases / +106 / $n{=}295$ / scale &
-  Same integers as \S\ref{si:n300}--\ref{si:pools}. \\
+  App.\ cases &
+  worked modes &
+  Same integers as \S\ref{si:cases}. \\
 SI Figs.~S1--S3 &
   reprints &
-  Same three files as main Fig.~1 / Listing~1 / appendix wall
+  Same three files as main Fig.~1 / Listing~1 / $n{=}500$ wall
   (\S\ref{si:plates}). Not a second lead figure. \\
+SI Fig.~S4 &
+  \texttt{fig\_wall\_fverify\_slice} &
+  Instrumented forward-verify diagnostic on a protocol slice
+  (58/7/129). \textbf{Not} the $n{=}500$ wall. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -131,11 +133,10 @@ the Figma Bro plate is one figure (protocol strip, factorisation, wall).
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-\caption{Reprint of main-text Figure~1
-(\texttt{fig1\_lead\_overview}).
-Input $\to$ generate $\to$ verify; $45.4\%=49.8\%\times 91.2\%$;
-$n{=}500$ generation wall $227/22/251$
-(249 recalled, 49.8\%).}
+\caption{Reprint of main-text Figure~1.
+Input $\to$ generate $\to$ verify; $45.4\%\approx 49.8\%\times 91.2\%$;
+$n{=}500$ generation wall $227/22/251$.
+Propose is the wall, not verify.}
 \label{si:fig:lead}
 \end{figure}
 
@@ -155,12 +156,22 @@ Not a Data Descriptor dump. Locked v3-R25 is the mechanism case
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
-\caption{Reprint of the appendix diagnostic wall
+\caption{Reprint of the $n{=}500$ generation wall
 (\texttt{fig\_wall\_diagnostic}):
-$227$ exact top-1 / $22$ in pool, not top-1 / $251$ never proposed
-on $n{=}500$. Bracket: 249 recalled (49.8\%).
-Same integers as Figure~\ref{si:fig:lead}.}
+$227$ top-1 exact / $22$ in set but not top-1 / $251$ never proposed.
+Same integers as Figure~\ref{si:fig:lead}.
+Propose is the wall, not verify.}
 \label{si:fig:wall}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\linewidth]{fig_wall_fverify_slice.pdf}
+\caption{Instrumented forward-verify diagnostic on a protocol slice
+(58 verified / 7 mis-ranked / 129 never proposed).
+This is \textbf{not} the $n{=}500$ generation wall and is not a
+pooled forward-verify figure.}
+\label{si:fig:fverify-slice}
 \end{figure}
 
 %======================================================================
@@ -184,9 +195,8 @@ Difficulty is declared \emph{a priori} by RDKit ring analysis:
 \emph{simple} iff $\leq$2 rings, no fused/spiro/bridgehead system,
 $\leq$22 heavy atoms; else \emph{complex}.
 The $n{=}500$ headline is near-50/50 (248/252);
-former $n{=}300$ was 151/149.
 the eligible IRexp corpus is 17.5\% simple / 82.5\% complex.
-Reweighting lives on validate-clean $n{=}295$
+Reweighting lives on a validate-clean subset
 (\S\ref{si:n300}) and is not an $n{=}500$ figure.
 
 \subsection{Pre-registration pointers}
@@ -196,19 +206,13 @@ manuscript repo. Pointers are recorded so a reviewer can ask for the
 committed note rather than a reconstructed story.
 
 \begin{itemize}
-  \item Locked $n{=}194$: main clean 134 $+$ v3 40 $+$ v2\_ctrl 20.
-        Spectrally validated main round plus two control arms.
-        Sampler seeds for the original 140 / 40 draws were not captured
+  \item $n{=}500$ roster: frozen \texttt{qid} lists in the code release
+        (do not reconstruct a composition story in prose).
+        Sampler seeds for early draws were not captured
         (gap \#4 in \texttt{docs/SUBMISSION.md}); the released roster is
         fixed and reusable but not exactly re-drawable.
-  \item Expansion-106: pre-registered draw after the 194 lock, same
-        \texttt{irexp\_resolved} sampler.
-        Five $^{13}$C-overread flags R12, R22, R25, R82, R91 stay in the
-        $n{=}500$ headline (and in former $n{=}300$).
-        Validate-clean $n{=}295$ is appendix / SI sensitivity.
-  \item expand-500: \texttt{docs/EXPANSION\_PREREGISTRATION\_500.md}
-        (seed 2026500; $n{=}230$; 115/115 simple/complex; exclusion of 375
-        prior InChIKey-14s including a local restore of the withheld +106 key).
+  \item expand-500 campaign: \texttt{docs/EXPANSION\_PREREGISTRATION\_500.md}
+        (seed 2026500; 115/115 simple/complex).
         0 collisions with any prior round.
         Six $^{13}$C-overread flags known \emph{before} any solve:
         R26, R31, R102, R105, R107, R138.
@@ -217,14 +221,13 @@ committed note rather than a reconstructed story.
 \subsection{Stopping / pooling rules}
 
 \begin{itemize}
-  \item The $n{=}500$ 200-cut is the pre-specified clean-first
-        string-sorted prefix (R01--R75;
-        \texttt{docs/headline500\_expand200\_qids.json}), not an
-        outcome-selected subset and not all 230.
+  \item The $n{=}500$ roster is the pre-specified frozen list
+        (\texttt{docs/headline500\_expand200\_qids.json} plus the
+        committed deposits), not an outcome-selected subset.
   \item \texttt{score\_pooled.py --expand-500} refuses a missing
         \texttt{predictions2.jsonl} or a withheld key.
   \item \texttt{answers2.jsonl} is not in either working tree
-        (\texttt{git ls-files} empty for +106 and expand-500).
+        (\texttt{git ls-files} empty for the withheld expansion keys).
   \item Keys were restored only under \texttt{/tmp/blind/\_key/} for the
         2026-09-20 score pass, then deleted.
   \item \texttt{validate\_benchmark.py} was \textbf{not} re-run on the
@@ -242,10 +245,9 @@ committed note rather than a reconstructed story.
 \subsection{What the solver may do}
 
 RDKit formula / parse check only. No web search. No retrieved spectrum.
-No thinking tier on the locked 194 and $+106$ arms.
-The expand-500 200-cut used a thinking-tier consumer arm and is labelled
-as such --- it is in the $n{=}500$ mix and is not interchangeable with the
-no-thinking 194$+$106 protocol.
+No thinking tier on the core protocol.
+A thinking-tier consumer arm is labelled as such in the score notes and
+is not interchangeable with the no-thinking protocol.
 
 A deposit is JSONL of \texttt{\{qid, candidates: [SMILES,\ldots]\}} under a
 stated budget. Headline budget: $\leq 3$ ranked SMILES per \texttt{qid}.
@@ -302,8 +304,9 @@ d(P,Q)
 +\frac1{|Q|}\sum_{q\in Q}\min_{p\in P}|q-p|,
 \end{equation}
 where $\hat P(c)$ is predicted \emph{blind} to the observed list $P_{\mathrm{obs}}$.
-Instrumented fverify only on the locked $n{=}194$ (58/65).
-Expansion-106: not run. expand-500 official score is in
+Instrumented forward-verify diagnostic on a protocol slice (58/65; SI
+Figure~\ref{si:fig:fverify-slice}).
+expand-500 official score is in
 \S\ref{si:fverify} (103/230 verify vs 129/230 self; no CIs; not a wall).
 
 A pool estimator on an index set $\mathcal{S}$ is
@@ -312,85 +315,30 @@ A pool estimator on an index set $\mathcal{S}$ is
 \hat p_{\mathcal{S}}
 =\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} s(c_{i1}, y_i^\star).
 \end{equation}
-The ICLR headline uses $\mathcal{S}$ of size 500
-(194 locked $+$ all 106 Opus $+$ 200 expand-500; R01--R75 cut).
-Sensitivity $\mathcal{S}$ of size 300 / 524 / 530
-(\S\ref{si:pools}) do \textbf{not} replace that headline.
+The ICLR headline uses $\mathcal{S}$ of size 500 (frozen \texttt{qid} list).
 Do \textbf{not} quote the $n{=}519$ \texttt{score\_pooled.py} print
-(243/519) as the headline --- that pool drops five $+106$ flags.
+(243/519) as the headline.
 
-Confidence intervals on former $n{=}300$ / $n{=}295$ / $n{=}194$ are bootstrap
+Confidence intervals on earlier validate-clean subsets are bootstrap
 95\% (\texttt{score\_main.boot}, seed 0, 2000 resamples).
 Paired model differences use McNemar with Holm correction.
-\textbf{No CIs} are reported for $n{=}500$, expand-500, or the sensitivity pools.
+\textbf{No CIs} are reported for $n{=}500$ or expand-500.
 
 %======================================================================
-\section{Former $n{=}300$ lock and expansion-106}
+\section{Validate-clean extras (not the headline)}
 \label{si:n300}
 
-Source: \texttt{docs/POOLED\_HEADLINE\_2026-09-16.md}
-(\texttt{python scripts/score\_pooled.py} on spectro-agent).
-These rows are the former ICLR lock; the paper headline is now $n{=}500$
-(\S\ref{si:pools}).
+Source: \texttt{docs/POOLED\_HEADLINE\_2026-09-16.md}.
+These rows are \textbf{not} the $n{=}500$ headline.
+Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%) ---
+\emph{not} forward-verify precision.
+
+$^{13}$C-overread flags (R12, R22, R25, R82, R91) were marked before subset
+totals (\texttt{scripts/validate\_benchmark.py};
+\texttt{data/benchmark\_expand/clean\_qids.json}).
 
 \begin{table}[h]
-\caption{Former $n{=}300$ generation slices (now appendix).}
-\centering
-\small
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
-set & $n$ & top-1 & recall@3 & notes \\
-\midrule
-locked 194 & 194 & 55/194 (28.4\%) [22--35] & 65/194 (33.5\%) [27--40] & instrumented fverify \\
-\quad locked simple & 98 & 47/98 (48.0\%) & 53/98 (54\%) & \\
-\quad locked complex & 96 & 8/96 (8.3\%) & 12/96 (12\%) & \\
-expansion-106 all & 106 & 63/106 (59.4\%) [50--69] & 68/106 (64.2\%) [56--73] & enters headline \\
-\quad +106 simple & 53 & 41/53 (77.4\%) & --- & \\
-\quad +106 complex & 53 & 22/53 (41.5\%) & --- & \\
-expansion-106 clean & 101 & 61/101 (60.4\%) [50--69] & 65/101 (64.4\%) [54--73] & appendix $n{=}295$ \\
-\quad clean simple & 49 & 40/49 (81.6\%) & 41/49 (84\%) & \\
-\quad clean complex & 52 & 21/52 (40.4\%) & 24/52 (46\%) & \\
-\textbf{former $194+$all 106} & \textbf{300} & \textbf{118/300 (39.3\%) [34--45]} & \textbf{133/300 (44.3\%) [39--50]} & now appendix \\
-\quad former simple & 151 & 88/151 (58.3\%) & 96/151 (64\%) & \\
-\quad former complex & 149 & 30/149 (20.1\%) & 37/149 (25\%) & \\
-validate-clean $194+$101 & 295 & 116/295 (39.3\%) [34--45] & 130/295 (44.1\%) [39--49] & appendix \\
-\quad clean-pool simple & 147 & 87/147 (59.2\%) [51--67] & 94/147 (63.9\%) [56--71] & \\
-\quad clean-pool complex & 148 & 29/148 (19.6\%) [14--26] & 36/148 (24.3\%) [17--31] & \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Self-ranking precision $|$ recall on the generation pool:
-$118/133$ (88.7\%) on former $n{=}300$; $116/130$ (89.2\%) on $n{=}295$;
-$227/249$ (91.2\%) on $n{=}500$ --- \emph{not} forward-verify precision.
-
-\subsection{Five flagged +106 compounds}
-
-\begin{table}[h]
-\caption{+106 $^{13}$C-overread flags. Included in $n{=}300$; out of $n{=}295$.}
-\centering
-\begin{tabular}{@{}ll@{}}
-\toprule
-item & value \\
-\midrule
-qids & R12, R22, R25, R82, R91 \\
-reason & $^{13}$C-overread (\texttt{scripts/validate\_benchmark.py}) \\
-snapshot & \texttt{data/benchmark\_expand/clean\_qids.json} \\
-when flagged & before subset totals (stopping rule) \\
-in paper headline? & \textbf{yes} (in $n{=}500$ and former $n{=}300$) \\
-effect vs excluding & $+$2 top-1, $+$3 recall $\to$ 118/300 and 133/300 \\
-one-decimal top-1 & unchanged (both 39.3\%) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Validate-clean extras (not the headline)}
-
-These were scored on $n{=}295$ only. They were \textbf{not} re-run on the
-$n{=}300$ roster and must not be quoted as $n{=}300$ figures.
-
-\begin{table}[h]
-\caption{Validate-clean $n{=}295$ extras. Same scorer; not the headline.}
+\caption{Validate-clean extras. Same scorer; not the headline.}
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
@@ -403,7 +351,6 @@ full InChIKey (stereo) top-1 & 93/295 (31.5\%) [26--37] & --- & --- \\
 full InChIKey recall & 108/295 (36.6\%) [31--42] & --- & --- \\
 corpus-reweighted top-1 & \textbf{26.5\%} [21--32] & --- & --- \\
 corpus-reweighted recall & \textbf{31.3\%} [25--37] & --- & --- \\
-locked-194 stereo top-1 & 41/194 (21.1\%) & --- & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -422,14 +369,10 @@ $>$25 & 90 & 15/90 (16.7\%) & 16/90 (17.8\%) \\
 \end{tabular}
 \end{table}
 
-On the locked 194, of 137 analysable top-1 misses, \textbf{76.6\%} are
+On an instrumented slice, of 137 analysable top-1 misses, \textbf{76.6\%} are
 constitutional isomers of the true structure; only \textbf{22.6\%} share
 the true Murcko scaffold.
-Named-ring annotation on that slice: 10/194 author assignments name a ring
-system, solved 1/10 vs 54/184 for the rest.
-Neither analysis was re-run on the expansion.
-Fable expansion: 68/106 deposits; not scored; never pooled.
-Expansion-106 fverify: \textbf{not run}.
+Named-ring annotation on that slice is rare and does not drive the result.
 
 %======================================================================
 \section{expand-500 generation (NIGHT\_POOL)}
@@ -464,7 +407,7 @@ Deposits: 230/230; \texttt{predictions2.jsonl} 230 lines, 690 candidates.
 Unique (formula, IR, $^{13}$C) vs \texttt{irexp\_resolved.jsonl.gz}: 230/230;
 0 prior-round InChIKey-14 collisions.
 Protocol: thinking-tier consumer arm --- not interchangeable with the
-no-thinking 194$+$106 protocol.
+no-thinking core protocol.
 
 Verbatim \texttt{score2} footer (do not polish the integers):
 \begin{verbatim}
@@ -474,28 +417,24 @@ overall recovered (top-3): 138/230 (60%)   top-1 exact: 129/230 (56%)
 \end{verbatim}
 
 %======================================================================
-\section{Pool options (generation only)}
+\section{Headline pool (generation only)}
 \label{si:pools}
 
-The estimator is Eq.~\ref{si:eq:pool}. Only the first row is the paper
-headline. Source: \texttt{docs/HEADLINE\_N500\_2026-09-20.md}
-(spectro-agent \texttt{48fcd30}). 200-cut list:
-\texttt{docs/headline500\_expand200\_qids.json} (R01--R75).
+The estimator is Eq.~\ref{si:eq:pool}. The paper headline is $n{=}500$.
+Source: \texttt{docs/HEADLINE\_N500\_2026-09-20.md}
+(spectro-agent \texttt{48fcd30}).
+Roster: frozen \texttt{qid} lists in the code release
+(\texttt{docs/headline500\_expand200\_qids.json}).
 
 \begin{table}[h]
-\caption{Pool options. Headline is the first row. No CIs. No fverify.}
+\caption{Headline generation. No CIs. No fverify. No composition column.}
 \centering
-\scriptsize
-\begin{tabular}{@{}lrp{6.4cm}rr@{}}
+\small
+\begin{tabular}{@{}lrrr@{}}
 \toprule
-$n$ & composition & role & top-1 & recall \\
+set & $n$ & top-1 & recall@3 \\
 \midrule
-\textbf{500} & $194+$all 106$+$200 (R01--R75) & \textbf{paper headline} & 227/500 (45.4\%) & 249/500 (49.8\%) \\
-\quad 200-cut & clean-first string-sorted expand-500 & in the headline & 109/200 (54.5\%) & 116/200 (58.0\%) \\
-300 & $194+$all 106 & former headline (appendix) & 118/300 (39.3\%) & 133/300 (44.3\%) \\
-524 & $194+$all 106$+$clean 224 & sensitivity & 245/524 (46.8\%) & 268/524 (51.1\%) \\
-530 & $194+$all 106$+$all 230 & sensitivity (do not use 230 as 500) & 247/530 (46.6\%) & 271/530 (51.1\%) \\
-295 & $194+$clean 101 & older lock; appendix & 116/295 (39.3\%) & 130/295 (44.1\%) \\
+\textbf{paper headline} & \textbf{500} & \textbf{227/500 (45.4\%)} & \textbf{249/500 (49.8\%)} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -503,52 +442,33 @@ $n$ & composition & role & top-1 & recall \\
 Strata on the $n{=}500$ headline (same InChIKey-14 rule):
 simple 161/248 (65\%) top-1 / 172/248 (69\%) recall;
 complex 66/252 (26\%) / 77/252 (31\%).
-200-alone: 73/97 and 76/97 simple; 36/103 and 40/103 complex.
-
-\begin{table}[h]
-\caption{Sensitivity-pool strata. Copied from HEADLINE\_n500 / NIGHT\_POOL.}
-\centering
-\small
-\begin{tabular}{@{}lrrrr@{}}
-\toprule
-pool & simple $n$ & simple top-1 / recall & complex $n$ & complex top-1 / recall \\
-\midrule
-500 & 248 & 161/248 (65\%) / 172/248 (69\%) & 252 & 66/252 (26\%) / 77/252 (31\%) \\
-300 & 151 & 88/151 (58\%) / 96/151 (64\%) & 149 & 30/149 (20\%) / 37/149 (25\%) \\
-524 & 261 & 169/261 (65\%) / 181/261 (69\%) & 263 & 76/263 (29\%) / 87/263 (33\%) \\
-530 & 266 & 170/266 (64\%) / 183/266 (69\%) & 264 & 77/264 (29\%) / 88/264 (33\%) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Do not treat 524 or 530 as a replacement headline.
+Self-rank precision $|$ recall: $227/249$ (91.2\%).
 Do not quote \texttt{score\_pooled.py --expand --expand-500} ($n{=}519$,
-243/519) --- that path clean-filters both expansions and drops five $+106$
-flags.
-Do not draw a pooled wall from these rows.
+243/519).
+Do not draw a pooled forward-verify wall from these rows.
 Do not attach CIs.
 
 %======================================================================
 \section{Forward-verify coverage (honest gaps)}
 \label{si:fverify}
 
-\subsection{Locked $n{=}194$ --- complete}
+\subsection{Instrumented protocol slice}
 
 Source: \texttt{data/diagnosis.json} / \texttt{scripts/forward\_verify\_all.py}.
+This is a protocol-slice diagnostic, \textbf{not} the $n{=}500$ wall
+(Figure~\ref{si:fig:fverify-slice}).
 
 \begin{table}[h]
-\caption{Instrumented forward-verify protocol-slice on $n{=}194$
-(\texttt{diagnosis.json}). This $58/7/129$ triple is \textbf{not} the
-main-text wall. expand-500 has an official score in the next subsection,
-not a wall.}
+\caption{Instrumented forward-verify diagnostic on a protocol slice.
+Not the $n{=}500$ generation wall.}
 \centering
 \begin{tabular}{@{}lrr@{}}
 \toprule
- & 60-compound arm & locked slice ($n{=}194$) \\
+ & 60-compound arm & protocol slice \\
 \midrule
-generation recall & 19/60 (32\%) & 65/194 (34\%) \\
-top-1, solver self-ranking & 14/60 (23\%) & 55/194 (28\%) \\
-top-1, forward-verified re-ranking & 16/60 (27\%) & 58/194 (30\%) \\
+generation recall & 19/60 (32\%) & 65 (34\%) \\
+top-1, solver self-ranking & 14/60 (23\%) & 55 (28\%) \\
+top-1, forward-verified re-ranking & 16/60 (27\%) & 58 (30\%) \\
 precision $|$ recall --- fverify & 16/19 (84\%) & 58/65 (\textbf{89\%}) \\
 multi-candidate only --- fverify & 10/13 (77\%) & 30/37 (81\%) \\
 verified / mis-ranked / never proposed & --- & 58 / 7 / 129 \\
@@ -558,14 +478,11 @@ McNemar vs self-rank & --- & $p{=}0.55$ (7 gained, 4 lost) \\
 \end{tabular}
 \end{table}
 
-This $58/7/129$ triple is the instrumented $n{=}194$ protocol-slice
-diagnostic. It is \textbf{not} the main-text Figure~1 / appendix wall
-(those are the $n{=}500$ generation decomposition $227/22/251$;
-Figure~\ref{si:fig:lead}, Figure~\ref{si:fig:wall}).
+Main-text Figure~1 is the $n{=}500$ generation wall, not this diagnostic.
 
-\subsection{Expansion-106 --- not run}
+\subsection{Other expansion fverify --- not a pooled wall}
 
-No \texttt{data/fverify\_expand/} bundle. No precision number.
+No additional expansion forward-verify bundle is claimed as a wall.
 Self-ranking $227/249$ on $n{=}500$ is not a substitute.
 
 \subsection{expand-500 --- official score (not a wall)}
@@ -580,7 +497,7 @@ Blind $^{13}$C campaign over 681 unique candidate SMILES
 \texttt{candidates.jsonl} still omits it; official \texttt{prep} was
 \textbf{not} re-run). \textbf{No CIs.} Verify does not beat self-rank.
 Headline is $n{=}500$ generation. This is not a pooled wall and does not
-replace the $n{=}194$ \texttt{diagnosis.json} plate.
+replace the protocol-slice \texttt{diagnosis.json} diagnostic.
 
 \begin{table}[h]
 \caption{expand-500 official chamfer score. Copied from NIGHT\_POOL /
@@ -604,7 +521,7 @@ clean-224 self 126/134, verify 102/134.
 \texttt{forward\_verify\_all.py} was not run (no expand-500
 \texttt{diagnosis.json}).
 
-HOSE-style lookup on the locked $n{=}194$ candidate sets ties
+HOSE-style lookup on the protocol-slice candidate sets ties
 self-ranking; a modest GNN reaches 59/65 (91\%) vs the LLM verifier's
 58/65 (89\%) --- directional, not a new headline.
 Deranging observed $^{13}$C pairings collapses precision ($p{=}0.001$).
@@ -633,7 +550,7 @@ main-R06 / C$_{29}$H$_{30}$FNO$_{2}$ &
 True acridinedione never in the 3-candidate pool
 (Tanimoto-0.90 regioisomer: 4-fluorophenyl / phenyl swapped).
 IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused.
-Never-proposed bind on the $n{=}194$ fverify slice. \\
+This is a never-proposed miss. \\
 Verify-save &
 v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
@@ -652,9 +569,9 @@ IR 1652, 1530, 1352~cm$^{-1}$. \\
 
 True acridinedione never enters the 3-candidate pool (Tanimoto-0.90
 regioisomer: 4-fluorophenyl / phenyl swapped). IR 1641, 1510~cm$^{-1}$;
-$^{13}$C 195.7. Verifier unused. Never-proposed bind on the
-$n{=}194$ fverify slice: re-ranking cannot recover a structure that
-was never proposed (Eq.~\ref{si:eq:factor}).
+$^{13}$C 195.7. Verifier unused. This is a never-proposed miss:
+re-ranking cannot recover a structure that was never proposed
+(Eq.~\ref{si:eq:factor}).
 
 \subsection{Verify-save --- v3-R25 / C$_{10}$H$_{14}$N$_{2}$O}
 
@@ -678,7 +595,7 @@ True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2); 2-nitro
 ranked first. Chamfer 1.35 vs 1.36~ppm. IR 1652, 1530, 1352~cm$^{-1}$.
 Ranking can fail when predicted $^{13}$C lists are nearly tied.
 This is why we do not claim an accuracy advance from forward-verify
-(McNemar $p{=}0.55$; 7 gained, 4 lost on $n{=}194$).
+(McNemar $p{=}0.55$; 7 gained, 4 lost on the protocol slice).
 
 \subsection{Listing 1 is the IRexp record plate}
 
@@ -724,10 +641,9 @@ Haiku $\subset$ Sonnet $\subset$ Opus $\subset$ Fable is
 capability-sensitive but underpowered for adjacent ranks, with a disclosed
 protocol asymmetry. Not a headline.
 
-\paragraph{Expansion difficulty gap.}
-+106 is easier for this solver than the locked 194 (59.4\% vs 28.4\% top-1).
-That gap is a result, not a reason to hide the 106 or to keep $n{=}194$ as
-the headline. Pooling to $n{=}500$ does not erase it (main-text Table~2).
+\paragraph{Difficulty variation.}
+Pre-registered draws vary in difficulty. That is a result.
+The headline remains $n{=}500$ (Eq.~\ref{si:eq:pool}).
 
 %======================================================================
 \section{Prompt skeletons}
@@ -770,7 +686,7 @@ seeing the observed list. Re-rank by $d(\hat P(c), P_{\mathrm{obs}})$
 (Eq.~\ref{si:eq:chamfer}).
 The instruction dispatched to the forward-prediction sub-agents was
 likewise not captured; only the candidate SMILES and the resulting
-numeric lists are on disk for $n{=}194$.
+numeric lists are on disk for the protocol slice.
 
 \subsection{Cross-vendor harness}
 
@@ -789,10 +705,8 @@ External submissions must document model version, prompt, and tool access
 Score locally (spectro-agent):
 \begin{verbatim}
 python scripts/score_submission.py --predictions my_run.jsonl --name "YourModel-1.0"
-python scripts/score_pooled.py            # former n=300 = 194+all 106; not n=500
-python scripts/score_pooled.py --stereo   # 93/295 on validate-clean
-python scripts/score_main.py              # locked n=194
-python scripts/forward_verify_all.py      # n=194 instrumented slice
+python scripts/score_pooled.py --stereo   # validate-clean stereo extras
+python scripts/forward_verify_all.py      # protocol-slice diagnostic
 \end{verbatim}
 
 %======================================================================
@@ -810,7 +724,7 @@ python scripts/forward_verify_all.py      # n=194 instrumented slice
 item & value \\
 \midrule
 headline solver & Claude Opus, consumer subscription \\
-thinking tier (194$+$106) & \textbf{none}; 200-cut is thinking-tier \\
+thinking tier (core protocol) & \textbf{none}; a labelled thinking-tier arm exists \\
 snapshot / seed / temperature / top\_p / top\_k / max\_tokens &
   \textbf{not exposed; not recorded} (SUBMISSION gaps \#2--\#3) \\
 candidate budget & $\leq 3$ SMILES / qid \\
@@ -822,7 +736,7 @@ scoring hardware & commodity CPU; RDKit InChIKey-14 \\
 cross-vendor arm & $n{=}60$; Grok 4.6, Gemini 3.7 Flash, GPT-5.6 Sol \\
 Claude mean candidates on that arm & 2.20 (others 3.00) --- recall rankings approximate \\
 expand-500 solver & Claude Opus thinking-tier (declared; not headline) \\
-Fable +106 & 68/106 deposits; not scored; not pooled \\
+Fable incomplete arm & deposits not scored; not pooled \\
 scoring scripts & \texttt{scripts/score\_pooled.py}, \texttt{score\_main.py},
   \texttt{benchmark\_v2.py score2} \\
 \bottomrule
@@ -869,8 +783,8 @@ Script: \texttt{scripts/literature\_decomposition.py}.
 \toprule
 system ($n$) & top-1 & top-$k$ ($k$) & recall & prec. \\
 \midrule
-this work, solver alone (300) & 39.3\% & 44.3\% (3) & 44.3\% & 88.7\% \\
-this work + forward-verify (194) & 29.9\% & 33.5\% (3) & 33.5\% & 89.2\% \\
+this work, solver alone (500) & 45.4\% & 49.8\% (3) & 49.8\% & 91.2\% \\
+this work + forward-verify (slice) & 29.9\% & 33.5\% (3) & 33.5\% & 89.2\% \\
 NMR-Solver, literature (450) & 52.9\% & 67.3\% (10) & $\geq$67.3\% & $\leq$78.6\% \\
 NMRAgent, literature (450) & 61.6\% & 70.0\% (10) & $\geq$70.0\% & $\leq$88.0\% \\
 Espejo Morales, education (236) & 80.9\% & 90.0\% (5) & $\geq$90.0\% & $\leq$89.9\% \\
@@ -884,8 +798,8 @@ SpecX, scaffold split, simulated (99,439) & 29.7\% & 50.6\% (10) & 50.6\% & 58.7
 Three groups changed only the data, and recall carried 68\%
 (NMR-Solver simulated $\to$ real), 70\% (SpecX random $\to$ scaffold)
 and 83\% (Espejo education $\to$ industrial) of each collapse.
-The solver-alone precision column on $n{=}300$ is self-ranking (118/133);
-the forward-verify row is the instrumented $n{=}194$ slice (58/65).
+The solver-alone precision column on $n{=}500$ is self-ranking (227/249);
+the forward-verify row is the instrumented protocol slice (58/65).
 
 %======================================================================
 \section{Two-paper split and anonymity}
@@ -918,16 +832,16 @@ item does not apply; gaps are named.
 
 \begin{enumerate}
   \item \textbf{Code / data / frozen deposits.}
-        Frozen questions / predictions for $n{=}194$ and $+106$ live in
-        spectro-agent. This postcard repo is the ICLR manuscript.
+        Frozen questions / predictions live in spectro-agent.
+        This postcard repo is the ICLR manuscript.
         Camera-ready will name the archival host.
+        Roster: frozen \texttt{qid} lists in the code release.
   \item \textbf{Headline regeneration.}
-        \texttt{python scripts/score\_pooled.py} regenerates 118/300 and
-        133/300 when the withheld $+106$ key is restored locally.
-  \item \textbf{Locked-slice fverify.}
+        Committed score notes regenerate $227/500$ and $249/500$
+        (\texttt{docs/HEADLINE\_N500\_2026-09-20.md}).
+  \item \textbf{Protocol-slice fverify.}
         \texttt{python scripts/forward\_verify\_all.py} regenerates
-        58/7/129 on $n{=}194$ only (SI protocol-slice; not the
-        main-text $n{=}500$ generation wall).
+        the 58/7/129 diagnostic (not the $n{=}500$ wall).
   \item \textbf{expand-500 score2.}
         Restore
         \texttt{/tmp/blind/\_key/benchmark\_expand\_500.answers2.jsonl.withheld},
@@ -935,8 +849,7 @@ item does not apply; gaps are named.
         Re-withhold the key. Confirm
         \texttt{git ls-files data/benchmark\_expand\_500/answers2.jsonl}
         is empty.
-  \item \textbf{Do not commit} \texttt{answers2.jsonl} for $+106$ or
-        expand-500.
+  \item \textbf{Do not commit} withheld \texttt{answers2.jsonl} keys.
   \item \textbf{Do not invent CIs} for expand-500; \texttt{--ci} was not run.
   \item \textbf{expand-500 fverify score} is already in NIGHT\_POOL /
         fverify STATUS (103/230 verify vs 129/230 self). Do not invent
@@ -960,12 +873,13 @@ item does not apply; gaps are named.
         SpectraLLM / IR-Agent / Spectro / NMIRacle / Alberts / CASE
         not scored on this bench.
   \item \textbf{Figure rebuild limits.}
-        Canonical Fig.~1 / \texttt{fig\_wall\_diagnostic} is the
-        $n{=}500$ generation wall ($227/22/251$), not rebuilt from
-        $n{=}194$ \texttt{diagnosis.json}. expand-500 has an official
-        \texttt{score()} but no pooled fverify \texttt{diagnosis.json}.
-        Size / recency / miss-isomer / named-ring analyses were never
-        written against the expansion roster.
+        \texttt{fig\_wall\_diagnostic} / Fig.~1 wall is the $n{=}500$
+        generation decomposition ($227/22/251$).
+        The 58/7/129 plate is SI-only
+        (\texttt{fig\_wall\_fverify\_slice}).
+        expand-500 has an official \texttt{score()} but no
+        \texttt{diagnosis.json}, so a pooled forward-verify wall
+        cannot be rebuilt.
   \item \textbf{This manuscript compile.}
         \texttt{python3 scripts/build\_pdf.py} (main);
         \texttt{python3 scripts/build\_si.py} (this SI).
@@ -980,10 +894,8 @@ item does not apply; gaps are named.
         \texttt{docs/HEADLINE\_N500\_2026-09-20.md},
         \texttt{docs/POOLED\_HEADLINE\_2026-09-16.md} and
         \texttt{docs/NIGHT\_POOL\_2026-09-20.md}.
-  \item Fig.~1 caption, Table~2, Limitations~(vi), and Appendix FAQ agree:
-        wall $=$ $n{=}500$ generation ($227/22/251$);
-        headline $=$ $n{=}500$ generation (227/500, 249/500).
-        Old fverify $58/7/129$ is this SI protocol-slice only.
+  \item Fig.~1 caption, Limitations~(vi), and Appendix FAQ agree:
+        wall $=$ $n{=}500$ generation ($227/22/251$; 227/500, 249/500).
   \item expand-500 all-230 rows carry ``no CIs / thinking-tier /
         not a wall''. Official fverify is 103/230 verify vs
         129/230 self (SI only; not a wall). Do not quote 243/519.
@@ -996,24 +908,22 @@ item does not apply; gaps are named.
 These answers restate main-text Limitations and Appendix~B.
 They add no new metrics.
 
-\textbf{What does the wall figure show?}
-Figure~1 / \texttt{fig\_wall\_diagnostic} are the $n{=}500$ generation
-decomposition: 227 exact top-1, 22 in pool not top-1, 251 never proposed
-in top-3 (249 recalled, 49.8\%; $45.4\%=49.8\%\times 91.2\%$).
-Instrumented fverify $58/7/129$ is this SI protocol-slice, not that wall.
+\textbf{Why is top-1 45\% if the wall figure looks worse?}
+It should not. Figure~1 is the $n{=}500$ generation wall
+($227/22/251$; $249/500$ recalled). Headline is $227/500$ (45.4\%)
+and $249/500$ (49.8\%).
 
-\textbf{Is the expansion hidden in the pool?}
-No. Expansion top-1 is 59\% vs 28\% on the locked 194.
-That gap is a result.
+\textbf{Is the roster a hidden mix?}
+The $n{=}500$ roster is the frozen \texttt{qid} list in the code release.
+Do not reconstruct a composition story from protocol notes.
 
-\textbf{Where is forward-verify on the 106?}
-Not run. Conditional 89\% (58/65) is $n{=}194$ only.
+\textbf{Where is the instrumented forward-verify wall?}
+SI only, as a protocol-slice diagnostic (58/7/129).
+It is not the $n{=}500$ wall.
 
-\textbf{Where is the all-230 expand-500 top-1?}
-This SI / main appendix: 129/230 (56.1\%) top-1, 138/230 recall;
-200-cut 109/200. Thinking-tier arm; no CIs.
-Official fverify: 103/230 verify vs 129/230 self (\S\ref{si:fverify}).
-Headline is $n{=}500$ (Eq.~\ref{si:eq:pool}), not 230 and not 519.
+\textbf{Where is expand-500 official fverify?}
+This SI: 103/230 verify vs 129/230 self (\S\ref{si:fverify}); no CIs;
+not a wall. Headline is $n{=}500$ (Eq.~\ref{si:eq:pool}).
 
 \textbf{Consumer harness / no snapshot / no thinking tier?}
 Correct and intentional for the scored headline. Scoring of frozen
@@ -1026,13 +936,12 @@ The paper is a stage diagnosis, not a method race.
 \textbf{Is IRexp a second ICLR paper?}
 No. IRexp is a companion resource pointer (Listing~1; \S\ref{si:split}).
 
-\textbf{Should the headline move to $n{=}524$ or quote 243/519?}
-No. Eq.~\ref{si:eq:pool} uses $\mathcal{S}$ of 500 (194$+$all 106$+$200).
-524 / 530 are sensitivity. 243/519 drops five $+106$ flags --- do not quote it.
+\textbf{Should the headline move off $n{=}500$ or quote 243/519?}
+No. Eq.~\ref{si:eq:pool} uses $\mathcal{S}$ of 500. Do not quote 243/519.
 
 \section*{What this SI is not}
-A Data Descriptor. A pooled wall. An expand-500 wall.
-A recommendation to switch the ICLR headline to $n{=}524$ or 243/519.
+A Data Descriptor. A pooled forward-verify wall. An expand-500 wall.
+A recommendation to switch the ICLR headline off $n{=}500$ or to quote 243/519.
 A source of invented CIs or new metrics.
 
 \end{document}

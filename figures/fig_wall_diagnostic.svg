@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="504.0" height="102.0" viewBox="0 0 504.0 102.0">
 <rect width="504.0" height="102.0" fill="#FFFFFF"/>
 <defs><style type="text/css">@font-face { font-family: DejaVuSans; src: local("DejaVu Sans"); }text { font-family: DejaVuSans, Helvetica, Arial, sans-serif; fill: #1A1A1A; }</style></defs>
-<rect x="12.00" y="38.0" width="216.56" height="34.0" fill="#00897B"/>
-<text x="120.28" y="59.5" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">227</text>
-<text x="120.28" y="88.0" text-anchor="middle" font-size="9" fill="#6B7280">exact top-1</text>
-<rect x="230.06" y="38.0" width="20.99" height="34.0" fill="#E53935"/>
-<text x="240.55" y="59.5" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">22</text>
-<text x="240.55" y="88.0" text-anchor="middle" font-size="9" fill="#6B7280">in pool, not top-1</text>
-<rect x="252.55" y="38.0" width="239.45" height="34.0" fill="#5F6368"/>
-<text x="372.27" y="59.5" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">251</text>
-<text x="372.27" y="88.0" text-anchor="middle" font-size="9" fill="#6B7280">never proposed</text>
-<polyline points="12.00,35.0 12.00,30.0 251.05,30.0 251.05,35.0" fill="none" stroke="#1A1A1A" stroke-width="1"/>
+<rect x="12.00" y="38.0" width="216.42" height="34.0" fill="#00897B"/>
+<text x="120.21" y="59.5" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">227</text>
+<text x="120.96" y="88.0" text-anchor="middle" font-size="8.5" fill="#6B7280">top-1 exact</text>
+<rect x="229.92" y="38.0" width="19.62" height="34.0" fill="#E53935"/>
+<text x="239.73" y="59.5" text-anchor="middle" font-size="10" font-weight="700" fill="#FFFFFF">22</text>
+<text x="240.48" y="88.0" text-anchor="middle" font-size="8" fill="#6B7280">in set, not top-1</text>
+<rect x="251.04" y="38.0" width="240.96" height="34.0" fill="#5F6368"/>
+<text x="371.52" y="59.5" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">251</text>
+<text x="371.52" y="88.0" text-anchor="middle" font-size="8.5" fill="#6B7280">never proposed</text>
+<polyline points="12.00,35.0 12.00,30.0 251.04,30.0 251.04,35.0" fill="none" stroke="#1A1A1A" stroke-width="1"/>
 <text x="131.52" y="25.0" text-anchor="middle" font-size="10" font-weight="600">249 recalled (49.8%)</text>
 </svg>

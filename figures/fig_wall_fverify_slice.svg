@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="504.0" height="102.0" viewBox="0 0 504.0 102.0">
+<rect width="504.0" height="102.0" fill="#FFFFFF"/>
+<defs><style type="text/css">@font-face { font-family: DejaVuSans; src: local("DejaVu Sans"); }text { font-family: DejaVuSans, Helvetica, Arial, sans-serif; fill: #1A1A1A; }</style></defs>
+<rect x="12.00" y="38.0" width="142.61" height="34.0" fill="#00897B"/>
+<text x="83.30" y="59.5" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">58</text>
+<text x="83.30" y="88.0" text-anchor="middle" font-size="9" fill="#6B7280">verified</text>
+<rect x="156.11" y="38.0" width="17.21" height="34.0" fill="#E53935"/>
+<text x="164.71" y="59.5" text-anchor="middle" font-size="10" font-weight="700" fill="#FFFFFF">7</text>
+<text x="164.71" y="88.0" text-anchor="middle" font-size="9" fill="#6B7280">mis-ranked</text>
+<rect x="174.82" y="38.0" width="317.18" height="34.0" fill="#5F6368"/>
+<text x="333.41" y="59.5" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">129</text>
+<text x="333.41" y="88.0" text-anchor="middle" font-size="9" fill="#6B7280">never proposed</text>
+<polyline points="12.00,35.0 12.00,30.0 173.32,30.0 173.32,35.0" fill="none" stroke="#1A1A1A" stroke-width="1"/>
+<text x="92.66" y="25.0" text-anchor="middle" font-size="10" font-weight="600">65 recalled (34%)</text>
+</svg>
