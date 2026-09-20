@@ -82,21 +82,19 @@ when it cannot?
 
 The binding claim is \textbf{propose $\gg$ verify}: candidate proposal, not ranking,
 is the expensive stage.
-We release \textbf{IRSpectra-Bench}, a blind peak-list benchmark scored on a
-pooled generation cohort of \textbf{500} compounds (194 locked $+$ all 106 Opus
-expansion $+$ 200 validate-clean expand-500; clean-first, string-sorted
-\texttt{qid}, R01--R75 cut) drawn from the companion \textbf{IRexp} band-list
+We release \textbf{IRSpectra-Bench}, a blind peak-list benchmark scored on
+\textbf{500} compounds (194 locked $+$ all 106 Opus $+$ 200 expand-500;
+R01--R75 cut) drawn from the companion \textbf{IRexp} band-list
 resource~\citep{yabbarov2026irexp} --- cited here, not re-described --- with a
 fixed RDKit InChIKey-connectivity contract and decomposable
 \textbf{generation recall} / \textbf{verification precision} metrics.
 A frontier LLM recovers \textbf{45\%} top-1 (227/500) and \textbf{50\%}
-generation recall (249/500); no CIs on this pool.
+generation recall (249/500); no CIs.
 On the forward-verified $n{=}194$ slice the true structure enters the pool for only
 \textbf{34\%} of compounds, yet training-free forward-verification selects it
 \textbf{89\%} of the time once proposed (58/65).
-The $+106$ slice is easier (59\% vs 28\% top-1) and is disclosed; the 200-qid
-expand-500 slice is a thinking-tier arm (109/200).
-Former $n{=}300$ and $n{=}524$ / $n{=}530$ stay appendix.
+Slice gaps are disclosed ($+106$ 59\%, 200-cut 55\% vs 28\%); former $n{=}300$
+and $n{=}524$ / $n{=}530$ stay appendix.
 The same recall $\ll$ precision asymmetry replicates across \textbf{four vendor families}.
 Formula-only controls collapse; accuracy is flat in source-paper year; generate-wide
 sampling lifts recall where verification alone barely moves top-1.
@@ -253,11 +251,8 @@ matches how language models consume literature.
 
 The cohort is the pre-registered pool of a locked 194 (spectrally validated main round 134 $+$
 60 controls), a 106-compound expansion draw, and 200 validate-clean expand-500
-\texttt{qid}s ($n{=}500{=}194{+}106{+}200$).
-The 200 are the clean-first, string-sorted prefix of expand-500 (R01--R75 cut;
-\texttt{docs/headline500\_expand200\_qids.json}).
-Five $+106$ records fail the same $^{13}$C-overread audit used on the main round and
-stay in the 500 (former $n{=}300$ and validate-clean $n{=}295$ in
+\texttt{qid}s ($n{=}500{=}194{+}106{+}200$; R01--R75 cut).
+Five $+106$ flags stay in the 500 (former $n{=}300$ and $n{=}295$ in
 Appendix~\ref{app:extended}).
 Problems are drawn from the structure-complete split of IRexp (\texttt{irexp\_resolved}; see
 companion Data Descriptor)~\citep{yabbarov2026irexp}.
@@ -615,26 +610,17 @@ forward-verify row is the instrumented $n{=}194$ slice (58/65) --- not interchan
 \subsection{Pre-registered expansion, pooled headline, and scale roadmap}
 \label{sec:expansion}
 
-The $n{=}500$ headline is the pre-registered pool of the locked 194, all 106 Opus
-expansion, and 200 validate-clean expand-500 \texttt{qid}s (Table~\ref{tab:slices}).
-The 200 are the clean-first, Python-\texttt{sorted} prefix of expand-500
-(R01--R75 cut; leftover clean R76--R99; list
+The $n{=}500$ headline is 194 $+$ all 106 $+$ 200 validate-clean expand-500
+\texttt{qid}s (Table~\ref{tab:slices}; clean-first string-sorted R01--R75 cut;
 \texttt{docs/headline500\_expand200\_qids.json}).
-Five $+106$ $^{13}$C-overread flags stay in the 500; former $n{=}300$ and
-validate-clean $n{=}295$ are appendix.
-Slice gaps are disclosed, not hidden (59.4\% and 54.5\% vs 28.4\% top-1).
+Five $+106$ flags stay in; former $n{=}300$ and $n{=}295$ are appendix.
+Slice gaps are disclosed (59.4\% and 54.5\% vs 28.4\% top-1).
 Figure~\ref{fig:fig-wall} remains the $n{=}194$ instrumented wall; expansion-106
 fverify was \textbf{not} run.
-
-\paragraph{Sensitivity / larger deposited draw.}
-The full expand-500 draw (230; 115/115; six flags known \emph{before} any solve)
-is generation-scored on a withheld key (Appendix Table~\ref{tab:scale}; SI):
-\textbf{129/230} (56.1\%) top-1 and \textbf{138/230} (60.0\%) recall@3; clean
-\textbf{127/224}; 200-cut \textbf{109/200}.
-No CIs; thinking-tier arm on the 200, not interchangeable with the no-thinking
-194$+$106 protocol.
-Official fverify is SI-only (103/230 verify vs 129/230 self; not a wall).
-$n{=}524$ / $n{=}530$ and former $n{=}300$ stay appendix-only.
+The full 230-draw is generation-scored in Appendix Table~\ref{tab:scale} / SI
+(129/230; 200-cut 109/200; no CIs; thinking-tier on the 200).
+Official fverify is SI-only (103/230 vs 129/230 self; not a wall).
+$n{=}524$ / $n{=}530$ stay appendix.
 The headline is $\mathcal{S}$ of size 500 in
 \begin{equation}
 \label{eq:pool}
@@ -677,7 +663,7 @@ Nonsignificant ladder steps do not license a solved-elucidator headline.
 
 \section{Limitations}
 \label{sec:limitations}
-\enlargethispage{6\baselineskip}
+\enlargethispage{8\baselineskip}
 
 Scoring is mechanical; solver runs were transcript-audited for zero ground-truth access.
 \textbf{(i) Consumer harness.} Claude Opus via consumer subscription; no snapshot,
