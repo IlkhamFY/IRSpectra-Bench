@@ -36,6 +36,21 @@
   frame=none,
   literate={-}{-}1
 }
+% Image plate numbered as Listing N, not Figure N (own counter; do not reuse
+% listings' \fnum@lstlisting, which is name-only and prints ``Listing:'').
+\makeatletter
+\newcounter{listing}
+\renewcommand{\thelisting}{\arabic{listing}}
+\newcommand{\listingname}{Listing}
+\def\fps@listing{htbp}
+\def\ftype@listing{4}
+\def\ext@listing{lol}
+\def\fnum@listing{\listingname~\thelisting}
+\@ifundefined{theHlisting}{\def\theHlisting{listing.\thelisting}}{}
+\newenvironment{listing}
+  {\@float{listing}}
+  {\end@float}
+\makeatother
 \setlist{nosep,leftmargin=1.35em}
 \setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
 \setlength{\floatsep}{8pt plus 2pt minus 2pt}
@@ -329,16 +344,16 @@ Section~\ref{sec:limitations}).
 \textbf{Scoring is reproducible}: frozen predictions, ground truth and scorers regenerate every
 training-free number.
 
-\begin{figure}[ht]
+\begin{listing}[ht]
   \centering
   \includegraphics[width=0.92\linewidth]{listing1_irexp_record.pdf}
-  \caption{\textbf{Listing 1.} IRexp JSON record (commercial DoR;
-  \texttt{NTJIYHYWVZYBEX-UHFFFAOYSA-N})~\citep{yabbarov2026irexp}.
+  \caption{IRexp JSON record (commercial DoR;
+  \texttt{NTJIYHYWVZYBEX})~\citep{yabbarov2026irexp}.
   Solvers see only formula and printed peak lists; SMILES / InChIKey are
   resource fields. Gold scored by Eq.~\ref{eq:ik14}.
   v3-R25 remains the mechanism case (Figure~\ref{fig:fig-mechanism}).}
   \label{lst:payload}
-\end{figure}
+\end{listing}
 
 \paragraph{Scoring contract and candidate budget.}
 A deposit is JSONL of \texttt{\{qid, candidates: [SMILES,\ldots]\}} under a stated budget.
@@ -768,7 +783,7 @@ Corpus construction belongs in the \textit{Scientific Data} descriptor.
 
 This conference version keeps the protocol plate
 (Figure~\ref{fig:fig1}), chemistry space
-(Figure~\ref{fig:fig-chemspace}), Listing~1 payload (Figure~\ref{lst:payload}),
+(Figure~\ref{fig:fig-chemspace}), Listing~\ref{lst:payload} payload,
 robustness (Figure~\ref{fig:fig-robustness}), the
 forward-verification mechanism (Figure~\ref{fig:fig-mechanism}), and the inference
 ladder (Figure~\ref{fig:fig3-method}).
