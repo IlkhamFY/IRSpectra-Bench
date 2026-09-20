@@ -43,8 +43,11 @@
 
 \graphicspath{{figures/}{../figures/}{./}}
 
-% Alternate Overleaf title (not used): Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, $^1$H, and $^{13}$C NMR Peak Lists
-\title{Generation Recall, Not Verification, Binds LLM Structure Elucidation from Literature Spectra}
+% Hybrid title: claim first (the diagnosis is the contribution), then Rodrigo's
+% operational setting (literature peak lists). Full Overleaf descriptive title
+% is kept as the unused alternate and in main_IRExpBench_only.tex (orphan).
+% Unused alternate: Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, $^1$H, and $^{13}$C NMR Peak Lists
+\title{Generation Recall, Not Verification, Binds Molecular Structure Elucidation from Literature Peak Lists}
 
 \author{
 Ilkham Yabbarov\textsuperscript{1,$\dagger$},
@@ -74,29 +77,35 @@ $\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
 \lhead{Under review as a conference paper at ICLR 2027}
 
 \begin{abstract}
-Frontier large language models are often cast as near-solved structure elucidators on
-curated spectra. We ask the operational question: given only the molecular formula and
-\textbf{literature-reported} IR / $^1$H / $^{13}$C \textbf{peak lists} --- not digitised
-traces --- can an off-the-shelf LLM recover constitution, and \textbf{which stage fails}
-when it cannot?
+Frontier models have shown strong performance on molecular structure elucidation,
+but it is unclear how well those results transfer to heterogeneous,
+experimentally reported spectral data.
+We ask an operational question: given only a molecular formula and
+\textbf{literature-reported} IR, $^1$H and $^{13}$C NMR \textbf{peak lists} ---
+not digitised spectral images --- can an off-the-shelf frontier model recover
+the correct constitution, and \textbf{which stage fails} when it cannot?
 
-The binding claim is \textbf{propose $\gg$ verify}: candidate proposal, not ranking,
-is the expensive stage.
-We release \textbf{IRSpectra-Bench}, a blind peak-list benchmark scored on
-\textbf{$n{=}500$} compounds drawn from the companion \textbf{IRexp} band-list
-resource~\citep{yabbarov2026irexp} --- cited here, not re-described --- with a
-fixed RDKit InChIKey-connectivity contract and decomposable
-\textbf{generation recall} / \textbf{verification precision} metrics.
-A frontier LLM recovers \textbf{45.4\%} top-1 (227/500) and \textbf{49.8\%}
-generation recall (249/500); no CIs.
-Self-ranking precision $|$ recall is $227/249$ (91.2\%).
-The $n{=}500$ forward-verify wall is \textbf{204} verified / \textbf{45} misranked /
-\textbf{251} never proposed: propose is the wall, not verify.
-The same recall $\ll$ precision asymmetry replicates across \textbf{four vendor families}.
-Formula-only controls collapse; accuracy is flat in source-paper year; generate-wide
-sampling lifts recall where verification alone barely moves top-1.
-Recovered from published top-$k$ figures, recall carries \textbf{68--83\%} of the accuracy
-collapse from curated or simulated spectra to real heterogeneous peak lists.
+We release \textbf{IRSpectra-Bench}, a blind peak-list benchmark of
+\textbf{$n{=}500$} compounds drawn from the companion \textbf{IRexp}
+resource~\citep{yabbarov2026irexp}, with a fixed RDKit InChIKey-connectivity
+contract and decomposable \textbf{generation recall} and
+\textbf{verification precision} metrics.
+A frontier model recovers \textbf{45.4\%} top-1 (227/500) and \textbf{49.8\%}
+generation recall (249/500).
+When the true structure is proposed, self-ranking places it first in
+$227/249$ cases (91.2\%).
+Independent forward verification of the same pools yields the $n{=}500$ wall of
+\textbf{204} verified / \textbf{45} misranked / \textbf{251} never proposed:
+proposal, not ranking, is the expensive stage
+(\textbf{propose $\gg$ verify}).
+The same recall $\ll$ precision asymmetry replicates across
+\textbf{four vendor families}.
+Formula-only controls collapse; accuracy is flat in source-paper year;
+broader generation sampling lifts recall, whereas verification alone barely
+moves top-1.
+From published top-$k$ figures, reduced recall accounts for
+\textbf{68--83\%} of the accuracy collapse from curated or simulated spectra
+to real heterogeneous peak lists.
 Frozen predictions, scorers and code are released for mechanical re-evaluation.
 \end{abstract}
 
