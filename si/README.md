@@ -14,12 +14,12 @@ Standalone SI for the ICLR manuscript. **Does not count toward the 9-page main.*
 Wall is the generation decomposition **227 / 22 / 251**.
 Roster: frozen qid lists. **Do not quote 243/519.** No CIs on n=500.
 Official expand-500 fverify: 103/230 verify vs 129/230 self (no CIs; not a wall).
-Instrumented fverify diagnostic (58/7/129) is SI-only, not the paper wall.
+Instrumented fverify is a protocol-slice diagnostic, not the paper wall.
 
 ## Sections
 
 1. Figure / listing map (Fig 1 = `fig1_lead_overview`; Listing 1 = `listing1_irexp_record`; wall = `fig_wall_diagnostic`)
-2. Visual plate reprints (SI Figs. S1--S3 = n=500 plates; S4 = fverify slice)
+2. Visual plate reprints (SI Figs. S1--S3 = n=500 plates)
 3. Full blind protocol + frozen-qid pointers + stopping rules
 4. Scoring equations
 5. Validate-clean extras (not the headline)

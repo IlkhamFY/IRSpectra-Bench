@@ -104,10 +104,6 @@ SI Figs.~S1--S3 &
   reprints &
   Same three files as main Fig.~1 / Listing~1 / $n{=}500$ wall
   (\S\ref{si:plates}). Not a second lead figure. \\
-SI Fig.~S4 &
-  \texttt{fig\_wall\_fverify\_slice} &
-  Instrumented forward-verify diagnostic on a protocol slice
-  (58/7/129). \textbf{Not} the $n{=}500$ wall. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -158,20 +154,10 @@ Not a Data Descriptor dump. Locked v3-R25 is the mechanism case
 \includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
 \caption{Reprint of the $n{=}500$ generation wall
 (\texttt{fig\_wall\_diagnostic}):
-$227$ top-1 exact / $22$ in set but not top-1 / $251$ never proposed.
+$227$ exact top-1 / $22$ in pool, not top-1 / $251$ never proposed.
 Same integers as Figure~\ref{si:fig:lead}.
 Propose is the wall, not verify.}
 \label{si:fig:wall}
-\end{figure}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=\linewidth]{fig_wall_fverify_slice.pdf}
-\caption{Instrumented forward-verify diagnostic on a protocol slice
-(58 verified / 7 mis-ranked / 129 never proposed).
-This is \textbf{not} the $n{=}500$ generation wall and is not a
-pooled forward-verify figure.}
-\label{si:fig:fverify-slice}
 \end{figure}
 
 %======================================================================
@@ -304,8 +290,7 @@ d(P,Q)
 +\frac1{|Q|}\sum_{q\in Q}\min_{p\in P}|q-p|,
 \end{equation}
 where $\hat P(c)$ is predicted \emph{blind} to the observed list $P_{\mathrm{obs}}$.
-Instrumented forward-verify diagnostic on a protocol slice (58/65; SI
-Figure~\ref{si:fig:fverify-slice}).
+Instrumented forward-verify diagnostic on a protocol slice (58/65; \S\ref{si:fverify}).
 expand-500 official score is in
 \S\ref{si:fverify} (103/230 verify vs 129/230 self; no CIs; not a wall).
 
@@ -455,8 +440,7 @@ Do not attach CIs.
 \subsection{Instrumented protocol slice}
 
 Source: \texttt{data/diagnosis.json} / \texttt{scripts/forward\_verify\_all.py}.
-This is a protocol-slice diagnostic, \textbf{not} the $n{=}500$ wall
-(Figure~\ref{si:fig:fverify-slice}).
+This is a protocol-slice diagnostic, \textbf{not} the $n{=}500$ wall.
 
 \begin{table}[h]
 \caption{Instrumented forward-verify diagnostic on a protocol slice.
@@ -471,7 +455,6 @@ top-1, solver self-ranking & 14/60 (23\%) & 55 (28\%) \\
 top-1, forward-verified re-ranking & 16/60 (27\%) & 58 (30\%) \\
 precision $|$ recall --- fverify & 16/19 (84\%) & 58/65 (\textbf{89\%}) \\
 multi-candidate only --- fverify & 10/13 (77\%) & 30/37 (81\%) \\
-verified / mis-ranked / never proposed & --- & 58 / 7 / 129 \\
 derangement floor on $n{=}37$ & --- & 54.0\%; fverify $+$27.1 points \\
 McNemar vs self-rank & --- & $p{=}0.55$ (7 gained, 4 lost) \\
 \bottomrule
@@ -841,7 +824,7 @@ item does not apply; gaps are named.
         (\texttt{docs/HEADLINE\_N500\_2026-09-20.md}).
   \item \textbf{Protocol-slice fverify.}
         \texttt{python scripts/forward\_verify\_all.py} regenerates
-        the 58/7/129 diagnostic (not the $n{=}500$ wall).
+        the protocol-slice diagnostic (not the $n{=}500$ wall).
   \item \textbf{expand-500 score2.}
         Restore
         \texttt{/tmp/blind/\_key/benchmark\_expand\_500.answers2.jsonl.withheld},
@@ -875,8 +858,6 @@ item does not apply; gaps are named.
   \item \textbf{Figure rebuild limits.}
         \texttt{fig\_wall\_diagnostic} / Fig.~1 wall is the $n{=}500$
         generation decomposition ($227/22/251$).
-        The 58/7/129 plate is SI-only
-        (\texttt{fig\_wall\_fverify\_slice}).
         expand-500 has an official \texttt{score()} but no
         \texttt{diagnosis.json}, so a pooled forward-verify wall
         cannot be rebuilt.
@@ -918,8 +899,7 @@ The $n{=}500$ roster is the frozen \texttt{qid} list in the code release.
 Do not reconstruct a composition story from protocol notes.
 
 \textbf{Where is the instrumented forward-verify wall?}
-SI only, as a protocol-slice diagnostic (58/7/129).
-It is not the $n{=}500$ wall.
+SI only, as a protocol-slice diagnostic (not the $n{=}500$ wall).
 
 \textbf{Where is expand-500 official fverify?}
 This SI: 103/230 verify vs 129/230 self (\S\ref{si:fverify}); no CIs;
