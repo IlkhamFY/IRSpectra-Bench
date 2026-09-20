@@ -18,13 +18,14 @@ Locked facts used (do not invent beyond these):
 ## Top reviewer attacks (and where the PDF answers them)
 
 1. **“39% top-1 vs a grim wall — they pooled a hidden easy set.”**
-   Abstract, Table 2, §5.6, Limitations (vi), Fig. 1 caption, Appendix FAQ.
+   Abstract, Table 2, §5.6, Limitations (vi), Fig.~1(c) / wall captions, Appendix FAQ.
    Expansion is easier (59% vs 28% top-1) and is **disclosed**. The wall is **not**
    an n=300 figure.
 
 2. **“fig_wall / 89% is the n=300 result.”**
-   Fig. 1 caption now says explicitly: locked n=194 only; not a pooled n=300 wall;
-   expansion has no fverify. 58/65 stays on that slice.
+   Fig.~1 is the protocol plate; panel (c) and the later diagnostic wall caption
+   say explicitly: locked n=194 only; not a pooled n=300 wall; expansion has no
+   fverify. 58/65 stays on that slice.
 
 3. **“Consumer Claude, no snapshot, not reproducible — reject.”**
    Setup + Limitations (i) + FAQ. Inference is not bit-exact; **scoring** of frozen

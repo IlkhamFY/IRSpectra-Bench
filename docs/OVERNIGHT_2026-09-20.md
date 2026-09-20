@@ -5,6 +5,9 @@ No new experimental scores. Headline stays **n=300** generation / **n=194** fver
 ## What is true this morning
 
 - Source of truth: `main.tex` on `cursor/iclr-night-strengthen-20260920-c33d`.
+- **Fig 1** is now `fig1_overview` (pipeline + closed-book peak reasoning + n=194 wall).
+  The old `fig_wall` stays as a diagnostic figure in §5.4 (same 58/7/129 slice).
+  Listing 1 is the IRexp JSON+molecule box (v3-R25; gold held out).
 - Abstract / intro / Table 1 still lock **118/300 (39.3%)** / **133/300 (44.3%)**.
 - `fig_wall` caption still: locked n=194 only; expansion has no fverify.
 - expand-500: **230/230 deposited, unscored** (companion STATUS; local pointer
@@ -20,6 +23,9 @@ No new experimental scores. Headline stays **n=300** generation / **n=194** fver
   caveat; not pooled.
 - Limitations (vi) + Appendix FAQ: fverify not on 106 **or** 230; no n≈500 top-1.
 - Soft-reject memo updated.
+- **Figure pack:** lead Fig.~1 (`fig1_overview`: pipeline / peak reasoning / n=194
+  wall); old wall kept as §5.4 diagnostic; Listing 1 upgraded to IRexp
+  JSON+molecule box. No new metrics.
 
 ## What still needs Ilkham / Rodrigo
 
