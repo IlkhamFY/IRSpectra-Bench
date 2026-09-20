@@ -18,13 +18,14 @@ Locked facts used (do not invent beyond these):
 ## Top reviewer attacks (and where the PDF answers them)
 
 1. **“39% top-1 vs a grim wall — they pooled a hidden easy set.”**
-   Abstract, Table 2, §5.6, Limitations (vi), Fig. 1 caption, Appendix FAQ.
+   Abstract, Table 2, §5.6, Limitations (vi), Fig.~1(c) / wall captions, Appendix FAQ.
    Expansion is easier (59% vs 28% top-1) and is **disclosed**. The wall is **not**
    an n=300 figure.
 
 2. **“fig_wall / 89% is the n=300 result.”**
-   Fig. 1 caption now says explicitly: locked n=194 only; not a pooled n=300 wall;
-   expansion has no fverify. 58/65 stays on that slice.
+   Fig.~1 is the protocol plate; panel (c) and the later diagnostic wall caption
+   say explicitly: locked n=194 only; not a pooled n=300 wall; expansion has no
+   fverify. 58/65 stays on that slice.
 
 3. **“Consumer Claude, no snapshot, not reproducible — reject.”**
    Setup + Limitations (i) + FAQ. Inference is not bit-exact; **scoring** of frozen
@@ -55,7 +56,28 @@ Locked facts used (do not invent beyond these):
    Official ICLR 2027 sty/bst vendored; running header and cover letter year
    updated. Required AI-use statement added (does not count toward 9 pages).
 
-## What changed in this release
+9. **“They have a hidden n=500 result / they under-claim scale.”**
+   §5.6 scale-roadmap + Limitations (vi) + FAQ + SI: 230/230 is now
+   generation-scored (**129/230** top-1, **138/230** recall; clean 127/224)
+   in appendix/SI only. **No CIs. No fverify precision.** Thinking-tier arm
+   ≠ no-thinking headline. Headline stays n=300. Exploratory 519/524/530
+   are SI rows, not a replacement headline.
+
+10. **“Agentic literature (IR-Agent ICLR 2026 / MolQuest / Espejo) already
+    solved this; this is a thin bench.”**
+    Related work now types three regimes. IR-Agent re-ranks a proposed pool
+    (NIST IR). This paper measures the missing stage split on literature
+    peak lists. Discussion: the next agent is a proposer, not a second verifier.
+
+## What changed in the 2026-09-20 night pass (no new metrics)
+
+- `main.tex`: denser agentic Related Work (three regimes); propose ≫ verify;
+  §5.6 scale-roadmap (230/230 deposited, unscored); Limitations (vi) + FAQ
+  cover expand-500 and “no fverify on 106 or 230”.
+- `references.bib`: IR-Agent venue → ICLR 2026 (verified poster / official repo).
+- Companion STATUS pointer: `docs/EXPAND500_POINTER_2026-09-20.md`.
+
+## What changed in v0.23
 
 - `iclr_paper.tex`: abstract/intro claim sharpen; SpectraLLM/IR-Agent/curated
   contrast; Listing 1 (abridged v3-R25 payload; full numeric lists not invented);

@@ -1,9 +1,9 @@
 # Generation Recall, Not Verification, Binds LLM Structure Elucidation from Literature Spectra
 
-<!-- STALE markdown snapshot. Source of truth is main.tex (Overleaf).
-     Headline as of v0.15 is pooled n=300 (118/300 = 39.3% top-1; 133/300 = 44.3% recall).
-     Validate-clean n=295 is appendix / sensitivity. Do not copy this file into Overleaf;
-     body below still quotes older locks. Grounded counts: docs/POOLED_HEADLINE_2026-09-16.md -->
+<!-- STALE markdown snapshot. Do not copy this file into Overleaf.
+     Source of truth: main.tex on PR #14 / docs/FINAL_SOURCE_OF_TRUTH_2026-09-20.md.
+     Live lock: generation 227/500 & 249/500; wall fverify 204/45/251.
+     Body below still quotes older n=194 / n=300 locks. -->
 
 **Anonymous authors**
 
@@ -85,7 +85,7 @@ technical validation of the corpus are the subject of a companion *Scientific Da
 manuscript (in preparation). This ICLR paper **cites** that resource and does not re-present
 a Data Descriptor.
 
-![Diagnosis on IRSpectra-Bench (n=194): generation recall, not verification, is the bottleneck. Where the true structure is never proposed, no ranker can recover it; where it is proposed, verification usually selects it.](docs/figures/fig_wall.png){#fig:fig-wall}
+![Diagnosis on IRSpectra-Bench (n=500): generation recall, not verification, is the bottleneck. Forward-verify wall: 204 verified / 45 misranked / 251 never proposed. Generation remains 227/500 top-1 and 249/500 recall. No re-ranking repairs the 251 never proposed in top-3.](docs/figures/fig_wall.png){#fig:fig-wall}
 
 ---
 
