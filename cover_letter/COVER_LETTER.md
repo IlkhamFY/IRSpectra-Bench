@@ -1,7 +1,7 @@
 # Cover letter — IRSpectra-Bench (ICLR 2027)
 
 **Template:** McMaster letterhead LaTeX (same Rodrigo shell as IRexp / ParetoMol): `cover_letter/cover_letter.tex` + `mcm-col_png.png`.
-**Manuscript:** Generation Recall, Not Verification, Binds Molecular Structure Elucidation from Literature Peak Lists
+**Manuscript:** Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, ¹H, and ¹³C NMR Peak Lists
 **Venue:** ICLR 2027 (conference paper)
 **Signatory (template convention):** Rodrigo A. Vargas-Hernández (vargashr@mcmaster.ca), on behalf of all authors
 **Coauthors:** Ilkham Yabbarov; Rudra Sondhi; Rodrigo A. Vargas-Hernández
@@ -10,7 +10,7 @@
 
 Dear Program Chairs,
 
-We submit our manuscript entitled *Generation Recall, Not Verification, Binds Molecular Structure Elucidation from Literature Peak Lists* for consideration as a conference paper at *ICLR 2027*.
+We submit our manuscript entitled *Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, ¹H, and ¹³C NMR Peak Lists* for consideration as a conference paper at *ICLR 2027*.
 
 Frontier models have shown strong performance on molecular structure elucidation, but it is unclear how well those results transfer to heterogeneous experimental reports. We ask an operational question: given only a molecular formula and literature-reported IR, ¹H and ¹³C NMR peak lists—not digitised spectral images—can an off-the-shelf frontier model recover the correct constitution, and which stage fails when it cannot?
 
