@@ -3,15 +3,15 @@
 **Decision (2026-09-15):** host commercial IRexp DoR via private GitHub `IlkhamFY/peaklist-corpus-review` + **anonymous.4open.science** public review URL.
 
 - Private repo (do not cite in PDF): https://github.com/IlkhamFY/peaklist-corpus-review
-- Paper cites only the anonymous.4open URL (see `iclr_paper.tex` Appendix).
-- After accept: restore `ilkhamfy/IRexp`, named bib authors, `\iclrfinalcopy`, and full acknowledgements.
+- Paper cites only the anonymous.4open URL (see `main.tex` Appendix).
+- After accept: restore `ilkhamfy/IRexp`, named bib authors, `\iclrfinalcopy`, and full acknowledgements (AccelD / 596133-2025).
 
 ## Publish / refresh anonymous link
 
 1. Open https://anonymous.4open.science/
 2. Sign in with GitHub; select private repo `peaklist-corpus-review`
 3. Strip terms if prompted: Ilkham, Yabbarov, Sondhi, Vargas, McMaster, ilkhamfy, yabbaroi, vargashr
-4. Paste the issued URL into `iclr_paper.tex` if it differs from the placeholder path.
+4. Paste the issued URL into `main.tex` Appendix if it differs from the placeholder path.
 ## Issued anonymous URL (2026-09-15)
 
 - Public review URL: https://anonymous.4open.science/r/peaklist-corpus-review-10C4/

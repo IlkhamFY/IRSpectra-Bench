@@ -13,4 +13,9 @@
 
 ## Folders
 - `tex/` — ICLR sty/bst + natbib/fancyhdr
-- `figures/`, `scripts/`, `docs/`
+- `figures/`, `scripts/`, `docs/`, `si/`, `cover_letter/`
+
+## Project URL
+No `overleaf.com/project/…` URL is stored in this repo. Overleaf is
+GitHub-imported from `IlkhamFY/IRSpectra-Bench`. After PR #13, Pull
+GitHub (main document = `main.tex`). Lock: `docs/FINAL_SOURCE_OF_TRUTH_2026-09-20.md`.

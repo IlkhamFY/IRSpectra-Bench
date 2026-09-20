@@ -2,7 +2,9 @@
 
 Blind structure elucidation from **molecular formula + IR + ¹H + ¹³C** peak lists exactly as reported in open-access papers. Constitution scoring uses RDKit InChIKey connectivity (first 14 characters) unless noted.
 
-**Paper:** [IRexp and IRSpectra-Bench](https://github.com/IlkhamFY/spectro-agent) (manuscript in preparation, 2026).
+**Paper:** [IRSpectra-Bench ICLR manuscript](https://github.com/IlkhamFY/IRSpectra-Bench/pull/14)
+(generation 227/500, 249/500; wall 204/45/251). Scoring / frozen deposits:
+[IlkhamFY/spectro-agent](https://github.com/IlkhamFY/spectro-agent) (PR #41 / #68).
 
 ---
 
@@ -68,7 +70,8 @@ That gap is a result, not a reason to keep n=194 as the paper headline.
 
 Independent pre-registered blind draw, scored after the n=194 cohort was locked.
 Constitution scoring is RDKit InChIKey-14. All 106 enter the paper headline; clean 101
-is the appendix / sensitivity row. Forward-verify is the n=194 instrumented slice.
+is the appendix / sensitivity row. The paper wall is n=500 fverify
+204/45/251. n=194 58/7/129 remains the SI protocol-slice.
 
 | Rank | Model / method | Top-1 ↑ | Recall (top-3) ↑ | Gen. recall | Verif. prec. \| recall | Notes |
 |---:|---|--:|--:|--:|--:|---|

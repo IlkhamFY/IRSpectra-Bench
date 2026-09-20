@@ -36,5 +36,6 @@ forward-verify diagnostic lives only as `fig_wall_fverify_slice`
 ## Pack files
 
 - Regenerated: `figures/fig_wall_diagnostic.{svg,pdf,png}`
-- Lead Fig 1 reports generation 227/500 and 249/500; diagnosis wall is 204/45/251
+- Lead Fig 1 reports n=500 fverify (249/500, 204/249, 40.8%; wall 204/45/251).
+  Generation remains 227/500 top-1 and 249/500 recall.
 - SI-only protocol-slice diagnostic: `figures/fig_wall_fverify_slice.{svg,pdf,png}`

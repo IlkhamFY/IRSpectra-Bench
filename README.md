@@ -8,9 +8,11 @@ Clean manuscript repository for the **IRSpectra-Bench** ICLR-track paper
 `data/fverify_n500/WALL_n500.md`). Generation 227/249/251 is top-1 /
 recall / never-proposed, not the wall. Roster: frozen qid lists in the
 code release. No CIs. Do not quote 243/519. Do not print 194/106/200
-in main prose. Figure 1 is `fig1_lead_overview` (generation). Listing 1
-is `listing1_irexp_record`. `fig_wall_diagnostic` is the n=500 fverify
-wall. expand-500 official fverify (103/230 vs self 129/230) is an SI arm.
+in main prose. Figure 1 is `fig1_lead_overview` (n=500 fverify:
+249/500 recall, 204/249 verified|pool, 40.8% verified; wall 204/45/251).
+Listing 1 is `listing1_irexp_record`. `fig_wall_diagnostic` reprints
+that wall. Generation remains 227/500 top-1 and 249/500 recall.
+expand-500 official chamfer (103/230 vs self 129/230) is an SI arm.
 
 **Main Overleaf file:** `main.tex`  
 **Compiler:** pdfLaTeX or XeLaTeX (+ BibTeX)  
@@ -32,10 +34,11 @@ docs/LEADERBOARD.md
 docs/BENCHMARK.md
 docs/SUBMISSION.md
 docs/NIGHT_POOL_2026-09-20.md
+docs/FINAL_SOURCE_OF_TRUTH_2026-09-20.md
 scripts/build_pdf.py
 scripts/build_si.py
-OVERLEAF.md
-COMMIT_POLICY.md
+docs/OVERLEAF.md
+docs/COMMIT_POLICY.md
 ```
 
 ## Build PDF locally

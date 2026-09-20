@@ -10,6 +10,7 @@ Standalone SI for the ICLR manuscript. **Does not count toward the 9-page main.*
   `docs/NIGHT_POOL_2026-09-20.md`, and
   `docs/FVERIFY_EXPAND500_INVENTORY_2026-09-20.md`.
 
+Lock: `docs/FINAL_SOURCE_OF_TRUTH_2026-09-20.md`.
 **Headline is n=500** (227/500 top-1; 249/500 recall).
 Diagnosis wall is n=500 fverify **204 / 45 / 251**
 (spectro-agent `data/fverify_n500/WALL_n500.md`).

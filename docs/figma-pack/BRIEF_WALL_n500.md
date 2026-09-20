@@ -1,5 +1,9 @@
 # BRIEF — Locked wall n=500 (Chem Partner 2026-09-20 morning)
 
+**Superseded the same day.** The shipped wall is n=500 **fverify 204/45/251**
+(`docs/FINAL_SOURCE_OF_TRUTH_2026-09-20.md`). Generation 227/22/251 below is
+generation, not THE wall. Keep this file as the morning changelog only.
+
 **Pack root:** `/workspace/iclr-figma-pack-2026-09-20/`  
 **Supersedes wall numbers in:** `BRIEF_0800ET.md` (old n=194 fverify wall)  
 **Timezone:** America/New_York

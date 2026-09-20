@@ -12,7 +12,8 @@
   **No CIs.** Do not print 194/106/200 in main prose.
 - Strata n=500: simple 161/248 & 172/248; complex 66/252 & 77/252.
 - **Do not quote 243/519**.
-- Fig 1 = n=500 generation. `fig_wall_diagnostic` = n=500 fverify wall.
+- Fig 1 = n=500 fverify (`fig1_lead_overview`: 249/500, 204/249, 40.8%;
+  wall 204/45/251). `fig_wall_diagnostic` reprints that wall.
 - Instrumented 58/7/129 and expand-500 103/230 stay SI arms.
 
 ## expand-500 (NIGHT_POOL; 200 in headline, all-230 in SI)
@@ -27,7 +28,8 @@
 
 ## Paper
 
-- Fig 1 = `fig1_lead_overview` (protocol + n=500 generation 227/500, 249/500).
+- Fig 1 = `fig1_lead_overview` (protocol + n=500 fverify 249/500,
+  204/249, 40.8%; wall 204/45/251). Generation remains 227/500, 249/500.
 - Listing 1 = `listing1_irexp_record`.
 - Wall diagnostic = `fig_wall_diagnostic` (fverify 204/45/251).
 - Instrumented fverify 58/7/129 is SI-only (`fig_wall_fverify_slice`).

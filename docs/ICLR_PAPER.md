@@ -1,9 +1,9 @@
 # Generation Recall, Not Verification, Binds LLM Structure Elucidation from Literature Spectra
 
-<!-- STALE markdown snapshot. Source of truth is main.tex (Overleaf).
-     Headline as of v0.15 is pooled n=300 (118/300 = 39.3% top-1; 133/300 = 44.3% recall).
-     Validate-clean n=295 is appendix / sensitivity. Do not copy this file into Overleaf;
-     body below still quotes older locks. Grounded counts: docs/POOLED_HEADLINE_2026-09-16.md -->
+<!-- STALE markdown snapshot. Do not copy this file into Overleaf.
+     Source of truth: main.tex on PR #14 / docs/FINAL_SOURCE_OF_TRUTH_2026-09-20.md.
+     Live lock: generation 227/500 & 249/500; wall fverify 204/45/251.
+     Body below still quotes older n=194 / n=300 locks. -->
 
 **Anonymous authors**
 

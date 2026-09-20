@@ -1,10 +1,16 @@
 # FIG1_BUILD_SPEC — `fig1_lead_overview`
 
-Lead figure for IRSpectra-Bench ICLR paper. System + **n=500 generation**
-diagnosis in one glance. Propose is the wall, not verify.
+**Shipped plate (2026-09-20 evening):** n=500 **fverify**
+(249/500 recall, 204/249 verified|pool, 40.8% verified; wall **204/45/251**).
+See `docs/FINAL_SOURCE_OF_TRUTH_2026-09-20.md`. The inventory below is the
+morning generation-decomp brief (227/22/251) and is **not** the live Fig 1.
+
+Lead figure for IRSpectra-Bench ICLR paper. System + diagnosis in one glance.
+Propose is the wall, not verify.
 
 **Not** an IR-Agent “Overall Framework / TI Expert / Ret Expert” clone.
 **Not** the old 58/7/129 forward-verify wall.
+**Not** generation 227/22/251 as THE wall.
 
 ## Frame
 
