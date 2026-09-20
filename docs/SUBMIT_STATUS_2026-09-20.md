@@ -22,8 +22,9 @@ From spectro-agent `data/benchmark_expand_500/NIGHT_POOL_2026-09-20.md`
 
 ## Paper (this night pass)
 
-- Fig 1 = protocol + n=194 wall + two cohorts (`figures/fig_framework.pdf`).
-- Listing 1 = IRexp JSON + held-out mol.
+- Fig 1 = Figma Bro `fig1_lead_overview` (protocol + n=194 wall).
+- Listing 1 = `listing1_irexp_record`.
+- Wall diagnostic = `fig_wall_diagnostic` (appendix; n=194 only).
 - Display equations (1)–(7) used in text.
 - Standalone SI grown (`si/supplement.pdf`).
 - Main compressed so body through Conclusion targets ≤9 ICLR pages.

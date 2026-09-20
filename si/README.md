@@ -15,7 +15,7 @@ No expand-500 fverify precision. No invented CIs.
 
 ## Sections (growth vs the first night stub)
 
-1. Figure / listing map (canonical Fig 1 = `fig1_overview`; Listing 1 = v3-R25; wall = appendix diagnostic)
+1. Figure / listing map (Fig 1 = `fig1_lead_overview`; Listing 1 = `listing1_irexp_record`; wall = `fig_wall_diagnostic`)
 2. Full blind protocol + pre-reg pointers + stopping rules
 3. Scoring equations (same 7 identities as the main text; no new metrics)
 4. Locked n=194 / +106 / n=300 / n=295 tables with strata

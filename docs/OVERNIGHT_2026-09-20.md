@@ -5,9 +5,9 @@ Headline stays **n=300** generation / **n=194** fverify.
 ## What is true this morning
 
 - Source of truth: `main.tex` on `cursor/iclr-night-strengthen-20260920-c33d`.
-- **Fig 1** is `fig1_overview` (pipeline + closed-book peak reasoning + n=194 wall).
-  The old `fig_wall` is an appendix diagnostic (same 58/7/129 slice).
-  Listing 1 is the IRexp JSON+molecule box (v3-R25; gold held out).
+- **Fig 1** is Figma Bro `fig1_lead_overview` (input → generate → verify + n=194 wall).
+  Diagnostic wall is `fig_wall_diagnostic` (same 58/7/129 slice) in the appendix.
+  Listing 1 is `listing1_irexp_record` (IRexp JSON+mol; SMILES/InChIKey are resource fields).
 - Abstract / intro / Table 1 still lock **118/300 (39.3%)** / **133/300 (44.3%)**.
 - expand-500 is **generation-scored** in appendix + SI only: **129/230 (56.1%)** top-1, **138/230 (60.0%)** recall; clean **127/224**. No CIs. No fverify precision. Thinking-tier arm. Not the headline.
 - IRexp remains a companion Sci Data pointer (Listing 1 + Appendix A). Not merged.
@@ -17,7 +17,7 @@ Headline stays **n=300** generation / **n=194** fverify.
 - Related Work densified into three agentic regimes; then compressed so the body fits 9 ICLR pages through the Conclusion.
 - Bottleneck wording: propose ≫ verify.
 - Six used display-equation blocks (7 numbered identities): factorisation, InChIKey-14, top-1, recall@k, prec.|recall, 13C chamfer, pooled estimator.
-- **Figure pack (canonical):** lead Fig.~1 (`fig1_overview`); wall kept as appendix diagnostic; Listing 1 is IRexp JSON+molecule (v3-R25).
+- **Figure pack (Figma Bro):** lead Fig.~1 (`fig1_lead_overview`); Listing 1 (`listing1_irexp_record`); wall (`fig_wall_diagnostic`). Competing `fig_framework` removed.
 - Standalone SI (`si/supplement.tex`) grown: protocol, night-pool tables, cases, prompts, model card, fverify gaps, repro checklist.
 - Limitations (vi) + FAQ: fverify not on 106; expand-500 fverify incomplete (31/41).
 

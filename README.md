@@ -3,12 +3,12 @@
 Clean manuscript repository for the **IRSpectra-Bench** ICLR-track paper
 (recall/verification diagnosis of LLM structure elucidation).
 **Headline:** pooled generation cohort **n=300** (194 locked + all 106 expansion).
-Validate-clean **n=295** is appendix / sensitivity. Figure 1 (`fig1_overview`) is the
-protocol plate (pipeline + closed-book reasoning + n=194 wall). The diagnostic
-wall (`fig_wall`) repeats that locked slice in the appendix. A larger expand-500
-round is generation-scored in the SI (129/230 top-1; 138/230 recall; no CIs;
-no fverify precision) and is **not** the n=300 headline —
-see `docs/NIGHT_POOL_2026-09-20.md`.
+Validate-clean **n=295** is appendix / sensitivity. Figure 1 is the Figma Bro
+lead plate (`fig1_lead_overview`). Listing 1 is `listing1_irexp_record`.
+The diagnostic wall (`fig_wall_diagnostic`) repeats the locked n=194 slice in
+the appendix. A larger expand-500 round is generation-scored in the SI
+(129/230 top-1; 138/230 recall; no CIs; no fverify precision) and is
+**not** the n=300 headline — see `docs/NIGHT_POOL_2026-09-20.md`.
 
 **Main Overleaf file:** `main.tex`  
 **Compiler:** pdfLaTeX or XeLaTeX (+ BibTeX)  
@@ -23,7 +23,7 @@ main_IRExpBench_only.tex    # optional orphan alternate; not the ICLR build root
 references.bib
 iclr2027_conference.sty/.bst
 fancyhdr.sty, natbib.sty
-figures/                    # Fig 1 = fig1_overview.pdf; wall diagnostic = fig_wall.pdf
+figures/                    # Fig 1 = fig1_lead_overview.pdf; Listing 1 = listing1_irexp_record.pdf
 si/supplement.tex           # standalone SI (does not count toward 9 pp)
 si/supplement.pdf           # compiled SI
 docs/LEADERBOARD.md

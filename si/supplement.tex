@@ -65,7 +65,7 @@ The night main-text plate and listing are the source of truth. This SI
 does \textbf{not} fight that numbering.
 
 \begin{table}[h]
-\caption{Main-text floats vs this SI. Dual labels on Fig.~1 are intentional.}
+\caption{Main-text floats vs this SI. Fig.~1 is the Figma Bro lead plate.}
 \centering
 \small
 \begin{tabular}{@{}llp{7.2cm}@{}}
@@ -73,20 +73,20 @@ does \textbf{not} fight that numbering.
 main label & object & SI role \\
 \midrule
 Fig.~\texttt{fig1} &
-  Fig.~1 (\texttt{fig1\_overview}) &
-  Canonical protocol plate: pipeline (a), closed-book evidence (b),
-  $n{=}194$ wall 58/7/129 (c).
+  Fig.~1 (\texttt{fig1\_lead\_overview}) &
+  Figma Bro lead: input $\to$ generate $\to$ verify, factorisation, and
+  $n{=}194$ wall 58/7/129.
   Wall is \textbf{not} a pooled $n{=}300$ diagnosis. \\
 Fig.~\texttt{fig-chemspace} &
   Fig.~2 &
   $n{=}300$ chemistry; panels on validate-clean $n{=}295$. \\
 Listing~\texttt{lst:payload} &
-  Listing 1 &
-  IRexp JSON$+$molecule (locked v3-R25 / C$_{10}$H$_{14}$N$_{2}$O);
-  gold held out. Not a Data Descriptor dump. \\
+  Listing 1 (\texttt{listing1\_irexp\_record}) &
+  IRexp JSON$+$molecule (NTJIYHYWVZYBEX; C$_{12}$H$_{16}$N$_{2}$O$_{2}$).
+  SMILES/InChIKey are resource fields, not solver payload. \\
 Fig.~\texttt{fig-wall} &
-  appendix diagnostic &
-  Repeat of Fig.~1(c) on the locked $n{=}194$ slice only. \\
+  appendix (\texttt{fig\_wall\_diagnostic}) &
+  Repeat of the Fig.~1 wall on the locked $n{=}194$ slice only. \\
 Fig.~\texttt{fig-robustness} &
   Fig.~4 &
   Formula-only / recency / four-vendor. \\
@@ -575,18 +575,20 @@ Ranking can fail when predicted $^{13}$C lists are nearly tied.
 This is why we do not claim an accuracy advance from forward-verify
 (McNemar $p{=}0.55$; 7 gained, 4 lost on $n{=}194$).
 
-\subsection{Listing 1 is the locked v3-R25 payload}
+\subsection{Listing 1 is the IRexp record plate}
 
-Main-text Listing~1 is the IRexp JSON$+$molecule box for locked v3-R25
-(C$_{10}$H$_{14}$N$_{2}$O; 2-pyridyl picolinamide). Gold constitution is
-held out and scored only by Eq.~\ref{si:eq:ik14}.
-An extra IRexp record (C$_{12}$H$_{16}$N$_{2}$O$_{2}$ urea) is shown below
-as a second pointer plate --- it is \textbf{not} Listing~1 and is not a
-bench dump.
+Main-text Listing~1 is \texttt{listing1\_irexp\_record}
+(C$_{12}$H$_{16}$N$_{2}$O$_{2}$ urea; InChIKey
+\texttt{NTJIYHYWVZYBEX-UHFFFAOYSA-N}).
+SMILES / InChIKey / licence fields are resource metadata.
+Bench solvers see only formula and printed peak lists.
+Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
+Locked v3-R25 remains the mechanism worked case (main-text Figure~5),
+not Listing~1.
 
 \begin{center}
-\includegraphics[width=0.28\linewidth]{fig_listing1_mol.pdf}\\
-{\scriptsize Extra IRexp pointer (C$_{12}$H$_{16}$N$_{2}$O$_{2}$), not Listing~1.}
+\includegraphics[width=0.72\linewidth]{listing1_irexp_record.pdf}\\
+{\scriptsize Listing~1 plate (Figma Bro). Not a Data Descriptor dump.}
 \end{center}
 
 \subsection{Extra panels (already-reported numbers)}
