@@ -7,7 +7,7 @@ Clean manuscript repository for the **IRSpectra-Bench** ICLR-track paper
 not verify). Roster: frozen qid lists in the code release. No CIs.
 Do not quote 243/519. Figure 1 is `fig1_lead_overview`. Listing 1 is
 `listing1_irexp_record`. `fig_wall_diagnostic` is the n=500 generation
-wall. Instrumented fverify (58/7/129) and expand-500 official fverify
+wall. Instrumented fverify and expand-500 official fverify
 (103/230 vs self 129/230) are SI only.
 
 **Main Overleaf file:** `main.tex`  
