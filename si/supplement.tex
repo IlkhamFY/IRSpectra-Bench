@@ -57,7 +57,7 @@ Generation $227/249/251$ is top-1 / recall / never-proposed, not the wall.
 Do \textbf{not} quote 243/519.
 Roster: frozen \texttt{qid} lists in the code release.
 Figure and listing numbers below refer to the main PDF
-(Fig.~1 = protocol + $n{=}500$ generation; Listing~1 = IRexp payload;
+(Fig.~1 = protocol + $n{=}500$ fverify; Listing~1 = IRexp payload;
 Fig.~\texttt{fig-wall} = $n{=}500$ fverify wall).
 They are not re-numbered here.
 
@@ -81,8 +81,9 @@ main label & object & SI role \\
 \midrule
 Fig.~\texttt{fig1} &
   Fig.~1 (\texttt{fig1\_lead\_overview}) &
-  Lead: input $\to$ generate $\to$ verify, factorisation, and
-  $n{=}500$ generation ($227/500$ top-1; $249/500$ recall). \\
+  Lead: input $\to$ generate $\to$ select, factorisation, and
+  $n{=}500$ fverify ($249/500$ recall $\times$ $204/249$ verified $|$ pool
+  $=40.8\%$ verified; wall $204/45/251$). \\
 Fig.~\texttt{fig-chemspace} &
   Fig.~2 &
   Literature-cohort chemistry. \\
@@ -134,10 +135,12 @@ the Figma Bro plate is one figure (protocol strip, factorisation, wall).
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-\caption{Reprint of main-text Figure~1.
-Input $\to$ generate $\to$ verify; $45.4\%=49.8\%\times 91.2\%$;
-$n{=}500$ generation $227/500$ top-1 and $249/500$ recall.
-The diagnosis wall is forward-verify $204/45/251$.
+\caption{Reprint of main-text Figure~1
+(\texttt{fig1\_lead\_overview}).
+Generate $249/500$ (49.8\%) recall in top~3;
+select $204/249$ (81.9\%) verified $|$ pool
+($49.8\%\times 81.9\%=40.8\%$ verified).
+Wall: $204$ verified / $45$ misranked / $251$ never proposed.
 Propose is the wall, not verify.}
 \label{si:fig:lead}
 \end{figure}
@@ -478,9 +481,10 @@ expand-500 cut & 200 & 90 & 26 & 84 \\
 \end{table}
 
 Recalled $=204+45=249/500$, matching committed generation recall.
-Main-text Figure~\texttt{fig-wall} is this $204/45/251$ wall.
-Figure~1 is $n{=}500$ generation ($227/500$ top-1; $249/500$ recall),
-not the wall.
+Main-text Figure~\texttt{fig-wall} reprints this $204/45/251$ wall.
+Figure~1 is the same $n{=}500$ fverify plate
+($249/500$ recall $\times$ $204/249$ verified $|$ pool $=40.8\%$ verified;
+wall $204/45/251$).
 
 \subsection{Instrumented protocol slice}
 
@@ -905,9 +909,10 @@ item does not apply; gaps are named.
         SpectraLLM / IR-Agent / Spectro / NMIRacle / Alberts / CASE
         not scored on this bench.
   \item \textbf{Figure rebuild limits.}
-        \texttt{fig\_wall\_diagnostic} is the $n{=}500$ forward-verify
-        wall ($204/45/251$). Fig.~1 remains $n{=}500$ generation
-        ($227/500$ top-1; $249/500$ recall).
+        \texttt{fig\_wall\_diagnostic} reprints the $n{=}500$
+        forward-verify wall ($204/45/251$). Fig.~1 is the
+        $n{=}500$ fverify plate ($249/500$ recall $\times$
+        $204/249$ verified $|$ pool $=40.8\%$ verified; wall $204/45/251$).
         Do not rebuild the wall from a single-arm \texttt{diagnosis.json}.
   \item \textbf{This manuscript compile.}
         \texttt{python3 scripts/build\_pdf.py} (main);
@@ -925,8 +930,9 @@ item does not apply; gaps are named.
         \texttt{docs/NIGHT\_POOL\_2026-09-20.md} and
         spectro-agent \texttt{data/fverify\_n500/WALL\_n500.md}.
   \item Fig.~1 caption, Limitations~(vi), and Appendix FAQ agree:
-        generation $=$ $227/500$ top-1 and $249/500$ recall;
-        wall $=$ $n{=}500$ fverify $204/45/251$.
+        Fig.~1 $=$ $n{=}500$ fverify ($249/500$ recall $\times$
+        $204/249$ verified $|$ pool $=40.8\%$ verified; wall $204/45/251$);
+        generation headline remains $227/500$ top-1 and $249/500$ recall.
   \item expand-500 all-230 rows carry ``no CIs / thinking-tier /
         not a second wall''. Official arm fverify is 103/230 verify vs
         129/230 self (SI only). Do not quote 243/519.
@@ -940,12 +946,13 @@ These answers restate main-text Limitations and Appendix~B.
 They add no new metrics.
 
 \textbf{Why is top-1 45\% if the wall figure looks worse?}
-It should not. Figure~1 is $n{=}500$ generation:
-$227/500$ (45.4\%) top-1 and $249/500$ (49.8\%) recall
+Generation remains $227/500$ (45.4\%) top-1 and $249/500$ (49.8\%) recall
 (self-rank $227/249$).
-The wall figure is the $n{=}500$ forward-verify wall
-($204$ verified / $45$ misranked / $251$ never proposed;
-\texttt{data/fverify\_n500/WALL\_n500.md}).
+Figure~1 is the $n{=}500$ fverify plate:
+$249/500$ recall $\times$ $204/249$ verified $|$ pool $=40.8\%$ verified;
+wall $204/45/251$.
+The appendix wall reprints that plate
+(\texttt{data/fverify\_n500/WALL\_n500.md}).
 
 \textbf{Is the roster a hidden mix?}
 The $n{=}500$ roster is the frozen \texttt{qid} list in the code release.

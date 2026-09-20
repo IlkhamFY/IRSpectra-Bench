@@ -9,8 +9,8 @@
 % Diagnosis wall = n=500 fverify 204 verified / 45 misranked / 251 never-proposed.
 % Generation 227/249/251 only when labeled as generation (top-1 / recall), not as the wall.
 % No CIs. Do not quote 243/519. Do not print 194/106/200 in main prose.
-% Fig 1 = fig1_lead_overview (generation); Listing 1 = listing1_irexp_record;
-% fig_wall_diagnostic = n=500 fverify wall (204/45/251).
+% Fig 1 = fig1_lead_overview (fverify 249/500, 204/249, 40.8%; wall 204/45/251).
+% Listing 1 = listing1_irexp_record; fig_wall_diagnostic reprints 204/45/251.
 % Compile with pdfLaTeX or XeLaTeX + BibTeX (references.bib + iclr2027_conference.bst).
 % \iclrfinalcopy is the only official sty flag that prints \author and drops
 % the left-margin submission ruler (see tex/iclr2027_conference.sty).
@@ -155,15 +155,14 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-  \caption{IRSpectra-Bench protocol and $n{=}500$ generation.
+  \caption{IRSpectra-Bench protocol and $n{=}500$ fverify.
   Blind peak lists $+$ formula $\rightarrow$ closed-book LLM proposes a ranked
   pool $\rightarrow$ optional forward $^{13}$C chamfer re-rank (Eq.~\ref{eq:chamfer})
   $\rightarrow$ InChIKey-14 (Eq.~\ref{eq:ik14}).
-  Generation: $227/500$ (45.4\%) top-1 and $249/500$ (49.8\%) recall;
-  self-ranking selects the true structure $227/249$ (91.2\%)
-  ($45.4\%=49.8\%\times 91.2\%$).
-  The diagnosis wall is forward-verify $204$ verified / $45$ misranked /
-  $251$ never proposed (Figure~\ref{fig:fig-wall}).
+  Generate: $249/500$ (49.8\%) recall in top~3;
+  select: $204/249$ (81.9\%) verified $|$ pool
+  ($49.8\%\times 81.9\%=40.8\%$ verified).
+  Wall: $204$ verified / $45$ misranked / $251$ never proposed.
   Propose is the wall, not verify.}
   \label{fig:fig1}
 \end{figure}
@@ -641,9 +640,9 @@ The ladder \textbf{diagnoses a bottleneck}; it is not an accuracy advance.
 \textbf{(v) No SOTA chase.} SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR
 transformers and CASE are \textbf{not scored} here.
 \textbf{(vi) Forward-verify coverage.} Figure~\ref{fig:fig1} reports $n{=}500$
-generation ($227/500$ top-1; $249/500$ recall).
-Figure~\ref{fig:fig-wall} is the $n{=}500$ forward-verify wall
-($204$ verified / $45$ misranked / $251$ never proposed).
+fverify: $249/500$ (49.8\%) recall in top~3 and $204/249$ (81.9\%)
+verified $|$ pool ($40.8\%$ verified); wall $204/45/251$.
+Figure~\ref{fig:fig-wall} reprints that wall.
 An instrumented protocol-slice diagnostic and the expand-500 chamfer arm
 (verify vs self-rank) remain SI; they are not a second wall.
 \textbf{(vii) Deferred.} Expert-chemist audit not run; leave-one-modality abandoned;
@@ -724,11 +723,12 @@ companion Data Descriptor~\citep{yabbarov2026irexp}; they are not re-presented h
 These answers restate Limitations~\ref{sec:limitations}; they add no new metrics.
 
 \textbf{Why is top-1 45\% if the wall figure looks worse?}
-It should not. Figure~\ref{fig:fig1} is $n{=}500$ generation:
-$227/500$ (45.4\%) top-1 and $249/500$ (49.8\%) recall
+Generation remains $227/500$ (45.4\%) top-1 and $249/500$ (49.8\%) recall
 (self-rank $227/249$).
-Figure~\ref{fig:fig-wall} is the $n{=}500$ forward-verify wall:
-$204$ verified / $45$ misranked / $251$ never proposed.
+Figure~\ref{fig:fig1} is the $n{=}500$ fverify plate:
+$249/500$ recall $\times$ $204/249$ verified $|$ pool $=40.8\%$ verified;
+wall $204/45/251$.
+Figure~\ref{fig:fig-wall} reprints that wall.
 
 \textbf{Is the roster a hidden mix?}
 The $n{=}500$ roster is the frozen \texttt{qid} list in the code release.
