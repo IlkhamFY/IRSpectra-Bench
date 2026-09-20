@@ -1,6 +1,7 @@
 % IRSpectra-Bench --- supplementary information (does not count toward ICLR 9 pp)
 % Numbers: headline n=500 from docs/HEADLINE_N500_2026-09-20.md (spectro-agent 48fcd30)
-% plus locked n=194 wall + docs/NIGHT_POOL_2026-09-20.md.
+% plus n=500 generation wall (227/22/251) + docs/NIGHT_POOL_2026-09-20.md.
+% Old fverify 58/7/129 is protocol-slice diagnostic only.
 % No invented CIs. Do not quote 243/519 as the headline.
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
@@ -54,7 +55,7 @@ Every accuracy number is copied from a committed lock
 The paper headline is $n{=}500$ (227/500 top-1; 249/500 recall).
 Do \textbf{not} quote 243/519.
 Figure and listing numbers below refer to the main PDF
-(Fig.~1 = protocol + $n{=}194$ wall; Listing~1 = IRexp payload).
+(Fig.~1 = protocol + $n{=}500$ generation wall; Listing~1 = IRexp payload).
 They are not re-numbered here.
 
 \tableofcontents
@@ -78,8 +79,7 @@ main label & object & SI role \\
 Fig.~\texttt{fig1} &
   Fig.~1 (\texttt{fig1\_lead\_overview}) &
   Figma Bro lead: input $\to$ generate $\to$ verify, factorisation, and
-  $n{=}194$ wall 58/7/129.
-  Wall is \textbf{not} a pooled $n{=}500$ diagnosis. \\
+  $n{=}500$ generation wall $227/22/251$. \\
 Fig.~\texttt{fig-chemspace} &
   Fig.~2 &
   $n{=}300$ chemistry; panels on validate-clean $n{=}295$. \\
@@ -89,7 +89,7 @@ Listing~\texttt{lst:payload} &
   SMILES/InChIKey are resource fields, not solver payload. \\
 Fig.~\texttt{fig-wall} &
   appendix (\texttt{fig\_wall\_diagnostic}) &
-  Repeat of the Fig.~1 wall on the locked $n{=}194$ slice only. \\
+  Repeat of the Fig.~1 $n{=}500$ generation wall ($227/22/251$). \\
 Fig.~\texttt{fig-robustness} &
   Fig.~4 &
   Formula-only / recency / four-vendor. \\
@@ -131,10 +131,11 @@ the Figma Bro plate is one figure (protocol strip, factorisation, wall).
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-\caption{Reprint of main-text Figure~1.
-Input $\to$ generate $\to$ verify; $30\%\approx 34\%\times 89\%$;
-locked $n{=}194$ wall $58/7/129$.
-\textbf{Not} a pooled $n{=}500$ wall.}
+\caption{Reprint of main-text Figure~1
+(\texttt{fig1\_lead\_overview}).
+Input $\to$ generate $\to$ verify; $45.4\%=49.8\%\times 91.2\%$;
+$n{=}500$ generation wall $227/22/251$
+(249 recalled, 49.8\%).}
 \label{si:fig:lead}
 \end{figure}
 
@@ -156,9 +157,9 @@ Not a Data Descriptor dump. Locked v3-R25 is the mechanism case
 \includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
 \caption{Reprint of the appendix diagnostic wall
 (\texttt{fig\_wall\_diagnostic}):
-$58$ verified / $7$ mis-ranked / $129$ never proposed on the locked
-$n{=}194$ slice. Same integers as Figure~\ref{si:fig:lead}.
-No expansion-106 or expand-500 wall exists.}
+$227$ exact top-1 / $22$ in pool, not top-1 / $251$ never proposed
+on $n{=}500$. Bracket: 249 recalled (49.8\%).
+Same integers as Figure~\ref{si:fig:lead}.}
 \label{si:fig:wall}
 \end{figure}
 
@@ -301,7 +302,7 @@ d(P,Q)
 +\frac1{|Q|}\sum_{q\in Q}\min_{p\in P}|q-p|,
 \end{equation}
 where $\hat P(c)$ is predicted \emph{blind} to the observed list $P_{\mathrm{obs}}$.
-Instrumented wall only on the locked $n{=}194$ (58/65).
+Instrumented fverify only on the locked $n{=}194$ (58/65).
 Expansion-106: not run. expand-500 official score is in
 \S\ref{si:fverify} (103/230 verify vs 129/230 self; no CIs; not a wall).
 
@@ -536,8 +537,9 @@ Do not attach CIs.
 Source: \texttt{data/diagnosis.json} / \texttt{scripts/forward\_verify\_all.py}.
 
 \begin{table}[h]
-\caption{Instrumented forward-verify. This is the only $n{=}194$ wall
-(\texttt{diagnosis.json}). expand-500 has an official score in the next subsection,
+\caption{Instrumented forward-verify protocol-slice on $n{=}194$
+(\texttt{diagnosis.json}). This $58/7/129$ triple is \textbf{not} the
+main-text wall. expand-500 has an official score in the next subsection,
 not a wall.}
 \centering
 \begin{tabular}{@{}lrr@{}}
@@ -556,8 +558,10 @@ McNemar vs self-rank & --- & $p{=}0.55$ (7 gained, 4 lost) \\
 \end{tabular}
 \end{table}
 
-Main-text Figure~1 includes this wall (reprinted as Figure~\ref{si:fig:wall}).
-It is \textbf{not} a pooled $n{=}500$ wall.
+This $58/7/129$ triple is the instrumented $n{=}194$ protocol-slice
+diagnostic. It is \textbf{not} the main-text Figure~1 / appendix wall
+(those are the $n{=}500$ generation decomposition $227/22/251$;
+Figure~\ref{si:fig:lead}, Figure~\ref{si:fig:wall}).
 
 \subsection{Expansion-106 --- not run}
 
@@ -629,7 +633,7 @@ main-R06 / C$_{29}$H$_{30}$FNO$_{2}$ &
 True acridinedione never in the 3-candidate pool
 (Tanimoto-0.90 regioisomer: 4-fluorophenyl / phenyl swapped).
 IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused.
-This is the 129/194 wall. \\
+Never-proposed bind on the $n{=}194$ fverify slice. \\
 Verify-save &
 v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
@@ -648,9 +652,9 @@ IR 1652, 1530, 1352~cm$^{-1}$. \\
 
 True acridinedione never enters the 3-candidate pool (Tanimoto-0.90
 regioisomer: 4-fluorophenyl / phenyl swapped). IR 1641, 1510~cm$^{-1}$;
-$^{13}$C 195.7. Verifier unused. This is the 129/194 wall:
-re-ranking cannot recover a structure that was never proposed
-(Eq.~\ref{si:eq:factor}).
+$^{13}$C 195.7. Verifier unused. Never-proposed bind on the
+$n{=}194$ fverify slice: re-ranking cannot recover a structure that
+was never proposed (Eq.~\ref{si:eq:factor}).
 
 \subsection{Verify-save --- v3-R25 / C$_{10}$H$_{14}$N$_{2}$O}
 
@@ -922,7 +926,8 @@ item does not apply; gaps are named.
         133/300 when the withheld $+106$ key is restored locally.
   \item \textbf{Locked-slice fverify.}
         \texttt{python scripts/forward\_verify\_all.py} regenerates
-        58/7/129 on $n{=}194$ only.
+        58/7/129 on $n{=}194$ only (SI protocol-slice; not the
+        main-text $n{=}500$ generation wall).
   \item \textbf{expand-500 score2.}
         Restore
         \texttt{/tmp/blind/\_key/benchmark\_expand\_500.answers2.jsonl.withheld},
@@ -955,10 +960,10 @@ item does not apply; gaps are named.
         SpectraLLM / IR-Agent / Spectro / NMIRacle / Alberts / CASE
         not scored on this bench.
   \item \textbf{Figure rebuild limits.}
-        \texttt{fig\_wall\_diagnostic} / Fig.~1 wall reads $n{=}194$
-        \texttt{diagnosis.json}. expand-500 has an official
-        \texttt{score()} but no \texttt{diagnosis.json}, so a
-        pooled wall cannot be rebuilt.
+        Canonical Fig.~1 / \texttt{fig\_wall\_diagnostic} is the
+        $n{=}500$ generation wall ($227/22/251$), not rebuilt from
+        $n{=}194$ \texttt{diagnosis.json}. expand-500 has an official
+        \texttt{score()} but no pooled fverify \texttt{diagnosis.json}.
         Size / recency / miss-isomer / named-ring analyses were never
         written against the expansion roster.
   \item \textbf{This manuscript compile.}
@@ -976,7 +981,9 @@ item does not apply; gaps are named.
         \texttt{docs/POOLED\_HEADLINE\_2026-09-16.md} and
         \texttt{docs/NIGHT\_POOL\_2026-09-20.md}.
   \item Fig.~1 caption, Table~2, Limitations~(vi), and Appendix FAQ agree:
-        wall $=$ $n{=}194$; headline $=$ $n{=}500$ generation (227/500, 249/500).
+        wall $=$ $n{=}500$ generation ($227/22/251$);
+        headline $=$ $n{=}500$ generation (227/500, 249/500).
+        Old fverify $58/7/129$ is this SI protocol-slice only.
   \item expand-500 all-230 rows carry ``no CIs / thinking-tier /
         not a wall''. Official fverify is 103/230 verify vs
         129/230 self (SI only; not a wall). Do not quote 243/519.
@@ -989,10 +996,11 @@ item does not apply; gaps are named.
 These answers restate main-text Limitations and Appendix~B.
 They add no new metrics.
 
-\textbf{Why is top-1 45\% if the wall figure looks worse?}
-Headline generation is $n{=}500$ (227/500 top-1; 249/500 recall).
-Figure~1 includes the locked $n{=}194$ forward-verified wall (58/7/129).
-Do not read the wall as a pooled $n{=}500$ diagnosis.
+\textbf{What does the wall figure show?}
+Figure~1 / \texttt{fig\_wall\_diagnostic} are the $n{=}500$ generation
+decomposition: 227 exact top-1, 22 in pool not top-1, 251 never proposed
+in top-3 (249 recalled, 49.8\%; $45.4\%=49.8\%\times 91.2\%$).
+Instrumented fverify $58/7/129$ is this SI protocol-slice, not that wall.
 
 \textbf{Is the expansion hidden in the pool?}
 No. Expansion top-1 is 59\% vs 28\% on the locked 194.

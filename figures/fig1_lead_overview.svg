@@ -12,28 +12,27 @@
 <text x="186.0" y="30.0" font-size="10" font-weight="700">2 · Generation</text>
 <text x="186.0" y="48.0" font-size="8.5" fill="#1A1A1A">LLM proposes ranked</text>
 <text x="186.0" y="60.0" font-size="8.5" fill="#1A1A1A">candidate structures</text>
-<text x="186.0" y="88.0" font-size="7.5" font-weight="600" fill="#00897B">true enters pool 65/194 (34%)</text>
+<text x="186.0" y="88.0" font-size="7.5" font-weight="600" fill="#00897B">true enters top-3 pool 249/500 (49.8%)</text>
 <line x1="330.0" y1="56.0" x2="332.0" y2="56.0" stroke="#6B7280" stroke-width="1.2"/>
 <polygon points="336.0,56.0 331.0,52.5 331.0,59.5" fill="#6B7280"/>
 <rect x="338.0" y="12.0" width="152.0" height="88.0" rx="6" ry="6" fill="#F7F7F5" stroke="#E5E5E0" stroke-width="1"/>
 <text x="348.0" y="30.0" font-size="10" font-weight="700">3 · Verification</text>
 <text x="348.0" y="48.0" font-size="8.5" fill="#1A1A1A">Forward-verify / re-rank</text>
 <text x="348.0" y="60.0" font-size="8.5" fill="#1A1A1A">candidates against spectra</text>
-<text x="348.0" y="88.0" font-size="7.5" font-weight="600" fill="#00897B">selects true 58/65 (89%) when present</text>
-<text x="252.0" y="128.0" text-anchor="middle" font-size="11" font-weight="600" fill="#1A1A1A">top-1 = generation recall × verification precision|recall</text>
-<text x="252.0" y="146.0" text-anchor="middle" font-size="12" font-weight="700" fill="#1A1A1A">30% ≈ 34% × 89%</text>
-<text x="252.0" y="160.0" text-anchor="middle" font-size="7.5" fill="#6B7280">forward-verified top-1 58/194 = 30%; precision|recall 58/65 = 89%</text>
-<rect x="14.00" y="176.0" width="141.59" height="28.0" fill="#00897B"/>
-<text x="84.80" y="194.0" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">58</text>
-<text x="84.80" y="218.0" text-anchor="middle" font-size="8" fill="#6B7280">verified</text>
-<rect x="156.79" y="176.0" width="17.09" height="28.0" fill="#E53935"/>
-<text x="165.34" y="194.0" text-anchor="middle" font-size="9" font-weight="700" fill="#FFFFFF">7</text>
-<text x="165.34" y="218.0" text-anchor="middle" font-size="8" fill="#6B7280">mis-ranked</text>
-<rect x="175.08" y="176.0" width="314.92" height="28.0" fill="#5F6368"/>
-<text x="332.54" y="194.0" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">129</text>
-<text x="332.54" y="218.0" text-anchor="middle" font-size="8" fill="#6B7280">never proposed</text>
-<polyline points="14.00,174.0 14.00,170.0 173.88,170.0 173.88,174.0" fill="none" stroke="#1A1A1A" stroke-width="0.9"/>
-<text x="93.94" y="166.0" text-anchor="middle" font-size="9" font-weight="600" fill="#1A1A1A">65 recalled (34%)</text>
-<text x="252.0" y="234.0" text-anchor="middle" font-size="9" font-weight="600" fill="#1A1A1A">No re-ranking repairs the 129 never proposed</text>
-<text x="252.0" y="248.0" text-anchor="middle" font-size="7.5" fill="#6B7280">Verification alone: 28% → 30% (diagnostic, not an accuracy advance)</text>
+<text x="348.0" y="88.0" font-size="7.5" font-weight="600" fill="#00897B">among recalled, top-1 227/249 (91.2%)</text>
+<text x="252.0" y="128.0" text-anchor="middle" font-size="11" font-weight="600" fill="#1A1A1A">top-1 = recall@3 × (top-1 | recalled)</text>
+<text x="252.0" y="146.0" text-anchor="middle" font-size="12" font-weight="700" fill="#1A1A1A">45.4% = 49.8% × 91.2%</text>
+<text x="252.0" y="160.0" text-anchor="middle" font-size="7.5" fill="#6B7280">top-1 227/500 = 45.4%; recall@3 249/500 = 49.8%; among recalled 227/249 = 91.2%</text>
+<rect x="14.00" y="176.0" width="215.01" height="28.0" fill="#00897B"/>
+<text x="121.51" y="194.0" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">227</text>
+<text x="121.51" y="218.0" text-anchor="middle" font-size="8" fill="#6B7280">exact top-1</text>
+<rect x="230.21" y="176.0" width="20.84" height="28.0" fill="#E53935"/>
+<text x="240.63" y="194.0" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">22</text>
+<text x="240.63" y="218.0" text-anchor="middle" font-size="8" fill="#6B7280">in pool, not top-1</text>
+<rect x="252.25" y="176.0" width="237.75" height="28.0" fill="#5F6368"/>
+<text x="371.13" y="194.0" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">251</text>
+<text x="371.13" y="218.0" text-anchor="middle" font-size="8" fill="#6B7280">never proposed</text>
+<polyline points="14.00,174.0 14.00,170.0 251.05,170.0 251.05,174.0" fill="none" stroke="#1A1A1A" stroke-width="0.9"/>
+<text x="132.53" y="166.0" text-anchor="middle" font-size="9" font-weight="600" fill="#1A1A1A">249 recalled (49.8%)</text>
+<text x="252.0" y="234.0" text-anchor="middle" font-size="9" font-weight="600" fill="#1A1A1A">No re-ranking repairs the 251 never proposed in top-3</text>
 </svg>

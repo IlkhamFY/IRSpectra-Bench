@@ -13,8 +13,10 @@
 - **Do not quote 243/519** (drops flagged +106).
 - Sensitivity appendix only: n=524 245/524 / 268/524; n=530 247/530 /
   271/530; former n=300 118/300 / 133/300.
-- Fig 1 / instrumented fverify stays **n=194 only** (58/7/129; 58/65 = 89%).
-- Expansion-106 fverify was **not run**. Do not invent a pooled wall.
+- Fig 1 / wall is the **n=500 generation decomposition** (227/22/251;
+  249 recalled, 49.8%). Instrumented fverify 58/65 stays n=194;
+  58/7/129 is SI protocol-slice only.
+- Expansion-106 fverify was **not run**. Do not invent a pooled fverify wall.
 
 ## expand-500 (NIGHT_POOL; 200 in headline, all-230 in SI)
 
@@ -28,8 +30,8 @@
 
 ## Paper
 
-- Fig 1 = Figma Bro `fig1_lead_overview` (protocol + n=194 wall).
+- Fig 1 = Figma Bro `fig1_lead_overview` (protocol + n=500 generation wall).
 - Listing 1 = `listing1_irexp_record`.
-- Wall diagnostic = `fig_wall_diagnostic` (appendix; n=194 only).
+- Wall diagnostic = `fig_wall_diagnostic` (appendix; n=500, 227/22/251).
 - Main compressed so body through Conclusion targets ≤9 ICLR pages.
 - Do **not** merge. Do **not** touch ChemRxiv.

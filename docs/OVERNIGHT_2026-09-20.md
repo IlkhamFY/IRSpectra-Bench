@@ -1,12 +1,14 @@
 # Overnight note — 2026-09-20 (ICLR night strengthen)
 
-Headline is **n=500** generation (227/500, 249/500; R01–R75 cut) / **n=194** fverify.
+Headline is **n=500** generation (227/500, 249/500; R01–R75 cut).
+Wall is the **n=500 generation decomposition** (227/22/251).
+Instrumented fverify stays n=194 (SI protocol-slice).
 
 ## What is true this morning
 
 - Source of truth: `main.tex` on `cursor/iclr-night-strengthen-20260920-c33d`.
-- **Fig 1** is Figma Bro `fig1_lead_overview` (input → generate → verify + n=194 wall).
-  Diagnostic wall is `fig_wall_diagnostic` (same 58/7/129 slice) in the appendix.
+- **Fig 1** is Figma Bro `fig1_lead_overview` (input → generate → verify + n=500 wall).
+  Diagnostic wall is `fig_wall_diagnostic` (227/22/251) in the appendix.
   Listing 1 is `listing1_irexp_record` (IRexp JSON+mol; SMILES/InChIKey are resource fields).
 - Abstract / intro / Table 1 lock **227/500 (45.4%)** / **249/500 (49.8%)**. No CIs.
 - expand-500 200-cut is **in the headline** (109/200 / 116/200; R01–R75). All-230 129/230 / 138/230 and official fverify 103/230 vs 129/230 stay SI. No CIs. Not a wall. Thinking-tier arm on the 200.
@@ -35,7 +37,8 @@ Headline is **n=500** generation (227/500, 249/500; R01–R75 cut) / **n=194** f
 |---|---|
 | Headline n | **500** (194 + all 106 + 200; R01–R75 cut) |
 | Top-1 / recall | **227/500 (45.4%) / 249/500 (49.8%)** — no CIs |
-| Fig 1 / fverify | n=194; 58/7/129; 58/65 (89%) |
+| Fig 1 / wall | n=500 generation; 227/22/251; 249 recalled (49.8%) |
+| fverify slice | n=194; 58/65 (89%); 58/7/129 SI protocol-slice only |
 | expand-106 fverify | not run |
 | expand-500 200 / all | 109/200 / 116/200 in headline; 129/230 / 138/230 SI; fverify 103/230 vs 129/230 SI |
 | pools | 500 headline; 300 / 524 / 530 sensitivity; do not quote 519 |

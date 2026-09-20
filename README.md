@@ -9,7 +9,9 @@ List: `docs/headline500_expand200_qids.json`. No CIs. Do not quote 243/519.
 Former **n=300** and n=524 / n=530 are appendix / sensitivity. Figure 1 is
 the Figma Bro lead plate (`fig1_lead_overview`). Listing 1 is
 `listing1_irexp_record`. The diagnostic wall (`fig_wall_diagnostic`)
-repeats the locked n=194 slice (58/7/129). expand-500 official fverify
+is the **n=500 generation decomposition** (227 exact top-1 / 22 in pool,
+not top-1 / 251 never proposed; 249 recalled, 49.8%). Old fverify
+58/7/129 is SI protocol-slice only. expand-500 official fverify
 (103/230 vs self 129/230) is SI only — see
 `docs/HEADLINE_N500_2026-09-20.md`.
 

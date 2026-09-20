@@ -14,8 +14,9 @@ R01–R75 cut; `docs/headline500_expand200_qids.json`). Integers from
 spectro-agent PR #41 `48fcd30` / `docs/HEADLINE_N500_2026-09-20.md`.
 **227/500 (45.4%)** top-1; **249/500 (49.8%)** recall. **No CIs.**
 Do **not** quote 243/519. Former n=300 and n=524 / n=530 are appendix.
-Forward-verification is the n=194 instrumented slice — do not invent
-a pooled verification-precision or a pooled `fig_wall`.
+The main wall (`fig_wall_diagnostic`) is the n=500 generation
+decomposition (227/22/251). Forward-verification is the n=194
+instrumented slice — do not invent a pooled fverify wall.
 
 | Rank | Model / method | Top-1 ↑ | Recall (top-3) ↑ | Gen. recall | Verif. prec. \| recall | Notes |
 |---:|---|--:|--:|--:|--:|---|
@@ -146,7 +147,7 @@ We will verify scoring with `scripts/score_submission.py` before adding a row.
 | **IRSpectra-Bench** (194 + all 106 + 200 expand-500) | 500 | Paper headline (generation; 227/500, 249/500) |
 | IRSpectra-Bench (194 locked + all 106 expansion) | 300 | Former headline (appendix) |
 | IRSpectra-Bench (194 locked + 101 clean expansion) | 295 | Appendix / sensitivity |
-| IRSpectra-Bench (locked main + v3 + v2_ctrl) | 194 | Instrumented slice; forward-verify / fig_wall |
+| IRSpectra-Bench (locked main + v3 + v2_ctrl) | 194 | Instrumented fverify slice (SI protocol-slice) |
 | IRSpectra-Bench (pre-reg expansion, all / clean) | 106 / 101 | All 106 in headline; clean 101 in appendix |
 | expand-500 200-cut (R01–R75) | 200 | In n=500 headline. 109/200 / 116/200. Thinking-tier. |
 | expand-500 (all / clean) | 230 / 224 | 129/230 / 127/224. Official fverify 103/230 vs self 129/230. No CIs. Not a wall. |
@@ -180,4 +181,4 @@ If you use IRSpectra-Bench or report numbers on it, please cite:
 }
 ```
 
-*Last updated: 2026-09-20 (headline n=500 = 227/500 top-1, 249/500 recall; 200-cut R01–R75; no CIs; do not quote 243/519; wall n=194 58/7/129). External submissions listed after verification.*
+*Last updated: 2026-09-20 (headline n=500 = 227/500 top-1, 249/500 recall; 200-cut R01–R75; no CIs; do not quote 243/519; wall n=500 227/22/251). External submissions listed after verification.*

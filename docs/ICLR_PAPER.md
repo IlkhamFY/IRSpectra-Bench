@@ -85,7 +85,7 @@ technical validation of the corpus are the subject of a companion *Scientific Da
 manuscript (in preparation). This ICLR paper **cites** that resource and does not re-present
 a Data Descriptor.
 
-![Diagnosis on IRSpectra-Bench (n=194): generation recall, not verification, is the bottleneck. Where the true structure is never proposed, no ranker can recover it; where it is proposed, verification usually selects it.](docs/figures/fig_wall.png){#fig:fig-wall}
+![Diagnosis on IRSpectra-Bench (n=500): generation recall, not verification, is the bottleneck. 227 exact top-1 / 22 in pool, not top-1 / 251 never proposed. No re-ranking repairs the 251 never proposed in top-3.](docs/figures/fig_wall.png){#fig:fig-wall}
 
 ---
 

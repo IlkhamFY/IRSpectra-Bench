@@ -12,7 +12,8 @@ Companion inventory: `data/fverify_expand_500/INVENTORY_2026-09-20.md`.
 clean-first, string-sorted qid, R01–R75 cut). Integers:
 `docs/HEADLINE_N500_2026-09-20.md` / spectro-agent `48fcd30`:
 **227/500 (45.4%)** top-1, **249/500 (49.8%)** recall. **No CIs.**
-Do **not** quote 243/519. Wall stays n=194. This night-pool note keeps
+Do **not** quote 243/519. Main wall is n=500 generation (227/22/251);
+fverify 58/7/129 is SI protocol-slice only. This night-pool note keeps
 the original expand-500 transcripts below. fverify coverage **41/41,
 681/681**; official score in the fverify section (SI only; not a wall).
 

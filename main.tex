@@ -9,8 +9,9 @@
 % 200-cut: clean-first, Python sorted(qid), R01--R75; docs/headline500_expand200_qids.json.
 % Integers: 227/500 (45.4%) top-1; 249/500 (49.8%) recall. No CIs. Do not quote 243/519.
 % Fig 1 = fig1_lead_overview (Figma Bro); Listing 1 = listing1_irexp_record;
-% wall diagnostic = fig_wall_diagnostic (n=194 only, 58/7/129).
-% expand-500 fverify 103/230 vs self 129/230 is SI only; not a pooled wall.
+% wall diagnostic = fig_wall_diagnostic (n=500 generation decomp 227/22/251).
+% Old fverify 58/7/129 is SI protocol-slice only; not the main wall.
+% expand-500 fverify 103/230 vs self 129/230 is SI only; not a pooled fverify wall.
 % Compile with pdfLaTeX or XeLaTeX + BibTeX (references.bib + iclr2027_conference.bst).
 % \iclrfinalcopy is the only official sty flag that prints \author and drops
 % the left-margin submission ruler (see tex/iclr2027_conference.sty).
@@ -158,15 +159,14 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-  \caption{IRSpectra-Bench protocol and the $n{=}194$ wall.
+  \caption{IRSpectra-Bench protocol and the $n{=}500$ generation wall
+  (Figma Bro \texttt{fig1\_lead\_overview}).
   Blind peak lists $+$ formula $\rightarrow$ closed-book LLM proposes a ranked
   pool $\rightarrow$ forward $^{13}$C chamfer re-rank (Eq.~\ref{eq:chamfer})
   $\rightarrow$ InChIKey-14 (Eq.~\ref{eq:ik14}).
-  On the locked slice, generation recall is $65/194$ (34\%) and
-  forward-verification selects the true structure $58/65$ (89\%)
-  ($30\%\approx 34\%\times 89\%$; wall $58/7/129$).
-  \textbf{Not} a pooled $n{=}500$ wall (headline: Table~\ref{tab:headline};
-  diagnostic repeat: Figure~\ref{fig:fig-wall}).}
+  Generation recall@3 is $249/500$ (49.8\%) and among recalled, top-1 is
+  $227/249$ (91.2\%) ($45.4\%=49.8\%\times 91.2\%$; wall $227/22/251$).
+  Diagnostic repeat: Figure~\ref{fig:fig-wall}.}
   \label{fig:fig1}
 \end{figure}
 
@@ -534,8 +534,8 @@ Where a choice existed ($n{=}37$), forward-verification is correct on 30/37 (81\
 54.0\% derangement floor (+27.1 points).
 The margin over self-ranking is \textbf{small and unresolved} (seven gained, four lost;
 McNemar $p{=}0.55$) --- we do \textbf{not} claim an accuracy advance.
-Precision is high while recall binds: no re-ranking repairs the 129/194 compounds on this
-slice where the true structure was never proposed (Figure~\ref{fig:fig1};
+Precision is high while recall binds: no re-ranking repairs the 251 never
+proposed in top-3 (Figure~\ref{fig:fig1};
 diagnostic repeat in Figure~\ref{fig:fig-wall}).
 
 \paragraph{Worked cases.}
@@ -615,8 +615,8 @@ The $n{=}500$ headline is 194 $+$ all 106 $+$ 200 validate-clean expand-500
 \texttt{docs/headline500\_expand200\_qids.json}).
 Five $+106$ flags stay in; former $n{=}300$ and $n{=}295$ are appendix.
 Slice gaps are disclosed (59.4\% and 54.5\% vs 28.4\% top-1).
-Figure~\ref{fig:fig-wall} remains the $n{=}194$ instrumented wall; expansion-106
-fverify was \textbf{not} run.
+Figure~\ref{fig:fig-wall} is the $n{=}500$ generation wall ($227/22/251$);
+expansion-106 fverify was \textbf{not} run.
 The full 230-draw is generation-scored in Appendix Table~\ref{tab:scale} / SI
 (129/230; 200-cut 109/200; no CIs; thinking-tier on the 200).
 Official fverify is SI-only (103/230 vs 129/230 self; not a wall).
@@ -654,7 +654,7 @@ Proposal is the expensive stage: diversity, enumeration / database search,
 formula-constrained decode, or generate-wide sampling that enlarges the pool.
 Verification is cheap: once proposed, training-free forward-verification selects the
 true constitution $58/65$ times on $n{=}194$.
-A second ranker cannot recover the $129/194$ never proposed.
+A second ranker cannot recover the $251$ never proposed in top-3.
 IR-Agent-style TI+Ret~\citep{noh2025iragent} are complementary \emph{feature} agents;
 MolQuest- and Espejo-style architecture search~\citep{han2026molquest,espejo2026agentic}
 still needs this stage contract.
@@ -681,7 +681,8 @@ The ladder \textbf{diagnoses a bottleneck}; it is not an accuracy advance.
 transformers and CASE are \textbf{not scored} here.
 \textbf{(vi) Expansion gap; fverify coverage.} $+106$ top-1 is 59\% and the
 200-cut is 55\% vs 28\% on the locked 194 (Table~\ref{tab:slices}).
-Figure~\ref{fig:fig1} / $58/65$ are $n{=}194$ only; fverify was not run on the 106.
+Figure~\ref{fig:fig1} is the $n{=}500$ generation wall; $58/65$ fverify is the
+$n{=}194$ protocol-slice (SI). fverify was not run on the 106.
 expand-500 official score is SI-only (103/230 verify vs 129/230 self; no CIs;
 not a wall). The 200-cut is thinking-tier and is in the $n{=}500$ mix; do not
 treat it as the no-thinking protocol. Fable 68/106 is not pooled.
@@ -762,11 +763,11 @@ companion Data Descriptor~\citep{yabbarov2026irexp}; they are not re-presented h
 
 These answers restate Limitations~\ref{sec:limitations}; they add no new metrics.
 
-\textbf{Why is top-1 45\% if the wall figure looks worse?}
-Headline generation is $n{=}500$ (227/500 top-1; 249/500 recall).
-Figure~\ref{fig:fig1} and Figure~\ref{fig:fig-wall} are the locked $n{=}194$
-forward-verified slice (58/7/129). Do not read the wall as a pooled $n{=}500$
-diagnosis.
+\textbf{What does the wall figure show?}
+Figure~\ref{fig:fig1} and Figure~\ref{fig:fig-wall} are the $n{=}500$
+generation decomposition: 227 exact top-1, 22 in pool not top-1, 251 never
+proposed in top-3 (249 recalled, 49.8\%; $45.4\%=49.8\%\times 91.2\%$).
+Instrumented fverify $58/65$ is the $n{=}194$ protocol-slice (SI), not this wall.
 
 \textbf{Is the expansion hidden in the pool?}
 No. $+106$ top-1 is 59\% and the 200-cut is 55\% vs 28\% on the locked 194
@@ -774,7 +775,7 @@ No. $+106$ top-1 is 59\% and the 200-cut is 55\% vs 28\% on the locked 194
 
 \textbf{Where is forward-verify on the 106?}
 Not run. Conditional 89\% (58/65) is $n{=}194$ only.
-Do not invent a pooled $n{=}500$ wall.
+Do not invent a pooled $n{=}500$ fverify wall.
 
 \textbf{Where is the all-230 expand-500 top-1?}
 Appendix Table~\ref{tab:scale} / SI: 129/230 (56.1\%) top-1, 138/230 recall;
@@ -805,20 +806,20 @@ This conference version keeps the protocol plate
 robustness (Figure~\ref{fig:fig-robustness}), the
 forward-verification mechanism (Figure~\ref{fig:fig-mechanism}), and the inference
 ladder (Figure~\ref{fig:fig3-method}).
-The diagnosis wall on the $n{=}194$ instrumented slice is repeated below
+The $n{=}500$ generation wall is repeated below
 (Figure~\ref{fig:fig-wall}) so the lead figure is not the only copy.
 Additional archive plates are omitted here; they do not change the pooled $n{=}500$
-generation headline or the $n{=}194$ instrumented wall.
+generation headline or the $227/22/251$ wall.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.92\linewidth]{fig_wall_diagnostic.pdf}
-  \caption{Diagnostic wall: \textbf{locked $n{=}194$ instrumented slice}
-  (58 verified / 7 mis-ranked / 129 never proposed).
-  Expansion-106 has no forward-verify; this is \textbf{not} a pooled $n{=}500$ wall.
-  Headline generation recall is 249/500.
-  Never-proposed cases bind top-1 despite 89\% conditional precision (58/65).
-  Same slice as Figure~\ref{fig:fig1}.}
+  \caption{Diagnostic wall (Figma Bro \texttt{fig\_wall\_diagnostic}):
+  \textbf{$n{=}500$ generation decomposition}
+  (227 exact top-1 / 22 in pool, not top-1 / 251 never proposed).
+  Bracket: 249 recalled (49.8\%).
+  No re-ranking repairs the 251 never proposed in top-3.
+  Same integers as Figure~\ref{fig:fig1}.}
   \label{fig:fig-wall}
 \end{figure}
 

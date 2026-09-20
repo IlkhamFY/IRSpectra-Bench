@@ -6,7 +6,7 @@ Standalone SI for the ICLR manuscript. **Does not count toward the 9-page main.*
 - Build: `python3 scripts/build_si.py` (or tectonic on `si/supplement.tex`)
 - Output: `si/supplement.pdf`
 - Numbers: headline n=500 from `docs/HEADLINE_N500_2026-09-20.md`
-  (spectro-agent PR #41 `48fcd30`) plus locked n=194 wall,
+  (spectro-agent PR #41 `48fcd30`) plus n=500 generation wall,
   `docs/NIGHT_POOL_2026-09-20.md`, and
   `docs/FVERIFY_EXPAND500_INVENTORY_2026-09-20.md`.
 
@@ -15,7 +15,7 @@ Standalone SI for the ICLR manuscript. **Does not count toward the 9-page main.*
 R01–R75). Former n=300 and n=524 / n=530 are SI/appendix only.
 **Do not quote 243/519.** No CIs on n=500.
 Official expand-500 fverify: 103/230 verify vs 129/230 self (no CIs; not a wall).
-Wall stays n=194 (58/7/129).
+Wall is n=500 generation (227/22/251). Old fverify 58/7/129 is SI protocol-slice only.
 
 ## Sections
 
@@ -26,5 +26,5 @@ Wall stays n=194 (58/7/129).
 5. Former n=300 / +106 / n=295 tables
 6. expand-500 generation (129/230, 138/230; 200-cut 109/200)
 7. Pool options **500** / 300 / 524 / 530 / 295
-8. Honest fverify (194 wall; 106 not run; 500 official 103/230 vs 129/230)
+8. Honest fverify (194 protocol-slice 58/7/129; 106 not run; 500 official 103/230 vs 129/230)
 9. Extra cases, prompts, model card, reproducibility checklist
