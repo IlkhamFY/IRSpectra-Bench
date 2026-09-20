@@ -131,7 +131,7 @@ def write_svg(path: Path, width: float = 504.0, height: float = 102.0) -> None:
 
 
 def write_fig1_svg(path: Path) -> None:
-    """Lead plate: protocol + n=500 generation wall (504 × 288 pt)."""
+    """Deprecated twin. Lead Fig 1 is the Wonder bake (PDF/PNG); TeX includes PDF."""
     width, height = 504.0, 288.0
     pad_x = 14.0
     usable = width - 2 * pad_x
@@ -224,10 +224,9 @@ def main() -> None:
     write_svg(wall_svg)
     _export_svg(wall_svg)
 
-    fig1_svg = root / "fig1_lead_overview.svg"
-    write_fig1_svg(fig1_svg)
-    _export_svg(fig1_svg)
-    print(f"wrote {wall_svg} + {fig1_svg} and pdf/png twins")
+    # Lead Fig 1 is the Wonder ship bake (figures/fig1_lead_overview.pdf/png).
+    # TeX includes the PDF; do not overwrite it from this matplotlib twin.
+    print(f"wrote {wall_svg} and pdf/png twins")
 
 
 if __name__ == "__main__":
