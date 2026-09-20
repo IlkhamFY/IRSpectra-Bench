@@ -154,17 +154,16 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig1_overview.pdf}
-  \caption{IRSpectra-Bench protocol.
-  (a)~Printed IR/$^1$H/$^{13}$C lists $+$ formula $\rightarrow$ closed-book LLM
-  proposes top-$k$ SMILES (RDKit formula check) $\rightarrow$ forward $^{13}$C
-  (blind) $\rightarrow$ chamfer re-rank (Eq.~\ref{eq:chamfer}) $\rightarrow$
-  InChIKey-14 (Eq.~\ref{eq:ik14}).
-  (b)~Evidence is the lists themselves (no peak-table tool, no retrieval).
-  Running example v3-R25 (IR 1679~cm$^{-1}$; chamfer 0.42 vs 1.30~ppm).
-  (c)~Locked $n{=}194$ instrumented wall: 58 verified / 7 mis-ranked / 129 never
-  proposed. \textbf{Not} a pooled $n{=}300$ wall
-  (headline generation: Table~\ref{tab:headline}; diagnostic repeat:
-  Figure~\ref{fig:fig-wall}).}
+  \caption{IRSpectra-Bench overview.
+  (a)~Overall framework: printed peak lists $\rightarrow$ closed-book LLM
+  propose (top-$k$ SMILES, RDKit formula check). The pool either enters
+  forward $^{13}$C verification (chamfer re-rank, Eq.~\ref{eq:chamfer}
+  $\rightarrow$ InChIKey-14, Eq.~\ref{eq:ik14}) or is never proposed.
+  (b)~Peak-list reasoning on disclosed v3-R25 (IR 1679~cm$^{-1}$;
+  chamfer 0.42 vs 1.30~ppm). No peak-table tool, no retrieval.
+  (c)~Locked $n{=}194$ instrumented wall: 58 / 7 / 129.
+  \textbf{Not} a pooled $n{=}300$ wall
+  (Table~\ref{tab:headline}; Figure~\ref{fig:fig-wall}).}
   \label{fig:fig1}
 \end{figure}
 

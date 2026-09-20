@@ -40,23 +40,33 @@ def mol_image(smiles: str, w: int = 560, h: int = 400) -> Image.Image:
     opt.fixedFontSize = 18
     d.DrawMolecule(mol)
     d.FinishDrawing()
-    return _trim(Image.open(io.BytesIO(d.GetDrawingText())).convert("RGBA"))
+    raw = Image.open(io.BytesIO(d.GetDrawingText())).convert("RGBA")
+    trimmed = _trim(raw, pad=18)
+    return trimmed
 
 
 def show_mol(ax, smiles: str, bbox: tuple[float, float, float, float], *, px=(560, 400)):
-    """Place a Cairo molecule into ``bbox=(x0,y0,w,h)`` without stretching."""
+    """Place a Cairo molecule into ``bbox=(x0,y0,w,h)`` without stretching.
+
+    Aspect is fitted in *inches* (the parent axes is usually far from square).
+    """
     x0, y0, w, h = bbox
     img = mol_image(smiles, px[0], px[1])
     iw, ih = img.size
-    aspect = iw / float(ih)
-    if w / h > aspect:
-        nw, nh = h * aspect, h
-        x0 = x0 + (w - nw) / 2
-        w = nw
+    img_aspect = iw / float(ih)
+    fig = ax.figure
+    ax_pos = ax.get_position()
+    fig_w, fig_h = fig.get_size_inches()
+    phys_w = max(ax_pos.width * fig_w * w, 1e-6)
+    phys_h = max(ax_pos.height * fig_h * h, 1e-6)
+    if phys_w / phys_h > img_aspect:
+        new_w = w * ((phys_h * img_aspect) / phys_w)
+        x0 = x0 + (w - new_w) / 2
+        w = new_w
     else:
-        nw, nh = w, w / aspect
-        y0 = y0 + (h - nh) / 2
-        h = nh
+        new_h = h * ((phys_w / img_aspect) / phys_h)
+        y0 = y0 + (h - new_h) / 2
+        h = new_h
     ax.imshow(
         img,
         extent=(x0, x0 + w, y0, y0 + h),
