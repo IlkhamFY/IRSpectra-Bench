@@ -4,7 +4,7 @@ Copied from spectro-agent `cursor/expand-bench-500-b78b`
 `data/fverify_expand_500/INVENTORY_2026-09-20.md`.
 Official chamfer numbers live in this repo at
 `docs/NIGHT_POOL_2026-09-20.md` (verify 103/230 vs self 129/230;
-verify|recall 103/138). Paper headline stays n=300.
+verify|recall 103/138). Paper headline is n=500 generation; this score is SI only.
 
 Blind ¹³C campaign over the 681 unique candidate SMILES prepared by
 `scripts/forward_verify_expand500_keyless.py` (`PREP_NOTE.md`). All 41

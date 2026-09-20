@@ -6,7 +6,8 @@ Companion sources (spectro-agent `cursor/expand-bench-500-b78b`):
 - `data/fverify_expand_500/INVENTORY_2026-09-20.md` (copied here)
 - `data/benchmark_expand_500/STATUS.md`
 
-**Paper headline stays n=300.** No CIs. Official fverify is SI-only.
+**Paper headline is n=500** (227/500, 249/500; R01–R75 cut). No CIs.
+Official fverify is SI-only. Do not quote 243/519.
 
 | item | value |
 |---|---|

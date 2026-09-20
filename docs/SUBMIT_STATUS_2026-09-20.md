@@ -1,38 +1,35 @@
-# Submit status — 2026-09-20 (night harden)
+# Submit status — 2026-09-20 (headline n=500)
 
-## Locked paper numbers (unchanged headline)
+## Locked paper numbers (Ilkham decision)
 
-- Headline generation **n=300** = 194 locked + all 106 Opus (flags included): 118/300 (39.3%) top-1; 133/300 (44.3%) recall.
-- Validate-clean **n=295** stays appendix / sensitivity.
+- Headline generation **n=500** = 194 locked + all 106 Opus + 200 of
+  expand-500 (clean-first, Python `sorted(qid)`, R01–R75 cut):
+  **227/500 (45.4%)** top-1; **249/500 (49.8%)** recall.
+  List: `docs/headline500_expand200_qids.json`.
+  Source: spectro-agent PR #41 commit `48fcd30`
+  (`HEADLINE_n500_2026-09-20.md`). **No CIs.**
+- 200-alone: 109/200 (54.5%) / 116/200 (58.0%).
+- Strata n=500: simple 161/248 & 172/248; complex 66/252 & 77/252.
+- **Do not quote 243/519** (drops flagged +106).
+- Sensitivity appendix only: n=524 245/524 / 268/524; n=530 247/530 /
+  271/530; former n=300 118/300 / 133/300.
 - Fig 1 / instrumented fverify stays **n=194 only** (58/7/129; 58/65 = 89%).
 - Expansion-106 fverify was **not run**. Do not invent a pooled wall.
 
-## expand-500 (NIGHT_POOL; SI / appendix only)
-
-From spectro-agent `data/benchmark_expand_500/NIGHT_POOL_2026-09-20.md`
-(see `docs/EXPAND500_POINTER_2026-09-20.md` and `docs/NIGHT_POOL_2026-09-20.md`):
+## expand-500 (NIGHT_POOL; 200 in headline, all-230 in SI)
 
 - **230/230** Opus deposits; `predictions2.jsonl` 230 lines / 690 candidates.
-- Generation: **129/230 (56.1%)** top-1; **138/230 (60.0%)** recall@3.
+- All-230: **129/230 (56.1%)** top-1; **138/230 (60.0%)** recall@3.
 - Clean 224: **127/224 (56.7%)** / **135/224 (60.3%)**.
-- Exploratory pools: 524 = 245/524 / 268/524; 519 = 243/519 / 265/519; 530 = 247/530 / 271/530.
-- **No CIs.** expand-500 fverify official score: 41/41, 681/681; verify **103/230 (44.8%)** vs self **129/230**; verify\|recall **103/138 (74.6%)**. Clean 103/224 / 103/135. **Not a wall.**
-- Deposits used a thinking-tier arm — not interchangeable with the no-thinking headline.
-- Headline stays n=300.
+- Official fverify: 41/41, 681/681; verify **103/230 (44.8%)** vs self
+  **129/230**; verify\|recall **103/138 (74.6%)**. **Not a wall.**
+- The 200-cut is a thinking-tier arm — mixed into n=500 with the
+  no-thinking 194+106 protocol. Disclose, do not hide.
 
-## Paper (this night pass)
+## Paper
 
 - Fig 1 = Figma Bro `fig1_lead_overview` (protocol + n=194 wall).
 - Listing 1 = `listing1_irexp_record`.
 - Wall diagnostic = `fig_wall_diagnostic` (appendix; n=194 only).
-- Display equations (1)–(7) used in text.
-- Standalone SI grown (`si/supplement.pdf`).
 - Main compressed so body through Conclusion targets ≤9 ICLR pages.
-- Two-paper split unchanged.
-
-## Still open (human — morning)
-
-- ChemRxiv: Cloudflare handoff (do not burn night time).
-- Rodrigo: review density / page-9 / agentic forward-look on this PR.
-- Do **not** merge spectro-agent#41 as a silent headline replacement.
-- Overleaf: pull this branch after merge, rebuild pdfLaTeX+BibTeX.
+- Do **not** merge. Do **not** touch ChemRxiv.

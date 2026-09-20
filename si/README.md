@@ -5,31 +5,26 @@ Standalone SI for the ICLR manuscript. **Does not count toward the 9-page main.*
 - Source: `si/supplement.tex`
 - Build: `python3 scripts/build_si.py` (or tectonic on `si/supplement.tex`)
 - Output: `si/supplement.pdf`
-- Numbers: only locked n=300 / n=194 facts plus
-  `docs/NIGHT_POOL_2026-09-20.md` and
-  `docs/FVERIFY_EXPAND500_INVENTORY_2026-09-20.md`
-  (copied from spectro-agent `cursor/expand-bench-500-b78b`).
+- Numbers: headline n=500 from `docs/HEADLINE_N500_2026-09-20.md`
+  (spectro-agent PR #41 `48fcd30`) plus locked n=194 wall,
+  `docs/NIGHT_POOL_2026-09-20.md`, and
+  `docs/FVERIFY_EXPAND500_INVENTORY_2026-09-20.md`.
 
-**Headline stays n=300.** Exploratory n=524 / n=519 / n=530 are SI/appendix only.
+**Headline is n=500** (227/500 top-1; 249/500 recall). 200-cut:
+`docs/headline500_expand200_qids.json` (clean-first, string-sorted,
+R01–R75). Former n=300 and n=524 / n=530 are SI/appendix only.
+**Do not quote 243/519.** No CIs on n=500.
 Official expand-500 fverify: 103/230 verify vs 129/230 self (no CIs; not a wall).
+Wall stays n=194 (58/7/129).
 
-## Sections (growth vs the first night stub)
+## Sections
 
 1. Figure / listing map (Fig 1 = `fig1_lead_overview`; Listing 1 = `listing1_irexp_record`; wall = `fig_wall_diagnostic`)
-2. Visual plate reprints (SI Figs. S1--S3: same three files; not a second Fig 1)
+2. Visual plate reprints (SI Figs. S1--S3)
 3. Full blind protocol + pre-reg pointers + stopping rules
-4. Scoring equations (same 7 identities as the main text; no new metrics)
-5. Locked n=194 / +106 / n=300 / n=295 tables with strata
-6. expand-500 generation (129/230, 138/230; clean 127/224)
-7. Pool options 300 / 524 / 519 / 530 / 295
+4. Scoring equations
+5. Former n=300 / +106 / n=295 tables
+6. expand-500 generation (129/230, 138/230; 200-cut 109/200)
+7. Pool options **500** / 300 / 524 / 530 / 295
 8. Honest fverify (194 wall; 106 not run; 500 official 103/230 vs 129/230)
-9. Extra failure / success case panels (text grid; R25 mols only)
-10. Prompt skeletons + deposit schema
-11. Hyperparameters / model cards / hardware
-12. Two-paper split + anonymity
-13. Reproducibility checklist + FAQ
-
-## Figure numbering
-
-Does **not** re-number main-text Fig 1 or Listing 1.
-SI reprints those files as Figs. S1--S3 so the SI is readable alone.
+9. Extra cases, prompts, model card, reproducibility checklist

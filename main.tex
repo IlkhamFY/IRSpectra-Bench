@@ -5,10 +5,12 @@
 % Overleaf: set main document to main.tex (repo root).
 % iclr_paper.tex is a compatibility \input{main} shim for older compile notes.
 % main_IRExpBench_only.tex is an optional orphan alternate --- not the ICLR build root.
-% Headline n=300 generation (194 locked + all 106 expansion).
+% Headline n=500 generation (194 locked + all 106 + 200 expand-500).
+% 200-cut: clean-first, Python sorted(qid), R01--R75; docs/headline500_expand200_qids.json.
+% Integers: 227/500 (45.4%) top-1; 249/500 (49.8%) recall. No CIs. Do not quote 243/519.
 % Fig 1 = fig1_lead_overview (Figma Bro); Listing 1 = listing1_irexp_record;
-% wall diagnostic = fig_wall_diagnostic (n=194 only).
-% expand-500: 129/230 top-1 / 138/230 recall in appendix+SI only; official fverify 103/230 vs self 129/230 (SI); no CIs; headline n=300.
+% wall diagnostic = fig_wall_diagnostic (n=194 only, 58/7/129).
+% expand-500 fverify 103/230 vs self 129/230 is SI only; not a pooled wall.
 % Compile with pdfLaTeX or XeLaTeX + BibTeX (references.bib + iclr2027_conference.bst).
 % \iclrfinalcopy is the only official sty flag that prints \author and drops
 % the left-margin submission ruler (see tex/iclr2027_conference.sty).
@@ -80,19 +82,21 @@ when it cannot?
 
 The binding claim is \textbf{propose $\gg$ verify}: candidate proposal, not ranking,
 is the expensive stage.
-We release \textbf{IRSpectra-Bench}, a blind peak-list benchmark of \textbf{300}
-compounds (194 locked $+$ all 106 Opus expansion, flags included) drawn from the
-companion \textbf{IRexp} band-list resource~\citep{yabbarov2026irexp} --- cited
-here, not re-described --- with a fixed RDKit InChIKey-connectivity contract and
-decomposable \textbf{generation recall} / \textbf{verification precision} metrics.
-A frontier LLM recovers \textbf{39\%} top-1 (118/300; 95\% CI 34--45), or
-\textbf{27\%} after corpus reweighting; generation recall is \textbf{44\%} (133/300).
+We release \textbf{IRSpectra-Bench}, a blind peak-list benchmark scored on a
+pooled generation cohort of \textbf{500} compounds (194 locked $+$ all 106 Opus
+expansion $+$ 200 validate-clean expand-500; clean-first, string-sorted
+\texttt{qid}, R01--R75 cut) drawn from the companion \textbf{IRexp} band-list
+resource~\citep{yabbarov2026irexp} --- cited here, not re-described --- with a
+fixed RDKit InChIKey-connectivity contract and decomposable
+\textbf{generation recall} / \textbf{verification precision} metrics.
+A frontier LLM recovers \textbf{45\%} top-1 (227/500) and \textbf{50\%}
+generation recall (249/500); no CIs on this pool.
 On the forward-verified $n{=}194$ slice the true structure enters the pool for only
 \textbf{34\%} of compounds, yet training-free forward-verification selects it
 \textbf{89\%} of the time once proposed (58/65).
-The expansion slice is easier (59\% vs 28\% top-1) and is disclosed, not hidden.
-A larger deposited blind round toward $n{\approx}500$ is generation-scored in the
-SI (thinking-tier; no CIs) and is not this headline.
+The $+106$ slice is easier (59\% vs 28\% top-1) and is disclosed; the 200-qid
+expand-500 slice is a thinking-tier arm (109/200).
+Former $n{=}300$ and $n{=}524$ / $n{=}530$ stay appendix.
 The same recall $\ll$ precision asymmetry replicates across \textbf{four vendor families}.
 Formula-only controls collapse; accuracy is flat in source-paper year; generate-wide
 sampling lifts recall where verification alone barely moves top-1.
@@ -132,11 +136,11 @@ infrastructure at scale}.
 
 \paragraph{Contributions.}
 \begin{enumerate}
-  \item \textbf{IRSpectra-Bench} --- a blind, complexity-stratified peak-list benchmark ($n{=}300$)
+  \item \textbf{IRSpectra-Bench} --- a blind, complexity-stratified peak-list benchmark ($n{=}500$)
         with a pre-registered InChIKey-connectivity scorer and community reporting contract
         (top-1, generation recall, verification precision $|$ recall).
   \item \textbf{A recall-bound diagnosis} on a frontier LLM: propose $\gg$ verify.
-        Generation recall is 44\% on the pooled $n{=}300$ cohort; on the $n{=}194$
+        Generation recall is 50\% on the pooled $n{=}500$ cohort; on the $n{=}194$
         instrumented slice, 34\% proposed and 89\% selected once proposed; that slice's
         top-1 moves only 28\% $\to$ 30\% under training-free forward-verification.
   \item \textbf{Contamination and cross-vendor controls} --- formula-only and recency bounds;
@@ -163,7 +167,7 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
   On the locked slice, generation recall is $65/194$ (34\%) and
   forward-verification selects the true structure $58/65$ (89\%)
   ($30\%\approx 34\%\times 89\%$; wall $58/7/129$).
-  \textbf{Not} a pooled $n{=}300$ wall (headline: Table~\ref{tab:headline};
+  \textbf{Not} a pooled $n{=}500$ wall (headline: Table~\ref{tab:headline};
   diagnostic repeat: Figure~\ref{fig:fig-wall}).}
   \label{fig:fig1}
 \end{figure}
@@ -199,7 +203,7 @@ NMRGym~\citep{fang2026nmrgym}, Espejo Morales \textit{et al.}~\citep{espejo2026a
 (education $\to$ industrial: 80.9\% $\to$ 20.6\%) --- ask which architecture wins.
 IRSpectra-Bench measures \textbf{which stage binds} on literature peak lists with an
 off-the-shelf closed-book model (Eqs.~\ref{eq:top1}--\ref{eq:prec}): generation
-recall vs verification precision $|$ recall on $n{=}300$, instrumented forward-verify
+recall vs verification precision $|$ recall on $n{=}500$, instrumented forward-verify
 on $n{=}194$.
 IR-Agent's SE expert over a \textbf{fixed pool} is the regime our ladder diagnoses as
 recall-limited (proposal binds; $58/65$ once proposed).
@@ -239,7 +243,7 @@ model families.
 
 \subsection{Task and inputs}
 
-Each of 300 problems supplies the \textbf{molecular formula} (as from HRMS), the \textbf{IR
+Each of 500 problems supplies the \textbf{molecular formula} (as from HRMS), the \textbf{IR
 band list} (cm$^{-1}$), and \textbf{$^1$H / $^{13}$C shift lists} --- exactly the textual form
 reported in open-access papers.
 No name, SMILES or scaffold hint.
@@ -248,9 +252,13 @@ a different object from digitised-spectrum benchmarks~\citep{espejo2026agentic},
 matches how language models consume literature.
 
 The cohort is the pre-registered pool of a locked 194 (spectrally validated main round 134 $+$
-60 controls) and a 106-compound expansion draw ($n{=}300{=}194{+}106$).
-Five expansion records fail the same $^{13}$C-overread audit used on the main round and are
-included in the 300 (validate-clean $n{=}295$ in Appendix~\ref{app:extended}).
+60 controls), a 106-compound expansion draw, and 200 validate-clean expand-500
+\texttt{qid}s ($n{=}500{=}194{+}106{+}200$).
+The 200 are the clean-first, string-sorted prefix of expand-500 (R01--R75 cut;
+\texttt{docs/headline500\_expand200\_qids.json}).
+Five $+106$ records fail the same $^{13}$C-overread audit used on the main round and
+stay in the 500 (former $n{=}300$ and validate-clean $n{=}295$ in
+Appendix~\ref{app:extended}).
 Problems are drawn from the structure-complete split of IRexp (\texttt{irexp\_resolved}; see
 companion Data Descriptor)~\citep{yabbarov2026irexp}.
 On the locked 194, author peak assignments name a ring system in 10/194; those are solved
@@ -262,9 +270,10 @@ gold constitution held out.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.88\linewidth]{fig_chemspace.png}
-  \caption{Pooled headline chemistry ($n{=}300$; panels on validate-clean $n{=}295$).
+  \caption{Chemistry of the $194{+}106$ pool ($n{=}300$; panels on validate-clean $n{=}295$).
   (a)~MW (median 306). (b)~RDKit rings (median 2). (c)~C--F bonds. (d)~N atoms.
-  Stacked: locked (dark) vs expansion (light). Mid-size literature space, not a NIST toy set.}
+  Stacked: locked (dark) vs $+106$ (light). The $n{=}500$ headline adds 200 expand-500
+  \texttt{qid}s not redrawn here. Mid-size literature space, not a NIST toy set.}
   \label{fig:fig-chemspace}
 \end{figure}
 
@@ -272,14 +281,13 @@ gold constitution held out.
 
 \textbf{Difficulty} is declared \emph{a priori} by RDKit ring analysis: \emph{simple} iff
 $\leq$2 rings, no fused/spiro/bridgehead system, $\leq$22 heavy atoms; else \emph{complex}
-(151/149 on $n{=}300$).
-The released benchmark is \textbf{50/50 by design}; the eligible corpus is 17.5\% simple /
+(248/252 on $n{=}500$; 151/149 on former $n{=}300$).
+The released benchmark is \textbf{near-50/50 by design}; the eligible corpus is 17.5\% simple /
 82.5\% complex.
-Reweighted to corpus composition on the validate-clean subset, top-1 falls 39.3\% $\to$
-\textbf{26.5\%} [21--32] and recall 44.1\% $\to$ \textbf{31.3\%} [25--37]
-(Appendix~\ref{app:extended}).
-We report both: the reweighted figure is the better estimate for an arbitrary paper, and the
-50/50 figure is the comparable leaderboard number (Table~\ref{tab:headline}).
+Reweighted to corpus composition on the older validate-clean $n{=}295$ subset, top-1 falls
+39.3\% $\to$ \textbf{26.5\%} [21--32] and recall 44.1\% $\to$ \textbf{31.3\%} [25--37]
+(Appendix~\ref{app:extended}; not re-scored as an $n{=}500$ figure).
+The 50/50 leaderboard number is Table~\ref{tab:headline}.
 
 \textbf{Scoring.} A candidate $\hat y$ is correct at constitution iff the first 14
 characters of the RDKit InChIKey match
@@ -350,7 +358,7 @@ Headline protocol: $\leq$3 ranked SMILES per \texttt{qid}.
 On the 60-compound arm Claude returned mean 2.20 candidates vs 3.00 for the other vendors
 (recall rankings approximate).
 \textbf{Generate-wide} (that arm only): ten independent solvers $\times$ up to six SMILES,
-pooled then re-ranked --- not the $n{=}300$ reporting budget.
+pooled then re-ranked --- not the $n{=}500$ reporting budget.
 
 \paragraph{Forward-verification, expansion, and probes.}
 Generate $\to$ forward-predict $^{13}$C (blind to the observed list) $\to$ re-rank by
@@ -366,11 +374,11 @@ d(P,Q)
 (Section~\ref{sec:forward-verify}); instrumented on the locked $n{=}194$ only.
 Expansion is a pre-registered 106-compound draw from the same \texttt{irexp\_resolved}
 sampler after the $n{=}194$ lock, with the same $^{13}$C-overread audit
-(Section~\ref{sec:expansion}): five flags stay in the $n{=}300$ headline; validate-clean
-$n{=}295$ is appendix; expansion-106 forward-verify was not run.
-A later 230-compound draw toward $n{\approx}500$ is scored for generation in
-Appendix~\ref{app:extended} / SI; it is \textbf{not} the headline
-(Section~\ref{sec:expansion}).
+(Section~\ref{sec:expansion}): five $+106$ flags stay in the $n{=}500$ headline;
+validate-clean $n{=}295$ and former $n{=}300$ are appendix; expansion-106
+forward-verify was not run.
+The 200-qid expand-500 cut is in the headline (thinking-tier; no CIs);
+$n{=}524$ / $n{=}530$ stay Appendix~\ref{app:extended} / SI.
 Controls: formula-only / recency (Section~\ref{sec:contamination}); four-vendor replication
 on a 60-compound arm (Section~\ref{sec:cross-vendor}); generate-wide sampling; HOSE lookup
 and GNN $^{13}$C verifiers; small IRexp-fine-tuned generator probe (excluded from headline
@@ -383,19 +391,19 @@ claims).
 \label{sec:headline}
 
 \begin{table}[ht]
-\caption{Headline elucidation ($n{=}300{=}194$ locked $+$ $106$ expansion).
-Bootstrap 95\% CIs; validate-clean $n{=}295$ in Appendix~\ref{app:extended}.}
+\caption{Headline elucidation ($n{=}500{=}194$ locked $+$ $106$ $+$ $200$ expand-500).
+No CIs. Former $n{=}300$ and $n{=}524$ / $n{=}530$ in Appendix~\ref{app:extended}.}
 \label{tab:headline}
 \centering
 \small
 \begin{tabular}{@{}lr@{}}
 \toprule
-metric & $n{=}300$ \\
+metric & $n{=}500$ \\
 \midrule
-top-1 exact constitution & \textbf{39.3\%} (118/300) [34--45] \\
-\quad simple ($n{=}151$) & 58.3\% (88/151) \\
-\quad complex ($n{=}149$) & 20.1\% (30/149) \\
-generation recall (top-3) & \textbf{44.3\%} (133/300) [39--50] \\
+top-1 exact constitution & \textbf{45.4\%} (227/500) \\
+\quad simple ($n{=}248$) & 65\% (161/248) \\
+\quad complex ($n{=}252$) & 26\% (66/252) \\
+generation recall (top-3) & \textbf{49.8\%} (249/500) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -412,23 +420,25 @@ asymmetry (Section~\ref{sec:limitations}); a battery-electrolyte subset ($n{=}46
 locked-slice regime (26\% top-1; recall-bound).
 
 \begin{table}[ht]
-\caption{Generation by slice. Headline is pooled $n{=}300$, not locked 194 alone.}
+\caption{Generation by slice. Headline is pooled $n{=}500$, not locked 194 alone.}
 \label{tab:slices}
 \centering
-\small
-\begin{tabular}{@{}lrrr@{}}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrr@{}}
 \toprule
- & locked ($n{=}194$) & expansion ($n{=}106$) & pooled ($n{=}300$) \\
+ & locked & $+106$ & $+200$ & pooled \\
+ & ($n{=}194$) & ($n{=}106$) & ($n{=}200$) & ($n{=}500$) \\
 \midrule
-top-1 & 55/194 (28.4\%) & 63/106 (59.4\%) & \textbf{118/300 (39.3\%)} \\
-generation recall & 65/194 (33.5\%) & 68/106 (64.2\%) & \textbf{133/300 (44.3\%)} \\
+top-1 & 55/194 (28.4\%) & 63/106 (59.4\%) & 109/200 (54.5\%) & \textbf{227/500 (45.4\%)} \\
+recall@3 & 65/194 (33.5\%) & 68/106 (64.2\%) & 116/200 (58.0\%) & \textbf{249/500 (49.8\%)} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The expansion slice is easier for this solver than the locked 194 (59.4\% vs 28.4\% top-1);
-pooling does not hide that gap.
-Self-ranking precision $|$ recall on the pooled generation cohort is 118/133 (88.7\%) ---
+The $+106$ and expand-500 slices are easier for this solver than the locked 194
+(59.4\% and 54.5\% vs 28.4\% top-1); pooling does not hide those gaps.
+Self-ranking precision $|$ recall on the pooled generation cohort is 227/249 (91.2\%) ---
 that is \emph{not} forward-verification precision (Section~\ref{sec:forward-verify}).
 
 \subsection{Is the model reading the spectra?}
@@ -506,7 +516,7 @@ A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 
 \begin{table}[ht]
 \caption{Forward-verify on the instrumented slice ($n{=}194$).
-Pooled $n{=}300$ in Table~\ref{tab:headline} is generation only.}
+Pooled $n{=}500$ in Table~\ref{tab:headline} is generation only.}
 \label{tab:fverify}
 \centering
 \small
@@ -582,7 +592,7 @@ Applying this to published figures (\texttt{scripts/literature\_decomposition.py
 \toprule
 system & data ($n$) & top-1 & top-$k$ ($k$) & recall & prec. \\
 \midrule
-this work, solver alone & literature (300) & 39.3\% & 44.3\% (3) & 44.3\% & 88.7\% \\
+this work, solver alone & literature (500) & 45.4\% & 49.8\% (3) & 49.8\% & 91.2\% \\
 this work + forward-verify & literature (194) & 29.9\% & 33.5\% (3) & 33.5\% & \textbf{89.2\%} \\
 NMR-Solver~\citep{jin2025nmrsolver} & literature (450) & 52.9\% & 67.3\% (10) & $\geq$67.3\% & $\leq$78.6\% \\
 NMRAgent~\citep{fang2026nmragent} & literature (450) & 61.6\% & 70.0\% (10) & $\geq$70.0\% & $\leq$88.0\% \\
@@ -599,29 +609,33 @@ simulated $\to$ real), \textbf{70\%} (SpecX random $\to$ scaffold) and \textbf{8
 (Espejo education $\to$ industrial) of each collapse.
 Recall binds where spectra are real and heterogeneous; ranking dominates on simulated or
 single-library data.
-The solver-alone precision column on $n{=}300$ is self-ranking (118/133); the
+The solver-alone precision column on $n{=}500$ is self-ranking (227/249); the
 forward-verify row is the instrumented $n{=}194$ slice (58/65) --- not interchangeable.
 
 \subsection{Pre-registered expansion, pooled headline, and scale roadmap}
 \label{sec:expansion}
 
-The $n{=}300$ headline is the pre-registered pool of the locked 194 and a 106-compound
-expansion draw (Table~\ref{tab:slices}).
-Five $^{13}$C-overread flags stay in the 300; validate-clean $n{=}295$ is appendix.
-The expansion slice is easier (59.4\% vs 28.4\% top-1) --- disclosed, not hidden.
+The $n{=}500$ headline is the pre-registered pool of the locked 194, all 106 Opus
+expansion, and 200 validate-clean expand-500 \texttt{qid}s (Table~\ref{tab:slices}).
+The 200 are the clean-first, Python-\texttt{sorted} prefix of expand-500
+(R01--R75 cut; leftover clean R76--R99; list
+\texttt{docs/headline500\_expand200\_qids.json}).
+Five $+106$ $^{13}$C-overread flags stay in the 500; former $n{=}300$ and
+validate-clean $n{=}295$ are appendix.
+Slice gaps are disclosed, not hidden (59.4\% and 54.5\% vs 28.4\% top-1).
 Figure~\ref{fig:fig-wall} remains the $n{=}194$ instrumented wall; expansion-106
 fverify was \textbf{not} run.
 
-\paragraph{Scale roadmap / larger blind round.}
-A second pre-registered draw toward $n{\approx}500$ (230; 115/115; six flags known
-\emph{before} any solve) is generation-scored on a withheld key
-(Appendix Table~\ref{tab:scale}; SI):
+\paragraph{Sensitivity / larger deposited draw.}
+The full expand-500 draw (230; 115/115; six flags known \emph{before} any solve)
+is generation-scored on a withheld key (Appendix Table~\ref{tab:scale}; SI):
 \textbf{129/230} (56.1\%) top-1 and \textbf{138/230} (60.0\%) recall@3; clean
-\textbf{127/224}.
-No CIs; thinking-tier arm, not the no-thinking $n{=}300$ protocol.
+\textbf{127/224}; 200-cut \textbf{109/200}.
+No CIs; thinking-tier arm on the 200, not interchangeable with the no-thinking
+194$+$106 protocol.
 Official fverify is SI-only (103/230 verify vs 129/230 self; not a wall).
-Exploratory $n{=}524$ / $n{=}519$ pools stay appendix-only.
-The headline remains $\mathcal{S}=\{1,\ldots,300\}$ in
+$n{=}524$ / $n{=}530$ and former $n{=}300$ stay appendix-only.
+The headline is $\mathcal{S}$ of size 500 in
 \begin{equation}
 \label{eq:pool}
 \hat p_{\mathcal{S}}
@@ -632,11 +646,11 @@ The headline remains $\mathcal{S}=\{1,\ldots,300\}$ in
 \label{sec:discussion}
 
 Frontier LLMs are \textbf{good verifiers} ($\approx$89\% on $n{=}194$) and
-\textbf{weak proposers} (44\% recall on $n{=}300$) --- propose $\gg$ verify.
+\textbf{weak proposers} (50\% recall on $n{=}500$) --- propose $\gg$ verify.
 The contribution is the \textbf{benchmark + stage decomposition}, not a solved
 elucidator and not an IRexp Data Descriptor.
-The expansion slice is easier (Section~\ref{sec:expansion}); 129/230 does not
-replace Eq.~\ref{eq:pool}'s headline $\mathcal{S}$ of 300.
+The expansion slices are easier (Section~\ref{sec:expansion}); 129/230 and
+former $n{=}300$ do not replace Eq.~\ref{eq:pool}'s headline $\mathcal{S}$ of 500.
 
 \paragraph{Reporting contract.}
 External work should deposit ranked SMILES and report (i)~top-1 constitution
@@ -644,8 +658,8 @@ External work should deposit ranked SMILES and report (i)~top-1 constitution
 precision $|$ recall (Eq.~\ref{eq:prec}), with bootstrap CIs and candidate budget.
 Nonsignificant ladder gains (forward-verification vs self-ranking, $p{=}0.55$;
 generate-wide top-1, $p{=}0.34$) are \textbf{diagnostic}, not accuracy advances.
-Corpus-reweighted top-1 (\textbf{26.5\%} on validate-clean $n{=}295$) is the better
-estimate for an arbitrary literature draw.
+Corpus-reweighted top-1 (\textbf{26.5\%} on validate-clean $n{=}295$) remains the
+better estimate for an arbitrary literature draw; it was not re-scored as $n{=}500$.
 IRexp fine-tuning already lifts locked-slice recall $33.5\%\to54.1\%$.
 
 \paragraph{Implications for agentic elucidation.}
@@ -679,11 +693,12 @@ generate-wide top-1 likewise ($p{=}0.34$). The $n{=}24$ four-model arm is underp
 The ladder \textbf{diagnoses a bottleneck}; it is not an accuracy advance.
 \textbf{(v) No SOTA chase.} SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR
 transformers and CASE are \textbf{not scored} here.
-\textbf{(vi) Expansion gap; fverify coverage.} Expansion top-1 is 59\% vs 28\%
-(Table~\ref{tab:slices}). Figure~\ref{fig:fig1} / $58/65$ are $n{=}194$ only;
-fverify was not run on the 106. expand-500 official score is SI-only
-(103/230 verify vs 129/230 self; no CIs). 129/230 is thinking-tier,
-appendix-only, \textbf{not} the headline. Fable 68/106 is not pooled.
+\textbf{(vi) Expansion gap; fverify coverage.} $+106$ top-1 is 59\% and the
+200-cut is 55\% vs 28\% on the locked 194 (Table~\ref{tab:slices}).
+Figure~\ref{fig:fig1} / $58/65$ are $n{=}194$ only; fverify was not run on the 106.
+expand-500 official score is SI-only (103/230 verify vs 129/230 self; no CIs;
+not a wall). The 200-cut is thinking-tier and is in the $n{=}500$ mix; do not
+treat it as the no-thinking protocol. Fable 68/106 is not pooled.
 \textbf{(vii) Deferred.} Expert-chemist audit not run; leave-one-modality abandoned;
 parser audit deferred to the Sci.\ Data companion.
 \textbf{(viii) Scope.} Battery subset is literature electrolyte chemistry, not operando;
@@ -695,8 +710,8 @@ Appendix~\ref{app:faq} restates these attacks.
 
 IRSpectra-Bench makes LLM structure elucidation from literature peak lists \textbf{measurable
 and decomposable}.
-On the pooled generation cohort ($n{=}300$), a frontier LLM recovers 39\% top-1 and 44\%
-generation recall; corpus-reweighted top-1 is 27\%.
+On the pooled generation cohort ($n{=}500$), a frontier LLM recovers 45\% top-1 and 50\%
+generation recall; corpus-reweighted top-1 on the older $n{=}295$ subset is 27\%.
 Propose $\gg$ verify: generation recall --- not verification --- binds end-to-end accuracy
 (forward-verified on the locked $n{=}194$ slice); the diagnosis replicates across
 vendors and is recovered from published top-$k$ figures.
@@ -761,25 +776,25 @@ companion Data Descriptor~\citep{yabbarov2026irexp}; they are not re-presented h
 
 These answers restate Limitations~\ref{sec:limitations}; they add no new metrics.
 
-\textbf{Why is top-1 39\% if the wall figure looks worse?}
-Headline generation is $n{=}300$ (118/300 top-1; 133/300 recall).
+\textbf{Why is top-1 45\% if the wall figure looks worse?}
+Headline generation is $n{=}500$ (227/500 top-1; 249/500 recall).
 Figure~\ref{fig:fig1} and Figure~\ref{fig:fig-wall} are the locked $n{=}194$
-forward-verified slice (58/7/129). Do not read the wall as a pooled $n{=}300$
+forward-verified slice (58/7/129). Do not read the wall as a pooled $n{=}500$
 diagnosis.
 
 \textbf{Is the expansion hidden in the pool?}
-No. Expansion top-1 is 59\% vs 28\% on the locked 194 (Table~\ref{tab:slices}).
-That gap is a result.
+No. $+106$ top-1 is 59\% and the 200-cut is 55\% vs 28\% on the locked 194
+(Table~\ref{tab:slices}). Those gaps are a result.
 
 \textbf{Where is forward-verify on the 106?}
 Not run. Conditional 89\% (58/65) is $n{=}194$ only.
-Do not invent a pooled $n{=}300$ wall.
+Do not invent a pooled $n{=}500$ wall.
 
-\textbf{Where is the $n{\approx}500$ top-1?}
-Appendix Table~\ref{tab:scale} / SI, not the headline: 129/230 (56.1\%) top-1,
-138/230 recall. Thinking-tier arm; no CIs.
+\textbf{Where is the all-230 expand-500 top-1?}
+Appendix Table~\ref{tab:scale} / SI: 129/230 (56.1\%) top-1, 138/230 recall;
+200-cut 109/200. Thinking-tier arm; no CIs.
 Official fverify (SI): 103/230 verify vs 129/230 self.
-Headline stays $n{=}300$ (Eq.~\ref{eq:pool}).
+Headline is $n{=}500$ (Eq.~\ref{eq:pool}), not 230 and not 519.
 
 \textbf{Consumer harness / no snapshot / no thinking tier?}
 Correct and intentional for the scored headline. Scoring of frozen deposits is
@@ -806,7 +821,7 @@ forward-verification mechanism (Figure~\ref{fig:fig-mechanism}), and the inferen
 ladder (Figure~\ref{fig:fig3-method}).
 The diagnosis wall on the $n{=}194$ instrumented slice is repeated below
 (Figure~\ref{fig:fig-wall}) so the lead figure is not the only copy.
-Additional archive plates are omitted here; they do not change the pooled $n{=}300$
+Additional archive plates are omitted here; they do not change the pooled $n{=}500$
 generation headline or the $n{=}194$ instrumented wall.
 
 \begin{figure}[h]
@@ -814,8 +829,8 @@ generation headline or the $n{=}194$ instrumented wall.
   \includegraphics[width=0.92\linewidth]{fig_wall_diagnostic.pdf}
   \caption{Diagnostic wall: \textbf{locked $n{=}194$ instrumented slice}
   (58 verified / 7 mis-ranked / 129 never proposed).
-  Expansion-106 has no forward-verify; this is \textbf{not} a pooled $n{=}300$ wall.
-  Headline generation recall is 133/300.
+  Expansion-106 has no forward-verify; this is \textbf{not} a pooled $n{=}500$ wall.
+  Headline generation recall is 249/500.
   Never-proposed cases bind top-1 despite 89\% conditional precision (58/65).
   Same slice as Figure~\ref{fig:fig1}.}
   \label{fig:fig-wall}
@@ -851,7 +866,7 @@ Chamfer 1.35 vs 1.36~ppm. IR 1652, 1530, 1352~cm$^{-1}$. \\
 
 \begin{table}[h]
 \caption{Expansion round (Claude Opus, InChIKey-14). Five $^{13}$C-overread flags stay in
-the $n{=}300$ headline; validate-clean $n{=}295$ in Table~\ref{tab:clean295}.
+the former $n{=}300$ pool; validate-clean $n{=}295$ in Table~\ref{tab:clean295}.
 Incomplete Fable arm (68/106) is never pooled.}
 \label{tab:expansion}
 \centering
@@ -892,10 +907,12 @@ Corpus-reweighted (17.5\% simple / 82.5\% complex): top-1 \textbf{26.5\%} [21--3
 Self-ranking precision $|$ recall: 116/130 (89.2\%).
 
 \begin{table}[h]
-\caption{Scale / larger blind round (generation only; InChIKey-14).
-Copied from spectro-agent \texttt{NIGHT\_POOL\_2026-09-20.md}.
-\textbf{No CIs.} Official fverify in the note below; not a wall.
-Headline remains $n{=}300$ (Eq.~\ref{eq:pool}). Thinking-tier arm on the 230.
+\caption{Headline $n{=}500$ and appendix sensitivities (generation only; InChIKey-14).
+Copied from spectro-agent \texttt{HEADLINE\_n500\_2026-09-20.md} (PR~\#41,
+\texttt{48fcd30}). \textbf{No CIs.} Official fverify in the note below; not a wall.
+200-cut: clean-first, string-sorted \texttt{qid}, R01--R75
+(\texttt{docs/headline500\_expand200\_qids.json}).
+Do not quote 243/519. Thinking-tier arm on the 200.
 Standalone SI (\texttt{si/supplement.pdf}): plate reprints (Figs.~S1--S3),
 full protocol, prompts, model card, extra cases, and reproducibility checklist.}
 \label{tab:scale}
@@ -906,11 +923,13 @@ full protocol, prompts, model card, extra cases, and reproducibility checklist.}
 \toprule
 set & $n$ & top-1 & recall@3 \\
 \midrule
+\textbf{headline} $194+$all 106$+$200 & \textbf{500} & \textbf{227/500 (45.4\%)} & \textbf{249/500 (49.8\%)} \\
+\quad expand-500 200-cut & 200 & 109/200 (54.5\%) & 116/200 (58.0\%) \\
+former headline $194+$all 106 & 300 & 118/300 (39.3\%) & 133/300 (44.3\%) \\
 expand-500 all deposited & 230 & 129/230 (56.1\%) & 138/230 (60.0\%) \\
 expand-500 validate-clean & 224 & 127/224 (56.7\%) & 135/224 (60.3\%) \\
-\textbf{headline} $194+$all 106 & \textbf{300} & \textbf{118/300 (39.3\%)} & \textbf{133/300 (44.3\%)} \\
-exploratory $194+$all 106$+$clean 224 & 524 & 245/524 (46.8\%) & 268/524 (51.1\%) \\
-alt.\ clean-filtered pool & 519 & 243/519 (46.8\%) & 265/519 (51.1\%) \\
+sensitivity $194+$all 106$+$clean 224 & 524 & 245/524 (46.8\%) & 268/524 (51.1\%) \\
+sensitivity $194+$all 106$+$all 230 & 530 & 247/530 (46.6\%) & 271/530 (51.1\%) \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -922,7 +941,7 @@ Flagged expand-500 qids (in the 230, out of the 224): R26, R31, R102, R105, R107
 \paragraph{expand-500 official fverify (NIGHT\_POOL / STATUS; not a wall).}
 \texttt{forward\_verify\_main.py score()} on the deposited 230-qid bundle
 (41/41 batches; 681/681 unique SMILES). \textbf{No CIs.} Verify does not
-beat self-rank. Headline stays $n{=}300$.
+beat self-rank. Headline is $n{=}500$ generation; this is not a wall.
 
 \begin{table}[h]
 \caption{expand-500 official chamfer score. Copied from spectro-agent

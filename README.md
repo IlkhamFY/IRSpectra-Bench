@@ -2,13 +2,16 @@
 
 Clean manuscript repository for the **IRSpectra-Bench** ICLR-track paper
 (recall/verification diagnosis of LLM structure elucidation).
-**Headline:** pooled generation cohort **n=300** (194 locked + all 106 expansion).
-Validate-clean **n=295** is appendix / sensitivity. Figure 1 is the Figma Bro
-lead plate (`fig1_lead_overview`). Listing 1 is `listing1_irexp_record`.
-The diagnostic wall (`fig_wall_diagnostic`) repeats the locked n=194 slice in
-the appendix. A larger expand-500 round is generation-scored in the SI
-(129/230 top-1; 138/230 recall; official fverify 103/230 vs self 129/230; no CIs) and is
-**not** the n=300 headline — see `docs/NIGHT_POOL_2026-09-20.md`.
+**Headline:** pooled generation cohort **n=500** (194 locked + all 106
+expansion + 200 validate-clean expand-500; clean-first, string-sorted
+qid, R01–R75 cut): **227/500 (45.4%)** top-1; **249/500 (49.8%)** recall.
+List: `docs/headline500_expand200_qids.json`. No CIs. Do not quote 243/519.
+Former **n=300** and n=524 / n=530 are appendix / sensitivity. Figure 1 is
+the Figma Bro lead plate (`fig1_lead_overview`). Listing 1 is
+`listing1_irexp_record`. The diagnostic wall (`fig_wall_diagnostic`)
+repeats the locked n=194 slice (58/7/129). expand-500 official fverify
+(103/230 vs self 129/230) is SI only — see
+`docs/HEADLINE_N500_2026-09-20.md`.
 
 **Main Overleaf file:** `main.tex`  
 **Compiler:** pdfLaTeX or XeLaTeX (+ BibTeX)  
@@ -43,7 +46,7 @@ python3 scripts/build_pdf.py          # main ICLR manuscript
 python3 scripts/build_si.py           # standalone SI → si/supplement.pdf
 ```
 
-The SI holds the full blind protocol, expand-500 / pool tables (headline stays n=300),
+The SI holds the full blind protocol, expand-500 / pool tables (headline is n=500),
 prompt skeletons, model card, extra cases, official expand-500 fverify
 (103/230 vs 129/230; not a wall), and the reproducibility checklist.
 Main text stays ≤9 ICLR pages through the Conclusion.

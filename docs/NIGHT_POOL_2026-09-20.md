@@ -8,10 +8,13 @@ for `data/benchmark_expand/` or `data/benchmark_expand_500/`.
 
 Companion inventory: `data/fverify_expand_500/INVENTORY_2026-09-20.md`.
 
-**Paper headline stays n=300** (locked 194 + all Opus +106). This
-expand-500 round is now scored, but it is **not** written into the paper
-headline. No CIs. fverify coverage **41/41, 681/681**; score in the
-fverify section below.
+**Paper headline is now n=500** (194 + all 106 + 200 expand-500;
+clean-first, string-sorted qid, R01–R75 cut). Integers:
+`docs/HEADLINE_N500_2026-09-20.md` / spectro-agent `48fcd30`:
+**227/500 (45.4%)** top-1, **249/500 (49.8%)** recall. **No CIs.**
+Do **not** quote 243/519. Wall stays n=194. This night-pool note keeps
+the original expand-500 transcripts below. fverify coverage **41/41,
+681/681**; official score in the fverify section (SI only; not a wall).
 
 ## What ran (and what did not)
 
@@ -43,7 +46,8 @@ python scripts/score_pooled.py --expand --expand-500
 
 | n | composition | role |
 |---:|---|---|
-| **300** | locked 194 + all Opus +106 | **IRSpectra-Bench paper headline** (do not replace with expand-500) |
+| **500** | 194 + all 106 + first 200 clean (R01–R75) | **IRSpectra-Bench paper headline** (227/500, 249/500) |
+| 300 | locked 194 + all Opus +106 | former headline (appendix) |
 | **524** | 194 + all-106 + expand-500 validate-clean 224 | largest clean-on-this-round pool that still keeps all +106 |
 | **519** | 194 + +106 validate-clean 101 + expand-500 validate-clean 224 | what `score_pooled.py --expand --expand-500` prints (both expansions clean-filtered) |
 | 530 | 194 + all-106 + expand-500 all 230 | all deposited, including 6 expand-500 13C-overread flags |
