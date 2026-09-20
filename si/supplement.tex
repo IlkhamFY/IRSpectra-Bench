@@ -1,6 +1,8 @@
 % IRSpectra-Bench --- supplementary information (does not count toward ICLR 9 pp)
 % Headline n=500 only: 227/500 (45.4%) top-1; 249/500 (49.8%) recall.
-% Main wall = generation 227/22/251. No invented CIs. Do not quote 243/519.
+% Diagnosis wall = n=500 fverify 204/45/251 (WALL_n500.md).
+% Generation 227/249/251 only when labeled as generation, not as the wall.
+% No invented CIs. Do not quote 243/519.
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{times}
@@ -49,11 +51,14 @@ Every accuracy number is copied from a committed lock
 \texttt{48fcd30}; \texttt{docs/NIGHT\_POOL\_2026-09-20.md}).
 \textbf{No CIs are invented} for $n{=}500$.
 The paper headline is $n{=}500$ (227/500 top-1; 249/500 recall).
-The main wall is the generation decomposition $227/22/251$.
+The diagnosis wall is the $n{=}500$ forward-verify decomposition
+$204/45/251$ (spectro-agent \texttt{data/fverify\_n500/WALL\_n500.md}).
+Generation $227/249/251$ is top-1 / recall / never-proposed, not the wall.
 Do \textbf{not} quote 243/519.
 Roster: frozen \texttt{qid} lists in the code release.
 Figure and listing numbers below refer to the main PDF
-(Fig.~1 = protocol + $n{=}500$ generation wall; Listing~1 = IRexp payload).
+(Fig.~1 = protocol + $n{=}500$ generation; Listing~1 = IRexp payload;
+Fig.~\texttt{fig-wall} = $n{=}500$ fverify wall).
 They are not re-numbered here.
 
 \tableofcontents
@@ -77,7 +82,7 @@ main label & object & SI role \\
 Fig.~\texttt{fig1} &
   Fig.~1 (\texttt{fig1\_lead\_overview}) &
   Lead: input $\to$ generate $\to$ verify, factorisation, and
-  $n{=}500$ generation wall $227/22/251$. \\
+  $n{=}500$ generation ($227/500$ top-1; $249/500$ recall). \\
 Fig.~\texttt{fig-chemspace} &
   Fig.~2 &
   Literature-cohort chemistry. \\
@@ -87,7 +92,7 @@ Listing~\texttt{lst:payload} &
   SMILES/InChIKey are resource fields, not solver payload. \\
 Fig.~\texttt{fig-wall} &
   appendix (\texttt{fig\_wall\_diagnostic}) &
-  Repeat of the Fig.~1 $n{=}500$ generation wall. \\
+  $n{=}500$ forward-verify wall $204/45/251$. \\
 Fig.~\texttt{fig-robustness} &
   Fig.~4 &
   Formula-only / recency / four-vendor. \\
@@ -102,7 +107,7 @@ Fig.~\texttt{fig3-method} &
   Same integers as \S\ref{si:cases}. \\
 SI Figs.~S1--S3 &
   reprints &
-  Same three files as main Fig.~1 / Listing~1 / $n{=}500$ wall
+  Same three files as main Fig.~1 / Listing~1 / $n{=}500$ fverify wall
   (\S\ref{si:plates}). Not a second lead figure. \\
 \bottomrule
 \end{tabular}
@@ -131,7 +136,8 @@ the Figma Bro plate is one figure (protocol strip, factorisation, wall).
 \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
 \caption{Reprint of main-text Figure~1.
 Input $\to$ generate $\to$ verify; $45.4\%=49.8\%\times 91.2\%$;
-$n{=}500$ generation wall $227/22/251$.
+$n{=}500$ generation $227/500$ top-1 and $249/500$ recall.
+The diagnosis wall is forward-verify $204/45/251$.
 Propose is the wall, not verify.}
 \label{si:fig:lead}
 \end{figure}
@@ -152,11 +158,12 @@ Not a Data Descriptor dump. Locked v3-R25 is the mechanism case
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
-\caption{Reprint of the $n{=}500$ generation wall
+\caption{Reprint of the $n{=}500$ forward-verify wall
 (\texttt{fig\_wall\_diagnostic}):
-$227$ exact top-1 / $22$ in pool, not top-1 / $251$ never proposed.
-Same integers as Figure~\ref{si:fig:lead}.
-Propose is the wall, not verify.}
+$204$ verified / $45$ misranked / $251$ never proposed.
+Source: spectro-agent \texttt{data/fverify\_n500/WALL\_n500.md}.
+Propose is the wall, not verify.
+Generation remains $227/500$ top-1 and $249/500$ recall.}
 \label{si:fig:wall}
 \end{figure}
 
@@ -291,8 +298,10 @@ d(P,Q)
 \end{equation}
 where $\hat P(c)$ is predicted \emph{blind} to the observed list $P_{\mathrm{obs}}$.
 Instrumented forward-verify diagnostic on a protocol slice (58/65; \S\ref{si:fverify}).
-expand-500 official score is in
-\S\ref{si:fverify} (103/230 verify vs 129/230 self; no CIs; not a wall).
+The $n{=}500$ forward-verify wall is $204/45/251$
+(\S\ref{si:fverify}; \texttt{data/fverify\_n500/WALL\_n500.md}).
+expand-500 official arm score is also in
+\S\ref{si:fverify} (103/230 verify vs 129/230 self; no CIs; not a second wall).
 
 A pool estimator on an index set $\mathcal{S}$ is
 \begin{equation}
@@ -430,21 +439,57 @@ complex 66/252 (26\%) / 77/252 (31\%).
 Self-rank precision $|$ recall: $227/249$ (91.2\%).
 Do not quote \texttt{score\_pooled.py --expand --expand-500} ($n{=}519$,
 243/519).
-Do not draw a pooled forward-verify wall from these rows.
+The $n{=}500$ forward-verify wall is $204/45/251$ (\S\ref{si:fverify}),
+not these generation rows.
 Do not attach CIs.
 
 %======================================================================
 \section{Forward-verify coverage (honest gaps)}
 \label{si:fverify}
 
+\subsection{$n{=}500$ unified fverify wall}
+
+Source: spectro-agent \texttt{data/fverify\_n500/WALL\_n500.md}
+(PR~\#68; \texttt{scripts/fverify\_n500\_wall.py}).
+Classification matches the sidecar:
+\textbf{verified} = recalled and chamfer-ranked first;
+\textbf{misranked} = recalled, distractor first;
+\textbf{never-proposed} = true structure not in the candidate set.
+The paper wall is the $n{=}500$ row only.
+Arm rows below are \emph{not} a generation-composition story and are
+not the headline.
+
+\begin{table}[h]
+\caption{$n{=}500$ forward-verify wall. Copied from
+\texttt{data/fverify\_n500/WALL\_n500.md}. No CIs.
+Arm rows are not the headline composition.}
+\centering
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+arm & $n$ & verified & misranked & never-proposed \\
+\midrule
+locked protocol slice & 194 & 58 & 7 & 129 \\
+Opus expansion & 106 & 56 & 12 & 38 \\
+expand-500 cut & 200 & 90 & 26 & 84 \\
+\textbf{$n{=}500$ wall} & \textbf{500} & \textbf{204} & \textbf{45} & \textbf{251} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Recalled $=204+45=249/500$, matching committed generation recall.
+Main-text Figure~\texttt{fig-wall} is this $204/45/251$ wall.
+Figure~1 is $n{=}500$ generation ($227/500$ top-1; $249/500$ recall),
+not the wall.
+
 \subsection{Instrumented protocol slice}
 
 Source: \texttt{data/diagnosis.json} / \texttt{scripts/forward\_verify\_all.py}.
-This is a protocol-slice diagnostic, \textbf{not} the $n{=}500$ wall.
+This is a protocol-slice diagnostic, \textbf{not} a second $n{=}500$ wall.
 
 \begin{table}[h]
 \caption{Instrumented forward-verify diagnostic on a protocol slice.
-Not the $n{=}500$ generation wall.}
+Not the $n{=}500$ wall ($204/45/251$).}
 \centering
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -461,12 +506,11 @@ McNemar vs self-rank & --- & $p{=}0.55$ (7 gained, 4 lost) \\
 \end{tabular}
 \end{table}
 
-Main-text Figure~1 is the $n{=}500$ generation wall, not this diagnostic.
-
-\subsection{Other expansion fverify --- not a pooled wall}
+\subsection{Other expansion fverify --- not a second wall}
 
 No additional expansion forward-verify bundle is claimed as a wall.
-Self-ranking $227/249$ on $n{=}500$ is not a substitute.
+Self-ranking $227/249$ on $n{=}500$ is generation, not a substitute
+for $204/45/251$.
 
 \subsection{expand-500 --- official score (not a wall)}
 
@@ -479,12 +523,13 @@ Blind $^{13}$C campaign over 681 unique candidate SMILES
 (\texttt{is\_true} filled under \texttt{/tmp} only; committed
 \texttt{candidates.jsonl} still omits it; official \texttt{prep} was
 \textbf{not} re-run). \textbf{No CIs.} Verify does not beat self-rank.
-Headline is $n{=}500$ generation. This is not a pooled wall and does not
-replace the protocol-slice \texttt{diagnosis.json} diagnostic.
+Headline generation is $n{=}500$ ($227/500$, $249/500$).
+This arm score is not a second wall and does not replace
+\texttt{data/fverify\_n500/WALL\_n500.md}.
 
 \begin{table}[h]
 \caption{expand-500 official chamfer score. Copied from NIGHT\_POOL /
-fverify STATUS. Not a wall. Not the headline.}
+fverify STATUS. Arm score, not the $n{=}500$ wall. Not the headline.}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -822,6 +867,10 @@ item does not apply; gaps are named.
   \item \textbf{Headline regeneration.}
         Committed score notes regenerate $227/500$ and $249/500$
         (\texttt{docs/HEADLINE\_N500\_2026-09-20.md}).
+  \item \textbf{$n{=}500$ fverify wall.}
+        spectro-agent \texttt{data/fverify\_n500/WALL\_n500.md}
+        (PR~\#68) is $204$ verified / $45$ misranked / $251$ never-proposed.
+        Do not invent other integers.
   \item \textbf{Protocol-slice fverify.}
         \texttt{python scripts/forward\_verify\_all.py} regenerates
         the protocol-slice diagnostic (not the $n{=}500$ wall).
@@ -836,7 +885,7 @@ item does not apply; gaps are named.
   \item \textbf{Do not invent CIs} for expand-500; \texttt{--ci} was not run.
   \item \textbf{expand-500 fverify score} is already in NIGHT\_POOL /
         fverify STATUS (103/230 verify vs 129/230 self). Do not invent
-        CIs or a wall. Do not re-run official \texttt{prep}.
+        CIs or a second wall. Do not re-run official \texttt{prep}.
   \item \textbf{Double-blind.} Companion bib is Anonymous; dataset URL in
         the PDF is only the anonymous.4open review copy.
   \item \textbf{Fine-tunes} must use \texttt{data/train\_no\_bench.jsonl.gz}.
@@ -856,11 +905,10 @@ item does not apply; gaps are named.
         SpectraLLM / IR-Agent / Spectro / NMIRacle / Alberts / CASE
         not scored on this bench.
   \item \textbf{Figure rebuild limits.}
-        \texttt{fig\_wall\_diagnostic} / Fig.~1 wall is the $n{=}500$
-        generation decomposition ($227/22/251$).
-        expand-500 has an official \texttt{score()} but no
-        \texttt{diagnosis.json}, so a pooled forward-verify wall
-        cannot be rebuilt.
+        \texttt{fig\_wall\_diagnostic} is the $n{=}500$ forward-verify
+        wall ($204/45/251$). Fig.~1 remains $n{=}500$ generation
+        ($227/500$ top-1; $249/500$ recall).
+        Do not rebuild the wall from a single-arm \texttt{diagnosis.json}.
   \item \textbf{This manuscript compile.}
         \texttt{python3 scripts/build\_pdf.py} (main);
         \texttt{python3 scripts/build\_si.py} (this SI).
@@ -874,12 +922,14 @@ item does not apply; gaps are named.
         consistent with the integers in
         \texttt{docs/HEADLINE\_N500\_2026-09-20.md},
         \texttt{docs/POOLED\_HEADLINE\_2026-09-16.md} and
-        \texttt{docs/NIGHT\_POOL\_2026-09-20.md}.
+        \texttt{docs/NIGHT\_POOL\_2026-09-20.md} and
+        spectro-agent \texttt{data/fverify\_n500/WALL\_n500.md}.
   \item Fig.~1 caption, Limitations~(vi), and Appendix FAQ agree:
-        wall $=$ $n{=}500$ generation ($227/22/251$; 227/500, 249/500).
+        generation $=$ $227/500$ top-1 and $249/500$ recall;
+        wall $=$ $n{=}500$ fverify $204/45/251$.
   \item expand-500 all-230 rows carry ``no CIs / thinking-tier /
-        not a wall''. Official fverify is 103/230 verify vs
-        129/230 self (SI only; not a wall). Do not quote 243/519.
+        not a second wall''. Official arm fverify is 103/230 verify vs
+        129/230 self (SI only). Do not quote 243/519.
 \end{itemize}
 
 %======================================================================
@@ -890,20 +940,24 @@ These answers restate main-text Limitations and Appendix~B.
 They add no new metrics.
 
 \textbf{Why is top-1 45\% if the wall figure looks worse?}
-It should not. Figure~1 is the $n{=}500$ generation wall
-($227/22/251$; $249/500$ recalled). Headline is $227/500$ (45.4\%)
-and $249/500$ (49.8\%).
+It should not. Figure~1 is $n{=}500$ generation:
+$227/500$ (45.4\%) top-1 and $249/500$ (49.8\%) recall
+(self-rank $227/249$).
+The wall figure is the $n{=}500$ forward-verify wall
+($204$ verified / $45$ misranked / $251$ never proposed;
+\texttt{data/fverify\_n500/WALL\_n500.md}).
 
 \textbf{Is the roster a hidden mix?}
 The $n{=}500$ roster is the frozen \texttt{qid} list in the code release.
 Do not reconstruct a composition story from protocol notes.
 
 \textbf{Where is the instrumented forward-verify wall?}
-SI only, as a protocol-slice diagnostic (not the $n{=}500$ wall).
+The $n{=}500$ wall is $204/45/251$ (\S\ref{si:fverify}).
+The older protocol-slice diagnostic is also here. Do not invent CIs.
 
 \textbf{Where is expand-500 official fverify?}
 This SI: 103/230 verify vs 129/230 self (\S\ref{si:fverify}); no CIs;
-not a wall. Headline is $n{=}500$ (Eq.~\ref{si:eq:pool}).
+not a second wall. Headline generation is $n{=}500$ (Eq.~\ref{si:eq:pool}).
 
 \textbf{Consumer harness / no snapshot / no thinking tier?}
 Correct and intentional for the scored headline. Scoring of frozen
@@ -920,8 +974,10 @@ No. IRexp is a companion resource pointer (Listing~1; \S\ref{si:split}).
 No. Eq.~\ref{si:eq:pool} uses $\mathcal{S}$ of 500. Do not quote 243/519.
 
 \section*{What this SI is not}
-A Data Descriptor. A pooled forward-verify wall. An expand-500 wall.
+A Data Descriptor. An expand-500 wall. A generation-composition story.
 A recommendation to switch the ICLR headline off $n{=}500$ or to quote 243/519.
 A source of invented CIs or new metrics.
+The $n{=}500$ forward-verify wall ($204/45/251$) is cited from
+\texttt{data/fverify\_n500/WALL\_n500.md}.
 
 \end{document}

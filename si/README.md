@@ -11,10 +11,12 @@ Standalone SI for the ICLR manuscript. **Does not count toward the 9-page main.*
   `docs/FVERIFY_EXPAND500_INVENTORY_2026-09-20.md`.
 
 **Headline is n=500** (227/500 top-1; 249/500 recall).
-Wall is the generation decomposition **227 / 22 / 251**.
+Diagnosis wall is n=500 fverify **204 / 45 / 251**
+(spectro-agent `data/fverify_n500/WALL_n500.md`).
+Generation 227/249/251 is top-1 / recall / never-proposed, not the wall.
 Roster: frozen qid lists. **Do not quote 243/519.** No CIs on n=500.
-Official expand-500 fverify: 103/230 verify vs 129/230 self (no CIs; not a wall).
-Instrumented fverify is a protocol-slice diagnostic, not the paper wall.
+Official expand-500 fverify: 103/230 verify vs 129/230 self (no CIs; SI arm).
+Instrumented fverify is a protocol-slice diagnostic, not a second wall.
 
 ## Sections
 
@@ -25,5 +27,5 @@ Instrumented fverify is a protocol-slice diagnostic, not the paper wall.
 5. Validate-clean extras (not the headline)
 6. expand-500 generation (129/230, 138/230)
 7. Headline pool n=500 only
-8. Honest fverify (protocol-slice diagnostic; official 103/230 vs 129/230)
+8. Honest fverify (n=500 wall 204/45/251 from WALL_n500.md; arm table; 103/230)
 9. Extra cases, prompts, model card, reproducibility checklist

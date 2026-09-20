@@ -14,9 +14,10 @@ R01–R75 cut; `docs/headline500_expand200_qids.json`). Integers from
 spectro-agent PR #41 `48fcd30` / `docs/HEADLINE_N500_2026-09-20.md`.
 **227/500 (45.4%)** top-1; **249/500 (49.8%)** recall. **No CIs.**
 Do **not** quote 243/519. Former n=300 and n=524 / n=530 are appendix.
-The main wall (`fig_wall_diagnostic`) is the n=500 generation
-decomposition (227/22/251). Forward-verification is the n=194
-instrumented slice — do not invent a pooled fverify wall.
+The main wall (`fig_wall_diagnostic`) is the n=500 fverify
+decomposition (204 verified / 45 misranked / 251 never-proposed;
+`data/fverify_n500/WALL_n500.md`). Generation 227/249/251 is
+top-1 / recall / never-proposed, not the wall.
 
 | Rank | Model / method | Top-1 ↑ | Recall (top-3) ↑ | Gen. recall | Verif. prec. \| recall | Notes |
 |---:|---|--:|--:|--:|--:|---|
@@ -181,4 +182,4 @@ If you use IRSpectra-Bench or report numbers on it, please cite:
 }
 ```
 
-*Last updated: 2026-09-20 (headline n=500 = 227/500 top-1, 249/500 recall; 200-cut R01–R75; no CIs; do not quote 243/519; wall n=500 227/22/251). External submissions listed after verification.*
+*Last updated: 2026-09-20 (headline n=500 = 227/500 top-1, 249/500 recall; no CIs; do not quote 243/519; wall n=500 fverify 204/45/251). External submissions listed after verification.*

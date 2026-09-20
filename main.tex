@@ -6,10 +6,11 @@
 % iclr_paper.tex is a compatibility \input{main} shim for older compile notes.
 % main_IRExpBench_only.tex is an optional orphan alternate --- not the ICLR build root.
 % Headline n=500 generation only: 227/500 (45.4%) top-1; 249/500 (49.8%) recall.
-% Wall = generation bottleneck 227 / 22 / 251. No CIs. Do not quote 243/519.
-% Fig 1 = fig1_lead_overview; Listing 1 = listing1_irexp_record;
-% fig_wall_diagnostic = n=500 generation wall (same 227/22/251).
-% Instrumented fverify diagnostic is SI only; not the paper wall.
+% Diagnosis wall = n=500 fverify 204 verified / 45 misranked / 251 never-proposed.
+% Generation 227/249/251 only when labeled as generation (top-1 / recall), not as the wall.
+% No CIs. Do not quote 243/519. Do not print 194/106/200 in main prose.
+% Fig 1 = fig1_lead_overview (generation); Listing 1 = listing1_irexp_record;
+% fig_wall_diagnostic = n=500 fverify wall (204/45/251).
 % Compile with pdfLaTeX or XeLaTeX + BibTeX (references.bib + iclr2027_conference.bst).
 % \iclrfinalcopy is the only official sty flag that prints \author and drops
 % the left-margin submission ruler (see tex/iclr2027_conference.sty).
@@ -88,11 +89,9 @@ fixed RDKit InChIKey-connectivity contract and decomposable
 \textbf{generation recall} / \textbf{verification precision} metrics.
 A frontier LLM recovers \textbf{45.4\%} top-1 (227/500) and \textbf{49.8\%}
 generation recall (249/500); no CIs.
-The generation wall is \textbf{227} top-1 exact / \textbf{22} in the candidate
-set but not top-1 / \textbf{251} never proposed: propose is the wall, not verify.
 Self-ranking precision $|$ recall is $227/249$ (91.2\%).
-An instrumented forward-verify diagnostic on a protocol slice (SI) is high-precision
-once the true structure is proposed; it is not the $n{=}500$ wall.
+The $n{=}500$ forward-verify wall is \textbf{204} verified / \textbf{45} misranked /
+\textbf{251} never proposed: propose is the wall, not verify.
 The same recall $\ll$ precision asymmetry replicates across \textbf{four vendor families}.
 Formula-only controls collapse; accuracy is flat in source-paper year; generate-wide
 sampling lifts recall where verification alone barely moves top-1.
@@ -137,8 +136,8 @@ infrastructure at scale}.
         (top-1, generation recall, verification precision $|$ recall).
   \item \textbf{A recall-bound diagnosis} on a frontier LLM: propose $\gg$ verify.
         Generation recall is $249/500$ (49.8\%); self-ranking precision $|$ recall is
-        $227/249$ (91.2\%). The wall is $227$ top-1 / $22$ in-set but not top-1 /
-        $251$ never proposed (Figure~\ref{fig:fig1}).
+        $227/249$ (91.2\%). The $n{=}500$ forward-verify wall is $204$ verified /
+        $45$ misranked / $251$ never proposed (Figure~\ref{fig:fig-wall}).
   \item \textbf{Contamination and cross-vendor controls} --- formula-only and recency bounds;
         four-vendor replication of recall $\ll$ precision.
   \item \textbf{A literature decomposition} that recovers the same split from published top-$k$
@@ -156,13 +155,15 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-  \caption{IRSpectra-Bench protocol and the $n{=}500$ generation wall.
+  \caption{IRSpectra-Bench protocol and $n{=}500$ generation.
   Blind peak lists $+$ formula $\rightarrow$ closed-book LLM proposes a ranked
   pool $\rightarrow$ optional forward $^{13}$C chamfer re-rank (Eq.~\ref{eq:chamfer})
   $\rightarrow$ InChIKey-14 (Eq.~\ref{eq:ik14}).
-  Generation recall is $249/500$ (49.8\%) and self-ranking selects the true
-  structure $227/249$ (91.2\%)
-  ($45.4\%=49.8\%\times 91.2\%$; wall $227/22/251$).
+  Generation: $227/500$ (45.4\%) top-1 and $249/500$ (49.8\%) recall;
+  self-ranking selects the true structure $227/249$ (91.2\%)
+  ($45.4\%=49.8\%\times 91.2\%$).
+  The diagnosis wall is forward-verify $204$ verified / $45$ misranked /
+  $251$ never proposed (Figure~\ref{fig:fig-wall}).
   Propose is the wall, not verify.}
   \label{fig:fig1}
 \end{figure}
@@ -356,8 +357,9 @@ d(P,Q)
 \frac1{|Q|}\sum_{q\in Q}\min_{p\in P}|q-p|
 \end{equation}
 (Section~\ref{sec:forward-verify}).
-The instrumented forward-verify diagnostic lives on a protocol slice (SI);
-it is not an $n{=}500$ wall.
+The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked /
+$251$ never proposed (Section~\ref{sec:forward-verify}).
+An instrumented protocol-slice diagnostic remains SI.
 The $n{=}500$ roster is the frozen \texttt{qid} list in the code release.
 Controls: formula-only / recency (Section~\ref{sec:contamination}); four-vendor replication
 on a 60-compound arm (Section~\ref{sec:cross-vendor}); generate-wide sampling; HOSE lookup
@@ -399,8 +401,8 @@ asymmetry (Section~\ref{sec:limitations}); a battery-electrolyte subset ($n{=}46
 recall-bound (26\% top-1).
 Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%) ---
 that is \emph{not} forward-verification precision (Section~\ref{sec:forward-verify}).
-The generation wall is $227$ top-1 exact / $22$ in-set but not top-1 / $251$ never
-proposed (Figure~\ref{fig:fig1}, Figure~\ref{fig:fig-wall}).
+The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked / $251$ never
+proposed (Figure~\ref{fig:fig-wall}).
 
 \subsection{Is the model reading the spectra?}
 \label{sec:contamination}
@@ -500,10 +502,10 @@ selects it in $16/19$ cases (84\%).
 The margin over self-ranking is \textbf{small and unresolved} --- we do \textbf{not}
 claim an accuracy advance.
 On $n{=}500$, self-ranking precision $|$ recall is $227/249$ (91.2\%).
+The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked / $251$ never
+proposed.
 No re-ranking repairs the $251$ compounds where the true structure was never
-proposed (Figure~\ref{fig:fig1}, Figure~\ref{fig:fig-wall}).
-An instrumented forward-verify diagnostic on a protocol slice (SI) is likewise
-high-precision once proposed; it is not the $n{=}500$ wall.
+proposed (Figure~\ref{fig:fig-wall}).
 
 \paragraph{Worked cases.}
 Three deposits instantiate the wall (Appendix Table~\ref{tab:cases}).
@@ -584,8 +586,9 @@ The headline is $\mathcal{S}$ of size 500 in
 \hat p_{\mathcal{S}}
 =\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} s(c_{i1}, y_i^\star).
 \end{equation}
-Figure~\ref{fig:fig-wall} is the $n{=}500$ generation wall ($227/22/251$).
-Official expand-500 forward-verify (verify vs self-rank) is SI only; not a wall.
+Figure~\ref{fig:fig-wall} is the $n{=}500$ forward-verify wall ($204/45/251$).
+Generation remains $227/500$ top-1 and $249/500$ recall.
+The expand-500 chamfer arm (verify vs self-rank) is SI; not a second wall.
 
 \section{Discussion}
 \label{sec:discussion}
@@ -637,10 +640,12 @@ generate-wide top-1 likewise ($p{=}0.34$). The $n{=}24$ four-model arm is underp
 The ladder \textbf{diagnoses a bottleneck}; it is not an accuracy advance.
 \textbf{(v) No SOTA chase.} SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR
 transformers and CASE are \textbf{not scored} here.
-\textbf{(vi) Forward-verify coverage.} Figure~\ref{fig:fig1} / Figure~\ref{fig:fig-wall}
-are the $n{=}500$ generation wall ($227/22/251$).
-An instrumented forward-verify diagnostic on a protocol slice is SI only.
-Official expand-500 chamfer score (verify vs self-rank) is SI only; not a wall.
+\textbf{(vi) Forward-verify coverage.} Figure~\ref{fig:fig1} reports $n{=}500$
+generation ($227/500$ top-1; $249/500$ recall).
+Figure~\ref{fig:fig-wall} is the $n{=}500$ forward-verify wall
+($204$ verified / $45$ misranked / $251$ never proposed).
+An instrumented protocol-slice diagnostic and the expand-500 chamfer arm
+(verify vs self-rank) remain SI; they are not a second wall.
 \textbf{(vii) Deferred.} Expert-chemist audit not run; leave-one-modality abandoned;
 parser audit deferred to the Sci.\ Data companion.
 \textbf{(viii) Scope.} Battery subset is literature electrolyte chemistry, not operando;
@@ -655,7 +660,7 @@ and decomposable}.
 On the generation cohort ($n{=}500$), a frontier LLM recovers 45.4\% top-1 (227/500)
 and 49.8\% generation recall (249/500); corpus-reweighted top-1 on a validate-clean
 subset is 27\%.
-Propose $\gg$ verify: the wall is $227$ top-1 / $22$ in-set / $251$ never proposed.
+Propose $\gg$ verify: the wall is $204$ verified / $45$ misranked / $251$ never proposed.
 The diagnosis replicates across vendors and is recovered from published top-$k$ figures.
 We release frozen predictions and a mechanical scorer so others can report the same three
 numbers.
@@ -719,22 +724,23 @@ companion Data Descriptor~\citep{yabbarov2026irexp}; they are not re-presented h
 These answers restate Limitations~\ref{sec:limitations}; they add no new metrics.
 
 \textbf{Why is top-1 45\% if the wall figure looks worse?}
-It should not. Figure~\ref{fig:fig1} and Figure~\ref{fig:fig-wall} are the
-$n{=}500$ generation wall: $227$ top-1 exact / $22$ in-set but not top-1 /
-$251$ never proposed ($249/500$ recalled). Headline is $227/500$ (45.4\%)
-and $249/500$ (49.8\%).
+It should not. Figure~\ref{fig:fig1} is $n{=}500$ generation:
+$227/500$ (45.4\%) top-1 and $249/500$ (49.8\%) recall
+(self-rank $227/249$).
+Figure~\ref{fig:fig-wall} is the $n{=}500$ forward-verify wall:
+$204$ verified / $45$ misranked / $251$ never proposed.
 
 \textbf{Is the roster a hidden mix?}
 The $n{=}500$ roster is the frozen \texttt{qid} list in the code release.
 Do not reconstruct a composition story from protocol notes.
 
 \textbf{Where is the instrumented forward-verify wall?}
-SI only, as a protocol-slice diagnostic. It is not the $n{=}500$ wall.
-Do not invent a pooled forward-verify wall.
+The $n{=}500$ wall is $204/45/251$ (Figure~\ref{fig:fig-wall}).
+The older protocol-slice diagnostic is SI. Do not invent CIs.
 
 \textbf{Where is expand-500 official fverify?}
-SI only (verify vs self-rank; no CIs; not a wall).
-Headline is $n{=}500$ generation (Eq.~\ref{eq:pool}).
+SI arm score (verify vs self-rank; no CIs). Not the $n{=}500$ wall.
+Headline generation is $227/500$ and $249/500$ (Eq.~\ref{eq:pool}).
 
 \textbf{Consumer harness / no snapshot / no thinking tier?}
 Correct and intentional for the scored headline. Scoring of frozen deposits is
@@ -759,17 +765,18 @@ This conference version keeps the protocol plate
 robustness (Figure~\ref{fig:fig-robustness}), the
 forward-verification mechanism (Figure~\ref{fig:fig-mechanism}), and the inference
 ladder (Figure~\ref{fig:fig3-method}).
-The $n{=}500$ generation wall is repeated below (Figure~\ref{fig:fig-wall}).
+The $n{=}500$ forward-verify wall is repeated below (Figure~\ref{fig:fig-wall}).
 Protocol-slice forward-verify and expand-500 official chamfer scores live in the SI.
 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.92\linewidth]{fig_wall_diagnostic.pdf}
-  \caption{Generation decomposition on $n{=}500$: \textbf{227} top-1 exact /
-  \textbf{22} in the candidate set but not top-1 /
+  \caption{Forward-verify wall on $n{=}500$: \textbf{204} verified /
+  \textbf{45} misranked /
   \textbf{251} never proposed ($249$ recalled).
   Propose is the wall, not verify.
-  Same integers as Figure~\ref{fig:fig1}.}
+  Generation remains $227/500$ top-1 and $249/500$ recall
+  (Figure~\ref{fig:fig1}).}
   \label{fig:fig-wall}
 \end{figure}
 

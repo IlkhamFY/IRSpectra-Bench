@@ -3,12 +3,14 @@
 Clean manuscript repository for the **IRSpectra-Bench** ICLR-track paper
 (recall/verification diagnosis of LLM structure elucidation).
 **Headline:** generation cohort **n=500** only: **227/500 (45.4%)** top-1;
-**249/500 (49.8%)** recall. Wall: **227 / 22 / 251** (propose is the wall,
-not verify). Roster: frozen qid lists in the code release. No CIs.
-Do not quote 243/519. Figure 1 is `fig1_lead_overview`. Listing 1 is
-`listing1_irexp_record`. `fig_wall_diagnostic` is the n=500 generation
-wall. Instrumented fverify and expand-500 official fverify
-(103/230 vs self 129/230) are SI only.
+**249/500 (49.8%)** recall. Diagnosis wall: **204 / 45 / 251**
+(verified / misranked / never-proposed; spectro-agent
+`data/fverify_n500/WALL_n500.md`). Generation 227/249/251 is top-1 /
+recall / never-proposed, not the wall. Roster: frozen qid lists in the
+code release. No CIs. Do not quote 243/519. Do not print 194/106/200
+in main prose. Figure 1 is `fig1_lead_overview` (generation). Listing 1
+is `listing1_irexp_record`. `fig_wall_diagnostic` is the n=500 fverify
+wall. expand-500 official fverify (103/230 vs self 129/230) is an SI arm.
 
 **Main Overleaf file:** `main.tex`  
 **Compiler:** pdfLaTeX or XeLaTeX (+ BibTeX)  
@@ -44,8 +46,9 @@ python3 scripts/build_si.py           # standalone SI → si/supplement.pdf
 ```
 
 The SI holds the full blind protocol, expand-500 / pool tables (headline is n=500),
-prompt skeletons, model card, extra cases, official expand-500 fverify
-(103/230 vs 129/230; not a wall), and the reproducibility checklist.
+prompt skeletons, model card, extra cases, the n=500 fverify wall
+(`WALL_n500.md`; 204/45/251) with an optional arm table, expand-500
+arm fverify (103/230 vs 129/230), and the reproducibility checklist.
 Main text stays ≤9 ICLR pages through the Conclusion.
 
 ## Fence

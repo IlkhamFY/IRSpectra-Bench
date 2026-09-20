@@ -1,11 +1,12 @@
 # WALL_BUILD_SPEC — `fig_wall_diagnostic`
 
-Main wall is the **n=500 generation bottleneck**. Propose is the wall, not verify.
+Main wall is the **n=500 forward-verify bottleneck**. Propose is the wall, not verify.
 
-Locked integers (no CIs): **227 | 22 | 251**.
+Locked integers (no CIs): **204 | 45 | 251** (fverify wall).
+Generation headline remains 227/500 top-1 and 249/500 recall.
 
-- top-1 exact: **227**
-- in candidate set but not top-1: **22** (=249−227)
+- verified: **204**
+- misranked: **45**
 - never proposed in top-3: **251** (=500−249)
 - recalled (top-3): **249 (49.8%)**
 
@@ -24,16 +25,16 @@ forward-verify diagnostic lives only as `fig_wall_fverify_slice`
 
 | Count | Fill | Label under |
 |-------|------|-------------|
-| 227 | `#00897B` | top-1 exact |
-| 22 | `#E53935` | in set, not top-1 |
+| 204 | `#00897B` | verified |
+| 45 | `#E53935` | misranked |
 | 251 | `#5F6368` | never proposed |
 
 - White bold numbers **inside** segments
-- Bracket over 227+22 with label **`249 recalled (49.8%)`**
+- Bracket over 204+45 with label **`249 recalled (49.8%)`**
 - Thin visual gaps between segments (~1.5 pt)
 
 ## Pack files
 
 - Regenerated: `figures/fig_wall_diagnostic.{svg,pdf,png}`
-- Lead Fig 1 wall callouts use the same 227/22/251 integers
-- SI-only fverify diagnostic: `figures/fig_wall_fverify_slice.{svg,pdf,png}`
+- Lead Fig 1 reports generation 227/500 and 249/500; diagnosis wall is 204/45/251
+- SI-only protocol-slice diagnostic: `figures/fig_wall_fverify_slice.{svg,pdf,png}`
