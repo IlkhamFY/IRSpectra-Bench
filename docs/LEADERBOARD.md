@@ -143,6 +143,7 @@ We will verify scoring with `scripts/score_submission.py` before adding a row.
 | IRSpectra-Bench (194 locked + 101 clean expansion) | 295 | Appendix / sensitivity |
 | IRSpectra-Bench (locked main + v3 + v2_ctrl) | 194 | Instrumented slice; forward-verify / fig_wall |
 | IRSpectra-Bench (pre-reg expansion, all / clean) | 106 / 101 | All 106 in headline; clean 101 in appendix |
+| expand-500 (pre-reg draw toward n≈500) | 230 deposited / 230 | **Unscored.** 230/230 Opus deposits; no top-1. Not in the n=300 headline. |
 | IRSpectra-Bench (main clean only) | 134 | Spectrally validated main round |
 | IRSpectra-Bench-Electrolyte | 46 | Battery-electrolyte functional classes |
 | Cross-vendor arm | 60 | Same compounds, multiple vendors (`docs/CROSS_VENDOR.md`) |
@@ -173,4 +174,4 @@ If you use IRSpectra-Bench or report numbers on it, please cite:
 }
 ```
 
-*Last updated: 2026-09-17 (v0.15 pooled headline n=300). External submissions listed after verification.*
+*Last updated: 2026-09-20 (headline n=300 unchanged; expand-500 230/230 deposited, unscored). External submissions listed after verification.*

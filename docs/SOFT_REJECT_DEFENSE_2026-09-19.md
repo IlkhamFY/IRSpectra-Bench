@@ -55,7 +55,26 @@ Locked facts used (do not invent beyond these):
    Official ICLR 2027 sty/bst vendored; running header and cover letter year
    updated. Required AI-use statement added (does not count toward 9 pages).
 
-## What changed in this release
+9. **“They have a hidden n=500 result / they under-claim scale.”**
+   §5.6 scale-roadmap + Limitations (vi) + FAQ: 230/230 deposits exist;
+   **no top-1**; key withheld; thinking-tier arm ≠ no-thinking headline.
+   Headline stays n=300. Do not invent 519/524 pooled n.
+
+10. **“Agentic literature (IR-Agent ICLR 2026 / MolQuest / Espejo) already
+    solved this; this is a thin bench.”**
+    Related work now types three regimes. IR-Agent re-ranks a proposed pool
+    (NIST IR). This paper measures the missing stage split on literature
+    peak lists. Discussion: the next agent is a proposer, not a second verifier.
+
+## What changed in the 2026-09-20 night pass (no new metrics)
+
+- `main.tex`: denser agentic Related Work (three regimes); propose ≫ verify;
+  §5.6 scale-roadmap (230/230 deposited, unscored); Limitations (vi) + FAQ
+  cover expand-500 and “no fverify on 106 or 230”.
+- `references.bib`: IR-Agent venue → ICLR 2026 (verified poster / official repo).
+- Companion STATUS pointer: `docs/EXPAND500_POINTER_2026-09-20.md`.
+
+## What changed in v0.23
 
 - `iclr_paper.tex`: abstract/intro claim sharpen; SpectraLLM/IR-Agent/curated
   contrast; Listing 1 (abridged v3-R25 payload; full numeric lists not invented);

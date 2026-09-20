@@ -18,6 +18,7 @@ We introduce **IRSpectra-Bench**, a blind, mechanically scored peak-list benchma
 On IRSpectra-Bench, a frontier LLM recovers the correct constitution for 39.3% top-1 (118/300; 95% CI 34–45), or 27% once reweighted to corpus composition; generation recall is 44.3% (133/300).
 The bottleneck is candidate proposal, not verification: on the instrumented n=194 slice, the true structure enters the pool for only 34% of compounds, and where it does, training-free forward-verification selects it 89% of the time (58/65).
 The same recall ≪ precision asymmetry replicates across four vendor families.
+A larger pre-registered blind round toward n≈500 now has complete deposits (230/230); it is unscored and is not in the n=300 headline.
 This ICLR paper cites IRexp as infrastructure and does not re-present a Data Descriptor.
 
 This work was supported by NSERC funding reference number 596133-2025 (CREATE for Accelerated Discovery, AccelD), delivered through the Acceleration Consortium.
