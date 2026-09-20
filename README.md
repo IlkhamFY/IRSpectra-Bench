@@ -3,9 +3,9 @@
 Clean manuscript repository for the **IRSpectra-Bench** ICLR-track paper
 (recall/verification diagnosis of LLM structure elucidation).
 **Headline:** pooled generation cohort **n=300** (194 locked + all 106 expansion).
-Validate-clean **n=295** is appendix / sensitivity. Figure 1 (`fig1_overview`) is the
-protocol plate (pipeline + closed-book reasoning + wall). The diagnostic wall
-(`fig_wall`) is the n=194 instrumented forward-verify slice. A larger expand-500
+Validate-clean **n=295** is appendix / sensitivity. Figure 1 (`fig1_lead_overview`) is the
+protocol + recall-bound diagnosis plate. The diagnostic wall
+(`fig_wall_diagnostic` / `fig_wall`) is the n=194 instrumented forward-verify slice. A larger expand-500
 round is **230/230 deposited and unscored** — see
 `docs/EXPAND500_POINTER_2026-09-20.md`. Do not invent a top-1.
 
