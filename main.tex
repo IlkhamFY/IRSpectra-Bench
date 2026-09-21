@@ -201,15 +201,13 @@ This ICLR paper \textbf{cites} that resource and does not re-present a Data Desc
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-  \caption{IRSpectra-Bench protocol and $n{=}500$ fverify.
-  Blind peak lists $+$ formula $\rightarrow$ closed-book LLM proposes a ranked
-  pool $\rightarrow$ optional forward $^{13}$C chamfer re-rank (Eq.~\ref{eq:chamfer})
-  $\rightarrow$ InChIKey-14 (Eq.~\ref{eq:ik14}).
-  Generate: $249/500$ (49.8\%) recall in top~3;
-  select: $204/249$ (81.9\%) verified $|$ pool
-  ($49.8\%\times 81.9\%=40.8\%$ verified).
-  Wall: $204$ verified / $45$ misranked / $251$ never proposed.
-  Propose is the wall, not verify.}
+  \caption{The protocol plate shows blind peak-list elucidation on $n{=}500$:
+  peak lists $+$ formula $\rightarrow$ ranked pool $\rightarrow$ optional
+  forward $^{13}$C re-rank (Eq.~\ref{eq:chamfer}) $\rightarrow$ InChIKey-14
+  (Eq.~\ref{eq:ik14}); generate $249/500$ (49.8\%) recall in top~3;
+  select $204/249$ (81.9\%) verified $|$ pool
+  ($49.8\%\times 81.9\%=40.8\%$ verified);
+  wall $204$ verified / $45$ misranked / $251$ never proposed.}
   \label{fig:fig1}
 \end{figure}
 
@@ -301,13 +299,13 @@ gold constitution held out.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.88\linewidth]{fig_chemspace.png}
-  \caption{Chemistry of the literature cohort.
-  (a)~MW (median 306). (b)~RDKit rings (median 2). (c)~C--F bonds. (d)~N atoms.
-  Mid-size literature space, not a NIST toy set.}
+  \caption{The histograms show molecular weight, ring count, C--F bonds, and
+  nitrogen atoms for the $n{=}500$ literature cohort
+  (median MW 306; median 2 rings).}
   \label{fig:fig-chemspace}
 \end{figure}
 
-\subsection{Difficulty, balance, and scoring contract}
+\subsection{Difficulty and scoring}
 
 \textbf{Difficulty} is declared \emph{a priori} by RDKit ring analysis: \emph{simple} iff
 $\leq$2 rings, no fused/spiro/bridgehead system, $\leq$22 heavy atoms; else \emph{complex}
@@ -370,11 +368,10 @@ training-free number.
 
 \begin{listing}[!ht]
 \input{tex/listing1_body}
-\caption{Example IRexp JSON record
-(commercial DoR; \texttt{ILJNJJNKEOAREX})~\citep{yabbarov2026irexp}.
-Solvers see only formula and printed peak lists; SMILES / InChIKey are
-resource fields. Gold scored by Eq.~\ref{eq:ik14}.
-v3-R25 remains the mechanism case (Figure~\ref{fig:fig-mechanism}).}
+\caption{The listing shows one IRexp JSON record
+(commercial DoR; \texttt{ILJNJJNKEOAREX})~\citep{yabbarov2026irexp}:
+solvers see only formula and printed peak lists; SMILES and InChIKey are
+resource fields scored by Eq.~\ref{eq:ik14}.}
 \label{lst:payload}
 \end{listing}
 
@@ -417,7 +414,8 @@ claims).
 \label{sec:headline}
 
 \begin{table}[ht]
-\caption{Headline elucidation ($n{=}500$). No CIs.}
+\caption{Headline scores show top-1 and recall on $n{=}500$
+(confidence intervals not reported).}
 \label{tab:headline}
 \centering
 \small
@@ -446,11 +444,11 @@ that is \emph{not} forward-verification precision (Section~\ref{sec:forward-veri
 The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked / $251$ never
 proposed (Figure~\ref{fig:fig-wall}).
 
-\subsection{Is the model reading the spectra?}
+\subsection{Spectral controls}
 \label{sec:contamination}
 
 \begin{table}[ht]
-\caption{Formula-only control (paired, $n{=}60$).}
+\caption{The formula-only control shows paired top-1 and recall on $n{=}60$.}
 \label{tab:formula-only}
 \centering
 \small
@@ -473,8 +471,9 @@ We claim a \textbf{strong bound, not exclusion} of contamination
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.56\linewidth]{fig_robustness.png}
-  \caption{Robustness on instrumented arms (formula-only / cross-vendor $n{=}60$;
-  recency): formula-only collapse, flat recency, four-vendor recall $\ll$ precision.}
+  \caption{The robustness panels show formula-only, recency, and four-vendor
+  checks on the $n{=}60$ arms: formula-only collapse, flat recency, and
+  recall $\ll$ precision.}
   \label{fig:fig-robustness}
 \end{figure}
 
@@ -488,7 +487,8 @@ separates the paired gap for Claude (+52.5 points), GPT-5.6 Sol (+26.3) and Gemi
 Grok's gap (+9.2) is directional.
 
 \begin{table}[ht]
-\caption{Cross-vendor decomposition ($n{=}60$). Recall and precision use different denominators.}
+\caption{Cross-vendor scores show generation recall versus verification
+precision on $n{=}60$ (different denominators).}
 \label{tab:cross-vendor}
 \centering
 \small
@@ -508,21 +508,20 @@ Candidate budgets differ (Claude mean 2.20 vs others 3.00), so recall rankings a
 approximate.
 A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 
-\subsection{Forward-verification decomposition}
+\subsection{Forward verification}
 \label{sec:forward-verify}
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.64\linewidth]{fig_mechanism.png}
-  \caption{Locked v3-R25: self-rank prefers 3-pyridyl; forward $^{13}$C recovers 2-pyridyl
-  (chamfer 0.42 vs 1.30~ppm) --- a verify-save, not a recall win (Table~\ref{tab:cases}).}
+  \caption{Case v3-R25 shows self-rank preferring 3-pyridyl, while forward
+  $^{13}$C recovers 2-pyridyl (chamfer 0.42 vs 1.30~ppm; Table~\ref{tab:cases}).}
   \label{fig:fig-mechanism}
 \end{figure}
 
 \begin{table}[ht]
-\caption{Forward-verify on the 60-compound arm.
-$n{=}500$ in Table~\ref{tab:headline} is generation (self-rank).
-The instrumented protocol-slice diagnostic is SI.}
+\caption{Forward-verify scores show self-rank versus re-rank on the
+60-compound arm; $n{=}500$ generation is in Table~\ref{tab:headline}.}
 \label{tab:fverify}
 \centering
 \small
@@ -567,8 +566,8 @@ The training-free ceiling remains recall-limited.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.58\linewidth]{fig3_method.png}
-  \caption{Inference ladder on the 60-compound arm: 23\% $\to$ 27\% $\to$ 30\% top-1.
-  Generate-wide lifts recall (32\% $\to$ 42\%); the wall is proposal, not ranking.}
+  \caption{The inference ladder shows top-1 on the 60-compound arm:
+  23\% $\to$ 27\% $\to$ 30\% (generate-wide recall $32\%\to 42\%$).}
   \label{fig:fig3-method}
 \end{figure}
 
@@ -581,7 +580,7 @@ instrumented slice $33.5\%\to54.1\%$ and top-1 $28.4\%\to35.1\%$
 (McNemar $p{=}0.015$), showing the wall is a property of
 \textbf{training-free elicitation}, not of the task.
 
-\subsection{Decomposition across published literature}
+\subsection{Literature comparison}
 \label{sec:literature}
 
 Any system reporting top-1 $= a$ and top-$k = b$ implies recall $\geq b$ and conditional
@@ -589,7 +588,7 @@ precision $\leq a/b$.
 Applying this to published figures (\texttt{scripts/literature\_decomposition.py}):
 
 \begin{table}[ht]
-\caption{Selected literature decomposition rows (connectivity-scored or as published).}
+\caption{Literature rows show selected systems, connectivity-scored or as published.}
 \label{tab:lit-decomp}
 \centering
 \scriptsize
@@ -725,7 +724,7 @@ We acknowledge support from the Natural Sciences and Engineering Research Counci
 
 \appendix
 
-\section{Dataset pointer (IRexp)}
+\section{Companion dataset (IRexp)}
 \label{app:dataset}
 
 IRexp is \textbf{not} re-described here as a Data Descriptor.
@@ -750,18 +749,17 @@ Protocol-slice forward-verify and expand-500 official chamfer scores are in the 
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.92\linewidth]{fig_wall_diagnostic.pdf}
-  \caption{Forward-verify wall on $n{=}500$: \textbf{204} verified /
-  \textbf{45} misranked /
-  \textbf{251} never proposed ($249$ recalled).
-  Propose is the wall, not verify.
-  Generation remains $227/500$ top-1 and $249/500$ recall
+  \caption{The forward-verify wall shows the $n{=}500$ split:
+  \textbf{204} verified / \textbf{45} misranked /
+  \textbf{251} never proposed ($249$ recalled);
+  generation remains $227/500$ top-1 and $249/500$ recall
   (Figure~\ref{fig:fig1}).}
   \label{fig:fig-wall}
 \end{figure}
 
 \begin{table}[h]
-\caption{Worked cases from released candidate files.
-$^{13}$C chamfers in ppm; Tanimoto Morgan $r{=}2$.}
+\caption{Worked cases show three failure modes from released candidate
+files ($^{13}$C chamfers in ppm; Tanimoto Morgan $r{=}2$).}
 \label{tab:cases}
 \centering
 \scriptsize
