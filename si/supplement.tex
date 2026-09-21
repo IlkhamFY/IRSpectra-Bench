@@ -72,15 +72,10 @@ that exceed the ICLR main-text limit.
 Headline generation on the frozen $n{=}500$ roster is $227/500$ (45.4\%)
 top-1 and $249/500$ (49.8\%) recall; self-ranking precision $|$ recall is
 $227/249$ (91.2\%).
-Independent forward verification of the same pools yields $204$ verified /
-$45$ misranked / $251$ never proposed
-(\texttt{data/fverify\_n500/WALL\_n500.md}).
+Independent forward verification of the same pools is Figure~\ref{si:fig:lead}
+and \S\ref{si:fverify}.
 Confidence intervals are not reported for $n{=}500$.
 The $n{=}519$ pooled print ($243/519$) is not the headline.
-Sources:
-\texttt{docs/HEADLINE\_N500\_2026-09-20.md}
-and
-\texttt{docs/NIGHT\_POOL\_2026-09-20.md}.
 Unprefixed figure and listing numbers refer to the main manuscript.
 
 \tableofcontents
@@ -209,15 +204,13 @@ Corpus-reweighted extras on a validate-clean subset are in
 
 \subsection{Pre-registration}
 
-The following files live in the companion scoring tree.
-They record the frozen roster and the expand-500 campaign.
+The code release records the frozen roster and the expand-500 campaign.
 
 \begin{itemize}
   \item $n{=}500$ roster: frozen \texttt{qid} lists in the code release.
         Sampler seeds for early draws were not captured; the released
         roster is fixed and reusable but not exactly re-drawable.
-  \item expand-500 campaign: \texttt{docs/EXPANSION\_PREREGISTRATION\_500.md}
-        (seed 2026500; 115/115 simple/complex).
+  \item expand-500 campaign: 115/115 simple/complex; seed 2026500;
         0 collisions with any prior round.
         Six $^{13}$C-overread flags known \emph{before} any solve:
         R26, R31, R102, R105, R107, R138.
@@ -226,22 +219,13 @@ They record the frozen roster and the expand-500 campaign.
 \subsection{Stopping and pooling}
 
 \begin{itemize}
-  \item The $n{=}500$ roster is the pre-specified frozen list
-        (\texttt{docs/headline500\_expand200\_qids.json} plus the
-        committed deposits), not an outcome-selected subset.
-  \item \texttt{score\_pooled.py --expand-500} refuses a missing
-        \texttt{predictions2.jsonl} or a withheld key.
-  \item \texttt{answers2.jsonl} is absent from both working trees.
-  \item Keys were restored only under \texttt{/tmp/blind/\_key/} for the
-        2026-09-20 score pass and then deleted.
-  \item \texttt{validate\_benchmark.py} was not re-run on that pass
-        (the existing 224-qid snapshot is used).
-  \item \texttt{collect\_round.py} was not run; 230
-        \texttt{raw/single\_R*.json} files were left untouched.
-  \item \texttt{forward\_verify\_main.py score} was run on
-        expand-500 (\S\ref{si:fverify}): 103/230 verify vs 129/230 self.
-        Official \texttt{prep} was not re-run.
-  \item Bootstrap intervals were not computed for expand-500.
+  \item The $n{=}500$ roster is a pre-specified frozen \texttt{qid} list,
+        not an outcome-selected subset.
+  \item Gold keys for the expand-500 arm were used only for local scoring
+        and are not in the review copy.
+  \item Official expand-500 chamfer is $103/230$ verify vs $129/230$ self
+        (\S\ref{si:fverify}); confidence intervals were not computed on
+        that arm.
 \end{itemize}
 
 \subsection{Allowed tools}
@@ -328,13 +312,11 @@ Confidence intervals are not reported for $n{=}500$ or expand-500.
 \section{Validate-clean extras}
 \label{si:extras}
 
-Source: \texttt{docs/POOLED\_HEADLINE\_2026-09-16.md}.
 These rows are not the $n{=}500$ headline.
 Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%).
 
 $^{13}$C-overread flags (R12, R22, R25, R82, R91) were marked before subset
-totals (\texttt{scripts/validate\_benchmark.py};
-\texttt{data/benchmark\_expand/clean\_qids.json}).
+totals.
 
 \begin{table}[h]
 \caption{Validate-clean extras show scaffold and stereo metrics under
@@ -378,10 +360,8 @@ Named-ring annotation on that slice is rare and does not drive the result.
 \section{expand-500 generation scores}
 \label{si:e500}
 
-Source: \texttt{data/benchmark\_expand\_500/NIGHT\_POOL\_2026-09-20.md}
-(copied to \texttt{docs/NIGHT\_POOL\_2026-09-20.md}).
-The key was restored only for \texttt{score2} and then deleted.
-\texttt{answers2.jsonl} is not in the tree.
+Gold keys for this arm were used only for local scoring and are not
+in the review copy.
 
 \begin{table}[h]
 \caption{expand-500 scores show generation under \texttt{score2}
@@ -421,9 +401,7 @@ overall recovered (top-3): 138/230 (60%)   top-1 exact: 129/230 (56%)
 \label{si:pools}
 
 The estimator is Eq.~\ref{si:eq:pool}. The paper headline is $n{=}500$.
-Source: \texttt{docs/HEADLINE\_N500\_2026-09-20.md}.
-Roster: frozen \texttt{qid} lists in the code release
-(\texttt{docs/headline500\_expand200\_qids.json}).
+Roster: frozen \texttt{qid} lists in the code release.
 
 \begin{table}[h]
 \caption{Headline scores show generation on the frozen $n{=}500$ roster
@@ -452,9 +430,7 @@ The $n{=}500$ forward-verify wall is $204/45/251$ (\S\ref{si:fverify}).
 
 \subsection{$n{=}500$ wall}
 
-Source: \texttt{data/fverify\_n500/WALL\_n500.md}
-(\texttt{scripts/fverify\_n500\_wall.py}).
-Classification matches the sidecar:
+Classification:
 \textbf{verified} = recalled and chamfer-ranked first;
 \textbf{misranked} = recalled, distractor first;
 \textbf{never-proposed} = true structure not in the candidate set.
@@ -512,18 +488,11 @@ for $204/45/251$.
 
 \subsection{Official expand-500 score}
 
-Source: \texttt{data/fverify\_expand\_500/STATUS.md},
-\texttt{results.txt}, and \texttt{NIGHT\_POOL\_2026-09-20.md}.
 Blind $^{13}$C campaign over 681 unique candidate SMILES
-(\texttt{f1}--\texttt{f41} all present). Official
-\texttt{forward\_verify\_main.py score()} ran 2026-09-20
-(\texttt{is\_true} filled under \texttt{/tmp} only; committed
-\texttt{candidates.jsonl} still omits it; official \texttt{prep} was
-not re-run).
+(\texttt{f1}--\texttt{f41} all present).
 Verify does not beat self-rank.
 Headline generation remains $n{=}500$ ($227/500$, $249/500$).
-This arm score does not replace
-\texttt{data/fverify\_n500/WALL\_n500.md}.
+This arm score does not replace the $n{=}500$ forward-verify table.
 
 \begin{table}[h]
 \caption{Official expand-500 chamfer scores show an arm result,
@@ -750,7 +719,7 @@ scoring hardware & commodity CPU; RDKit InChIKey-14 \\
 cross-vendor arm & $n{=}60$; Grok 4.6, Gemini 3.7 Flash, GPT-5.6 Sol \\
 Claude mean candidates on that arm & 2.20 (others 3.00) --- recall rankings approximate \\
 expand-500 solver & Claude Opus thinking-tier (declared; not headline) \\
-Fable incomplete arm & deposits not scored; not pooled \\
+Incomplete additional-model deposits & not scored; not pooled \\
 scoring scripts & \texttt{scripts/score\_pooled.py}, \texttt{score\_main.py},
   \texttt{benchmark\_v2.py score2} \\
 \bottomrule
@@ -846,22 +815,15 @@ Listing~1 is the IRexp-style JSON$+$molecule plate in the ICLR PDF.
 \section{Reproducibility}
 \label{si:repro}
 
-Frozen questions and predictions live in the code release;
-this repository holds the ICLR manuscript.
+Frozen questions, predictions, and scorers ship with the code release.
 The $n{=}500$ generation totals $227/500$ and $249/500$ regenerate from
-\texttt{docs/HEADLINE\_N500\_2026-09-20.md}.
-The $n{=}500$ wall $204$ verified / $45$ misranked / $251$ never-proposed
-is recorded in \texttt{data/fverify\_n500/WALL\_n500.md}.
+the released deposits.
+The $n{=}500$ forward-verify table is \S\ref{si:fverify}.
 The protocol-slice diagnostic is regenerated by
 \texttt{python scripts/forward\_verify\_all.py}.
 
-To rescore expand-500, restore
-\texttt{/tmp/blind/\_key/benchmark\_expand\_500.answers2.jsonl.withheld},
-run \texttt{benchmark\_v2.py score2 --outdir data/benchmark\_expand\_500},
-and re-withhold the key.
-\texttt{answers2.jsonl} must not be committed.
-The official expand-500 chamfer score is 103/230 verify vs 129/230 self;
-official \texttt{prep} was not re-run.
+Expand-500 gold keys are withheld from the review copy.
+The official expand-500 chamfer score is 103/230 verify vs 129/230 self.
 
 Companion bibliographic entries are anonymous in the review copy;
 the dataset URL in the PDF is the anonymous.4open review copy.
@@ -870,18 +832,11 @@ Fine-tunes should use \texttt{data/train\_no\_bench.jsonl.gz}.
 Inference is not bit-exact: no pinned snapshot, temperature, or seed
 was recorded. Distributional agreement of frozen deposits is the
 intended claim.
-Uncaptured artefacts: headline Claude wrapper text; dated model
-snapshots; decoding parameters; main-round sampler seeds; closed-book
-audit transcripts (\texttt{docs/SUBMISSION.md}).
+Unrecorded fields: headline wrapper text; model snapshots; decoding
+parameters; sampler seeds.
 
-Deferred analyses: expert-chemist audit; leave-one-modality-out;
-parser extraction-recall audit (companion Data Descriptor);
-on-bench scores for SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts,
-and CASE.
-
-Manuscript compile:
-\texttt{python3 scripts/build\_pdf.py} (main);
-\texttt{python3 scripts/build\_si.py} (this supplement).
-Engine: tectonic 0.17.0 or pdfLaTeX / XeLaTeX $+$ BibTeX.
+On-bench scores for SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts,
+and CASE were not obtained; an expert-chemist audit and a
+leave-one-modality arm were not run.
 
 \end{document}

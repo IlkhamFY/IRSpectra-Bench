@@ -16,8 +16,7 @@
 % back to Latin Modern and the page looks looser than every ICLR PDF.
 % \iclrfinalcopy is the only official sty flag that prints \author and drops
 % the LEFT-MARGIN LINE-NUMBER RULER (not lineno.sty). Keep it commented for
-% OpenReview; uncomment for camera-ready / a named arXiv. The IR-Agent ICLR
-% 2026 PDF with no ruler is camera-ready ("Published as..."), not review mode.
+% OpenReview; uncomment for camera-ready / a named arXiv.
 \documentclass{article}
 \usepackage{iclr2027_conference,times}
 \usepackage{iftex}
@@ -83,7 +82,7 @@
 
 \graphicspath{{figures/}{../figures/}{./}}
 
-% Descriptive ICLR title. Claim hybrid kept as unused alternate (Rodrigo pattern).
+% Descriptive ICLR title. Claim-hybrid alternate left unused.
 % \title{Generation Recall, Not Verification, Binds Molecular Structure Elucidation from Literature Peak Lists}
 \title{Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, $^1$H, and $^{13}$C NMR Peak Lists}
 
@@ -154,11 +153,11 @@ problem as a sequence or agent task.
 Encoder--decoder models train on paired corpora~\citep{chacko2024spectro,ottomano2025nmiracle,alberts2024ir};
 LLM agents and puzzle benches report high recovery on curated or education
 spectra~\citep{kamber2026chemist,guo2024molpuzzle,zhuang2025treesearch,espejo2026agentic}.
-Cross-paper numbers swing wildly with harness (e.g.\ GPT-4o from 1.4\% to 57.8\% on MolPuzzle
+Cross-paper numbers vary with harness (e.g.\ GPT-4o from 1.4\% to 57.8\% on MolPuzzle
 under different prompting~\citep{guo2024molpuzzle,zhuang2025treesearch}).
 What remains under-measured is the harder operational task: \textbf{taking peak lists as
 printed in open-access papers and recovering constitution} with an off-the-shelf model,
-a fixed molecular-representation scoring contract, and an honest account of
+a fixed molecular-representation scoring contract, and a measurement of
 \textbf{which stage of elucidation binds} --- proposal versus verification.
 
 We argue that end-to-end top-1 alone is the wrong reporting primitive.
@@ -183,7 +182,7 @@ infrastructure at scale}.
   \item \textbf{A recall-bound diagnosis} on a frontier LLM: propose $\gg$ verify.
         Generation recall is $249/500$ (49.8\%); self-ranking precision $|$ recall is
         $227/249$ (91.2\%). The $n{=}500$ forward-verify wall is $204$ verified /
-        $45$ misranked / $251$ never proposed (Figure~\ref{fig:fig-wall}).
+        $45$ misranked / $251$ never proposed (Figure~\ref{fig:fig1}).
   \item \textbf{Contamination and cross-vendor controls} --- formula-only and recency bounds;
         four-vendor replication of recall $\ll$ precision.
   \item \textbf{A literature decomposition} that recovers the same split from published top-$k$
@@ -219,8 +218,8 @@ Sequence and graph decoders on paired
 corpora~\citep{chacko2024spectro,hu2024multitask,yang2026nmrtrans,ottomano2025nmiracle,alberts2024ir,alberts2025benchmarks}
 are accurate in-distribution but typically scored end-to-end.
 We do not claim to beat them on IRSpectra-Bench; Spectro, NMIRacle, Alberts IR transformers
-and CASE are \textbf{not yet scored} on our bench (Section~\ref{sec:limitations}) --- a gap we
-state honestly and leave to the released scorer.
+and CASE are \textbf{not scored} on our bench (Section~\ref{sec:limitations});
+the released scorer is the intended comparison route.
 
 \subsection{Agentic elucidation: three regimes}
 The contrast is the \textbf{setting and the stage split}, not a method scoreboard.
@@ -440,7 +439,7 @@ four-model Claude ladder is SI.
 Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%) ---
 that is \emph{not} forward-verification precision (Section~\ref{sec:forward-verify}).
 The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked / $251$ never
-proposed (Figure~\ref{fig:fig-wall}).
+proposed (Figure~\ref{fig:fig1}).
 
 \subsection{Spectral controls}
 \label{sec:contamination}
@@ -543,7 +542,7 @@ On $n{=}500$, self-ranking precision $|$ recall is $227/249$ (91.2\%).
 The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked / $251$ never
 proposed.
 No re-ranking repairs the $251$ compounds where the true structure was never
-proposed (Figure~\ref{fig:fig-wall}).
+proposed (Figure~\ref{fig:fig1}).
 
 \paragraph{Worked cases.}
 Three deposits instantiate the wall (Appendix Table~\ref{tab:cases}).
@@ -642,7 +641,7 @@ A second ranker cannot recover the $251$ never proposed.
 IR-Agent-style TI+Ret~\citep{noh2025iragent} are complementary \emph{feature} agents;
 MolQuest- and Espejo-style architecture search~\citep{han2026molquest,espejo2026agentic}
 still needs this stage contract.
-The next ICLR-relevant agent is a \textbf{proposer}.
+The binding improvement is a better proposer, not a second ranker.
 Nonsignificant ladder steps do not license a solved-elucidator headline.
 
 \paragraph{Limitations.}
@@ -737,7 +736,7 @@ companion Data Descriptor~\citep{yabbarov2026irexp}; they are not re-presented h
 \section{Extended tables and figures}
 \label{app:extended}
 
-The $n{=}500$ forward-verify wall is repeated below (Figure~\ref{fig:fig-wall}).
+Figure~\ref{fig:fig-wall} reprints the $n{=}500$ forward-verify decomposition.
 Protocol-slice forward-verify and expand-500 official chamfer scores are in the SI.
 
 \begin{figure}[h]
