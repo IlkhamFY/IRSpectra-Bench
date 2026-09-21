@@ -1,4 +1,4 @@
-# Locked facts — Chem Partner wall 2026-09-20 morning (n=500)
+# Locked facts — wall 2026-09-20 morning (n=500)
 
 Source: spectro-agent `data/fverify_n500/WALL_n500.md` (PR #68).
 Generation headline is separate and unchanged.
