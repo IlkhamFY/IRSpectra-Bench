@@ -155,8 +155,8 @@ def write_svg(path: Path, width: float = 504.0, height: float = 102.0) -> None:
 # Lead Fig 1 chrome — protocol dashboard matching the merged gen plate.
 C_NAVY = "#1e40af"
 C_SKY = "#bfdbfe"
-C_GRAY = "#D1D5DB"
-C_GRAY_DEEP = "#9AA0A6"
+C_RED = "#FCA5A5"
+C_ORANGE = "#FDBA74"
 C_CARD = "#eff6ff"
 C_PANEL = "#f8fafc"
 C_DASH = "#93c5fd"
@@ -201,11 +201,16 @@ def _arrow(ax, x0, x1, y, color=C_ICON):
 
 
 def _bars_icon(ax, cx, cy, color=C_ICON):
-    for i, h in enumerate((8.0, 13.0, 10.0)):
+    heights = (6.5, 12.5, 8.0, 14.0, 9.5)
+    n = len(heights)
+    gap, bw = 1.6, 2.6
+    total = n * bw + (n - 1) * gap
+    x0 = cx - total / 2
+    for i, h in enumerate(heights):
         ax.add_patch(
             plt.Rectangle(
-                (cx - 8.5 + i * 6.4, cy - 6.5),
-                4.4,
+                (x0 + i * (bw + gap), cy - 6.5),
+                bw,
                 h,
                 facecolor=color,
                 edgecolor="none",
@@ -321,7 +326,7 @@ def write_fig1(path: Path) -> None:
     _round(ax, 16, 10, 668, 136, fc=C_PANEL, ec="none", rs=9)
     ax.text(32, 128, "Where top-1 fails", ha="left", va="center", fontsize=8.5, fontweight="bold", color=C_INK)
     ax.text(64, 82, "500", ha="center", va="center", fontsize=18, fontweight="bold", color=C_INK)
-    ax.text(64, 58, "n=500", ha="center", va="center", fontsize=6.5, color=C_MUTED)
+    ax.text(64, 58, "generation", ha="center", va="center", fontsize=6.5, color=C_MUTED)
     _arrow(ax, 96, 118, 80)
 
     def _funnel(x, y0, w, hbar, fc, title, n, dark=False):
@@ -333,9 +338,9 @@ def write_fig1(path: Path) -> None:
     _funnel(124, 72, 250, 28, C_SKY, "in pool", GEN_RECALL)
     _arrow(ax, 380, 400, 86)
     _funnel(406, 72, 250, 28, C_NAVY, "exact top-1", GEN_TOP1, dark=True)
-    _funnel(124, 28, 250, 28, C_GRAY, "never proposed", GEN_NEVER)
+    _funnel(124, 28, 250, 28, C_RED, "never proposed", GEN_NEVER)
     _arrow(ax, 380, 400, 42)
-    _funnel(406, 28, 250, 28, C_GRAY_DEEP, "in pool, not top-1", GEN_NOT_TOP1)
+    _funnel(406, 28, 250, 28, C_ORANGE, "in pool, not top-1", GEN_NOT_TOP1)
 
     out = path.with_suffix("")
     fig.savefig(str(out) + ".pdf", facecolor="white")

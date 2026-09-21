@@ -1,6 +1,6 @@
 % IRSpectra-Bench --- supplementary information
 % Headline n=500: 227/500 (45.4%) top-1; 249/500 (49.8%) recall.
-% Wall: 204/45/251. Self-rank: 227/249.
+% Fig 1 gen wall: 227/22/251. Fverify diagnostic wall: 204/45/251. Self-rank: 227/249.
 % No invented CIs. The n=519 pooled print (243/519) is not the headline.
 \documentclass[11pt]{article}
 \usepackage[margin=1in]{geometry}
@@ -72,7 +72,7 @@ that exceed the ICLR main-text limit.
 Headline generation on the frozen $n{=}500$ roster is $227/500$ (45.4\%)
 top-1 and $249/500$ (49.8\%) recall; self-ranking precision $|$ recall is
 $227/249$ (91.2\%).
-Independent forward verification of the same pools is Figure~\ref{si:fig:lead}
+Independent forward verification of the same pools is Figure~\ref{si:fig:wall}
 and \S\ref{si:fverify}.
 Confidence intervals are not reported for $n{=}500$.
 The $n{=}519$ pooled print ($243/519$) is not the headline.
@@ -99,9 +99,9 @@ main label & object & role here \\
 \midrule
 Fig.~\texttt{fig1} &
   Fig.~1 (\texttt{fig1\_lead\_overview}) &
-  Protocol and $n{=}500$ forward verification:
-  $249/500$ recall $\times$ $204/249$ verified $|$ pool $=40.8\%$ verified;
-  wall $204/45/251$. Reprinted as Fig.~\ref{si:fig:lead}. \\
+  Protocol and $n{=}500$ generation:
+  $249/500$ recall $\times$ $227/249$ self-rank $=45.4\%$ top-1;
+  wall $227/22/251$. Reprinted as Fig.~\ref{si:fig:lead}. \\
 Fig.~\texttt{fig-chemspace} &
   Fig.~2 &
   Literature-cohort chemistry (not reprinted). \\
@@ -456,8 +456,8 @@ expand-500 cut & 200 & 90 & 26 & 84 \\
 
 Recalled $=204+45=249/500$, matching committed generation recall.
 Main-text Figure~\texttt{fig-wall} reprints this $204/45/251$ wall.
-Figure~1 reports the same $n{=}500$ decomposition
-($249/500$ recall $\times$ $204/249$ verified $|$ pool $=40.8\%$ verified).
+Figure~1 reports the generation wall
+($249/500$ recall $\times$ $227/249$ self-rank $=45.4\%$ top-1; wall $227/22/251$).
 
 \subsection{Protocol-slice diagnostic}
 

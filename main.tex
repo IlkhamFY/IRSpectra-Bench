@@ -7,10 +7,9 @@
 % main_IRExpBench_only.tex is an optional orphan alternate --- not the ICLR build root.
 % Headline n=500 generation only: 227/500 (45.4%) top-1; 249/500 (49.8%) recall.
 % Diagnosis wall = n=500 fverify 204 verified / 45 misranked / 251 never-proposed.
-% Fig 1 generation wall is 227/22/251 (top-1 / in-pool-not-top-1 / never-proposed).
-% fverify 204/45/251 is fig_wall_diagnostic only — not the lead plate.
+% Generation wall 227/22/251 (Fig 1). Fverify diagnostic wall 204/45/251 (fig:fig-wall).
 % No CIs. Do not quote 243/519. Do not print 194/106/200 in main prose.
-% Fig 1 = fig1_lead_overview (227/500, 249/500, 227/249; wall 227/22/251).
+% Fig 1 = fig1_lead_overview (generation: 249/500 recall, 227/249 self-rank, 45.4% top-1; wall 227/22/251).
 % Listing 1 = live lstlisting + PubChem 3D (ILJNJJNKEOAREX / CID 57398578).
 % Compile with pdfLaTeX (Times; official ICLR look) or XeLaTeX + BibTeX.
 % XeLaTeX/tectonic: load TeX Gyre Termes below --- bare `times.sty` falls
@@ -183,7 +182,7 @@ literature-peak-list roster at $n{=}500$.
   \item \textbf{A recall-bound diagnosis} on a frontier LLM: propose $\gg$ verify.
         Generation recall $249/500$ (49.8\%); self-ranking precision $|$ recall
         $227/249$ (91.2\%); forward-verify wall $204$ verified / $45$ misranked /
-        $251$ never proposed (Figure~\ref{fig:fig1}).
+        $251$ never proposed (Figure~\ref{fig:fig-wall}).
   \item \textbf{Contamination and cross-vendor controls.} Formula-only and recency
         bounds; the recall $\ll$ precision gap replicates in four vendor families.
   \item \textbf{A literature decomposition} that recovers the same split from published top-$k$
@@ -440,7 +439,7 @@ four-model Claude ladder is SI.
 Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%) ---
 that is \emph{not} forward-verification precision (Section~\ref{sec:forward-verify}).
 The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked / $251$ never
-proposed (Figure~\ref{fig:fig1}).
+proposed (Figure~\ref{fig:fig-wall}).
 
 \subsection{Spectral controls}
 \label{sec:contamination}
@@ -541,9 +540,9 @@ The margin over self-ranking is \textbf{small and unresolved} --- we do \textbf{
 claim an accuracy advance.
 On $n{=}500$, self-ranking precision $|$ recall is $227/249$ (91.2\%).
 The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked / $251$ never
-proposed.
+proposed (Figure~\ref{fig:fig-wall}).
 No re-ranking repairs the $251$ compounds where the true structure was never
-proposed (Figure~\ref{fig:fig1}).
+proposed.
 
 \paragraph{Worked cases.}
 Three deposits instantiate the wall (Appendix Table~\ref{tab:cases}).
@@ -662,7 +661,7 @@ The ladder \textbf{diagnoses a bottleneck}; it is not an accuracy advance.
 \textbf{(v) Missing on-bench baselines.} SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR
 transformers and CASE are \textbf{not scored} here.
 \textbf{(vi) Forward-verify coverage.} The $n{=}500$ wall is
-$204/45/251$ (Figure~\ref{fig:fig1}; reprint Figure~\ref{fig:fig-wall}).
+$204/45/251$ (Figure~\ref{fig:fig-wall}).
 Protocol-slice and expand-500 chamfer arms remain SI, not a second wall.
 \textbf{(vii) Deferred.} Expert-chemist audit not run; leave-one-modality abandoned;
 parser audit deferred to the Sci.\ Data companion.
