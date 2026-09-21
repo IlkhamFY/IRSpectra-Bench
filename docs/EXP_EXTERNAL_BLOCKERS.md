@@ -63,9 +63,45 @@ Blocked on license or on missing constraints.
   system: generation sees the formula only, and it does not consume
   the peak lists except at the optional ¹³C ranker.
 
-## SpectraLLM and the other named rows
+## SpectraLLM
 
-No SpectraLLM, Spectro, or NMR-Solver/NMRAgent checkpoint in this
-environment accepts `{formula, ir_bands_cm-1, h_nmr, c_nmr}`.
-spectro-agent has no adapter. Paid APIs are out of budget.
+Blocked. Do not invent intensities and call it their task.
+
+- Checkpoint `ccjh/SpectraLLM_32B` is a 32.8B Qwen3 model (Apache-2.0).
+  This machine has 15 GB RAM. It will not load.
+- Their prompt is a list of peak positions **with intensities**
+  (arXiv:2508.08441, Sec. 2.1). IR bands here are positions only.
+  ¹H/¹³C strings are author text, not normalized intensities.
+- Filling missing intensities would be a fake adapter. Not done.
+- Not run.
+
+## NMR-Solver
+
+Closest named system that really wants peak lists. Still blocked.
+Not run. No score.
+
+- Code: `YongqiJin/NMR-Solver` (MIT), cloned 2026-09-21.
+  `run_solver` calls `search_db` before it looks at any user
+  candidates (`src/core/solver.py`). The search is a FAISS query
+  against SimNMR-PubChem.
+- That database is the Hugging Face set `yqj01/SimNMR-PubChem`.
+  The project README sizes it at 373 GB of processed records plus
+  a 128 GB index. Free disk here is 246 GB. It does not fit.
+- Zenodo 10.5281/zenodo.16952024 has `model.zip` (842 MB) and a
+  0.7 MB eval zip. The weights do not replace the index.
+  `search_db` still runs.
+- Input that the solver does accept: ¹H and ¹³C shift lists, plus
+  an allowed-element list. The shipped demo reads that element list
+  off the **gold SMILES**. IR is not an input. Even after the
+  database existed, a fair run would have to take elements from the
+  formula, not from the structure. That patch was not worth writing
+  while the index cannot be mounted.
+- Not run.
+
+## Spectro and NMRAgent
+
+No local runner in this environment takes
+`{formula, ir_bands_cm-1, h_nmr, c_nmr}`.
+NMRAgent is an LLM-agent paper; no offline checkpoint was found,
+and there is no API budget.
 Not run. No score.

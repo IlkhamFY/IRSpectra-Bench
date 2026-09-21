@@ -39,6 +39,16 @@ proposer the earlier note said was required before ≤45 is
 defensible. MAYGEN is not IR-Agent, not CASE, and not a replay of
 the harness. Do not move the risk into the 40s on the back of n=5.
 
+## Checked again, still not a row
+
+NMR-Solver is the named system whose input is actually a ¹H/¹³C
+peak list. Its solver searches SimNMR-PubChem before it mutates
+candidates. That index is 373 GB + 128 GB. It does not fit here.
+SpectraLLM’s published checkpoint is 32.8B parameters and wants
+peak intensities this bench does not store. Neither was scored.
+The thinking-tier 200 stays a separate protocol. It is not a
+no-thinking rerun and it is not an external proposer.
+
 ## What still blocks ~10
 
 1. **Same-input comparison board on n=500.** IR-Agent, NMIRacle,
