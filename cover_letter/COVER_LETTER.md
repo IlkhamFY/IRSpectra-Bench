@@ -1,7 +1,7 @@
 # Cover letter — IRSpectra-Bench (ICLR 2027)
 
 **Template:** McMaster letterhead LaTeX (same Rodrigo shell as IRexp / ParetoMol): `cover_letter/cover_letter.tex` + `mcm-col_png.png`.
-**Manuscript:** Proposal, Not Ranking, Binds Structure Elucidation from Literature Peak Lists
+**Manuscript:** Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, ¹H, and ¹³C NMR Peak Lists
 **Venue:** ICLR 2027 (conference paper)
 **Signatory (template convention):** Rodrigo A. Vargas-Hernández (vargashr@mcmaster.ca), on behalf of all authors
 **Coauthors:** Ilkham Yabbarov; Rudra Sondhi; Rodrigo A. Vargas-Hernández
@@ -10,7 +10,7 @@
 
 Dear Program Chairs,
 
-We submit our manuscript entitled *Proposal, Not Ranking, Binds Structure Elucidation from Literature Peak Lists* for consideration as a conference paper at *ICLR 2027*.
+We submit our manuscript entitled *Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, ¹H, and ¹³C NMR Peak Lists* for consideration as a conference paper at *ICLR 2027*.
 
 Frontier models report strong recovery on curated libraries, simulated traces, or single-instrument absorbance. We do not rescore those systems. We ask whether one off-the-shelf closed-book model, given only a molecular formula and literature-reported IR, ¹H and ¹³C NMR peak lists, proposes the correct constitution, and whether ranking is what fails when it does not.
 
