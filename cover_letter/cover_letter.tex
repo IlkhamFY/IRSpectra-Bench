@@ -35,8 +35,9 @@ Frontier models have shown strong performance on molecular structure elucidation
 
 We introduce \textbf{IRSpectra-Bench}, a blind, mechanically scored peak-list benchmark scored on 500 compounds drawn from redistributable experimental band lists (\textbf{IRexp}), with a fixed RDKit InChIKey-connectivity scoring contract and decomposable generation-recall / verification-precision metrics.
 On IRSpectra-Bench, a frontier model recovers 45.4\% top-1 (227/500) and 49.8\% generation recall (249/500).
-The bottleneck is candidate proposal, not verification: the $n{=}500$ forward-verify wall is 204 verified / 45 misranked / 251 never proposed.
-The same recall $\ll$ precision asymmetry replicates across four vendor families.
+The generation wall is 227 exact top-1 / 22 in-pool not top-1 / 251 never proposed.
+Forward verification of the same pools lowers top-1 from 227/500 to 204/500.
+The recall gap on a 60-compound arm appears across four vendor families.
 
 This work was supported by NSERC funding reference number 596133-2025 (CREATE for Accelerated Discovery, AccelD), delivered through the Acceleration Consortium.\\
 

@@ -4,9 +4,10 @@
 %
 % Overleaf: set main document to main.tex (repo root).
 % Headline n=500 generation only: 227/500 (45.4%) top-1; 249/500 (49.8%) recall.
-% Diagnosis wall = n=500 fverify 204 verified / 45 misranked / 251 never-proposed.
-% Generation wall 227/22/251 (Fig 1). Fverify diagnostic wall 204/45/251 (fig:fig-wall).
-% No CIs. Do not quote 243/519. Do not print 194/106/200 in main prose.
+% Generation wall (Fig 1, lead): 227 exact top-1 / 22 in-pool not top-1 / 251 never proposed.
+% Forward-verify diagnostic (appendix fig:fig-wall only): 204 / 45 / 251. Not "the wall" in abstract, conclusion, or Fig 1.
+% Self-rank 227 to forward-verify 204 is -23 on n=500. Do not write "barely moves top-1".
+% No CIs. Do not quote 243/519. Do not print a 194/106/200 results split in main prose.
 % Fig 1 = fig1_lead_overview (generation: 249/500 recall, 227/249 self-rank, 45.4% top-1; wall 227/22/251).
 % Listing 1 = live lstlisting + PubChem 3D (ILJNJJNKEOAREX / CID 57398578).
 % Compile with pdfLaTeX (Times; official ICLR look) or XeLaTeX + BibTeX.
@@ -127,17 +128,14 @@ A frontier model recovers \textbf{45.4\%} top-1 (227/500) and \textbf{49.8\%}
 generation recall (249/500).
 When the true structure is proposed, self-ranking places it first in
 $227/249$ cases (91.2\%).
-Independent forward verification of the same pools yields the $n{=}500$ wall of
-\textbf{204} verified / \textbf{45} misranked / \textbf{251} never proposed:
-proposal is the expensive stage (\textbf{propose $\gg$ verify}).
-The same recall $\ll$ precision asymmetry replicates across
+The generation wall on this cohort is
+\textbf{227} exact top-1 / \textbf{22} in-pool not top-1 / \textbf{251} never proposed.
+On a 60-compound arm, recall stays below precision across
 \textbf{four vendor families}.
 Formula-only controls collapse; accuracy is flat in source-paper year;
-broader generation sampling lifts recall, whereas verification alone barely
-moves top-1.
-From published top-$k$ figures, reduced recall accounts for
-\textbf{68--83\%} of the accuracy collapse from curated or simulated spectra
-to real heterogeneous peak lists.
+broader generation sampling lifts recall.
+Forward verification of the same $n{=}500$ pools lowers top-1 from 227/500 to 204/500
+(Appendix Figure~\ref{fig:fig-wall}).
 Frozen predictions, scorers and code are released for mechanical re-evaluation.
 \end{abstract}
 
@@ -209,14 +207,14 @@ and a high verifier score cannot be read as a solved elucidator.
   \item \textbf{IRSpectra-Bench} --- a blind, complexity-stratified peak-list benchmark ($n{=}500$)
         with a pre-registered InChIKey-connectivity scorer and community reporting contract
         (top-1, generation recall, verification precision $|$ recall).
-  \item \textbf{A recall-bound diagnosis} on a frontier LLM: propose $\gg$ verify.
+  \item \textbf{A recall-bound diagnosis} on a frontier LLM.
         Generation recall $249/500$ (49.8\%); self-ranking precision $|$ recall
-        $227/249$ (91.2\%); forward-verify wall $204$ verified / $45$ misranked /
-        $251$ never proposed (Figure~\ref{fig:fig-wall}).
+        $227/249$ (91.2\%); generation wall $227$ exact top-1 / $22$ in-pool not top-1 /
+        $251$ never proposed (Figure~\ref{fig:fig1}).
   \item \textbf{Contamination and cross-vendor controls.} Formula-only and recency
-        bounds; the recall $\ll$ precision gap replicates in four vendor families.
-  \item \textbf{A literature decomposition} that recovers the same split from published top-$k$
-        figures, showing recall carries most of the collapse on real heterogeneous data.
+        bounds; on a 60-compound arm, recall stays below precision in four vendor families.
+  \item \textbf{A literature comparison} of published top-$k$ figures under the same
+        recall and precision identities (SI).
 \end{enumerate}
 
 \paragraph{Peak-list resource.}
@@ -232,12 +230,11 @@ An anonymised review copy is in Appendix~\ref{app:dataset}.
   \centering
   \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
   \caption{The protocol plate shows blind peak-list elucidation on $n{=}500$:
-  peak lists $+$ formula $\rightarrow$ ranked pool $\rightarrow$ optional
-  forward $^{13}$C re-rank (Eq.~\ref{eq:chamfer}) $\rightarrow$ InChIKey-14
+  peak lists $+$ formula $\rightarrow$ ranked pool $\rightarrow$ InChIKey-14
   (Eq.~\ref{eq:ik14}); generate $249/500$ (49.8\%) recall in top~3;
-  select $227/249$ (91.2\%) top-1 $|$ recalled
+  select $227/249$ (91.2\%) top-1 $|$ recalled, solver self-rank, not forward-verify
   ($49.8\%\times 91.2\%=45.4\%$ top-1);
-  wall $227$ exact top-1 / $22$ in-pool not top-1 / $251$ never proposed.}
+  generation wall $227$ exact top-1 / $22$ in-pool not top-1 / $251$ never proposed.}
   \label{fig:fig1}
 \end{figure}
 
@@ -373,9 +370,9 @@ Self-ranking precision $|$ recall is the fraction of recalled problems on
 which the solver's own order places $y^\star$ first.
 An independent forward-verification ranker (Eq.~\ref{eq:chamfer}) may
 reorder the same pool; it cannot add a missing constitution.
-The $n{=}500$ forward-verify wall then partitions the roster into
+The $n{=}500$ forward-verify diagnostic then partitions the same pools into
 verified, misranked and never-proposed cells
-(Figure~\ref{fig:fig-wall}).
+(Figure~\ref{fig:fig-wall}); that split is not the generation wall.
 Because top-1 factorises as recall times precision $|$ recall, a better
 ranker cannot raise recall, and the two rates must not be differenced.
 
@@ -461,7 +458,7 @@ fixed closed-book harness: one off-the-shelf model family on the frozen
 roster, a declared candidate budget, and an optional second ranker that
 cannot enlarge the pool.
 What follows specifies the payload, the solver, the scoring contract, and
-the probes that later sections use to interpret the wall.
+the probes that later sections use to interpret the generation wall.
 
 \paragraph{Blind payload and solver.}
 The solver sees four JSON fields per \texttt{qid}: \texttt{formula} (as from
@@ -472,8 +469,9 @@ prompt; the source paper is not fetched; ground truth is scored offline.
 The headline solver is Claude Opus via a consumer subscription,
 closed-book, with one sub-agent per batch and an RDKit formula check that
 rejects candidates whose elemental composition disagrees with $f$.
-The core protocol uses no fine-tuning, no paid API, and \textbf{no thinking
-tier}.
+The pooled $n{=}500$ roster mixes earlier no-thinking runs with the thinking-tier
+expand-500 cut (200 of 500) that completes the cohort.
+Both parts use the same InChIKey-14 contract, with no fine-tuning and no paid API.
 Inference is \textbf{not} exactly reproducible (no pinned snapshot,
 temperature or seed; Section~\ref{sec:limitations}).
 Scoring is reproducible: frozen predictions, ground truth and scorers
@@ -577,9 +575,10 @@ A battery-electrolyte subset ($n{=}46$) is recall-bound (26\% top-1);
 the underpowered four-model Claude ladder is SI.
 Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%),
 the generation-side complement of the 45.4\% top-1.
-Forward-verification of the same pools is reported separately in
-Section~\ref{sec:forward-verify} and Figure~\ref{fig:fig-wall}; the two
-precision figures are not interchangeable.
+The generation wall is $227$ exact top-1 / $22$ in-pool not top-1 / $251$ never
+proposed (Figure~\ref{fig:fig1}).
+Forward-verify top-1 on the same pools is $204/500$, against self-rank $227/500$
+(Section~\ref{sec:forward-verify}); the two precision figures are not interchangeable.
 
 \subsection{Spectral controls}
 \label{sec:contamination}
@@ -668,18 +667,16 @@ Forward verification asks whether an independent $^{13}$C ranker can
 repair the misses that remain after the solver has proposed a pool.
 When the true structure is among the candidates on the 60-compound arm,
 the chamfer ranker selects it in $16/19$ cases (84\%).
-The margin over self-ranking (14/60 $\to$ 16/60 top-1) is small and
-unresolved; it diagnoses the same cheap-verification regime rather than
-an accuracy advance.
-On $n{=}500$, self-ranking precision $|$ recall remains $227/249$
-(91.2\%).
-The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked /
+On this arm the margin over self-ranking (14/60 $\to$ 16/60 top-1) is small and
+unresolved; we do not claim an accuracy advance on that arm.
+On $n{=}500$, forward-verify top-1 is $204/500$, against self-rank $227/500$.
+The forward-verify diagnostic is $204$ verified / $45$ misranked /
 $251$ never proposed (Figure~\ref{fig:fig-wall}).
 No re-ranking of an already-proposed pool repairs the $251$ compounds
 where the true structure never entered the list.
 
 \paragraph{Worked cases.}
-Three deposits instantiate the wall (Appendix Table~\ref{tab:cases}).
+Three deposits instantiate these modes (Appendix Table~\ref{tab:cases}).
 \textbf{main-R06} (C$_{29}$H$_{30}$FNO$_{2}$): true acridinedione never enters the 3-candidate
 pool (Tanimoto-0.90 regioisomer); verifier unused.
 \textbf{v3-R25} (C$_{10}$H$_{14}$N$_{2}$O): verify-save --- self-rank prefers 3-pyridyl,
@@ -707,7 +704,7 @@ prior.
 A small IRexp-fine-tuned generator pooled with Claude lifts recall on an
 instrumented slice $33.5\%\to54.1\%$ and top-1 $28.4\%\to35.1\%$
 (McNemar $p{=}0.015$).
-The wall is therefore a property of \textbf{training-free elicitation}:
+The recall limit is therefore a property of \textbf{training-free elicitation}:
 once a proposer is allowed to train on the same peak-list resource,
 recall moves.
 
@@ -719,26 +716,20 @@ figures without re-running those systems.
 Any report of top-1 $= a$ and top-$k = b$ implies recall $\geq b$ and
 conditional precision $\leq a/b$.
 Applying that identity to published numbers
-(\texttt{scripts/literature\_decomposition.py}) recovers the same
-pattern: recall carries most of the drop when the data become real and
-heterogeneous.
+(\texttt{scripts/literature\_decomposition.py}) does not yield one paired
+collapse onto literature peak lists.
 The full row set (this work, NMR-Solver, NMRAgent, Espejo, Alberts,
 SpecX) is in the SI.
-
-\textbf{Three groups changed only the data}, and recall carried \textbf{68\%} (NMR-Solver
-simulated $\to$ real~\citep{jin2025nmrsolver}), \textbf{70\%} (SpecX random $\to$ scaffold~\citep{xiang2026specx}) and \textbf{83\%}
-(Espejo education $\to$ industrial~\citep{espejo2026agentic}) of each collapse.
-Recall binds where spectra are real and heterogeneous; ranking dominates on simulated or
-single-library data.
+These rows are separate published settings.
 The solver-alone precision column on $n{=}500$ is self-ranking (227/249); the
 forward-verify row is an instrumented protocol slice (SI).
 
 \section{Discussion}
 \label{sec:discussion}
 
-On the frozen $n{=}500$ roster a frontier model is a reliable ranker of
-an already-proposed pool and an unreliable proposer of the true
-constitution (Figure~\ref{fig:fig-wall}).
+On the frozen $n{=}500$ roster a frontier model is a reliable self-ranker of
+an already-proposed pool ($227/249$) and an unreliable proposer of the true
+constitution (generation wall $227/22/251$; Figure~\ref{fig:fig1}).
 The contribution is that measurement: the benchmark and the stage
 decomposition on literature peak lists as printed.
 The numbers do not license a solved elucidator.
@@ -748,7 +739,7 @@ External work should deposit ranked SMILES and report (i)~top-1
 constitution (Eq.~\ref{eq:top1}), (ii)~generation recall
 (Eq.~\ref{eq:recall}), (iii)~verification precision $|$ recall
 (Eq.~\ref{eq:prec}), with bootstrap CIs and a stated candidate budget.
-Nonsignificant ladder gains (forward-verification vs self-ranking,
+Nonsignificant ladder gains (protocol-slice forward-verification vs self-ranking,
 $p{=}0.55$; generate-wide top-1, $p{=}0.34$) are diagnostic of where
 effort should go, not accuracy advances to quote as method wins.
 Corpus-reweighted top-1 (\textbf{26.5\%} on a validate-clean subset)
@@ -760,9 +751,11 @@ should move.
 
 \paragraph{Implications for tool-using elucidation.}
 \label{sec:agentic}
-Once the true constitution is in the pool, verification is cheap:
-self-ranking usually selects it, and a second $^{13}$C ranker
-does not change the qualitative picture.
+Once the true constitution is in the pool, self-ranking selects it in
+$227/249$ cases.
+A second $^{13}$C ranker does not recover the $251$ never proposed;
+on this cohort it lowers top-1 from $227/500$ to $204/500$
+(Figure~\ref{fig:fig-wall}).
 The expensive stage is therefore anything that enlarges
 $P(\text{true}\in\text{pool})$: broader sampling, formula-constrained
 decode, isomer enumeration, or library search that can introduce a
@@ -782,23 +775,27 @@ The binding improvement on literature peak lists is a better proposer.
 Scoring is mechanical; solver runs were transcript-audited for zero
 ground-truth access.
 The headline harness is Claude Opus via a consumer subscription, with
-no pinned snapshot, temperature, seed or thinking tier: inference is
+no pinned snapshot, temperature or seed: inference is
 not bit-exact, scoring of frozen deposits is, and batch instruction
 text was not captured.
-Higher-reasoning inference modes are not treated as a scored method
-result.
+The pooled roster includes the thinking-tier expand-500 cut
+(Section~\ref{sec:setup}); that mix is not a separate
+thinking-versus-no-thinking comparison.
 Contamination is bounded by the formula-only drop ($23\%\to5\%$) and
 flat recency, and is not excluded.
 The object is band lists rather than traces; the formula is supplied
 as from HRMS; stereo top-1 on a validate-clean subset is in the SI.
-Forward-verify versus self-rank is unresolved ($p{=}0.55$), as is
-generate-wide top-1 ($p{=}0.34$); the $n{=}24$ four-model arm is
-underpowered.
+On the protocol slice, forward-verify versus self-rank is unresolved
+($p{=}0.55$), as is generate-wide top-1 ($p{=}0.34$); the $n{=}24$
+four-model arm is underpowered.
 The ladder diagnoses a bottleneck.
 SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR transformers and
 CASE are not scored on this bench; the released scorer is the
 comparison route.
-Protocol-slice and expand-500 chamfer arms remain SI, not a second wall.
+The $n{=}500$ forward-verify diagnostic is $204$ verified / $45$
+misranked / $251$ never proposed (Figure~\ref{fig:fig-wall}), against
+generation self-rank $227/500$.
+Protocol-slice and expand-500 chamfer arms remain in the SI.
 An expert-chemist audit was not run; a leave-one-modality arm was
 abandoned; extraction fidelity is a property of IRexp and the released
 filters, and the parser is not re-audited here.
@@ -814,12 +811,10 @@ measurable as a two-stage inverse problem.
 On the generation cohort ($n{=}500$), a frontier model recovers 45.4\%
 top-1 (227/500) and 49.8\% generation recall (249/500); corpus-reweighted
 top-1 on a validate-clean subset is 26.5\%.
-Proposal is the expensive stage: the forward-verify wall is $204$
-verified / $45$ misranked / $251$ never proposed.
-The same recall $\ll$ precision split replicates across four vendor
-families and is recovered from published top-$k$ figures, where reduced
-recall accounts for 68--83\% of the collapse onto real heterogeneous
-lists.
+The generation wall is $227$ exact top-1 / $22$ in-pool not top-1 / $251$ never proposed.
+The forward-verify diagnostic is $204$ verified / $45$ misranked / $251$ never proposed
+(Figure~\ref{fig:fig-wall}), against self-rank top-1 $227/500$.
+On a 60-compound arm the recall gap appears in four vendor families.
 We release frozen predictions and a mechanical scorer so that later
 systems can report the same three numbers on the IRexp-derived roster.
 
@@ -828,7 +823,8 @@ Frontier LLMs were used as \textbf{experimental solvers} under the consumer harn
 Sections~\ref{sec:setup}--\ref{sec:results} (Claude Opus on the headline cohort; three
 other vendor families on the 60-compound arm), not as a substitute for author analysis,
 scoring, or claim-checking.
-Inference used no thinking tier and no pinned model snapshot.
+Inference used no pinned model snapshot.
+The $n{=}500$ pool includes the thinking-tier expand-500 cut (Section~\ref{sec:setup}).
 We did not use generative AI to invent or alter reported metrics.
 Generative tools assisted manuscript editing and formatting; the authors reviewed the text
 and take responsibility for all claims, including any AI-assisted wording.
