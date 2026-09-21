@@ -90,7 +90,7 @@ Fig.~\texttt{fig-chemspace} &
   Literature-cohort chemistry. \\
 Listing~\texttt{lst:payload} &
   Listing 1 (\texttt{listing1\_irexp\_record}) &
-  IRexp JSON$+$molecule (NTJIYHYWVZYBEX; C$_{12}$H$_{16}$N$_{2}$O$_{2}$).
+  IRexp JSON$+$molecule (ILJNJJNKEOAREX; C$_{12}$H$_{11}$BrN$_{4}$).
   SMILES/InChIKey are resource fields, not solver payload. \\
 Fig.~\texttt{fig-wall} &
   appendix (\texttt{fig\_wall\_diagnostic}) &
@@ -151,8 +151,8 @@ Propose is the wall, not verify.}
 \includegraphics[width=0.92\linewidth]{listing1_irexp_record.pdf}
 \caption{Reprint of main-text Listing~1
 (\texttt{listing1\_irexp\_record}).
-IRexp JSON$+$molecule (C$_{12}$H$_{16}$N$_{2}$O$_{2}$;
-\texttt{NTJIYHYWVZYBEX-UHFFFAOYSA-N}).
+IRexp JSON$+$molecule (C$_{12}$H$_{11}$BrN$_{4}$;
+\texttt{ILJNJJNKEOAREX-UHFFFAOYSA-N}).
 SMILES / InChIKey are resource fields, not solver payload.
 Not a Data Descriptor dump. Locked v3-R25 is the mechanism case
 (Figure~\ref{si:fig:r25}), not this listing.}
@@ -633,8 +633,8 @@ This is why we do not claim an accuracy advance from forward-verify
 \subsection{Listing 1 is the IRexp record plate}
 
 Main-text Listing~1 is \texttt{listing1\_irexp\_record}
-(C$_{12}$H$_{16}$N$_{2}$O$_{2}$ urea; InChIKey
-\texttt{NTJIYHYWVZYBEX-UHFFFAOYSA-N}).
+(C$_{12}$H$_{11}$BrN$_{4}$ bromophenyl-pyrazole; InChIKey
+\texttt{ILJNJJNKEOAREX-UHFFFAOYSA-N}).
 SMILES / InChIKey / licence fields are resource metadata.
 Bench solvers see only formula and printed peak lists.
 Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
@@ -704,11 +704,11 @@ main float; gold held out):
 
 \begin{lstlisting}[style=irexpjson]
 {
-  "formula": "C12H16N2O2",
-  "ir_bands_cm-1": [3337.0, 2969.0, 1633.0, 1556.0,
-                    1505.0, 1240.0, 1181.0, 1071.0, 826.0],
-  "h_nmr": "8.07 (brs, 1H, NH), 7.25 (d, J = 7.3 Hz, 2H, Ar), ...",
-  "c_nmr": "154.8, 154.4, 134.0, 119.9, 114.3, 55.5, 45.0, 31.8, 14.8"
+  "formula": "C12H11BrN4",
+  "ir_bands_cm-1": [3144.0, 3110.0, 3066.0, 2931.0,
+                    2863.0, 1632.0, 1589.0, 1565.0, 1485.0],
+  "h_nmr": "8.83 (s, 1H), 8.04 (s, 1H), 7.81 (d, J = 8.8 Hz, 2H), ...",
+  "c_nmr": "157.5, 140.3, 138.4, 132.4, 127.5, 120.4, 119.0, 116.4, 49.1"
 }
 \end{lstlisting}
 
