@@ -278,17 +278,29 @@ def draw(locked, expand, out: Path):
     ax_d.set_xlabel("N atoms")
     fs.panel(ax_d, "d", x=-0.14, y=1.12)
 
-    fig.legend(
+    # Legend in the reserved top strip (finish() first). loc=upper center at
+    # y>1.0 clips "locked" / "expansion" ascenders against the figure edge.
+    fs.finish(fig, pad=0.30, w_pad=0.70, h_pad=0.40, left=0.065, top=0.78)
+    leg = fig.legend(
         handles=[
             Patch(facecolor=fs.BLUE, edgecolor="none", label="locked"),
             Patch(facecolor=fs.SKY, edgecolor="none", label="expansion"),
         ],
         loc="upper center",
         ncol=2,
-        bbox_to_anchor=(0.5, 1.06),
+        bbox_to_anchor=(0.5, 0.995),
+        bbox_transform=fig.transFigure,
         frameon=False,
+        borderpad=0.35,
     )
-    fs.finish(fig, pad=0.30, w_pad=0.70, h_pad=0.40, left=0.065, top=0.78)
+    fig.canvas.draw()
+    bb = leg.get_window_extent(fig.canvas.get_renderer()).transformed(
+        fig.transFigure.inverted()
+    )
+    if bb.y1 > 0.998 or bb.y0 < 0.78:
+        raise SystemExit(
+            f"chemspace legend not in top strip: y0={bb.y0:.3f} y1={bb.y1:.3f}"
+        )
     out.parent.mkdir(parents=True, exist_ok=True)
     fs.save(str(out), fig)
     plt.close(fig)
