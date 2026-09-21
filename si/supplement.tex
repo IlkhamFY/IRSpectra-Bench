@@ -14,12 +14,18 @@
 \usepackage{listings}
 \usepackage{longtable}
 \usepackage{xcolor}
+\usepackage{framed}
+\usepackage{float}
 \lstdefinestyle{irexpjson}{
   basicstyle=\ttfamily\scriptsize,
   breaklines=true,
   columns=fullflexible,
   keepspaces=true,
-  showstringspaces=false
+  showstringspaces=false,
+  frame=none,
+  aboveskip=0pt,
+  belowskip=0pt,
+  literate={-}{-}1
 }
 \lstdefinestyle{prompt}{
   basicstyle=\ttfamily\footnotesize,
@@ -89,10 +95,11 @@ Fig.~\texttt{fig-chemspace} &
   Fig.~2 &
   Literature-cohort chemistry (not reprinted). \\
 Listing~\texttt{lst:payload} &
-  Listing 1 (\texttt{listing1\_irexp\_record}) &
-  IRexp JSON$+$molecule (ILJNJJNKEOAREX; C$_{12}$H$_{11}$BrN$_{4}$).
+  Listing 1 (live lstlisting $+$ PubChem 3D) &
+  IRexp JSON$+$molecule (ILJNJJNKEOAREX; CID 57398578;
+  C$_{12}$H$_{11}$BrN$_{4}$).
   SMILES and InChIKey are resource fields, not solver payload.
-  Reprinted as Fig.~\ref{si:fig:listing}. \\
+  Reprinted below. \\
 Fig.~\texttt{fig-wall} &
   appendix (\texttt{fig\_wall\_diagnostic}) &
   $n{=}500$ forward-verify wall $204/45/251$.
@@ -121,9 +128,10 @@ prec.$|$recall, $^{13}$C chamfer, pooled estimator) are restated in
 \section{Reprinted figures}
 \label{si:plates}
 
-Figures~\ref{si:fig:lead}--\ref{si:fig:wall} reprint the main-text
-protocol plate, Listing~1, and the $n{=}500$ wall so the supplement can
-be read alone.
+Figures~\ref{si:fig:lead} and~\ref{si:fig:wall} reprint the main-text
+protocol plate and the $n{=}500$ wall so the supplement can be read
+alone. Listing~1 is reprinted with the same live lstlisting$+$framed
+layout (PubChem 3D, CID 57398578).
 
 \begin{figure}[h]
 \centering
@@ -137,15 +145,16 @@ Wall: $204$ verified / $45$ misranked / $251$ never proposed.}
 \label{si:fig:lead}
 \end{figure}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.92\linewidth]{listing1_irexp_record.pdf}
-\caption{Reprint of main-text Listing~1
-(\texttt{listing1\_irexp\_record}).
-IRexp JSON$+$molecule (C$_{12}$H$_{11}$BrN$_{4}$;
-\texttt{ILJNJJNKEOAREX-UHFFFAOYSA-N}).
-SMILES and InChIKey are resource fields, not solver payload.}
+\begin{figure}[H]
+\phantomsection
+\refstepcounter{lstlisting}%
+\noindent\textbf{\lstlistingname~\thelstlisting.} Example IRexp JSON record
+(commercial DoR; reprint of main-text Listing~1;
+\texttt{ILJNJJNKEOAREX}) --- PubChem 3D CID 57398578.
+SMILES and InChIKey are resource fields, not solver payload.
 \label{si:fig:listing}
+\vspace{0.35em}
+\input{../tex/listing1_body}
 \end{figure}
 
 \begin{figure}[h]
@@ -598,13 +607,13 @@ Ranking can fail when predicted $^{13}$C lists are nearly tied
 
 \subsection{Listing 1}
 
-Main-text Listing~1 is \texttt{listing1\_irexp\_record}
+Main-text Listing~1 is the live IRexp JSON record
 (C$_{12}$H$_{11}$BrN$_{4}$; InChIKey
-\texttt{ILJNJJNKEOAREX-UHFFFAOYSA-N}).
+\texttt{ILJNJJNKEOAREX-UHFFFAOYSA-N}; PubChem CID 57398578).
 SMILES, InChIKey, and licence fields are resource metadata.
 Bench solvers see only formula and printed peak lists.
 Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
-The plate is reprinted as Figure~\ref{si:fig:listing}.
+The listing is reprinted above with the same lstlisting$+$framed layout.
 Locked v3-R25 remains the mechanism worked case (main-text Figure~5).
 
 \subsection{Additional reported panels}
@@ -659,8 +668,7 @@ No name, no SMILES hint, no scaffold, no retrieved spectrum.
 Check molecular formula with RDKit before emitting a candidate.
 \end{lstlisting}
 
-Listing~1 payload (fields only; $^1$H abbreviated with ellipsis in the
-main float; gold held out):
+Listing~1 payload (solver-facing fields only; gold held out):
 
 \begin{lstlisting}[style=irexpjson]
 {

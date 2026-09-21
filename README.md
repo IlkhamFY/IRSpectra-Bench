@@ -10,7 +10,8 @@ recall / never-proposed, not the wall. Roster: frozen qid lists in the
 code release. No CIs. Do not quote 243/519. Do not print 194/106/200
 in main prose. Figure 1 is `fig1_lead_overview` (n=500 fverify:
 249/500 recall, 204/249 verified|pool, 40.8% verified; wall 204/45/251).
-Listing 1 is `listing1_irexp_record`. `fig_wall_diagnostic` reprints
+Listing 1 is a live IRexp lstlisting + PubChem 3D (ILJNJJNKEOAREX /
+CID 57398578). `fig_wall_diagnostic` reprints
 that wall. Generation remains 227/500 top-1 and 249/500 recall.
 expand-500 official chamfer (103/230 vs self 129/230) is an SI arm.
 
@@ -27,7 +28,7 @@ main_IRExpBench_only.tex    # optional orphan alternate; not the ICLR build root
 references.bib
 iclr2027_conference.sty/.bst
 fancyhdr.sty, natbib.sty
-figures/                    # Fig 1 = fig1_lead_overview.pdf; Listing 1 = listing1_irexp_record.pdf
+figures/                    # Fig 1 = fig1_lead_overview.pdf; Listing 1 mol = listing1_mol_pubchem3d.png
 si/supplement.tex           # standalone SI (does not count toward 9 pp)
 si/supplement.pdf           # compiled SI
 docs/LEADERBOARD.md
