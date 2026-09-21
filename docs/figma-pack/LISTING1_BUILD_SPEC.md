@@ -1,14 +1,17 @@
 # LISTING1_BUILD_SPEC — live IRexp listing
 
-ICLR Listing 1 is **not** a baked SVG/PDF plate. It is the IRexp
-`figure[H]` + `\refstepcounter{lstlisting}` + `framed` two-column
-layout in `main.tex` (`tex/listing1_body.tex`). **Not** a clone of the
-IRexp Scientific Data `lst:example` urea (NTJIYHYWVZYBEX).
+ICLR Listing 1 is **not** a baked SVG/PDF plate. It is the live
+`listing[!ht]` float + `framed` two-column layout in `main.tex`
+(`tex/listing1_body.tex`). **Not** a clone of the IRexp Scientific Data
+`lst:example` urea (NTJIYHYWVZYBEX).
 
 ## Layout (IRexp pattern)
 
-- **No in-artwork title.** LaTeX prints `Listing 1.` via
-  `\refstepcounter{lstlisting}` (listing counter, not Figure N).
+- **No in-artwork title.** Caption sits **below** the framed plate via
+  a real `\caption` on the `listing` float (same ICLR
+  ``Listing~N:'' typography as figure captions). Do not restore a
+  manual `\textbf{Listing N.}` header above the plate, and do not use
+  `[H]` (it leaves large holes).
 - **Framed two-column:**
   - Left **0.62\textwidth**: live `lstlisting` style `irexpjson`
   - Right **0.34\textwidth**: PubChem 3D conformer

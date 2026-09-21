@@ -15,7 +15,23 @@
 \usepackage{longtable}
 \usepackage{xcolor}
 \usepackage{framed}
-\usepackage{float}
+% Listing float: same \@makecaption as figures (``Listing N:'' below content).
+% No float.sty --- [H] left large holes on this reprint.
+\makeatletter
+\newcounter{listing}
+\renewcommand{\thelisting}{\arabic{listing}}
+\newcommand{\listingname}{Listing}
+\def\fps@listing{htbp}
+\def\ftype@listing{4}
+\def\ext@listing{lol}
+\def\fnum@listing{\listingname~\thelisting}
+\@ifundefined{theHlisting}{\def\theHlisting{listing.\thelisting}}{}
+\newenvironment{listing}
+  {\@float{listing}}
+  {\end@float}
+\makeatother
+\setlength{\abovecaptionskip}{6pt plus 1pt minus 2pt}
+\setlength{\belowcaptionskip}{2pt}
 \lstdefinestyle{irexpjson}{
   basicstyle=\ttfamily\scriptsize,
   breaklines=true,
@@ -146,17 +162,14 @@ Wall: $204$ verified / $45$ misranked / $251$ never proposed.}
 \label{si:fig:lead}
 \end{figure}
 
-\begin{figure}[H]
-\phantomsection
-\refstepcounter{lstlisting}%
-\noindent\textbf{\lstlistingname~\thelstlisting.} Example IRexp JSON record
+\begin{listing}[!ht]
+\input{../tex/listing1_body}
+\caption{Example IRexp JSON record
 (commercial DoR; reprint of main-text Listing~1;
 \texttt{ILJNJJNKEOAREX}) --- PubChem 3D CID 57398578.
-SMILES and InChIKey are resource fields, not solver payload.
+SMILES and InChIKey are resource fields, not solver payload.}
 \label{si:fig:listing}
-\vspace{2pt}
-\input{../tex/listing1_body}
-\end{figure}
+\end{listing}
 
 \begin{figure}[h]
 \centering
