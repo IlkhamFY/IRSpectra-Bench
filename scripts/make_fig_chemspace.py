@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Chemistry-space plate for the pooled IRSpectra-Bench cohort.
+"""Chemistry-space plate for the validate-clean subset.
 
-Paper headline is n=300 (194 locked + all 106 expansion). This plate is the
-validate-clean subset (n=295 = 194 + 101); five 13C-overread flags
-(R12, R22, R25, R82, R91) are excluded here. Caption in iclr_paper.tex:
-"n=300; clean n=295 in App."
+This plate is n=295 (194 locked + 101 clean expansion). Five 13C-overread
+flags (R12, R22, R25, R82, R91) are excluded. It is not the n=500 roster
+and it does not include the thinking-tier expand-500 cut. Caption median
+MW 306 and median 2 rings are this plate, not an n=500 recomputation.
 
 Panels: molecular weight, RDKit ring count, C–F bonds / molecule, N atoms / molecule.
 Locked vs validate-clean expansion, stacked. No accuracy metrics.
