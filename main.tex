@@ -396,18 +396,11 @@ The evaluation set is a frozen roster of 500 question ids released with
 the code.
 Problems are drawn from the structure-complete split of IRexp
 (\texttt{irexp\_resolved})~\citep{yabbarov2026irexp}.
-Figure~\ref{fig:fig-chemspace} summarises the chemistry space.
+The cohort has median molecular weight 306 and median two rings
+(histograms of MW, ring count, C--F bonds and nitrogen atoms are in
+the SI).
 Listing~\ref{lst:payload} is the solver-facing contract: formula plus
 printed peak lists; gold constitution is held out and scored offline.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.88\linewidth]{fig_chemspace.pdf}
-  \caption{The histograms show molecular weight, ring count, C--F bonds, and
-  nitrogen atoms for the $n{=}500$ literature cohort
-  (median MW 306; median 2 rings).}
-  \label{fig:fig-chemspace}
-\end{figure}
 
 \subsection{Difficulty and scoring}
 
@@ -433,12 +426,9 @@ s(\hat y, y^\star)
 \;=\;
 \mathbf{1}\!\big[\mathrm{IK}_{14}(\hat y)=\mathrm{IK}_{14}(y^\star)\big].
 \end{equation}
-Those 14 characters are the connectivity layer; the remaining characters
-carry stereo and tautomer information and are ignored for the headline.
-Full stereo-sensitive InChIKey is reported on the validate-clean subset
-(SI).
+Those 14 characters are the connectivity layer; stereo-sensitive InChIKey
+is reported on the validate-clean subset (SI).
 External submissions deposit up to three ranked SMILES per \texttt{qid}
-with no structure hints
 (\texttt{docs/LEADERBOARD.md}; \texttt{scripts/score\_submission.py}).
 With a ranked pool $\mathcal{C}_i=(c_{i1},\ldots,c_{ik})$, $k\leq 3$,
 \begin{align}
@@ -676,25 +666,6 @@ GPT-5.6 Sol & 25/60 = 42\% & 17/25 = 68\% & 16/24 = 67\% \\
   \label{fig:fig-mechanism}
 \end{figure}
 
-\begin{table}[ht]
-\caption{Forward-verify scores show self-rank versus re-rank on the
-60-compound arm; $n{=}500$ generation is in Table~\ref{tab:headline}.}
-\label{tab:fverify}
-\centering
-\small
-\begin{tabular}{@{}lr@{}}
-\toprule
- & 60-compound arm \\
-\midrule
-generation recall & 19/60 (32\%) \\
-top-1, solver self-ranking & 14/60 (23\%) \\
-top-1, forward-verified re-ranking & 16/60 (27\%) \\
-precision $|$ recall --- forward-verification & 16/19 (84\%) \\
-multi-candidate only --- forward-verification & 10/13 (77\%) \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 Forward verification asks whether an independent $^{13}$C ranker can
 repair the misses that remain after the solver has proposed a pool.
 When the true structure is among the candidates on the 60-compound arm,
@@ -725,15 +696,8 @@ Ten solver agents, up to six candidates each, pooled and re-ranked on the
 60-compound arm, move recall 32\% $\to$ \textbf{42\%} and top-1 23\%
 $\to$ \textbf{30\%} (McNemar $p{=}0.34$); verification precision falls
 84\% $\to$ 72\% as noisier candidates enter.
-The training-free ceiling remains recall-limited.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.58\linewidth]{fig3_method.pdf}
-  \caption{The inference ladder shows top-1 on the 60-compound arm:
-  23\% $\to$ 27\% $\to$ 30\% (generate-wide recall $32\%\to 42\%$).}
-  \label{fig:fig3-method}
-\end{figure}
+The training-free ceiling remains recall-limited
+(the 23\% $\to$ 27\% $\to$ 30\% ladder is reprinted in the SI).
 
 \paragraph{Non-LLM verifiers.}
 The same candidate sets can be re-ranked without a language model.
@@ -760,45 +724,23 @@ Applying that identity to published numbers
 (\texttt{scripts/literature\_decomposition.py}) recovers the same
 pattern: recall carries most of the drop when the data become real and
 heterogeneous.
-
-\begin{table}[ht]
-\caption{Literature rows show selected systems, connectivity-scored or as published.}
-\label{tab:lit-decomp}
-\centering
-\scriptsize
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.55cm}>{\raggedright\arraybackslash}p{2.35cm}rrrr@{}}
-\toprule
-system & data ($n$) & top-1 & top-$k$ ($k$) & recall & prec. \\
-\midrule
-this work, solver alone & literature (500) & 45.4\% & 49.8\% (3) & 49.8\% & 91.2\% \\
-this work + forward-verify & protocol slice (SI) & 29.9\% & 33.5\% (3) & 33.5\% & \textbf{89.2\%} \\
-NMR-Solver~\citep{jin2025nmrsolver} & literature (450) & 52.9\% & 67.3\% (10) & $\geq$67.3\% & $\leq$78.6\% \\
-NMRAgent~\citep{fang2026nmragent} & literature (450) & 61.6\% & 70.0\% (10) & $\geq$70.0\% & $\leq$88.0\% \\
-Espejo Morales~\citep{espejo2026agentic} & education (236) & 80.9\% & 90.0\% (5) & $\geq$90.0\% & $\leq$89.9\% \\
-Espejo Morales~\citep{espejo2026agentic} & industrial (34) & 20.6\% & 29.1\% (5) & $\geq$29.1\% & $\leq$70.9\% \\
-Alberts, 6--13 atoms~\citep{alberts2025benchmarks} & NIST IR (3,455) & 63.8\% & 84.0\% (10) & 84.0\% & 75.9\% \\
-SpecX, scaffold split~\citep{xiang2026specx} & simulated (99,439) & 29.7\% & 50.6\% (10) & 50.6\% & 58.7\% \\
-\bottomrule
-\end{tabular}
-\end{table}
+The full row set (this work, NMR-Solver, NMRAgent, Espejo, Alberts,
+SpecX) is in the SI.
 
 \textbf{Three groups changed only the data}, and recall carried \textbf{68\%} (NMR-Solver
-simulated $\to$ real), \textbf{70\%} (SpecX random $\to$ scaffold) and \textbf{83\%}
-(Espejo education $\to$ industrial) of each collapse.
+simulated $\to$ real~\citep{jin2025nmrsolver}), \textbf{70\%} (SpecX random $\to$ scaffold~\citep{xiang2026specx}) and \textbf{83\%}
+(Espejo education $\to$ industrial~\citep{espejo2026agentic}) of each collapse.
 Recall binds where spectra are real and heterogeneous; ranking dominates on simulated or
 single-library data.
 The solver-alone precision column on $n{=}500$ is self-ranking (227/249); the
-forward-verify row is an instrumented protocol slice (SI) --- not interchangeable.
+forward-verify row is an instrumented protocol slice (SI).
 
 \section{Discussion}
 \label{sec:discussion}
 
 On the frozen $n{=}500$ roster a frontier model is a reliable ranker of
 an already-proposed pool and an unreliable proposer of the true
-constitution: self-ranking precision $|$ recall is $227/249$, generation
-recall is $249/500$, and the forward-verify wall leaves $251$ compounds
-never proposed (Figure~\ref{fig:fig-wall}).
+constitution (Figure~\ref{fig:fig-wall}).
 The contribution is that measurement: the benchmark and the stage
 decomposition on literature peak lists as printed.
 The numbers do not license a solved elucidator.
@@ -821,7 +763,7 @@ should move.
 \paragraph{Implications for tool-using elucidation.}
 \label{sec:agentic}
 Once the true constitution is in the pool, verification is cheap:
-self-ranking selects it $227/249$ times, and a second $^{13}$C ranker
+self-ranking usually selects it, and a second $^{13}$C ranker
 does not change the qualitative picture.
 The expensive stage is therefore anything that enlarges
 $P(\text{true}\in\text{pool})$: broader sampling, formula-constrained
@@ -858,9 +800,7 @@ The ladder diagnoses a bottleneck.
 SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR transformers and
 CASE are not scored on this bench; the released scorer is the
 comparison route.
-The $n{=}500$ forward-verify wall is $204/45/251$
-(Figure~\ref{fig:fig-wall}); protocol-slice and expand-500 chamfer arms
-remain SI, not a second wall.
+Protocol-slice and expand-500 chamfer arms remain SI, not a second wall.
 An expert-chemist audit was not run; a leave-one-modality arm was
 abandoned; extraction fidelity is a property of IRexp and the released
 filters, and the parser is not re-audited here.

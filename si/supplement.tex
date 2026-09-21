@@ -103,8 +103,9 @@ Fig.~\texttt{fig1} &
   $249/500$ recall $\times$ $227/249$ self-rank $=45.4\%$ top-1;
   wall $227/22/251$. Reprinted as Fig.~\ref{si:fig:lead}. \\
 Fig.~\texttt{fig-chemspace} &
-  Fig.~2 &
-  Literature-cohort chemistry (not reprinted). \\
+  moved here &
+  Literature-cohort chemistry (median MW 306; median 2 rings).
+  Reprinted as Fig.~\ref{si:fig:chemspace}. \\
 Listing~\texttt{lst:payload} &
   Listing 1 (live lstlisting $+$ PubChem 3D) &
   IRexp JSON$+$molecule (ILJNJJNKEOAREX; CID 57398578;
@@ -116,14 +117,16 @@ Fig.~\texttt{fig-wall} &
   $n{=}500$ forward-verify wall $204/45/251$.
   Reprinted as Fig.~\ref{si:fig:wall}. \\
 Fig.~\texttt{fig-robustness} &
-  Fig.~3 &
+  Fig.~2 &
   Formula-only, recency, and four-vendor controls (not reprinted). \\
 Fig.~\texttt{fig-mechanism} &
-  Fig.~4 &
+  Fig.~3 &
   Locked v3-R25 verify-save. Reused in \S\ref{si:cases}. \\
 Fig.~\texttt{fig3-method} &
-  Fig.~5 &
-  Inference ladder on the 60-compound arm (not reprinted). \\
+  moved here &
+  Inference ladder on the 60-compound arm
+  (23\% $\to$ 27\% $\to$ 30\%).
+  Reprinted as Fig.~\ref{si:fig:ladder}. \\
 App.\ cases &
   Table~\texttt{tab:cases} (kept in main appendix) &
   Same integers as \S\ref{si:cases}. \\
@@ -131,6 +134,9 @@ validate-clean extras &
   main headline one-liner; tables here &
   Scaffold / Tanimoto / stereo / size bins / corpus-reweight
   (\S\ref{si:extras}). Not reprinted as appendix prose. \\
+lit.\ decomp.\ table &
+  moved here (\S\ref{si:fverify} onward / literature) &
+  Full top-1 / top-$k$ rows; main keeps the 68/70/83\% collapse. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -148,6 +154,8 @@ Figures~\ref{si:fig:lead} and~\ref{si:fig:wall} reprint the main-text
 protocol plate and the $n{=}500$ wall so the supplement can be read
 alone. Listing~1 is reprinted with the same live lstlisting$+$framed
 layout (PubChem 3D, CID 57398578).
+Cohort chemistry and the 60-compound inference ladder live only here
+so the ICLR body can keep the narrative.
 
 \begin{figure}[h]
 \centering
@@ -311,6 +319,24 @@ Confidence intervals are not reported for $n{=}500$ or expand-500.
 %======================================================================
 \section{Validate-clean extras}
 \label{si:extras}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.88\linewidth]{fig_chemspace.pdf}
+\caption{Molecular weight, ring count, C--F bonds, and nitrogen atoms
+for the $n{=}500$ literature cohort (median MW 306; median 2 rings).
+Moved from the main text to keep the ICLR body on budget.}
+\label{si:fig:chemspace}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.58\linewidth]{fig3_method.pdf}
+\caption{Inference ladder on the 60-compound arm:
+23\% $\to$ 27\% $\to$ 30\% (generate-wide recall $32\%\to 42\%$).
+Moved from the main text; integers unchanged.}
+\label{si:fig:ladder}
+\end{figure}
 
 These rows are not the $n{=}500$ headline.
 Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%).
@@ -569,12 +595,12 @@ that was never proposed (Eq.~\ref{si:eq:factor}).
 
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm, Eq.~\ref{si:eq:chamfer}).
-IR 1679~cm$^{-1}$. Main-text Figure~4; SI Figure~\ref{si:fig:r25}.
+IR 1679~cm$^{-1}$. Main-text Figure~3; SI Figure~\ref{si:fig:r25}.
 
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.72\linewidth]{fig_mechanism.pdf}
-\caption{Case v3-R25 shows a verify-save (main-text Figure~4):
+\caption{Case v3-R25 shows a verify-save (main-text Figure~3):
 self-rank prefers 3-pyridyl, while forward $^{13}$C recovers 2-pyridyl
 (chamfer 0.42 vs 1.30~ppm).}
 \label{si:fig:r25}
@@ -596,7 +622,7 @@ SMILES, InChIKey, and licence fields are resource metadata.
 Bench solvers see only formula and printed peak lists.
 Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
 The listing is reprinted above with the same lstlisting$+$framed layout.
-Locked v3-R25 remains the mechanism worked case (main-text Figure~4).
+Locked v3-R25 remains the mechanism worked case (main-text Figure~3).
 
 \subsection{Additional panels}
 
@@ -759,8 +785,8 @@ recall $\geq b$ and conditional precision $\leq a/b$.
 Script: \texttt{scripts/literature\_decomposition.py}.
 
 \begin{table}[h]
-\caption{Literature rows show selected systems, matching the main-text
-literature table.}
+\caption{Literature rows show selected systems, connectivity-scored or
+as published. This is the home of the table moved off the ICLR body.}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{4pt}
