@@ -144,16 +144,16 @@ The consumer run that produced them is not.
 \section{Introduction}
 \label{sec:introduction}
 
-Recovering a covalent constitution from spectra is the routine inverse problem
-of synthetic and analytical chemistry.
-After a reaction, the first measurements a bench chemist records are a
-mid-infrared spectrum and one-dimensional $^1$H and $^{13}$C NMR.
-Infrared band positions encode functional groups and conjugation:
+Predicting the molecular structure of a chemical compound from spectra is the routine inverse problem
+of synthetic and materials chemistry.
+After a chemical reaction step, chemists validate this through
+mid-infrared spectra and one-dimensional NMR chemical shifts.
+Infrared band positions encode functional groups and conjugation, for example,
 carbonyl stretches, O--H and N--H envelopes, aromatic C=C, and the paired
 nitro bands that survive even a terse experimental section.
 NMR chemical shifts, multiplicities and integrals encode the number and
-neighbourhood of hydrogen and carbon environments.
-The form that enters the literature is almost never the instrument file.
+neighbourhood of hydrogen ($^1$H  NMR) and carbon environments ($^{13}$C NMR).
+The form that enters the literature is rarely the instrument file.
 Experimental sections print \textbf{peak lists}: wavenumbers in cm$^{-1}$ and
 shift tables in ppm, often with coupling constants, and only rarely with
 intensities or lineshape.
@@ -169,7 +169,7 @@ Learned systems now consume those same reports as sequence or tool-using
 tasks.
 Encoder--decoder models train on paired spectra--structure
 corpora~\citep{chacko2024spectro,ottomano2025nmiracle,alberts2024ir};
-puzzle benches and search systems report high recovery on curated or
+puzzle benches and search systems report high recovery on curated/simulated or
 education spectra~\citep{kamber2026chemist,guo2024molpuzzle,zhuang2025treesearch,espejo2026agentic}.
 Reported recovery for the same model can invert with the harness
 (GPT-4o, 1.4\% vs.\ 57.8\% on MolPuzzle~\citep{guo2024molpuzzle,zhuang2025treesearch}),
@@ -183,7 +183,7 @@ molecular-representation scoring contract, and a measurement of
 That stage is either proposal of the true constitution or ranking among
 candidates that were already proposed.
 
-Any system that returns a ranked candidate list factorises as
+Any system that returns a ranked molecular candidate list factorizes as
 \begin{equation}
 \label{eq:factor}
 \text{top-1} \;=\; \underbrace{P(\text{true} \in \text{pool})}_{\text{generation recall}}
@@ -229,7 +229,7 @@ IR+$^1$H+$^{13}$C+structure quadruples)~\citep{yabbarov2026irexp}.
 The $n{=}500$ roster is drawn from the structure-complete
 \texttt{irexp\_resolved} split; Listing~\ref{lst:payload} shows one
 JSON+molecule record.
-An anonymised review copy is in the SI.
+An anonymized review copy is in the SI.
 
 \begin{figure}[t]
   \centering
@@ -249,8 +249,7 @@ An anonymised review copy is in the SI.
 
 \subsection{Trained spectra $\to$ structure models}
 Paired corpora have produced strong in-distribution elucidators, and they
-set the default reporting language for the field.
-Spectro and NMIRacle fuse infrared with NMR in encoder--decoder or
+set the default reporting language for the field. For example, \citep{chacko2024spectro,ottomano2025nmiracle} fuse infrared with NMR in encoder--decoder or
 generative setups~\citep{chacko2024spectro,ottomano2025nmiracle};
 Hu \textit{et al.}\ and NMRTrans invert one-dimensional NMR with multitask
 or set-transformer decoders~\citep{hu2024multitask,yang2026nmrtrans};
