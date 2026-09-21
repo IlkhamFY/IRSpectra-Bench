@@ -216,9 +216,10 @@ and a high verifier score cannot be read as a solved elucidator.
         beside the balanced-roster 45.4\% (Table~\ref{tab:headline}).
   \item \textbf{Bounds on that headline.}
         Formula-only and recency; four vendor families on a 60-compound arm only.
-  \item \textbf{What is not a comparison.}
-        Section~\ref{sec:not-on-roster}.
-        The claim that does not need those systems is the factorisation above.
+  \item \textbf{Systems not scored.}
+        Section~\ref{sec:not-on-roster} names the published elucidators
+        that were not run on this input.
+        The factorisation above is what this harness measures without them.
 \end{enumerate}
 
 \paragraph{Peak-list resource.}
@@ -238,7 +239,7 @@ An anonymised review copy is in the SI.
   (Eq.~\ref{eq:ik14}).
   Generation recall $249/500$ (49.8\%) in top~3; self-rank $227/249$ (91.2\%),
   hence top-1 $45.4\%$.
-  Generation wall, solver self-rank and not forward-verify:
+  Generation wall (solver self-rank):
   $227$ exact top-1 / $22$ in-pool not top-1 / $251$ never proposed.}
   \label{fig:fig1}
 \end{figure}
@@ -345,13 +346,14 @@ IR-Agent reads NIST absorbance through a tool stack we do not replay.
 CASE is exhaustive in the formula only with the 2D correlations these
 tables usually omit; a $k\leq 3$ closed-book decode is not that search.
 SpectraLLM, Spectro, NMIRacle and the Alberts models map simulated or
-single-library spectra, and a printed list is not an adapter invented so
-their names can sit in a results table.
-What remains, on one harness, is that 251 of 500 misses never enter the
-pool, self-ranking misses 22, and a $^{13}$C ranker cannot create the
-missing 251 (top-1 $227\to 204$).
-Until some later deposit is counted with the released InChIKey-14 script,
-this paper is not a cross-system board.
+single-library spectra.
+No input adapter was built, and none of those systems is entered in the
+results.
+On this harness, 251 of 500 true structures never enter the pool,
+self-ranking misses 22, and a $^{13}$C ranker cannot create the missing
+251 (top-1 $227\to 204$).
+A later deposit has to be counted with the released InChIKey-14 script
+before this roster is a cross-system comparison.
 Three further vendors appear only on a 60-compound arm
 (Section~\ref{sec:cross-vendor}).
 
@@ -411,9 +413,12 @@ The evaluation set is a frozen roster of 500 question ids released with
 the code.
 Problems are drawn from the structure-complete split of IRexp
 (\texttt{irexp\_resolved})~\citep{yabbarov2026irexp}.
-The cohort has median molecular weight 306 and median two rings
-(histograms of MW, ring count, C--F bonds and nitrogen atoms are in
-the SI).
+Histograms of molecular weight, ring count, C--F bonds and nitrogen
+atoms for the validate-clean subset ($n{=}295$: locked cohort plus
+clean expansion) are in the SI.
+On that plate the median molecular weight is 306 and the median ring
+count is two.
+The thinking-tier expand-500 cut is not in the plate.
 Listing~\ref{lst:payload} is the solver-facing contract: formula plus
 printed peak lists; gold constitution is held out and scored offline.
 
@@ -498,10 +503,10 @@ Early sampler seeds were not stored, so the roster is reusable and not re-drawab
 
 \begin{listing}[!ht]
 \input{tex/listing1_body}
-\caption{The listing shows one IRexp JSON record
-(commercial DoR; \texttt{ILJNJJNKEOAREX})~\citep{yabbarov2026irexp}:
-solvers see only formula and printed peak lists; SMILES and InChIKey are
-resource fields scored by Eq.~\ref{eq:ik14}.}
+\caption{One IRexp JSON record
+(commercial DoR; \texttt{ILJNJJNKEOAREX})~\citep{yabbarov2026irexp}.
+Solvers see formula and printed peak lists.
+SMILES and InChIKey are resource fields scored by Eq.~\ref{eq:ik14}.}
 \label{lst:payload}
 \end{listing}
 
@@ -597,7 +602,7 @@ On the validate-clean subset, scaffold-level recovery is 64\% (simple
 80\%, complex 48\%) and mean best Tanimoto is 0.66; accuracy falls with
 size (67.9\% top-1 at $\leq$15 heavy atoms, 42.8\% at 16--25, 16.7\%
 above 25; $n{=}53/152/90$; SI).
-On an instrumented slice, of analysable top-1 misses, \textbf{76.6\%}
+On an instrumented slice, of 137 analysable top-1 misses, \textbf{76.6\%}
 are constitutional isomers of the true structure; only \textbf{22.6\%}
 share the true Murcko scaffold.
 The typical miss is wrong connectivity at the right composition, not a
@@ -637,9 +642,13 @@ recall $\ll$ precision split is a property of one vendor.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.56\linewidth]{fig_robustness.pdf}
-  \caption{Formula-only, recency, and four-vendor checks on $n{=}60$
-  (not the $n{=}500$ headline): formula-only 3/60, flat recency, and
-  recall below precision.}
+  \caption{Formula-only top-1 (3/60 versus 14/60), source-year bins, and
+  the 60-compound sweep (not the $n{=}500$ headline).
+  Panel~(c) also draws Composer 2.5 (12/60), GPT-5.6 Luna (9/60),
+  DeepSeek V4 Pro (8/60, partial formula gate) and Nemotron 3.5 (0/60).
+  Those four are not rows in Table~\ref{tab:cross-vendor}.
+  Panel~(d) is forward-verify chamfer precision against recall, not
+  solver self-rank.}
   \label{fig:fig-robustness}
 \end{figure}
 
@@ -652,24 +661,33 @@ It does not repeat the $n{=}500$ headline: Claude's top-1 on this arm is
 14/60 (23\%), not 227/500 (45.4\%).
 Grok 4.6, Gemini 3.7 Flash and GPT-5.6 Sol saw the same four fields and
 the same candidate contract.
-Precision $|$ recall exceeds generation recall in every arm, on different
-denominators (Eqs.~\ref{eq:recall}--\ref{eq:prec}).
-Bootstrap intervals on that within-arm contrast separate for Claude
-(+52.5 points), GPT-5.6 Sol (+26.3) and Gemini (+23.3); Grok's contrast
-(+9.2) is directional.
+Forward-verify precision $|$ recall exceeds generation recall in every
+row of Table~\ref{tab:cross-vendor}, on different denominators
+(Eqs.~\ref{eq:recall}--\ref{eq:prec}).
+The precision column is chamfer re-ranking of each solver's pool, the
+same ranker as Section~\ref{sec:forward-verify}, not the solver's own
+order.
+Claude's self-rank top-1 on this arm remains 14/60; the 16/19 cell does
+not multiply with 19/60 to that top-1.
+Bootstrap intervals on the paired forward-verify-minus-recall contrast
+separate for Claude (+52.5 points), GPT-5.6 Sol (+26.3) and Gemini
+(+23.3); Grok's contrast (+9.2) is directional.
 Candidate budgets differ (Claude mean 2.20 versus 3.00 for the others),
 so recall rankings among vendors are approximate.
 A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 
 \begin{table}[ht]
-\caption{Cross-vendor scores show generation recall versus verification
-precision on $n{=}60$ (different denominators).}
+\caption{Cross-vendor scores on $n{=}60$.
+Generation recall is pool membership.
+Both precision columns are chamfer forward-verify of that pool, not
+solver self-rank.
+Denominators differ.}
 \label{tab:cross-vendor}
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
 \toprule
-model & generation recall & verification precision $|$ recall & multi-candidate only \\
+model & generation recall & chamfer prec.$|$recall & chamfer, multi-cand. \\
 \midrule
 Claude Opus & 19/60 = 32\% & 16/19 = 84\% & 10/13 = 77\% \\
 Grok 4.6 & 32/60 = 53\% & 20/32 = 62\% & 20/32 = 62\% \\
@@ -760,8 +778,9 @@ $227/249$ cases and fails to propose the true constitution in 251 of 500
 Forward verification is the secondary drop, $227/500 \to 204/500$
 (see the SI).
 Table~\ref{tab:headline} places corpus-reweighted 26.5\% beside 45.4\%.
-These numbers are not a solved elucidator, and they are not a score for
-IR-Agent, CASE, or a trained spectra-to-structure model.
+They are the score of one closed-book harness.
+They are not a score for IR-Agent, CASE, or a trained
+spectra-to-structure model.
 
 \paragraph{Reporting contract.}
 External work should deposit ranked SMILES and report (i)~top-1
@@ -816,20 +835,17 @@ scoring is single-sample; the roster inherits PMC-OA organic bias.
 \label{sec:conclusion}
 
 IRSpectra-Bench is a frozen literature-peak-list roster and an InChIKey-14
-scorer, not a board of elucidators.
-On one closed-book harness the generation cohort ($n{=}500$) is 45.4\%
-top-1 (227/500) and 49.8\% recall (249/500), beside a corpus-reweighted
-26.5\% top-1 on a validate-clean subset.
+scorer.
+On one closed-book harness, generation is 45.4\% top-1 (227/500) and
+49.8\% recall (249/500), beside corpus-reweighted 26.5\% top-1 on a
+validate-clean subset.
 The generation wall is $227$ exact top-1 / $22$ in-pool not top-1 /
 $251$ never proposed.
-Forward verification of the same pools is diagnostic only: top-1 falls
-from 227 to 204 ($204$ verified / $45$ misranked / $251$ never proposed;
-see the SI).
-On a 60-compound arm the recall gap appears in four vendor families;
-that arm is not the $n{=}500$ result.
+Forward verification is diagnostic: top-1 falls from 227 to 204
+($204$ verified / $45$ misranked / $251$ never proposed; SI).
+The 60-compound arm is not this result.
 We release the deposits and the scorer.
-We do not release scores for the systems in Section~\ref{sec:related-work},
-because they were not run on this input.
+The systems in Section~\ref{sec:not-on-roster} were not run on this input.
 
 \section*{AI use statement}
 Frontier LLMs were used as \textbf{experimental solvers} under the consumer harness in
@@ -857,7 +873,7 @@ The InChIKey scorer is scripted.
 The consumer harness is not a pinned snapshot: temperature, seed and the
 headline wrapper were not captured (Section~\ref{sec:limitations}).
 Replay the deposits.
-Do not expect a bit-exact regeneration of the subscription run.
+A bit-exact regeneration of the subscription run is not available.
 Fine-tuning against the roster should use \texttt{data/train\_no\_bench.jsonl.gz}
 so roster InChIKeys are withheld.
 
