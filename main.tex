@@ -81,9 +81,9 @@
 
 \graphicspath{{figures/}{../figures/}{./}}
 
-% Diagnosis title. Do not put "Benchmark" back in the title: this PDF does not
-% populate a multi-system board.
-\title{Proposal, Not Ranking, Binds Structure Elucidation from Literature Peak Lists}
+% OpenReview title (clarity). The PDF is still one harness, not a populated
+% multi-system board; that limit stays in the abstract, not in the title.
+\title{Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, $^1$H, and $^{13}$C NMR Peak Lists}
 
 \author{
 Ilkham Yabbarov\textsuperscript{1,$\dagger$},
@@ -109,15 +109,16 @@ $\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
 \lhead{Under review as a conference paper at ICLR 2027}
 
 \begin{abstract}
-Recovering a covalent constitution from spectra is the first inverse problem
-a synthetic chemist meets after a reaction.
-Open-access papers record that evidence as \textbf{literature-reported}
-IR, $^1$H and $^{13}$C NMR \textbf{peak lists}: printed wavenumbers and
-shift tables, not digitised absorbance traces or FIDs.
-Trained elucidators and tool-using agents report high recovery on curated
-libraries, simulated traces, or single-instrument absorbance.
-Those numbers are not measurements of this input, and those systems are
-not scored here.
+Frontier models are often presented as near-solved structure elucidators on
+curated spectra.
+We ask an operational question: given the molecular formula and
+\textbf{literature-reported} IR, $^1$H, and $^{13}$C NMR \textbf{peak lists}
+--- printed wavenumbers and shift tables, not digitised images of spectra ---
+can an off-the-shelf frontier model recover the correct constitution, and
+\textbf{which stage fails} when it does not?
+Recovery on curated libraries, simulated traces, or single-instrument
+absorbance is not a measurement of this input, and those systems are not
+scored here.
 
 We release \textbf{IRSpectra-Bench} as a frozen roster of
 \textbf{$n{=}500$} problems, an RDKit InChIKey-14 contract, and the
