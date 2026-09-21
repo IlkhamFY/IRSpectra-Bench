@@ -1,0 +1,78 @@
+{
+  "name": "NMRTrans C+H+formula (little1d/C-H-Formula)",
+  "n": 500,
+  "scoring": "RDKit Chem.MolToInchiKey first 14 characters",
+  "k": 3,
+  "no_confidence_intervals": true,
+  "top1": "79/500",
+  "recall_at_3": "102/500",
+  "by_cohort": {
+    "locked_194": {
+      "n": 194,
+      "top1": "32/194",
+      "recall": "39/194"
+    },
+    "expand_106": {
+      "n": 106,
+      "top1": "12/106",
+      "recall": "20/106"
+    },
+    "expand500_200": {
+      "n": 200,
+      "top1": "35/200",
+      "recall": "43/200"
+    }
+  },
+  "by_difficulty": {
+    "simple": {
+      "n": 248,
+      "top1": "62/248",
+      "recall": "79/248"
+    },
+    "complex": {
+      "n": 252,
+      "top1": "17/252",
+      "recall": "23/252"
+    }
+  },
+  "train_overlap": {
+    "definition": "gold InChIKey-14 appears in the released NMRTrans split; not a check that the same peak list was in the file",
+    "dataset": "little1d/NMRTrans-Data",
+    "train_problems": 9,
+    "train_top1": "8/9",
+    "train_recall": "9/9",
+    "val_problems": 2,
+    "val_top1": "1/2",
+    "val_recall": "1/2",
+    "test_problems": 0,
+    "held_out_of_released_splits": {
+      "n": 489,
+      "top1": "70/489",
+      "recall": "92/489"
+    }
+  },
+  "invalid_rank1_smiles": "86/500",
+  "decoder": "beam search num_beams=3 num_return_sequences=3 do_sample=False max_length=82",
+  "device": "cpu",
+  "checkpoint": "little1d/C-H-Formula/nmrtrans-c-h-nmr-formula.ckpt",
+  "checkpoint_sha256": "d184e2280a1623a09b60a052686af343191f9ee99cd89b3570314c15852c4fcd",
+  "weights_loaded": "499/499",
+  "code": "https://github.com/little1d/NMRTrans",
+  "code_commit": "9a72756532e60d540f05eafa93d31aecd1cb4362",
+  "questions": "IlkhamFY/spectro-agent 48fcd30153df5e331fab43cfa514763db8ee3891",
+  "roster": "locked clean-main 134 + v3 40 + v2_ctrl 20 + expand all 106 + expand-500 headline 200",
+  "gold": "unique (RDKit formula, IR bands, 13C string) match into irexp_resolved.jsonl.gz; 500/500 unique, 0 ambiguous",
+  "inputs_used": "molecular formula; printed 1H shift, range, multiplicity, integral, J; printed 13C shifts and nC counts",
+  "inputs_not_used": "IR bands",
+  "not_imputed": "76/4298 1H peaks had no printed integral and were stored as 0, not 1H",
+  "c_clamped_outside_0_220": 19,
+  "formula_atoms_outside_model_vector": "9 problems (Se or Sn)",
+  "h_split_unknown_index": 87,
+  "h_ranges_parsed": 982,
+  "blocked_systems_not_rerun": [
+    "NMR-Solver (SimNMR-PubChem, hundreds of GB)",
+    "SpectraLLM (>15 GB RAM and intensities)",
+    "IR-Agent (digitised NIST absorbance)",
+    "CASE (commercial; 2D correlations these tables omit)"
+  ]
+}
