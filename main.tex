@@ -11,11 +11,31 @@
 % No CIs. Do not quote 243/519. Do not print 194/106/200 in main prose.
 % Fig 1 = fig1_lead_overview (fverify 249/500, 204/249, 40.8%; wall 204/45/251).
 % Listing 1 = live lstlisting + PubChem 3D (ILJNJJNKEOAREX / CID 57398578).
-% Compile with pdfLaTeX or XeLaTeX + BibTeX (references.bib + iclr2027_conference.bst).
+% Compile with pdfLaTeX (Times; official ICLR look) or XeLaTeX + BibTeX.
+% XeLaTeX/tectonic: load TeX Gyre Termes below --- bare `times.sty` falls
+% back to Latin Modern and the page looks looser than every ICLR PDF.
 % \iclrfinalcopy is the only official sty flag that prints \author and drops
-% the left-margin submission ruler (see tex/iclr2027_conference.sty).
+% the LEFT-MARGIN LINE-NUMBER RULER (not lineno.sty). Keep it commented for
+% OpenReview; uncomment for camera-ready / a named arXiv. The IR-Agent ICLR
+% 2026 PDF with no ruler is camera-ready ("Published as..."), not review mode.
 \documentclass{article}
 \usepackage{iclr2027_conference,times}
+\usepackage{iftex}
+\ifPDFTeX
+\else
+  % Official ICLR is Times. XeLaTeX cannot use times.sty (TU/ptm undefined).
+  % Overleaf typically has TeX Gyre Termes; else Liberation Serif / Tinos.
+  \usepackage{fontspec}
+  \IfFontExistsTF{TeX Gyre Termes}{%
+    \setmainfont{TeX Gyre Termes}%
+  }{%
+    \IfFontExistsTF{Liberation Serif}{%
+      \setmainfont{Liberation Serif}%
+    }{%
+      \IfFontExistsTF{Tinos}{\setmainfont{Tinos}}{}%
+    }%
+  }
+\fi
 
 \usepackage{hyperref}
 \usepackage{url}
@@ -27,7 +47,7 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{framed}
-\usepackage{float}
+\usepackage{array}
 \lstdefinestyle{irexpjson}{
   basicstyle=\ttfamily\scriptsize,
   breaklines=true,
@@ -43,6 +63,8 @@
 \setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
 \setlength{\floatsep}{8pt plus 2pt minus 2pt}
 \setlength{\intextsep}{8pt plus 2pt minus 2pt}
+\setlength{\abovecaptionskip}{6pt plus 1pt minus 2pt}
+\setlength{\belowcaptionskip}{2pt}
 
 \graphicspath{{figures/}{../figures/}{./}}
 
@@ -65,9 +87,8 @@ $\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
 
 % Official ICLR 2027 switch: show \author and disable the submission linenumber
 % ruler. The same flag also sets the running header to "Published as...".
-% Double-blind (submit): keep \iclrfinalcopy commented; \maketitle then prints
-% "Anonymous authors / Paper under double-blind review". Camera-ready: uncomment
-% \iclrfinalcopy and delete the \lhead override below.
+% Double-blind / OpenReview: keep \iclrfinalcopy commented (ruler ON).
+% Camera-ready / named arXiv: uncomment and delete the \lhead override below.
 % \iclrfinalcopy  % OFF for double-blind submission; re-enable for camera-ready
 \begin{document}
 
@@ -110,8 +131,11 @@ Frozen predictions, scorers and code are released for mechanical re-evaluation.
 \section{Introduction}
 \label{sec:introduction}
 
-Structure elucidation from spectra sits at the centre of synthetic and analytical chemistry,
-and machine learning increasingly treats it as a sequence or agent task.
+Structure elucidation from spectra sits at the centre of synthetic and analytical chemistry.
+Infrared and one-dimensional NMR are the first-line measurements a bench chemist
+actually records; the form that appears in papers is a printed peak list, not a
+digitised absorbance trace or FID. Machine learning increasingly treats the same
+problem as a sequence or agent task.
 Encoder--decoder models train on paired corpora~\citep{chacko2024spectro,ottomano2025nmiracle,alberts2024ir};
 LLM agents and puzzle benches report high recovery on curated or education
 spectra~\citep{kamber2026chemist,guo2024molpuzzle,zhuang2025treesearch,espejo2026agentic}.
@@ -329,7 +353,7 @@ Section~\ref{sec:limitations}).
 \textbf{Scoring is reproducible}: frozen predictions, ground truth and scorers regenerate every
 training-free number.
 
-\begin{figure}[H]
+\begin{figure}[!ht]
 \phantomsection
 \refstepcounter{lstlisting}%
 \noindent\textbf{\lstlistingname~\thelstlisting.} Example IRexp JSON record
@@ -338,7 +362,7 @@ Solvers see only formula and printed peak lists; SMILES / InChIKey are
 resource fields. Gold scored by Eq.~\ref{eq:ik14}.
 v3-R25 remains the mechanism case (Figure~\ref{fig:fig-mechanism}).
 \label{lst:payload}
-\vspace{0.35em}
+\vspace{2pt}
 \input{tex/listing1_body}
 \end{figure}
 
@@ -403,10 +427,8 @@ mean best Tanimoto is 0.66; accuracy falls with size (67.9\% top-1 at $\leq$15 h
 On an instrumented slice, of analysable top-1 misses, \textbf{76.6\%} are constitutional isomers of the true
 structure; only \textbf{22.6\%} share the true Murcko scaffold --- wrong connectivity at the
 right composition, not mostly fine regiochemistry (SI).
-A 24-compound four-model Claude comparison is capability-sensitive (Haiku $\subset$ Sonnet
-$\subset$ Opus $\subset$ Fable) but underpowered for adjacent ranks, with a disclosed protocol
-asymmetry (Section~\ref{sec:limitations}); a battery-electrolyte subset ($n{=}46$) is
-recall-bound (26\% top-1).
+A battery-electrolyte subset ($n{=}46$) is recall-bound (26\% top-1); the underpowered
+four-model Claude ladder is SI.
 Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%) ---
 that is \emph{not} forward-verification precision (Section~\ref{sec:forward-verify}).
 The $n{=}500$ forward-verify wall is $204$ verified / $45$ misranked / $251$ never
@@ -532,7 +554,7 @@ The training-free ceiling remains recall-limited.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.40\linewidth]{fig3_method.png}
+  \includegraphics[width=0.58\linewidth]{fig3_method.png}
   \caption{Inference ladder on the 60-compound arm: 23\% $\to$ 27\% $\to$ 30\% top-1.
   Generate-wide lifts recall (32\% $\to$ 42\%); the wall is proposal, not ranking.}
   \label{fig:fig3-method}
@@ -560,7 +582,7 @@ Applying this to published figures (\texttt{scripts/literature\_decomposition.py
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}p{2.6cm}p{2.4cm}rrrr@{}}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.55cm}>{\raggedright\arraybackslash}p{2.35cm}rrrr@{}}
 \toprule
 system & data ($n$) & top-1 & top-$k$ ($k$) & recall & prec. \\
 \midrule
@@ -584,20 +606,6 @@ single-library data.
 The solver-alone precision column on $n{=}500$ is self-ranking (227/249); the
 forward-verify row is an instrumented protocol slice (SI) --- not interchangeable.
 
-\subsection{Frozen roster and pooled estimator}
-\label{sec:expansion}
-
-The $n{=}500$ roster is the frozen \texttt{qid} list in the code release.
-The headline is $\mathcal{S}$ of size 500 in
-\begin{equation}
-\label{eq:pool}
-\hat p_{\mathcal{S}}
-=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} s(c_{i1}, y_i^\star).
-\end{equation}
-Figure~\ref{fig:fig-wall} is the $n{=}500$ forward-verify wall ($204/45/251$).
-Generation remains $227/500$ top-1 and $249/500$ recall.
-The expand-500 chamfer arm (verify vs self-rank) is SI; not a second wall.
-
 \section{Discussion}
 \label{sec:discussion}
 
@@ -605,7 +613,8 @@ Frontier LLMs are \textbf{good verifiers} ($227/249$ self-rank on $n{=}500$) and
 \textbf{weak proposers} (50\% recall on $n{=}500$) --- propose $\gg$ verify.
 The contribution is the \textbf{benchmark + stage decomposition}, not a solved
 elucidator and not an IRexp Data Descriptor.
-Eq.~\ref{eq:pool}'s headline $\mathcal{S}$ is size 500.
+The headline roster $\mathcal{S}$ is the frozen $n{=}500$ \texttt{qid} list
+(estimator in the SI).
 
 \paragraph{Reporting contract.}
 External work should deposit ranked SMILES and report (i)~top-1 constitution
@@ -632,7 +641,6 @@ Nonsignificant ladder steps do not license a solved-elucidator headline.
 
 \section{Limitations}
 \label{sec:limitations}
-\enlargethispage{8\baselineskip}
 
 Scoring is mechanical; solver runs were transcript-audited for zero ground-truth access.
 \textbf{(i) Consumer harness.} Claude Opus via consumer subscription; no snapshot,
@@ -648,12 +656,9 @@ generate-wide top-1 likewise ($p{=}0.34$). The $n{=}24$ four-model arm is underp
 The ladder \textbf{diagnoses a bottleneck}; it is not an accuracy advance.
 \textbf{(v) Missing on-bench baselines.} SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR
 transformers and CASE are \textbf{not scored} here.
-\textbf{(vi) Forward-verify coverage.} Figure~\ref{fig:fig1} reports $n{=}500$
-fverify: $249/500$ (49.8\%) recall in top~3 and $204/249$ (81.9\%)
-verified $|$ pool ($40.8\%$ verified); wall $204/45/251$.
-Figure~\ref{fig:fig-wall} reprints that wall.
-An instrumented protocol-slice diagnostic and the expand-500 chamfer arm
-(verify vs self-rank) remain SI; they are not a second wall.
+\textbf{(vi) Forward-verify coverage.} The $n{=}500$ wall is
+$204/45/251$ (Figure~\ref{fig:fig1}; reprint Figure~\ref{fig:fig-wall}).
+Protocol-slice and expand-500 chamfer arms remain SI, not a second wall.
 \textbf{(vii) Deferred.} Expert-chemist audit not run; leave-one-modality abandoned;
 parser audit deferred to the Sci.\ Data companion.
 \textbf{(viii) Scope.} Battery subset is literature electrolyte chemistry, not operando;
@@ -701,7 +706,6 @@ distributional agreement is the intended claim.
 Fine-tuning against the bench should use \texttt{data/train\_no\_bench.jsonl.gz} so benchmark
 InChIKeys are withheld.
 
-\enlargethispage{5\baselineskip}
 \section*{Acknowledgements}
 We acknowledge support from the Natural Sciences and Engineering Research Council of Canada (NSERC) through a CREATE training program. Institutional details and named funding references are omitted for double-blind review and will be restored in the camera-ready version.
 \bibliography{references}
@@ -750,7 +754,7 @@ $^{13}$C chamfers in ppm; Tanimoto Morgan $r{=}2$.}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{@{}lp{2.15cm}p{8.75cm}@{}}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{2.15cm}>{\raggedright\arraybackslash}p{8.75cm}@{}}
 \toprule
 mode & id / formula & what failed \\
 \midrule
