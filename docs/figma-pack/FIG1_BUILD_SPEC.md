@@ -1,16 +1,18 @@
 # FIG1_BUILD_SPEC — `fig1_lead_overview`
 
-**Shipped plate (2026-09-20 evening):** n=500 **fverify**
-(249/500 recall, 204/249 verified|pool, 40.8% verified; wall **204/45/251**).
-See `docs/FINAL_SOURCE_OF_TRUTH_2026-09-20.md`. The inventory below is the
-morning generation-decomp brief (227/22/251) and is **not** the live Fig 1.
+**Lead plate:** n=500 **generation** wall **227 / 22 / 251**.
+Recall **249/500 (49.8%)**; top-1 **227/500 (45.4%)**;
+self-rank **227/249 (91.2%)**. Identity: `45.4% ≈ 49.8% × 91.2%`.
+
+The n=500 fverify triple **204/45/251** is **not** Fig 1; it lives only
+on `fig_wall_diagnostic`.
 
 Lead figure for IRSpectra-Bench ICLR paper. System + diagnosis in one glance.
 Propose is the wall, not verify.
 
 **Not** an IR-Agent “Overall Framework / TI Expert / Ret Expert” clone.
 **Not** the old 58/7/129 forward-verify wall.
-**Not** generation 227/22/251 as THE wall.
+**Not** fverify 204/45/251 as the lead wall.
 
 ## Frame
 
