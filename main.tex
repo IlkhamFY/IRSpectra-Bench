@@ -7,9 +7,10 @@
 % main_IRExpBench_only.tex is an optional orphan alternate --- not the ICLR build root.
 % Headline n=500 generation only: 227/500 (45.4%) top-1; 249/500 (49.8%) recall.
 % Diagnosis wall = n=500 fverify 204 verified / 45 misranked / 251 never-proposed.
-% Generation 227/249/251 only when labeled as generation (top-1 / recall), not as the wall.
+% Fig 1 generation wall is 227/22/251 (top-1 / in-pool-not-top-1 / never-proposed).
+% fverify 204/45/251 is fig_wall_diagnostic only — not the lead plate.
 % No CIs. Do not quote 243/519. Do not print 194/106/200 in main prose.
-% Fig 1 = fig1_lead_overview (fverify 249/500, 204/249, 40.8%; wall 204/45/251).
+% Fig 1 = fig1_lead_overview (227/500, 249/500, 227/249; wall 227/22/251).
 % Listing 1 = live lstlisting + PubChem 3D (ILJNJJNKEOAREX / CID 57398578).
 % Compile with pdfLaTeX (Times; official ICLR look) or XeLaTeX + BibTeX.
 % XeLaTeX/tectonic: load TeX Gyre Termes below --- bare `times.sty` falls
@@ -203,9 +204,9 @@ manuscript (in preparation)~\citep{yabbarov2026irexp}, not of this paper.
   peak lists $+$ formula $\rightarrow$ ranked pool $\rightarrow$ optional
   forward $^{13}$C re-rank (Eq.~\ref{eq:chamfer}) $\rightarrow$ InChIKey-14
   (Eq.~\ref{eq:ik14}); generate $249/500$ (49.8\%) recall in top~3;
-  select $204/249$ (81.9\%) verified $|$ pool
-  ($49.8\%\times 81.9\%=40.8\%$ verified);
-  wall $204$ verified / $45$ misranked / $251$ never proposed.}
+  select $227/249$ (91.2\%) when present
+  ($45.4\%\approx 49.8\%\times 91.2\%$);
+  wall $227$ top-1 / $22$ in pool, not top-1 / $251$ never proposed.}
   \label{fig:fig1}
 \end{figure}
 

@@ -1,11 +1,20 @@
 ﻿#!/usr/bin/env python3
-"""n=500 fverify wall — propose is the wall, not verify.
+"""Lead Fig 1 (generation) + separate fverify diagnostic wall.
 
-Locked integers from spectro-agent data/fverify_n500/WALL_n500.md (no CIs):
+Fig 1 (`fig1_lead_overview`) — generation-locked n=500:
+  top-1:           227/500 (45.4%)
+  recall@3:        249/500 (49.8%)
+  self-rank:       227/249 (91.2%)
+  wall:            227 | 22 | 251
+  identity:        45.4% ≈ 49.8% × 91.2%
+
+Diagnostic only (`fig_wall_diagnostic`) — n=500 fverify:
   verified:        204
   misranked:        45
   never-proposed:  251
   recalled:        249  (= 204 + 45)
+
+Do not draw fverify 204/45/251 on Fig 1.
 """
 from __future__ import annotations
 
@@ -21,12 +30,25 @@ from matplotlib.patches import FancyBboxPatch
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import figstyle as fs
 
-# n=500 fverify wall. Do not use generation 227/22/251 here.
 N = 500
-VERIFIED = 204
-MISRANKED = 45
-NEVER = 251
-RECALLED = VERIFIED + MISRANKED  # 249
+
+# Diagnostic wall (fig_wall_diagnostic only). Not the lead plate.
+FV_VERIFIED = 204
+FV_MISRANKED = 45
+FV_NEVER = 251
+FV_RECALLED = FV_VERIFIED + FV_MISRANKED  # 249
+
+# Lead Fig 1 generation wall.
+GEN_TOP1 = 227
+GEN_NOT_TOP1 = 22
+GEN_NEVER = 251
+GEN_RECALL = GEN_TOP1 + GEN_NOT_TOP1  # 249
+
+# Back-compat aliases for the diagnostic bar helpers.
+VERIFIED = FV_VERIFIED
+MISRANKED = FV_MISRANKED
+NEVER = FV_NEVER
+RECALLED = FV_RECALLED
 
 # Lead-plate teal / vermil / grey
 C_TOP1 = "#00897B"
@@ -130,20 +152,14 @@ def write_svg(path: Path, width: float = 504.0, height: float = 102.0) -> None:
     path.write_text(svg, encoding="utf-8")
 
 
-# Live Fig 1 plate (caption + SPEC header): n=500 fverify.
-# 249/500 recall, 204/249 verified|pool, 40.8% verified; wall 204/45/251.
-# Do not draw generation 227/22/251 as the lead wall.
-C_NAVY = "#1e40af"
-C_SKY = "#bfdbfe"
-C_PINK = "#fecaca"
-C_AMBER = "#fdba74"
-C_CARD = "#eff6ff"
-C_PANEL = "#f8fafc"
-C_DASH = "#93c5fd"
-C_INK = "#0f172a"
-C_MUTED = "#64748b"
-C_LINE = "#cbd5e1"
-C_ICON = "#94a3b8"
+# Lead Fig 1 chrome. Wall fills from FIG1_BUILD_SPEC (not the fverify funnel).
+C_CARD = "#F7F7F5"
+C_STROKE = "#E5E5E0"
+C_TEAL = "#00897B"
+C_INK = "#1A1A1A"
+C_MUTED = "#6B7280"
+C_LINE = "#D1D5DB"
+C_ICON = "#6B7280"
 
 
 def _round(ax, x, y, w, h, fc="white", ec=None, lw=0.6, rs=7, **kw):
@@ -180,156 +196,165 @@ def _arrow(ax, x0, x1, y, color=C_ICON):
     )
 
 
-def _bars_icon(ax, cx, cy, color=C_ICON):
-    for i, h in enumerate((7.5, 12.0, 9.0)):
-        ax.add_patch(
-            plt.Rectangle(
-                (cx - 8 + i * 6.2, cy - 6),
-                4.2,
-                h,
-                facecolor=color,
-                edgecolor="none",
-                lw=0,
-                clip_on=False,
-            )
-        )
-
-
-def _mol(ax, cx, cy, scale=1.0, color="#334155", selected=False):
-    """Tiny stick-figure molecule (vector paths, not a raster)."""
-    s = scale
-    if selected:
-        ax.add_patch(
-            plt.Circle(
-                (cx, cy),
-                15.0 * s,
-                facecolor=C_NAVY,
-                edgecolor="none",
-                clip_on=False,
-                zorder=4,
-            )
-        )
-        ax.plot(
-            [cx - 5.4 * s, cx - 1.6 * s, cx + 6.4 * s],
-            [cy - 0.2 * s, cy - 4.8 * s, cy + 5.4 * s],
-            color="white",
-            lw=1.7,
-            solid_capstyle="round",
-            solid_joinstyle="round",
-            zorder=6,
-            clip_on=False,
-        )
-        return
-    pts = [
-        (cx - 7 * s, cy - 3 * s),
-        (cx - 2 * s, cy + 5 * s),
-        (cx + 6 * s, cy + 4 * s),
-        (cx + 8 * s, cy - 4 * s),
-        (cx + 1 * s, cy - 7 * s),
-    ]
-    xs, ys = zip(*pts)
-    ax.plot(
-        list(xs) + [xs[0]],
-        list(ys) + [ys[0]],
-        color=color,
-        lw=1.15,
-        solid_capstyle="round",
-        solid_joinstyle="round",
-        zorder=5,
-        clip_on=False,
-    )
-    ax.plot(
-        [cx - 2 * s, cx - 9 * s],
-        [cy + 5 * s, cy + 8 * s],
-        color=color,
-        lw=1.15,
-        solid_capstyle="round",
-        zorder=5,
-        clip_on=False,
-    )
-
-
 def write_fig1(path: Path) -> None:
     """Lead Fig 1 as true vector (PDF text/paths, real SVG, 600 dpi PNG).
 
-    Locked caption integers (SPEC header + main.tex; not generation 227/22/251):
-      recall 249/500 (49.8%); verified|pool 204/249 (81.9%);
-      49.8% × 81.9% = 40.8% verified; wall 204 / 45 / 251.
+    Generation-locked integers (FIG1_BUILD_SPEC; not fverify 204/45/251):
+      recall 249/500 (49.8%); self-rank 227/249 (91.2%);
+      top-1 227/500 (45.4%); 45.4% ≈ 49.8% × 91.2%;
+      wall 227 / 22 / 251.
     """
     fs.apply()
     plt.rcParams.update({"svg.fonttype": "none", "pdf.fonttype": 42, "ps.fonttype": 42})
 
-    # 7.00 × 3.20 in → 4200 px wide at 600 dpi (spec ≥3000).
-    fig, ax = plt.subplots(figsize=(7.00, 3.20))
-    ax.set_xlim(0, 700)
-    ax.set_ylim(0, 320)
+    # SPEC frame 7.00 × 4.00 in → 4200 px wide at 600 dpi.
+    W, H = 700.0, 400.0
+    fig, ax = plt.subplots(figsize=(7.00, 4.00))
+    ax.set_xlim(0, W)
+    ax.set_ylim(0, H)
     ax.axis("off")
     fig.patch.set_facecolor("white")
     ax.set_facecolor("white")
     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
 
-    # ---- Row A: protocol strip ----
-    y, h = 208, 96
-    # Peak lists
-    _round(ax, 16, y, 108, h, fc="white", ec=C_LINE, rs=8)
-    ax.add_patch(plt.Circle((70, y + 72), 11, facecolor=C_CARD, edgecolor="none", clip_on=False))
-    _bars_icon(ax, 70, y + 70)
-    ax.text(70, y + 48, "Peak lists", ha="center", va="center", fontsize=8, fontweight="bold", color=C_INK)
-    ax.text(70, y + 32, "IR  ·  \u00b9H  ·  \u00b9\u00b3C", ha="center", va="center", fontsize=6.5, color=C_MUTED)
-    _arrow(ax, 128, 140, y + h / 2)
-
-    # Generate
-    _round(ax, 144, y, 118, h, fc=C_CARD, ec="none", rs=8)
-    ax.text(203, y + 74, "Generate", ha="center", va="center", fontsize=8, fontweight="bold", color=C_INK)
-    ax.text(203, y + 48, "249/500", ha="center", va="center", fontsize=13, fontweight="bold", color=C_INK)
-    ax.text(203, y + 26, "recall in top 3", ha="center", va="center", fontsize=6.5, color=C_MUTED)
-    _arrow(ax, 266, 278, y + h / 2)
-
-    # Candidate pool
-    _round(ax, 282, y, 246, h, fc=C_PANEL, ec=C_DASH, lw=1.05, rs=8, linestyle=(0, (3.2, 2.0)))
-    ax.text(405, y + 80, "candidate pool", ha="center", va="center", fontsize=7, color=C_MUTED)
-    xs = [318, 362, 405, 448, 492]
-    for i, xm in enumerate(xs):
-        _mol(ax, xm, y + 42, scale=1.0 if i != 3 else 1.05, selected=(i == 3), color="#64748b")
-    _arrow(ax, 532, 544, y + h / 2)
-
-    # Select
-    _round(ax, 548, y, 136, h, fc="white", ec=C_LINE, rs=8)
-    _mol(ax, 616, y + 76, scale=0.72, color=C_ICON)
-    ax.text(616, y + 56, "Select", ha="center", va="center", fontsize=8, fontweight="bold", color=C_INK)
-    ax.text(616, y + 36, "204/249", ha="center", va="center", fontsize=13, fontweight="bold", color=C_NAVY)
-    ax.text(616, y + 18, "verified | pool", ha="center", va="center", fontsize=6.5, color=C_MUTED)
-
-    # ---- Row B: identity ----
-    pills = [
-        (118, "49.8%  recall in top 3", "white", C_INK, C_LINE),
-        (350, "81.9%  verified | pool", "white", C_INK, C_LINE),
-        (575, "40.8%  verified", C_NAVY, "white", C_NAVY),
+    # ---- Row A: three protocol cards ----
+    pad, gap, y, h = 16.0, 14.0, 286.0, 98.0
+    cw = (W - 2 * pad - 2 * gap) / 3.0
+    cards = [
+        (
+            "1  ·  Input",
+            "Molecular formula + literature",
+            "peak lists (IR, \u00b9H, \u00b9\u00b3C)",
+            "blind peak lists (not traces)",
+        ),
+        (
+            "2  ·  Generation",
+            "LLM proposes ranked",
+            "candidate structures",
+            "true enters pool 249/500 (49.8%)",
+        ),
+        (
+            "3  ·  Verification",
+            "Self-rank / optional",
+            "forward-verify re-rank",
+            "selects true 227/249 (91%) when present",
+        ),
     ]
-    for x, lab, fc, tc, ec in pills:
-        _round(ax, x - 88, 168, 176, 26, fc=fc, ec=ec, rs=13)
-        ax.text(x, 181, lab, ha="center", va="center", fontsize=7, fontweight="bold", color=tc)
-    ax.text(236, 181, "\u00d7", ha="center", va="center", fontsize=11, color=C_MUTED)
-    ax.text(462, 181, "=", ha="center", va="center", fontsize=11, color=C_MUTED)
+    for i, (title, l1, l2, annot) in enumerate(cards):
+        x = pad + i * (cw + gap)
+        _round(ax, x, y, cw, h, fc=C_CARD, ec=C_STROKE, rs=7)
+        ax.text(x + 12, y + 80, title, ha="left", va="center", fontsize=9, fontweight="bold", color=C_INK)
+        ax.text(x + 12, y + 56, l1, ha="left", va="center", fontsize=7.5, color=C_INK)
+        ax.text(x + 12, y + 40, l2, ha="left", va="center", fontsize=7.5, color=C_INK)
+        ax.text(x + 12, y + 16, annot, ha="left", va="center", fontsize=6.8, fontweight="bold", color=C_TEAL)
+        if i < 2:
+            _arrow(ax, x + cw + 1.5, x + cw + gap - 1.5, y + h / 2)
 
-    # ---- Row C: where top-1 fails (fverify wall 204/45/251) ----
-    _round(ax, 16, 12, 668, 142, fc=C_PANEL, ec="none", rs=9)
-    ax.text(32, 136, "Where top-1 fails", ha="left", va="center", fontsize=8.5, fontweight="bold", color=C_INK)
-    ax.text(64, 88, "500", ha="center", va="center", fontsize=18, fontweight="bold", color=C_INK)
-    ax.text(64, 64, "fverify", ha="center", va="center", fontsize=6.5, color=C_MUTED)
-    _arrow(ax, 96, 118, 86)
+    # ---- Row B: decomposition equation ----
+    ax.text(
+        W / 2,
+        258,
+        "top-1  =  generation recall  \u00d7  verification precision|recall",
+        ha="center",
+        va="center",
+        fontsize=9,
+        fontweight="normal",
+        color=C_INK,
+    )
+    ax.text(
+        W / 2,
+        236,
+        "45.4%  \u2248  49.8%  \u00d7  91.2%",
+        ha="center",
+        va="center",
+        fontsize=12,
+        fontweight="bold",
+        color=C_INK,
+    )
+    ax.text(
+        W / 2,
+        218,
+        "n=500 self-rank:  227/500 = 45.4%;   precision|recall  227/249 = 91.2%",
+        ha="center",
+        va="center",
+        fontsize=7,
+        color=C_MUTED,
+    )
 
-    def _funnel(x, y0, w, hbar, fc, title, n, tc=C_INK):
-        _round(ax, x, y0, w, hbar, fc=fc, ec="none", rs=5)
-        ax.text(x + 10, y0 + hbar / 2, title, ha="left", va="center", fontsize=7, color=tc if fc != C_NAVY else "white")
-        ax.text(x + w - 10, y0 + hbar / 2, str(n), ha="right", va="center", fontsize=10, fontweight="bold", color=tc if fc != C_NAVY else "white")
+    # ---- Row C: generation wall 227 | 22 | 251 ----
+    bx0, bx1 = pad, W - pad
+    usable = bx1 - bx0
+    yb, hb, gap_pt = 118.0, 36.0, 1.8
 
-    _funnel(124, 78, 250, 28, C_SKY, "in pool", RECALLED)
-    _arrow(ax, 380, 400, 92)
-    _funnel(406, 78, 250, 28, C_NAVY, "verified", VERIFIED)
-    _funnel(124, 32, 250, 28, C_PINK, "never proposed", NEVER)
-    _arrow(ax, 380, 400, 46)
-    _funnel(406, 32, 250, 28, C_AMBER, "misranked", MISRANKED)
+    def x_of(count: float) -> float:
+        return bx0 + usable * (count / N)
+
+    x1 = x_of(GEN_TOP1)
+    x2 = x_of(GEN_TOP1 + GEN_NOT_TOP1)
+    x3 = x_of(N)
+    segs = [
+        (bx0, x1, C_TOP1, str(GEN_TOP1), 12, "top-1"),
+        (x1, x2, C_INSET, str(GEN_NOT_TOP1), 9, "not top-1"),
+        (x2, x3, C_NEVER, str(GEN_NEVER), 12, "never proposed"),
+    ]
+    for xa, xb, color, lab, fs_n, under in segs:
+        w = max(xb - xa - gap_pt, 8.0)
+        ax.add_patch(
+            plt.Rectangle((xa, yb), w, hb, facecolor=color, edgecolor="none", lw=0, clip_on=False)
+        )
+        ax.text(
+            xa + w / 2,
+            yb + hb / 2,
+            lab,
+            ha="center",
+            va="center",
+            fontsize=fs_n,
+            fontweight="bold",
+            color="white",
+            zorder=5,
+        )
+        ax.text(xa + (xb - xa) / 2, yb - 16, under, ha="center", va="top", fontsize=7.5, color=C_MUTED)
+
+    # Bracket over first two segments (249 recalled).
+    rec_x1 = x_of(GEN_RECALL)
+    ax.plot(
+        [bx0, bx0, rec_x1, rec_x1],
+        [yb + hb + 8, yb + hb + 14, yb + hb + 14, yb + hb + 8],
+        color=C_INK,
+        lw=0.85,
+        solid_capstyle="butt",
+        clip_on=False,
+    )
+    ax.text(
+        (bx0 + rec_x1) / 2,
+        yb + hb + 18,
+        "249 recalled (49.8%)",
+        ha="center",
+        va="bottom",
+        fontsize=8.5,
+        fontweight="bold",
+        color=C_INK,
+    )
+
+    ax.text(
+        W / 2,
+        58,
+        "No re-ranking repairs the 251 never proposed",
+        ha="center",
+        va="center",
+        fontsize=9,
+        fontweight="bold",
+        color=C_INK,
+    )
+    ax.text(
+        W / 2,
+        36,
+        "Generation decomposition on n=500 \u2014 propose is the wall, not verify",
+        ha="center",
+        va="center",
+        fontsize=7.5,
+        color=C_MUTED,
+    )
 
     out = path.with_suffix("")
     fig.savefig(str(out) + ".pdf", facecolor="white")
@@ -356,17 +381,7 @@ def main() -> None:
     fs.apply()
     root = Path(__file__).resolve().parents[1] / "figures"
 
-    # Matplotlib twin ( palettes / Overleaf preview )
-    fig, ax = plt.subplots(figsize=(7.0, 1.42))
-    ax.set_xlim(0, N)
-    ax.set_ylim(0, 1)
-    ax.axis("off")
-    _bar(ax, N)
-    out = root / "fig_wall"
-    fig.savefig(str(out) + ".png", dpi=600, facecolor="white", bbox_inches="tight", pad_inches=0.08)
-    fig.savefig(str(out) + ".pdf", facecolor="white", bbox_inches="tight", pad_inches=0.08)
-    plt.close(fig)
-
+    # Diagnostic SVG only (fverify 204/45/251). Do not overwrite fig_wall.pdf.
     wall_svg = root / "fig_wall_diagnostic.svg"
     write_svg(wall_svg)
     _export_svg(wall_svg)

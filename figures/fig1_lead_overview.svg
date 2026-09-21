@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
   "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="230.4pt" viewBox="0 0 504 230.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="504pt" height="288pt" viewBox="0 0 504 288" xmlns="http://www.w3.org/2000/svg" version="1.1">
  <metadata>
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-09-21T15:46:12.589968</dc:date>
+    <dc:date>2026-09-21T15:49:46.739028</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -21,8 +21,8 @@
  </defs>
  <g id="figure_1">
   <g id="patch_1">
-   <path d="M 0 230.4 
-L 504 230.4 
+   <path d="M 0 288 
+L 504 288 
 L 504 0 
 L 0 0 
 z
@@ -30,421 +30,166 @@ z
   </g>
   <g id="axes_1">
    <g id="patch_2">
-    <path d="M 17.28 80.64 
-L 83.52 80.64 
-Q 89.28 80.64 89.28 74.88 
-L 89.28 17.28 
-Q 89.28 11.52 83.52 11.52 
-L 17.28 11.52 
-Q 11.52 11.52 11.52 17.28 
-L 11.52 74.88 
-Q 11.52 80.64 17.28 80.64 
+    <path d="M 16.56 82.08 
+L 160.08 82.08 
+Q 165.12 82.08 165.12 77.04 
+L 165.12 16.56 
+Q 165.12 11.52 160.08 11.52 
+L 16.56 11.52 
+Q 11.52 11.52 11.52 16.56 
+L 11.52 77.04 
+Q 11.52 82.08 16.56 82.08 
 z
-" style="fill: #ffffff; stroke: #cbd5e1; stroke-width: 0.6; stroke-linejoin: miter"/>
+" style="fill: #f7f7f5; stroke: #e5e5e0; stroke-width: 0.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_3">
-    <path d="M 50.4 36.72 
-C 52.500409 36.72 54.515073 35.885499 56.000286 34.400286 
-C 57.485499 32.915073 58.32 30.900409 58.32 28.8 
-C 58.32 26.699591 57.485499 24.684927 56.000286 23.199714 
-C 54.515073 21.714501 52.500409 20.88 50.4 20.88 
-C 48.299591 20.88 46.284927 21.714501 44.799714 23.199714 
-C 43.314501 24.684927 42.48 26.699591 42.48 28.8 
-C 42.48 30.900409 43.314501 32.915073 44.799714 34.400286 
-C 46.284927 35.885499 48.299591 36.72 50.4 36.72 
+    <path d="M 180.24 82.08 
+L 323.76 82.08 
+Q 328.8 82.08 328.8 77.04 
+L 328.8 16.56 
+Q 328.8 11.52 323.76 11.52 
+L 180.24 11.52 
+Q 175.2 11.52 175.2 16.56 
+L 175.2 77.04 
+Q 175.2 82.08 180.24 82.08 
 z
-" style="fill: #eff6ff"/>
+" style="fill: #f7f7f5; stroke: #e5e5e0; stroke-width: 0.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_4">
-    <path d="M 44.64 34.56 
-L 47.664 34.56 
-L 47.664 29.16 
-L 44.64 29.16 
+    <path d="M 343.92 82.08 
+L 487.44 82.08 
+Q 492.48 82.08 492.48 77.04 
+L 492.48 16.56 
+Q 492.48 11.52 487.44 11.52 
+L 343.92 11.52 
+Q 338.88 11.52 338.88 16.56 
+L 338.88 77.04 
+Q 338.88 82.08 343.92 82.08 
 z
-" style="fill: #94a3b8"/>
+" style="fill: #f7f7f5; stroke: #e5e5e0; stroke-width: 0.6; stroke-linejoin: miter"/>
    </g>
    <g id="patch_5">
-    <path d="M 49.104 34.56 
-L 52.128 34.56 
-L 52.128 25.92 
-L 49.104 25.92 
+    <path d="M 11.52 203.04 
+L 228.57984 203.04 
+L 228.57984 177.12 
+L 11.52 177.12 
 z
-" style="fill: #94a3b8"/>
+" style="fill: #00897b"/>
    </g>
    <g id="patch_6">
-    <path d="M 53.568 34.56 
-L 56.592 34.56 
-L 56.592 28.08 
-L 53.568 28.08 
+    <path d="M 229.87584 203.04 
+L 249.74208 203.04 
+L 249.74208 177.12 
+L 229.87584 177.12 
 z
-" style="fill: #94a3b8"/>
+" style="fill: #e53935"/>
    </g>
    <g id="patch_7">
-    <path d="M 109.44 80.64 
-L 182.88 80.64 
-Q 188.64 80.64 188.64 74.88 
-L 188.64 17.28 
-Q 188.64 11.52 182.88 11.52 
-L 109.44 11.52 
-Q 103.68 11.52 103.68 17.28 
-L 103.68 74.88 
-Q 103.68 80.64 109.44 80.64 
+    <path d="M 251.03808 203.04 
+L 491.184 203.04 
+L 491.184 177.12 
+L 251.03808 177.12 
 z
-" style="fill: #eff6ff"/>
-   </g>
-   <g id="patch_8">
-    <path d="M 208.8 80.64 
-L 374.4 80.64 
-Q 380.16 80.64 380.16 74.88 
-L 380.16 17.28 
-Q 380.16 11.52 374.4 11.52 
-L 208.8 11.52 
-Q 203.04 11.52 203.04 17.28 
-L 203.04 74.88 
-Q 203.04 80.64 208.8 80.64 
-z
-" style="fill: #f8fafc; stroke-dasharray: 3.36,2.1; stroke-dashoffset: 0; stroke: #93c5fd; stroke-width: 1.05; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_9">
-    <path d="M 400.32 80.64 
-L 486.72 80.64 
-Q 492.48 80.64 492.48 74.88 
-L 492.48 17.28 
-Q 492.48 11.52 486.72 11.52 
-L 400.32 11.52 
-Q 394.56 11.52 394.56 17.28 
-L 394.56 74.88 
-Q 394.56 80.64 400.32 80.64 
-z
-" style="fill: #ffffff; stroke: #cbd5e1; stroke-width: 0.6; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_10">
-    <path d="M 30.96 109.44 
-L 138.96 109.44 
-Q 148.32 109.44 148.32 100.08 
-L 148.32 100.08 
-Q 148.32 90.72 138.96 90.72 
-L 30.96 90.72 
-Q 21.6 90.72 21.6 100.08 
-L 21.6 100.08 
-Q 21.6 109.44 30.96 109.44 
-z
-" style="fill: #ffffff; stroke: #cbd5e1; stroke-width: 0.6; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_11">
-    <path d="M 198 109.44 
-L 306 109.44 
-Q 315.36 109.44 315.36 100.08 
-L 315.36 100.08 
-Q 315.36 90.72 306 90.72 
-L 198 90.72 
-Q 188.64 90.72 188.64 100.08 
-L 188.64 100.08 
-Q 188.64 109.44 198 109.44 
-z
-" style="fill: #ffffff; stroke: #cbd5e1; stroke-width: 0.6; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_12">
-    <path d="M 360 109.44 
-L 468 109.44 
-Q 477.36 109.44 477.36 100.08 
-L 477.36 100.08 
-Q 477.36 90.72 468 90.72 
-L 360 90.72 
-Q 350.64 90.72 350.64 100.08 
-L 350.64 100.08 
-Q 350.64 109.44 360 109.44 
-z
-" style="fill: #1e40af; stroke: #1e40af; stroke-width: 0.6; stroke-linejoin: miter"/>
-   </g>
-   <g id="patch_13">
-    <path d="M 18 221.76 
-L 486 221.76 
-Q 492.48 221.76 492.48 215.28 
-L 492.48 126 
-Q 492.48 119.52 486 119.52 
-L 18 119.52 
-Q 11.52 119.52 11.52 126 
-L 11.52 215.28 
-Q 11.52 221.76 18 221.76 
-z
-" style="fill: #f8fafc"/>
-   </g>
-   <g id="patch_14">
-    <path d="M 92.88 174.24 
-L 265.68 174.24 
-Q 269.28 174.24 269.28 170.64 
-L 269.28 157.68 
-Q 269.28 154.08 265.68 154.08 
-L 92.88 154.08 
-Q 89.28 154.08 89.28 157.68 
-L 89.28 170.64 
-Q 89.28 174.24 92.88 174.24 
-z
-" style="fill: #bfdbfe"/>
-   </g>
-   <g id="patch_15">
-    <path d="M 295.92 174.24 
-L 468.72 174.24 
-Q 472.32 174.24 472.32 170.64 
-L 472.32 157.68 
-Q 472.32 154.08 468.72 154.08 
-L 295.92 154.08 
-Q 292.32 154.08 292.32 157.68 
-L 292.32 170.64 
-Q 292.32 174.24 295.92 174.24 
-z
-" style="fill: #1e40af"/>
-   </g>
-   <g id="patch_16">
-    <path d="M 92.88 207.36 
-L 265.68 207.36 
-Q 269.28 207.36 269.28 203.76 
-L 269.28 190.8 
-Q 269.28 187.2 265.68 187.2 
-L 92.88 187.2 
-Q 89.28 187.2 89.28 190.8 
-L 89.28 203.76 
-Q 89.28 207.36 92.88 207.36 
-z
-" style="fill: #fecaca"/>
-   </g>
-   <g id="patch_17">
-    <path d="M 295.92 207.36 
-L 468.72 207.36 
-Q 472.32 207.36 472.32 203.76 
-L 472.32 190.8 
-Q 472.32 187.2 468.72 187.2 
-L 295.92 187.2 
-Q 292.32 187.2 292.32 190.8 
-L 292.32 203.76 
-Q 292.32 207.36 295.92 207.36 
-z
-" style="fill: #fdba74"/>
-   </g>
-   <g id="text_1">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f172a" x="50.4" y="48.150312" transform="rotate(-0 50.4 48.150312)">Peak lists</text>
-   </g>
-   <g id="text_2">
-    <text style="font-size: 6.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #64748b" x="50.4" y="59.282129" transform="rotate(-0 50.4 59.282129)">IR  ·  ¹H  ·  ¹³C</text>
-   </g>
-   <g id="patch_18">
-    <path d="M 92.16 46.08 
-Q 96.48 46.08 99.626064 46.08 
-" style="fill: none; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-    <path d="M 96.426064 44.48 
-L 99.626064 46.08 
-L 96.426064 47.68 
-z
-" style="fill: #94a3b8; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-   </g>
-   <g id="text_3">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f172a" x="146.16" y="29.430312" transform="rotate(-0 146.16 29.430312)">Generate</text>
-   </g>
-   <g id="text_4">
-    <text style="font-weight: 700; font-size: 13px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f172a" x="146.16" y="49.444258" transform="rotate(-0 146.16 49.444258)">249/500</text>
-   </g>
-   <g id="text_5">
-    <text style="font-size: 6.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #64748b" x="146.16" y="63.602129" transform="rotate(-0 146.16 63.602129)">recall in top 3</text>
-   </g>
-   <g id="patch_19">
-    <path d="M 191.52 46.08 
-Q 195.84 46.08 198.986064 46.08 
-" style="fill: none; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-    <path d="M 195.786064 44.48 
-L 198.986064 46.08 
-L 195.786064 47.68 
-z
-" style="fill: #94a3b8; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-   </g>
-   <g id="text_6">
-    <text style="font-size: 7px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #64748b" x="291.6" y="24.851523" transform="rotate(-0 291.6 24.851523)">candidate pool</text>
-   </g>
-   <g id="patch_20">
-    <path d="M 383.04 46.08 
-Q 387.36 46.08 390.506064 46.08 
-" style="fill: none; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-    <path d="M 387.306064 44.48 
-L 390.506064 46.08 
-L 387.306064 47.68 
-z
-" style="fill: #94a3b8; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-   </g>
-   <g id="text_7">
-    <text style="font-weight: 700; font-size: 8px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f172a" x="443.52" y="42.390312" transform="rotate(-0 443.52 42.390312)">Select</text>
-   </g>
-   <g id="text_8">
-    <text style="font-weight: 700; font-size: 13px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1e40af" x="443.52" y="58.084258" transform="rotate(-0 443.52 58.084258)">204/249</text>
-   </g>
-   <g id="text_9">
-    <text style="font-size: 6.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #64748b" x="443.52" y="69.357495" transform="rotate(-0 443.52 69.357495)">verified | pool</text>
-   </g>
-   <g id="text_10">
-    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f172a" x="84.96" y="101.891523" transform="rotate(-0 84.96 101.891523)">49.8%  recall in top 3</text>
-   </g>
-   <g id="text_11">
-    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f172a" x="252" y="101.850439" transform="rotate(-0 252 101.850439)">81.9%  verified | pool</text>
-   </g>
-   <g id="text_12">
-    <text style="font-weight: 700; font-size: 7px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #ffffff" x="414" y="101.891523" transform="rotate(-0 414 101.891523)">40.8%  verified</text>
-   </g>
-   <g id="text_13">
-    <text style="font-size: 11px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #64748b" x="169.92" y="102.92668" transform="rotate(-0 169.92 102.92668)">×</text>
-   </g>
-   <g id="text_14">
-    <text style="font-size: 11px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #64748b" x="332.64" y="102.92668" transform="rotate(-0 332.64 102.92668)">=</text>
-   </g>
-   <g id="text_15">
-    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0f172a" x="23.04" y="134.679707" transform="rotate(-0 23.04 134.679707)">Where top-1 fails</text>
-   </g>
-   <g id="text_16">
-    <text style="font-weight: 700; font-size: 18px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f172a" x="46.08" y="171.698203" transform="rotate(-0 46.08 171.698203)">500</text>
-   </g>
-   <g id="text_17">
-    <text style="font-size: 6.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #64748b" x="46.08" y="186.002129" transform="rotate(-0 46.08 186.002129)">fverify</text>
-   </g>
-   <g id="patch_21">
-    <path d="M 69.12 168.48 
-Q 77.04 168.48 83.786064 168.48 
-" style="fill: none; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-    <path d="M 80.586064 166.88 
-L 83.786064 168.48 
-L 80.586064 170.08 
-z
-" style="fill: #94a3b8; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-   </g>
-   <g id="text_18">
-    <text style="font-size: 7px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0f172a" x="96.48" y="165.971523" transform="rotate(-0 96.48 165.971523)">in pool</text>
-   </g>
-   <g id="text_19">
-    <text style="font-weight: 700; font-size: 10px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0f172a" x="262.08" y="166.747891" transform="rotate(-0 262.08 166.747891)">249</text>
-   </g>
-   <g id="patch_22">
-    <path d="M 273.6 164.16 
-Q 280.8 164.16 286.826064 164.16 
-" style="fill: none; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-    <path d="M 283.626064 162.56 
-L 286.826064 164.16 
-L 283.626064 165.76 
-z
-" style="fill: #94a3b8; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-   </g>
-   <g id="text_20">
-    <text style="font-size: 7px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #ffffff" x="299.52" y="165.971523" transform="rotate(-0 299.52 165.971523)">verified</text>
-   </g>
-   <g id="text_21">
-    <text style="font-weight: 700; font-size: 10px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #ffffff" x="465.12" y="166.747891" transform="rotate(-0 465.12 166.747891)">204</text>
-   </g>
-   <g id="text_22">
-    <text style="font-size: 7px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0f172a" x="96.48" y="199.091523" transform="rotate(-0 96.48 199.091523)">never proposed</text>
-   </g>
-   <g id="text_23">
-    <text style="font-weight: 700; font-size: 10px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0f172a" x="262.08" y="199.867891" transform="rotate(-0 262.08 199.867891)">251</text>
-   </g>
-   <g id="patch_23">
-    <path d="M 273.6 197.28 
-Q 280.8 197.28 286.826064 197.28 
-" style="fill: none; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-    <path d="M 283.626064 195.68 
-L 286.826064 197.28 
-L 283.626064 198.88 
-z
-" style="fill: #94a3b8; stroke: #94a3b8; stroke-width: 1.05; stroke-linecap: round"/>
-   </g>
-   <g id="text_24">
-    <text style="font-size: 7px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0f172a" x="299.52" y="199.091523" transform="rotate(-0 299.52 199.091523)">misranked</text>
-   </g>
-   <g id="text_25">
-    <text style="font-weight: 700; font-size: 10px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0f172a" x="465.12" y="199.867891" transform="rotate(-0 465.12 199.867891)">45</text>
-   </g>
-   <g id="patch_24">
-    <path d="M 322.56 61.74 
-C 325.567403 61.74 328.452036 60.545146 330.578591 58.418591 
-C 332.705146 56.292036 333.9 53.407403 333.9 50.4 
-C 333.9 47.392597 332.705146 44.507964 330.578591 42.381409 
-C 328.452036 40.254854 325.567403 39.06 322.56 39.06 
-C 319.552597 39.06 316.667964 40.254854 314.541409 42.381409 
-C 312.414854 44.507964 311.22 47.392597 311.22 50.4 
-C 311.22 53.407403 312.414854 56.292036 314.541409 58.418591 
-C 316.667964 60.545146 319.552597 61.74 322.56 61.74 
-z
-" style="fill: #1e40af"/>
+" style="fill: #5f6368"/>
    </g>
    <g id="line2d_1">
-    <path d="M 223.92 52.56 
-L 227.52 46.8 
-L 233.28 47.52 
-L 234.72 53.28 
-L 229.68 55.44 
-L 223.92 52.56 
-" style="fill: none; stroke: #64748b; stroke-width: 1.15; stroke-linecap: round"/>
+    <path d="M 11.52 171.36 
+L 11.52 167.04 
+L 251.03808 167.04 
+L 251.03808 171.36 
+" style="fill: none; stroke: #1a1a1a; stroke-width: 0.85"/>
    </g>
-   <g id="line2d_2">
-    <path d="M 227.52 46.8 
-L 222.48 44.64 
-" style="fill: none; stroke: #64748b; stroke-width: 1.15; stroke-linecap: round"/>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1a1a1a" x="20.16" y="26.809102" transform="rotate(-0 20.16 26.809102)">1  ·  Input</text>
    </g>
-   <g id="line2d_3">
-    <path d="M 255.6 52.56 
-L 259.2 46.8 
-L 264.96 47.52 
-L 266.4 53.28 
-L 261.36 55.44 
-L 255.6 52.56 
-" style="fill: none; stroke: #64748b; stroke-width: 1.15; stroke-linecap: round"/>
+   <g id="text_2">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1a1a1a" x="20.16" y="43.700918" transform="rotate(-0 20.16 43.700918)">Molecular formula + literature</text>
    </g>
-   <g id="line2d_4">
-    <path d="M 259.2 46.8 
-L 254.16 44.64 
-" style="fill: none; stroke: #64748b; stroke-width: 1.15; stroke-linecap: round"/>
+   <g id="text_3">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1a1a1a" x="20.16" y="55.220918" transform="rotate(-0 20.16 55.220918)">peak lists (IR, ¹H, ¹³C)</text>
    </g>
-   <g id="line2d_5">
-    <path d="M 286.56 52.56 
-L 290.16 46.8 
-L 295.92 47.52 
-L 297.36 53.28 
-L 292.32 55.44 
-L 286.56 52.56 
-" style="fill: none; stroke: #64748b; stroke-width: 1.15; stroke-linecap: round"/>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 6.8px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #00897b" x="20.16" y="72.319766" transform="rotate(-0 20.16 72.319766)">blind peak lists (not traces)</text>
    </g>
-   <g id="line2d_6">
-    <path d="M 290.16 46.8 
-L 285.12 44.64 
-" style="fill: none; stroke: #64748b; stroke-width: 1.15; stroke-linecap: round"/>
+   <g id="patch_8">
+    <path d="M 166.2 46.8 
+Q 170.16 46.8 172.946064 46.8 
+" style="fill: none; stroke: #6b7280; stroke-width: 1.05; stroke-linecap: round"/>
+    <path d="M 169.746064 45.2 
+L 172.946064 46.8 
+L 169.746064 48.4 
+z
+" style="fill: #6b7280; stroke: #6b7280; stroke-width: 1.05; stroke-linecap: round"/>
    </g>
-   <g id="line2d_7">
-    <path d="M 349.2 52.56 
-L 352.8 46.8 
-L 358.56 47.52 
-L 360 53.28 
-L 354.96 55.44 
-L 349.2 52.56 
-" style="fill: none; stroke: #64748b; stroke-width: 1.15; stroke-linecap: round"/>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1a1a1a" x="183.84" y="26.809102" transform="rotate(-0 183.84 26.809102)">2  ·  Generation</text>
    </g>
-   <g id="line2d_8">
-    <path d="M 352.8 46.8 
-L 347.76 44.64 
-" style="fill: none; stroke: #64748b; stroke-width: 1.15; stroke-linecap: round"/>
+   <g id="text_6">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1a1a1a" x="183.84" y="43.700918" transform="rotate(-0 183.84 43.700918)">LLM proposes ranked</text>
    </g>
-   <g id="line2d_9">
-    <path d="M 439.8912 27.4752 
-L 442.4832 23.328 
-L 446.6304 23.8464 
-L 447.6672 27.9936 
-L 444.0384 29.5488 
-L 439.8912 27.4752 
-" style="fill: none; stroke: #94a3b8; stroke-width: 1.15; stroke-linecap: round"/>
+   <g id="text_7">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1a1a1a" x="183.84" y="55.220918" transform="rotate(-0 183.84 55.220918)">candidate structures</text>
    </g>
-   <g id="line2d_10">
-    <path d="M 442.4832 23.328 
-L 438.8544 21.7728 
-" style="fill: none; stroke: #94a3b8; stroke-width: 1.15; stroke-linecap: round"/>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 6.8px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #00897b" x="183.84" y="72.319766" transform="rotate(-0 183.84 72.319766)">true enters pool 249/500 (49.8%)</text>
    </g>
-   <g id="line2d_11">
-    <path d="M 318.4776 50.5512 
-L 321.3504 54.0288 
-L 327.3984 46.3176 
-" style="fill: none; stroke: #ffffff; stroke-width: 1.7; stroke-linecap: round"/>
+   <g id="patch_9">
+    <path d="M 329.88 46.8 
+Q 333.84 46.8 336.626064 46.8 
+" style="fill: none; stroke: #6b7280; stroke-width: 1.05; stroke-linecap: round"/>
+    <path d="M 333.426064 45.2 
+L 336.626064 46.8 
+L 333.426064 48.4 
+z
+" style="fill: #6b7280; stroke: #6b7280; stroke-width: 1.05; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1a1a1a" x="347.52" y="26.809102" transform="rotate(-0 347.52 26.809102)">3  ·  Verification</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1a1a1a" x="347.52" y="43.700918" transform="rotate(-0 347.52 43.700918)">Self-rank / optional</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #1a1a1a" x="347.52" y="55.220918" transform="rotate(-0 347.52 55.220918)">forward-verify re-rank</text>
+   </g>
+   <g id="text_12">
+    <text style="font-weight: 700; font-size: 6.8px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #00897b" x="347.52" y="72.319766" transform="rotate(-0 347.52 72.319766)">selects true 227/249 (91%) when present</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 9px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1a1a" x="252" y="104.562686" transform="rotate(-0 252 104.562686)">top-1  =  generation recall  ×  verification precision|recall</text>
+   </g>
+   <g id="text_14">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1a1a" x="252" y="121.185469" transform="rotate(-0 252 121.185469)">45.4%  ≈  49.8%  ×  91.2%</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 7px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b7280" x="252" y="132.846533" transform="rotate(-0 252 132.846533)">n=500 self-rank:  227/500 = 45.4%;   precision|recall  227/249 = 91.2%</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b7280" x="120.69792" y="220.020205" transform="rotate(-0 120.69792 220.020205)">top-1</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b7280" x="240.45696" y="220.020205" transform="rotate(-0 240.45696 220.020205)">not top-1</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b7280" x="371.75904" y="220.020205" transform="rotate(-0 371.75904 220.020205)">never proposed</text>
+   </g>
+   <g id="text_19">
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1a1a" x="131.27904" y="162.371182" transform="rotate(-0 131.27904 162.371182)">249 recalled (49.8%)</text>
+   </g>
+   <g id="text_20">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #1a1a1a" x="252" y="248.562686" transform="rotate(-0 252 248.562686)">No re-ranking repairs the 251 never proposed</text>
+   </g>
+   <g id="text_21">
+    <text style="font-size: 7.5px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #6b7280" x="252" y="264.020918" transform="rotate(-0 252 264.020918)">Generation decomposition on n=500 — propose is the wall, not verify</text>
+   </g>
+   <g id="text_22">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #ffffff" x="120.04992" y="193.185469" transform="rotate(-0 120.04992 193.185469)">227</text>
+   </g>
+   <g id="text_23">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #ffffff" x="239.80896" y="192.409102" transform="rotate(-0 239.80896 192.409102)">22</text>
+   </g>
+   <g id="text_24">
+    <text style="font-weight: 700; font-size: 12px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #ffffff" x="371.11104" y="193.185469" transform="rotate(-0 371.11104 193.185469)">251</text>
    </g>
   </g>
  </g>
