@@ -209,7 +209,9 @@ and a high verifier score cannot be read as a solved elucidator.
   \item \textbf{A frozen roster and a mechanical scorer.}
         IRSpectra-Bench is $n{=}500$ literature peak-list problems and a fixed
         InChIKey-14 contract (Eq.~\ref{eq:ik14}).
-        Later systems deposit ranked SMILES; this PDF does not contain their scores.
+        Later systems deposit ranked SMILES. NMRTrans is the one score
+        cited below; the other systems in Section~\ref{sec:not-on-roster}
+        are not scored in this PDF.
   \item \textbf{The generation diagnosis} on one closed-book harness:
         recall $249/500$, self-rank $227/249$, wall $227/22/251$
         (Figure~\ref{fig:fig1}), and corpus-reweighted top-1 26.5\%
@@ -261,7 +263,7 @@ or strings.
 Because they are typically scored by a single top-1 or top-$k$ number, a
 failure of candidate generation is indistinguishable from a failure of
 ranking: both look like a miss.
-None of these maps is run on the roster below.
+Only NMRTrans, among these maps, is run on the roster below (SI).
 A top-$k$ on NIST absorbance or on a simulated trace does not say whether
 the true constitution was proposed from a printed three-list experimental
 section.
@@ -352,8 +354,10 @@ results.
 On this harness, 251 of 500 true structures never enter the pool,
 self-ranking misses 22, and a $^{13}$C ranker cannot create the missing
 251 (top-1 $227\to 204$).
-A later deposit has to be counted with the released InChIKey-14 script
-before this roster is a cross-system comparison.
+NMRTrans~\citep{yang2026nmrtrans} is the deposit counted with that script:
+formula and printed $^1$H/$^{13}$C lists, IR unused, 79/500 top-1 and
+102/500 recall, with 9/500 gold keys in its training split (SI).
+This roster is still not a cross-system comparison.
 Three further vendors appear only on a 60-compound arm
 (Section~\ref{sec:cross-vendor}).
 
@@ -822,7 +826,7 @@ Solver transcripts were audited for zero ground-truth access.
 Contamination is bounded by the formula-only drop ($23\%\to5\%$ on $n{=}60$)
 and flat recency ($r{=}{-}0.007$), and is not excluded.
 The object is printed band lists with formula supplied as from HRMS.
-Systems in Section~\ref{sec:not-on-roster} were not run.
+The unscored systems in Section~\ref{sec:not-on-roster} were not run.
 Forward-verify versus self-rank drops by 23 on $n{=}500$ and is unresolved
 on the protocol slice ($p{=}0.55$); generate-wide top-1 is unresolved
 ($p{=}0.34$); the $n{=}24$ ladder is underpowered.
@@ -845,7 +849,7 @@ Forward verification is diagnostic: top-1 falls from 227 to 204
 ($204$ verified / $45$ misranked / $251$ never proposed; SI).
 The 60-compound arm is not this result.
 We release the deposits and the scorer.
-The systems in Section~\ref{sec:not-on-roster} were not run on this input.
+The unscored systems in Section~\ref{sec:not-on-roster} were not run on this input.
 
 \section*{AI use statement}
 Frontier LLMs were used as \textbf{experimental solvers} under the consumer harness in
