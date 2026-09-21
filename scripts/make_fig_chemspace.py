@@ -245,7 +245,7 @@ def caption_stats(locked, expand):
 
 def draw(locked, expand, out: Path):
     fs.apply()
-    fig, axes = plt.subplots(1, 4, figsize=(fs.COL2, 2.22))
+    fig, axes = plt.subplots(1, 4, figsize=(fs.COL2, 2.38))
     ax_a, ax_b, ax_c, ax_d = axes
 
     l_mw, e_mw = _vals(locked, "mw"), _vals(expand, "mw")
@@ -278,17 +278,27 @@ def draw(locked, expand, out: Path):
     ax_d.set_xlabel("N atoms")
     fs.panel(ax_d, "d", x=-0.14, y=1.12)
 
-    fig.legend(
+    # Legend sits inside the reserved top strip. bbox_to_anchor y>1.0 plus
+    # finish(..., top=0.78) clips the words "locked" / "expansion".
+    fs.finish(fig, pad=0.30, w_pad=0.70, h_pad=0.40, left=0.065, top=0.78)
+    leg = fig.legend(
         handles=[
             Patch(facecolor=fs.BLUE, edgecolor="none", label="locked"),
             Patch(facecolor=fs.SKY, edgecolor="none", label="expansion"),
         ],
-        loc="upper center",
+        loc="lower center",
         ncol=2,
-        bbox_to_anchor=(0.5, 1.06),
+        bbox_to_anchor=(0.5, 0.86),
+        bbox_transform=fig.transFigure,
         frameon=False,
+        borderpad=0.45,
     )
-    fs.finish(fig, pad=0.30, w_pad=0.70, h_pad=0.40, left=0.065, top=0.78)
+    fig.canvas.draw()
+    bb = leg.get_window_extent(fig.canvas.get_renderer()).transformed(
+        fig.transFigure.inverted()
+    )
+    if bb.y1 > 0.992:
+        raise SystemExit(f"chemspace legend clipped at top: y1={bb.y1:.3f}")
     out.parent.mkdir(parents=True, exist_ok=True)
     fs.save(str(out), fig)
     plt.close(fig)

@@ -130,65 +130,212 @@ def write_svg(path: Path, width: float = 504.0, height: float = 102.0) -> None:
     path.write_text(svg, encoding="utf-8")
 
 
-def write_fig1_svg(path: Path) -> None:
-    """Deprecated twin. Lead Fig 1 is the Wonder bake (PDF/PNG); TeX includes PDF."""
-    width, height = 504.0, 288.0
-    pad_x = 14.0
-    usable = width - 2 * pad_x
-    y_bar = 176.0
-    h_bar = 28.0
-    gap = 1.5
+# Live Fig 1 plate (caption + SPEC header): n=500 fverify.
+# 249/500 recall, 204/249 verified|pool, 40.8% verified; wall 204/45/251.
+# Do not draw generation 227/22/251 as the lead wall.
+C_NAVY = "#1e40af"
+C_SKY = "#bfdbfe"
+C_PINK = "#fecaca"
+C_AMBER = "#fdba74"
+C_CARD = "#eff6ff"
+C_PANEL = "#f8fafc"
+C_DASH = "#93c5fd"
+C_INK = "#0f172a"
+C_MUTED = "#64748b"
+C_LINE = "#cbd5e1"
+C_ICON = "#94a3b8"
 
-    def x_of(count: float) -> float:
-        return pad_x + usable * (count / N)
 
-    x0 = x_of(0)
-    x1 = x_of(VERIFIED)
-    x2 = x_of(VERIFIED + MISRANKED)
-    x3 = x_of(N)
-    w1, w2, w3 = x1 - x0, x2 - x1, x3 - x2
+def _round(ax, x, y, w, h, fc="white", ec=None, lw=0.6, rs=7, **kw):
+    ax.add_patch(
+        FancyBboxPatch(
+            (x, y),
+            w,
+            h,
+            boxstyle=f"round,pad=0,rounding_size={rs}",
+            linewidth=lw,
+            facecolor=fc,
+            edgecolor=ec or "none",
+            mutation_aspect=1,
+            clip_on=False,
+            **kw,
+        )
+    )
 
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">
-<rect width="{width}" height="{height}" fill="#FFFFFF"/>
-<defs><style type="text/css">@font-face {{ font-family: DejaVuSans; src: local("DejaVu Sans"); }}text {{ font-family: DejaVuSans, Helvetica, Arial, sans-serif; fill: #1A1A1A; }}</style></defs>
-<rect x="14.0" y="12.0" width="152.0" height="88.0" rx="6" ry="6" fill="#F7F7F5" stroke="#E5E5E0" stroke-width="1"/>
-<text x="24.0" y="30.0" font-size="10" font-weight="700">1 · Input</text>
-<text x="24.0" y="48.0" font-size="8.5" fill="#1A1A1A">Molecular formula + literature</text>
-<text x="24.0" y="60.0" font-size="8.5" fill="#1A1A1A">peak lists (IR cm⁻¹, ¹H, ¹³C)</text>
-<text x="24.0" y="88.0" font-size="7.5" font-weight="600" fill="#00897B">blind peak lists (not traces)</text>
-<line x1="168.0" y1="56.0" x2="170.0" y2="56.0" stroke="#6B7280" stroke-width="1.2"/>
-<polygon points="174.0,56.0 169.0,52.5 169.0,59.5" fill="#6B7280"/>
-<rect x="176.0" y="12.0" width="152.0" height="88.0" rx="6" ry="6" fill="#F7F7F5" stroke="#E5E5E0" stroke-width="1"/>
-<text x="186.0" y="30.0" font-size="10" font-weight="700">2 · Generation</text>
-<text x="186.0" y="48.0" font-size="8.5" fill="#1A1A1A">LLM proposes ranked</text>
-<text x="186.0" y="60.0" font-size="8.5" fill="#1A1A1A">candidate structures</text>
-<text x="186.0" y="88.0" font-size="7.5" font-weight="600" fill="#00897B">true enters pool 249/500 (49.8%)</text>
-<line x1="330.0" y1="56.0" x2="332.0" y2="56.0" stroke="#6B7280" stroke-width="1.2"/>
-<polygon points="336.0,56.0 331.0,52.5 331.0,59.5" fill="#6B7280"/>
-<rect x="338.0" y="12.0" width="152.0" height="88.0" rx="6" ry="6" fill="#F7F7F5" stroke="#E5E5E0" stroke-width="1"/>
-<text x="348.0" y="30.0" font-size="10" font-weight="700">3 · Verification</text>
-<text x="348.0" y="48.0" font-size="8.5" fill="#1A1A1A">Self-rank / optional</text>
-<text x="348.0" y="60.0" font-size="8.5" fill="#1A1A1A">forward-verify re-rank</text>
-<text x="348.0" y="88.0" font-size="7.5" font-weight="600" fill="#00897B">selects true 227/249 (91%) when present</text>
-<text x="252.0" y="122.0" text-anchor="middle" font-size="11" font-weight="600" fill="#1A1A1A">top-1 = generation recall × verification precision|recall</text>
-<text x="252.0" y="140.0" text-anchor="middle" font-size="12" font-weight="700" fill="#1A1A1A">45.4% ≈ 49.8% × 91.2%</text>
-<text x="252.0" y="154.0" text-anchor="middle" font-size="7.5" fill="#6B7280">n=500 self-rank: 227/500 = 45.4%; precision|recall 227/249 = 91.2%</text>
-<rect x="{x0:.2f}" y="{y_bar}" width="{w1 - gap:.2f}" height="{h_bar}" fill="{C_TOP1}"/>
-<text x="{(x0 + x1 - gap) / 2:.2f}" y="{y_bar + 18.5}" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">{VERIFIED}</text>
-<text x="{(x0 + x1) / 2:.2f}" y="218.0" text-anchor="middle" font-size="8" fill="#6B7280">verified</text>
-<rect x="{x1:.2f}" y="{y_bar}" width="{max(w2 - gap, 8):.2f}" height="{h_bar}" fill="{C_INSET}"/>
-<text x="{x1 + max(w2 - gap, 8) / 2:.2f}" y="{y_bar + 18.5}" text-anchor="middle" font-size="9" font-weight="700" fill="#FFFFFF">{MISRANKED}</text>
-<text x="{x1 + w2 / 2:.2f}" y="218.0" text-anchor="middle" font-size="7.5" fill="#6B7280">misranked</text>
-<rect x="{x2:.2f}" y="{y_bar}" width="{w3:.2f}" height="{h_bar}" fill="{C_NEVER}"/>
-<text x="{(x2 + x3) / 2:.2f}" y="{y_bar + 18.5}" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">{NEVER}</text>
-<text x="{(x2 + x3) / 2:.2f}" y="218.0" text-anchor="middle" font-size="8" fill="#6B7280">never proposed</text>
-<polyline points="{x0:.2f},174.0 {x0:.2f},170.0 {x2:.2f},170.0 {x2:.2f},174.0" fill="none" stroke="#1A1A1A" stroke-width="0.9"/>
-<text x="{(x0 + x2) / 2:.2f}" y="167.5" text-anchor="middle" font-size="9" font-weight="600" fill="#1A1A1A">{RECALLED} recalled (49.8%)</text>
-<text x="252.0" y="234.0" text-anchor="middle" font-size="9" font-weight="600" fill="#1A1A1A">No re-ranking repairs the 251 never proposed</text>
-<text x="252.0" y="248.0" text-anchor="middle" font-size="7.5" fill="#6B7280">n=500 forward-verify wall — propose is the wall, not verify</text>
-</svg>
-'''
-    path.write_text(svg, encoding="utf-8")
+
+def _arrow(ax, x0, x1, y, color=C_ICON):
+    ax.annotate(
+        "",
+        xy=(x1, y),
+        xytext=(x0, y),
+        arrowprops=dict(
+            arrowstyle="-|>",
+            color=color,
+            lw=1.05,
+            mutation_scale=8,
+            shrinkA=0,
+            shrinkB=0,
+        ),
+        clip_on=False,
+    )
+
+
+def _bars_icon(ax, cx, cy, color=C_ICON):
+    for i, h in enumerate((7.5, 12.0, 9.0)):
+        ax.add_patch(
+            plt.Rectangle(
+                (cx - 8 + i * 6.2, cy - 6),
+                4.2,
+                h,
+                facecolor=color,
+                edgecolor="none",
+                lw=0,
+                clip_on=False,
+            )
+        )
+
+
+def _mol(ax, cx, cy, scale=1.0, color="#334155", selected=False):
+    """Tiny stick-figure molecule (vector paths, not a raster)."""
+    s = scale
+    if selected:
+        ax.add_patch(
+            plt.Circle(
+                (cx, cy),
+                15.0 * s,
+                facecolor=C_NAVY,
+                edgecolor="none",
+                clip_on=False,
+                zorder=4,
+            )
+        )
+        ax.plot(
+            [cx - 5.4 * s, cx - 1.6 * s, cx + 6.4 * s],
+            [cy - 0.2 * s, cy - 4.8 * s, cy + 5.4 * s],
+            color="white",
+            lw=1.7,
+            solid_capstyle="round",
+            solid_joinstyle="round",
+            zorder=6,
+            clip_on=False,
+        )
+        return
+    pts = [
+        (cx - 7 * s, cy - 3 * s),
+        (cx - 2 * s, cy + 5 * s),
+        (cx + 6 * s, cy + 4 * s),
+        (cx + 8 * s, cy - 4 * s),
+        (cx + 1 * s, cy - 7 * s),
+    ]
+    xs, ys = zip(*pts)
+    ax.plot(
+        list(xs) + [xs[0]],
+        list(ys) + [ys[0]],
+        color=color,
+        lw=1.15,
+        solid_capstyle="round",
+        solid_joinstyle="round",
+        zorder=5,
+        clip_on=False,
+    )
+    ax.plot(
+        [cx - 2 * s, cx - 9 * s],
+        [cy + 5 * s, cy + 8 * s],
+        color=color,
+        lw=1.15,
+        solid_capstyle="round",
+        zorder=5,
+        clip_on=False,
+    )
+
+
+def write_fig1(path: Path) -> None:
+    """Lead Fig 1 as true vector (PDF text/paths, real SVG, 600 dpi PNG).
+
+    Locked caption integers (SPEC header + main.tex; not generation 227/22/251):
+      recall 249/500 (49.8%); verified|pool 204/249 (81.9%);
+      49.8% × 81.9% = 40.8% verified; wall 204 / 45 / 251.
+    """
+    fs.apply()
+    plt.rcParams.update({"svg.fonttype": "none", "pdf.fonttype": 42, "ps.fonttype": 42})
+
+    # 7.00 × 3.20 in → 4200 px wide at 600 dpi (spec ≥3000).
+    fig, ax = plt.subplots(figsize=(7.00, 3.20))
+    ax.set_xlim(0, 700)
+    ax.set_ylim(0, 320)
+    ax.axis("off")
+    fig.patch.set_facecolor("white")
+    ax.set_facecolor("white")
+    fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+
+    # ---- Row A: protocol strip ----
+    y, h = 208, 96
+    # Peak lists
+    _round(ax, 16, y, 108, h, fc="white", ec=C_LINE, rs=8)
+    ax.add_patch(plt.Circle((70, y + 72), 11, facecolor=C_CARD, edgecolor="none", clip_on=False))
+    _bars_icon(ax, 70, y + 70)
+    ax.text(70, y + 48, "Peak lists", ha="center", va="center", fontsize=8, fontweight="bold", color=C_INK)
+    ax.text(70, y + 32, "IR  ·  \u00b9H  ·  \u00b9\u00b3C", ha="center", va="center", fontsize=6.5, color=C_MUTED)
+    _arrow(ax, 128, 140, y + h / 2)
+
+    # Generate
+    _round(ax, 144, y, 118, h, fc=C_CARD, ec="none", rs=8)
+    ax.text(203, y + 74, "Generate", ha="center", va="center", fontsize=8, fontweight="bold", color=C_INK)
+    ax.text(203, y + 48, "249/500", ha="center", va="center", fontsize=13, fontweight="bold", color=C_INK)
+    ax.text(203, y + 26, "recall in top 3", ha="center", va="center", fontsize=6.5, color=C_MUTED)
+    _arrow(ax, 266, 278, y + h / 2)
+
+    # Candidate pool
+    _round(ax, 282, y, 246, h, fc=C_PANEL, ec=C_DASH, lw=1.05, rs=8, linestyle=(0, (3.2, 2.0)))
+    ax.text(405, y + 80, "candidate pool", ha="center", va="center", fontsize=7, color=C_MUTED)
+    xs = [318, 362, 405, 448, 492]
+    for i, xm in enumerate(xs):
+        _mol(ax, xm, y + 42, scale=1.0 if i != 3 else 1.05, selected=(i == 3), color="#64748b")
+    _arrow(ax, 532, 544, y + h / 2)
+
+    # Select
+    _round(ax, 548, y, 136, h, fc="white", ec=C_LINE, rs=8)
+    _mol(ax, 616, y + 76, scale=0.72, color=C_ICON)
+    ax.text(616, y + 56, "Select", ha="center", va="center", fontsize=8, fontweight="bold", color=C_INK)
+    ax.text(616, y + 36, "204/249", ha="center", va="center", fontsize=13, fontweight="bold", color=C_NAVY)
+    ax.text(616, y + 18, "verified | pool", ha="center", va="center", fontsize=6.5, color=C_MUTED)
+
+    # ---- Row B: identity ----
+    pills = [
+        (118, "49.8%  recall in top 3", "white", C_INK, C_LINE),
+        (350, "81.9%  verified | pool", "white", C_INK, C_LINE),
+        (575, "40.8%  verified", C_NAVY, "white", C_NAVY),
+    ]
+    for x, lab, fc, tc, ec in pills:
+        _round(ax, x - 88, 168, 176, 26, fc=fc, ec=ec, rs=13)
+        ax.text(x, 181, lab, ha="center", va="center", fontsize=7, fontweight="bold", color=tc)
+    ax.text(236, 181, "\u00d7", ha="center", va="center", fontsize=11, color=C_MUTED)
+    ax.text(462, 181, "=", ha="center", va="center", fontsize=11, color=C_MUTED)
+
+    # ---- Row C: where top-1 fails (fverify wall 204/45/251) ----
+    _round(ax, 16, 12, 668, 142, fc=C_PANEL, ec="none", rs=9)
+    ax.text(32, 136, "Where top-1 fails", ha="left", va="center", fontsize=8.5, fontweight="bold", color=C_INK)
+    ax.text(64, 88, "500", ha="center", va="center", fontsize=18, fontweight="bold", color=C_INK)
+    ax.text(64, 64, "fverify", ha="center", va="center", fontsize=6.5, color=C_MUTED)
+    _arrow(ax, 96, 118, 86)
+
+    def _funnel(x, y0, w, hbar, fc, title, n, tc=C_INK):
+        _round(ax, x, y0, w, hbar, fc=fc, ec="none", rs=5)
+        ax.text(x + 10, y0 + hbar / 2, title, ha="left", va="center", fontsize=7, color=tc if fc != C_NAVY else "white")
+        ax.text(x + w - 10, y0 + hbar / 2, str(n), ha="right", va="center", fontsize=10, fontweight="bold", color=tc if fc != C_NAVY else "white")
+
+    _funnel(124, 78, 250, 28, C_SKY, "in pool", RECALLED)
+    _arrow(ax, 380, 400, 92)
+    _funnel(406, 78, 250, 28, C_NAVY, "verified", VERIFIED)
+    _funnel(124, 32, 250, 28, C_PINK, "never proposed", NEVER)
+    _arrow(ax, 380, 400, 46)
+    _funnel(406, 32, 250, 28, C_AMBER, "misranked", MISRANKED)
+
+    out = path.with_suffix("")
+    fig.savefig(str(out) + ".pdf", facecolor="white")
+    fig.savefig(str(out) + ".svg", facecolor="white")
+    fig.savefig(str(out) + ".png", dpi=600, facecolor="white")
+    plt.close(fig)
 
 
 def _export_svg(svg_path: Path) -> None:
@@ -224,9 +371,9 @@ def main() -> None:
     write_svg(wall_svg)
     _export_svg(wall_svg)
 
-    # Lead Fig 1 is the Wonder ship bake (figures/fig1_lead_overview.pdf/png).
-    # TeX includes the PDF; do not overwrite it from this matplotlib twin.
-    print(f"wrote {wall_svg} and pdf/png twins")
+    fig1 = root / "fig1_lead_overview"
+    write_fig1(fig1)
+    print(f"wrote {wall_svg} and {fig1}.{{pdf,png,svg}}")
 
 
 if __name__ == "__main__":
