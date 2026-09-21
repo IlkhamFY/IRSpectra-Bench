@@ -22,7 +22,7 @@ not the wall. Instrumented 58/7/129 stays SI protocol-slice.
 - Related Work densified into three agentic regimes; then compressed so the body fits 9 ICLR pages through the Conclusion.
 - Bottleneck wording: propose ≫ verify.
 - Six used display-equation blocks (7 numbered identities): factorisation, InChIKey-14, top-1, recall@k, prec.|recall, 13C chamfer, pooled estimator.
-- **Figure pack (Figma Bro):** lead Fig.~1 (`fig1_lead_overview`); Listing 1 (`listing1_irexp_record`); wall (`fig_wall_diagnostic`). Competing `fig_framework` and sibling `fig1_overview` / `fig_listing_mol` builds removed. SI reprints the three canonical files as Figs.~S1--S3.
+- **Figure pack:** lead Fig.~1 (`fig1_lead_overview`); Listing 1 (`listing1_irexp_record`); wall (`fig_wall_diagnostic`). Competing `fig_framework` and sibling `fig1_overview` / `fig_listing_mol` builds removed. SI reprints the three canonical files as Figs.~S1--S3.
 - Standalone SI (`si/supplement.tex`) grown: protocol, night-pool tables, cases, prompts, model card, fverify gaps, repro checklist.
 - Limitations (vi) + FAQ later cite the n=500 fverify wall 204/45/251;
   expand-500 chamfer 103/230 vs 129/230 stays SI (not a second wall).

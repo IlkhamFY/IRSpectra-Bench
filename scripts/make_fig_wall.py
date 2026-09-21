@@ -28,7 +28,7 @@ MISRANKED = 45
 NEVER = 251
 RECALLED = VERIFIED + MISRANKED  # 249
 
-# Figma pack teal / vermil / grey (same family as the lead plate)
+# Lead-plate teal / vermil / grey
 C_TOP1 = "#00897B"
 C_INSET = "#E53935"
 C_NEVER = "#5F6368"
@@ -95,7 +95,7 @@ def _bar(ax, n: int, y0: float = 0.30, h: float = 0.40, gap: float = 1.4) -> Non
 
 
 def write_svg(path: Path, width: float = 504.0, height: float = 102.0) -> None:
-    """Vector wall matching the Figma pack frame (print pt)."""
+    """Vector wall matching the lead-plate frame (print pt)."""
     pad_x = 12.0
     usable = width - 2 * pad_x
     y_bar = 38.0

@@ -1,4 +1,4 @@
-# BRIEF — Locked wall n=500 (Chem Partner 2026-09-20 morning)
+# BRIEF — Locked wall n=500 (2026-09-20 morning)
 
 **Superseded the same day.** The shipped wall is n=500 **fverify 204/45/251**
 (`docs/FINAL_SOURCE_OF_TRUTH_2026-09-20.md`). Generation 227/22/251 below is

@@ -21,12 +21,16 @@ Instrumented fverify is a protocol-slice diagnostic, not a second wall.
 
 ## Sections
 
-1. Figure / listing map (Fig 1 = `fig1_lead_overview`; Listing 1 = `listing1_irexp_record`; wall = `fig_wall_diagnostic`)
-2. Visual plate reprints (SI Figs. S1--S3 = n=500 plates)
-3. Full blind protocol + frozen-qid pointers + stopping rules
-4. Scoring equations
-5. Validate-clean extras (not the headline)
+1. Cross-reference to the main manuscript
+2. Reprinted figures (S1--S3)
+3. Blind protocol
+4. Scoring identities
+5. Validate-clean extras
 6. expand-500 generation (129/230, 138/230)
-7. Headline pool n=500 only
-8. Honest fverify (n=500 wall 204/45/251 from WALL_n500.md; arm table; 103/230)
-9. Extra cases, prompts, model card, reproducibility checklist
+7. Headline generation n=500
+8. Forward verification (wall 204/45/251; arm table; 103/230)
+9. Worked cases
+10. Prompt skeletons and deposit schema
+11. Model cards
+12. Companion resource and anonymity
+13. Reproducibility

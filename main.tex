@@ -75,9 +75,6 @@ Hamilton, Ontario L8S 4L8, Canada.\\
 $\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
 }
 
-\newcommand{\fix}{\marginpar{FIX}}
-\newcommand{\new}{\marginpar{NEW}}
-
 % Official ICLR 2027 switch: show \author and disable the submission linenumber
 % ruler. The same flag also sets the running header to "Published as...".
 % Double-blind (submit): keep \iclrfinalcopy commented; \maketitle then prints
@@ -659,7 +656,7 @@ but \textbf{not excluded}.
 \textbf{(iv) Statistics.} Forward-verify vs self-rank unresolved ($p{=}0.55$);
 generate-wide top-1 likewise ($p{=}0.34$). The $n{=}24$ four-model arm is underpowered.
 The ladder \textbf{diagnoses a bottleneck}; it is not an accuracy advance.
-\textbf{(v) No SOTA chase.} SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR
+\textbf{(v) Missing on-bench baselines.} SpectraLLM, IR-Agent, Spectro, NMIRacle, Alberts IR
 transformers and CASE are \textbf{not scored} here.
 \textbf{(vi) Forward-verify coverage.} Figure~\ref{fig:fig1} reports $n{=}500$
 fverify: $249/500$ (49.8\%) recall in top~3 and $204/249$ (81.9\%)
@@ -671,7 +668,6 @@ An instrumented protocol-slice diagnostic and the expand-500 chamfer arm
 parser audit deferred to the Sci.\ Data companion.
 \textbf{(viii) Scope.} Battery subset is literature electrolyte chemistry, not operando;
 single-sample scoring; PMC-OA organic bias.
-Appendix~\ref{app:faq} restates these attacks.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -739,56 +735,11 @@ Benchmark construction details beyond Section~\ref{sec:benchmark} (spectral vali
 filters, prompt-leakage audit, electrolyte SMARTS) ship with the code release and the
 companion Data Descriptor~\citep{yabbarov2026irexp}; they are not re-presented here.
 
-\section{Reviewer FAQ}
-\label{app:faq}
-
-These answers restate Limitations~\ref{sec:limitations}; they add no new metrics.
-
-\textbf{Why is top-1 45\% if the wall figure looks worse?}
-Generation remains $227/500$ (45.4\%) top-1 and $249/500$ (49.8\%) recall
-(self-rank $227/249$).
-Figure~\ref{fig:fig1} is the $n{=}500$ fverify plate:
-$249/500$ recall $\times$ $204/249$ verified $|$ pool $=40.8\%$ verified;
-wall $204/45/251$.
-Figure~\ref{fig:fig-wall} reprints that wall.
-
-\textbf{Is the roster a hidden mix?}
-The $n{=}500$ roster is the frozen \texttt{qid} list in the code release.
-Do not reconstruct a composition story from protocol notes.
-
-\textbf{Where is the instrumented forward-verify wall?}
-The $n{=}500$ wall is $204/45/251$ (Figure~\ref{fig:fig-wall}).
-The older protocol-slice diagnostic is SI. Do not invent CIs.
-
-\textbf{Where is expand-500 official fverify?}
-SI arm score (verify vs self-rank; no CIs). Not the $n{=}500$ wall.
-Headline generation is $227/500$ and $249/500$ (Eq.~\ref{eq:pool}).
-
-\textbf{Consumer harness / no snapshot / no thinking tier?}
-Correct and intentional for the scored headline. Scoring of frozen deposits is
-reproducible; inference is not bit-exact. We do not recommend thinking-high
-experiments as a revision path for a method result.
-
-\textbf{Why no SpectraLLM / IR-Agent / CASE SOTA table?}
-Different objects (simulated or NIST IR; trained agents; exhaustive enumerators).
-None is scored on this bench. The paper is a stage diagnosis, not a method race.
-
-\textbf{Is IRexp a second ICLR paper?}
-No. IRexp is a companion resource pointer (Appendix~\ref{app:dataset};
-Listing~\ref{lst:payload}).
-Corpus construction belongs in the \textit{Scientific Data} descriptor.
-
 \section{Extended tables and figures}
 \label{app:extended}
 
-This conference version keeps the protocol plate
-(Figure~\ref{fig:fig1}), chemistry space
-(Figure~\ref{fig:fig-chemspace}), Listing~\ref{lst:payload} payload,
-robustness (Figure~\ref{fig:fig-robustness}), the
-forward-verification mechanism (Figure~\ref{fig:fig-mechanism}), and the inference
-ladder (Figure~\ref{fig:fig3-method}).
 The $n{=}500$ forward-verify wall is repeated below (Figure~\ref{fig:fig-wall}).
-Protocol-slice forward-verify and expand-500 official chamfer scores live in the SI.
+Protocol-slice forward-verify and expand-500 official chamfer scores are in the SI.
 
 \begin{figure}[h]
   \centering
