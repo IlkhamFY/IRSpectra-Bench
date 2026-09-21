@@ -121,7 +121,7 @@ the correct constitution, and \textbf{which stage fails} when it cannot?
 
 We release \textbf{IRSpectra-Bench}, a blind peak-list benchmark of
 \textbf{$n{=}500$} compounds drawn from the companion \textbf{IRexp}
-resource~\citep{yabbarov2026irexp}, with a fixed RDKit InChIKey-connectivity
+resource, with a fixed RDKit InChIKey-connectivity
 contract and decomposable \textbf{generation recall} and
 \textbf{verification precision} metrics.
 A frontier model recovers \textbf{45.4\%} top-1 (227/500) and \textbf{49.8\%}
@@ -204,9 +204,9 @@ manuscript (in preparation)~\citep{yabbarov2026irexp}, not of this paper.
   peak lists $+$ formula $\rightarrow$ ranked pool $\rightarrow$ optional
   forward $^{13}$C re-rank (Eq.~\ref{eq:chamfer}) $\rightarrow$ InChIKey-14
   (Eq.~\ref{eq:ik14}); generate $249/500$ (49.8\%) recall in top~3;
-  select $227/249$ (91.2\%) when present
-  ($45.4\%\approx 49.8\%\times 91.2\%$);
-  wall $227$ top-1 / $22$ in pool, not top-1 / $251$ never proposed.}
+  select $227/249$ (91.2\%) top-1 $|$ recalled
+  ($49.8\%\times 91.2\%=45.4\%$ top-1);
+  wall $227$ exact top-1 / $22$ in-pool not top-1 / $251$ never proposed.}
   \label{fig:fig1}
 \end{figure}
 
