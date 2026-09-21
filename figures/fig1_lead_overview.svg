@@ -6,7 +6,7 @@
   <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
    <cc:Work>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:date>2026-09-21T15:52:02.113067</dc:date>
+    <dc:date>2026-09-21T15:52:57.084494</dc:date>
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
@@ -207,7 +207,7 @@ Q 89.28 182.88 89.28 186.48
 L 89.28 199.44 
 Q 89.28 203.04 92.88 203.04 
 z
-" style="fill: #fecaca"/>
+" style="fill: #d1d5db"/>
    </g>
    <g id="patch_17">
     <path d="M 295.92 203.04 
@@ -220,7 +220,7 @@ Q 292.32 182.88 292.32 186.48
 L 292.32 199.44 
 Q 292.32 203.04 295.92 203.04 
 z
-" style="fill: #fdba74"/>
+" style="fill: #9aa0a6"/>
    </g>
    <g id="text_1">
     <text style="font-weight: 700; font-size: 8px; font-family: 'Liberation Sans', 'Noto Sans', 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #0f172a" x="50.4" y="48.150312" transform="rotate(-0 50.4 48.150312)">Peak lists</text>

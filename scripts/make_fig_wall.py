@@ -155,8 +155,8 @@ def write_svg(path: Path, width: float = 504.0, height: float = 102.0) -> None:
 # Lead Fig 1 chrome — protocol dashboard matching the merged gen plate.
 C_NAVY = "#1e40af"
 C_SKY = "#bfdbfe"
-C_PINK = "#fecaca"
-C_AMBER = "#fdba74"
+C_GRAY = "#D1D5DB"
+C_GRAY_DEEP = "#9AA0A6"
 C_CARD = "#eff6ff"
 C_PANEL = "#f8fafc"
 C_DASH = "#93c5fd"
@@ -333,9 +333,9 @@ def write_fig1(path: Path) -> None:
     _funnel(124, 72, 250, 28, C_SKY, "in pool", GEN_RECALL)
     _arrow(ax, 380, 400, 86)
     _funnel(406, 72, 250, 28, C_NAVY, "exact top-1", GEN_TOP1, dark=True)
-    _funnel(124, 28, 250, 28, C_PINK, "never proposed", GEN_NEVER)
+    _funnel(124, 28, 250, 28, C_GRAY, "never proposed", GEN_NEVER)
     _arrow(ax, 380, 400, 42)
-    _funnel(406, 28, 250, 28, C_AMBER, "in pool, not top-1", GEN_NOT_TOP1)
+    _funnel(406, 28, 250, 28, C_GRAY_DEEP, "in pool, not top-1", GEN_NOT_TOP1)
 
     out = path.with_suffix("")
     fig.savefig(str(out) + ".pdf", facecolor="white")
