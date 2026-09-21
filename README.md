@@ -4,7 +4,7 @@ ICLR manuscript: recall/verification diagnosis of LLM structure elucidation.
 
 **Headline:** generation cohort **n=500** — **227/500 (45.4%)** top-1;
 **249/500 (49.8%)** recall. Generation wall: **227 / 22 / 251**.
-Forward-verify diagnostic (appendix only): **204 / 45 / 251**.
+Forward-verify diagnostic (SI): **204 / 45 / 251**.
 Corpus-reweighted top-1 (validate-clean, not n=500): **26.5%**.
 No CIs. Do not quote 243/519.
 

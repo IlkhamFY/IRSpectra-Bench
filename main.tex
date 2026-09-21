@@ -5,7 +5,7 @@
 % Overleaf: set main document to main.tex (repo root).
 % Headline n=500 generation only: 227/500 (45.4%) top-1; 249/500 (49.8%) recall.
 % Generation wall (Fig 1, lead): 227 exact top-1 / 22 in-pool not top-1 / 251 never proposed.
-% Forward-verify diagnostic (appendix fig:fig-wall only): 204 / 45 / 251. Not "the wall" in abstract, conclusion, or Fig 1.
+% Forward-verify diagnostic (SI only): 204 / 45 / 251. Not "the wall" in abstract, conclusion, or Fig 1.
 % Self-rank 227 to forward-verify 204 is -23 on n=500. Do not write "barely moves top-1".
 % No CIs. Do not quote 243/519. Do not print a 194/106/200 results split in main prose.
 % Fig 1 = fig1_lead_overview (generation: 249/500 recall, 227/249 self-rank, 45.4% top-1; wall 227/22/251).
@@ -133,7 +133,7 @@ The roster is near-50/50 simple/complex; reweighted to the eligible corpus
 mix, top-1 on a validate-clean subset is \textbf{26.5\%}.
 Forward verification of the same pools is a secondary drop, not a second wall:
 top-1 falls from 227/500 to 204/500 ($-23$;
-Appendix Figure~\ref{fig:fig-wall}; diagnostic $204/45/251$).
+diagnostic $204/45/251$; see the SI).
 On a 60-compound arm only, formula-only recovery is 3/60, accuracy is flat
 in source-paper year, and recall stays below precision across four vendor
 families.
@@ -228,7 +228,7 @@ IR+$^1$H+$^{13}$C+structure quadruples)~\citep{yabbarov2026irexp}.
 The $n{=}500$ roster is drawn from the structure-complete
 \texttt{irexp\_resolved} split; Listing~\ref{lst:payload} shows one
 JSON+molecule record.
-An anonymised review copy is in Appendix~\ref{app:dataset}.
+An anonymised review copy is in the SI.
 
 \begin{figure}[t]
   \centering
@@ -392,7 +392,7 @@ An independent forward-verification ranker (Eq.~\ref{eq:chamfer}) may
 reorder the same pool; it cannot add a missing constitution.
 The $n{=}500$ forward-verify diagnostic then partitions the same pools into
 verified, misranked and never-proposed cells
-(Figure~\ref{fig:fig-wall}); that split is not the generation wall.
+(see the SI); that split is not the generation wall.
 Because top-1 factorises as recall times precision $|$ recall, a better
 ranker cannot raise recall, and the two rates must not be differenced.
 
@@ -686,7 +686,7 @@ GPT-5.6 Sol & 25/60 = 42\% & 17/25 = 68\% & 16/24 = 67\% \\
   \centering
   \includegraphics[width=0.64\linewidth]{fig_mechanism.pdf}
   \caption{Case v3-R25: self-rank prefers 3-pyridyl; forward $^{13}$C
-  recovers 2-pyridyl (chamfer 0.42 vs 1.30~ppm; Table~\ref{tab:cases}).}
+  recovers 2-pyridyl (chamfer 0.42 vs 1.30~ppm; see the SI).}
   \label{fig:fig-mechanism}
 \end{figure}
 
@@ -700,12 +700,12 @@ On $n{=}500$, forward-verify top-1 is $204/500$, a drop of 23 from self-rank
 $227/500$.
 The forward-verify diagnostic --- not the generation wall --- is
 $204$ verified / $45$ misranked / $251$ never proposed
-(Figure~\ref{fig:fig-wall}).
+(see the SI).
 No re-ranking of an already-proposed pool repairs the $251$ compounds
 where the true structure never entered the list.
 
 \paragraph{Worked cases.}
-Three deposits instantiate these modes (Appendix Table~\ref{tab:cases}).
+Three deposits instantiate these modes (see the SI).
 \textbf{main-R06} (C$_{29}$H$_{30}$FNO$_{2}$): true acridinedione never enters the 3-candidate
 pool (Tanimoto-0.90 regioisomer); verifier unused.
 \textbf{v3-R25} (C$_{10}$H$_{14}$N$_{2}$O): verify-save --- self-rank prefers 3-pyridyl,
@@ -758,7 +758,7 @@ On those deposits one closed-book harness self-ranks a proposed pool in
 $227/249$ cases and fails to propose the true constitution in 251 of 500
 (generation wall $227/22/251$; Figure~\ref{fig:fig1}).
 Forward verification is the secondary drop, $227/500 \to 204/500$
-(Figure~\ref{fig:fig-wall}).
+(see the SI).
 Table~\ref{tab:headline} places corpus-reweighted 26.5\% beside 45.4\%.
 These numbers are not a solved elucidator, and they are not a score for
 IR-Agent, CASE, or a trained spectra-to-structure model.
@@ -824,7 +824,7 @@ The generation wall is $227$ exact top-1 / $22$ in-pool not top-1 /
 $251$ never proposed.
 Forward verification of the same pools is diagnostic only: top-1 falls
 from 227 to 204 ($204$ verified / $45$ misranked / $251$ never proposed;
-Figure~\ref{fig:fig-wall}).
+see the SI).
 On a 60-compound arm the recall gap appears in four vendor families;
 that arm is not the $n{=}500$ result.
 We release the deposits and the scorer.
@@ -865,72 +865,5 @@ so roster InChIKeys are withheld.
 We acknowledge support from the Natural Sciences and Engineering Research Council of Canada (NSERC) through a CREATE training program. Institutional details and named funding references are omitted for double-blind review and will be restored in the camera-ready version.
 \bibliography{references}
 \bibliographystyle{iclr2027_conference}
-
-\appendix
-
-\section{IRexp peak-list resource}
-\label{app:dataset}
-
-Peak lists for IRSpectra-Bench are drawn from IRexp (121,233 records;
-43,060 structure-linked; 33,201 full IR+$^1$H+$^{13}$C+structure
-quadruples; \texttt{irexp\_resolved})~\citep{yabbarov2026irexp}.
-During double-blind review the commercial redistributable pool is
-available from an anonymised copy (no author-identifying host):
-\url{https://anonymous.4open.science/r/peaklist-corpus-review-10C4/}.
-Named archival hosting replaces that URL at camera-ready.
-File schema and aggregate counts ship with the copy
-(\texttt{SCHEMA.md}, \texttt{data/}).
-Spectral validation filters, the prompt-leakage audit and electrolyte
-SMARTS live in the code release.
-
-\section{Extended tables and figures}
-\label{app:extended}
-
-Figure~\ref{fig:fig-wall} reprints the $n{=}500$ forward-verify decomposition.
-Protocol-slice forward-verify and expand-500 official chamfer scores are in the SI.
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.92\linewidth]{fig_wall_diagnostic.pdf}
-  \caption{Forward-verify diagnostic on the same $n{=}500$ pools
-  (not the generation wall in Figure~\ref{fig:fig1}):
-  \textbf{204} verified / \textbf{45} misranked /
-  \textbf{251} never proposed.
-  Verified top-1 is $204/500$, a drop of 23 from self-rank $227/500$.
-  Generation recall remains $249/500$.}
-  \label{fig:fig-wall}
-\end{figure}
-
-\begin{table}[h]
-\caption{Worked cases show three failure modes from released candidate
-files ($^{13}$C chamfers in ppm; Tanimoto Morgan $r{=}2$).}
-\label{tab:cases}
-\centering
-\scriptsize
-\setlength{\tabcolsep}{3.5pt}
-\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{2.15cm}>{\raggedright\arraybackslash}p{8.75cm}@{}}
-\toprule
-mode & id / formula & what failed \\
-\midrule
-\textbf{Proposal miss} &
-main-R06 / C$_{29}$H$_{30}$FNO$_{2}$ &
-True acridinedione never in the 3-candidate pool (Tanimoto-0.90 regioisomer: 4-fluorophenyl/phenyl swapped).
-IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused. \\
-\textbf{Verify-save} &
-v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
-True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
-Forward-verify recovers (chamfer 0.42 vs 1.30~ppm). IR 1679~cm$^{-1}$.
-Fig.~\ref{fig:fig-mechanism}. \\
-\textbf{Verify-fail} &
-v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$ &
-True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2); 2-nitro ranked first.
-Chamfer 1.35 vs 1.36~ppm. IR 1652, 1530, 1352~cm$^{-1}$. \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-Validate-clean scaffold / size / stereo extras, the instrumented protocol-slice
-diagnostic, and the expand-500 chamfer arm are in the standalone SI
-(\texttt{si/supplement.pdf}); they are not a second wall.
 
 \end{document}
