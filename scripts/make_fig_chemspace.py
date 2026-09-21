@@ -254,14 +254,14 @@ def draw(locked, expand, out: Path):
     ax_a.set_xlabel("molecular weight")
     ax_a.set_xlim(100, 860)
     ax_a.set_xticks([200, 400, 600, 800])
-    fs.panel(ax_a, "a", x=-0.22, y=1.12)
+    fs.panel(ax_a, "a", x=-0.22, y=1.03)
 
     ring_edges = np.array([0, 1, 2, 3, 4, 5, 6, np.inf])
     ring_labels = ["0", "1", "2", "3", "4", "5", "\u22656"]
     _stack_counts(ax_b, _vals(locked, "rings"), _vals(expand, "rings"), ring_labels, ring_edges)
     _clean_ax(ax_b)
     ax_b.set_xlabel("rings")
-    fs.panel(ax_b, "b", x=-0.14, y=1.12)
+    fs.panel(ax_b, "b", x=-0.14, y=1.03)
 
     # Observed C–F counts are {0,1,2,3,6}; the last bar is the single 6-bond molecule.
     cf_edges = np.array([0, 1, 2, 3, 4, np.inf])
@@ -269,26 +269,38 @@ def draw(locked, expand, out: Path):
     _stack_counts(ax_c, _vals(locked, "cf"), _vals(expand, "cf"), cf_labels, cf_edges)
     _clean_ax(ax_c)
     ax_c.set_xlabel("C–F bonds")
-    fs.panel(ax_c, "c", x=-0.14, y=1.12)
+    fs.panel(ax_c, "c", x=-0.14, y=1.03)
 
     n_edges = np.array([0, 1, 2, 3, 4, 5, np.inf])
     n_labels = ["0", "1", "2", "3", "4", "\u22655"]
     _stack_counts(ax_d, _vals(locked, "n"), _vals(expand, "n"), n_labels, n_edges)
     _clean_ax(ax_d)
     ax_d.set_xlabel("N atoms")
-    fs.panel(ax_d, "d", x=-0.14, y=1.12)
+    fs.panel(ax_d, "d", x=-0.14, y=1.03)
 
-    fig.legend(
+    # Legend in the reserved top strip (finish() first). loc=upper center at
+    # y>1.0 clips "locked" / "expansion" ascenders against the figure edge.
+    fs.finish(fig, pad=0.30, w_pad=0.70, h_pad=0.40, left=0.065, top=0.78)
+    leg = fig.legend(
         handles=[
             Patch(facecolor=fs.BLUE, edgecolor="none", label="locked"),
             Patch(facecolor=fs.SKY, edgecolor="none", label="expansion"),
         ],
         loc="upper center",
         ncol=2,
-        bbox_to_anchor=(0.5, 1.06),
+        bbox_to_anchor=(0.5, 0.995),
+        bbox_transform=fig.transFigure,
         frameon=False,
+        borderpad=0.35,
     )
-    fs.finish(fig, pad=0.30, w_pad=0.70, h_pad=0.40, left=0.065, top=0.78)
+    fig.canvas.draw()
+    bb = leg.get_window_extent(fig.canvas.get_renderer()).transformed(
+        fig.transFigure.inverted()
+    )
+    if bb.y1 > 0.998 or bb.y0 < 0.78:
+        raise SystemExit(
+            f"chemspace legend not in top strip: y0={bb.y0:.3f} y1={bb.y1:.3f}"
+        )
     out.parent.mkdir(parents=True, exist_ok=True)
     fs.save(str(out), fig)
     plt.close(fig)
