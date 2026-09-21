@@ -14,11 +14,10 @@ We submit our manuscript entitled *Molecular Structure Elucidation with Frontier
 
 Frontier models have shown strong performance on molecular structure elucidation, but it is unclear how well those results transfer to heterogeneous experimental reports. We ask an operational question: given only a molecular formula and literature-reported IR, ¹H and ¹³C NMR peak lists—not digitised spectral images—can an off-the-shelf frontier model recover the correct constitution, and which stage fails when it cannot?
 
-We introduce **IRSpectra-Bench**, a blind, mechanically scored peak-list benchmark scored on 500 compounds drawn from redistributable experimental band lists (**IRexp**; companion Scientific Data Data Descriptor, in preparation), with a fixed RDKit InChIKey-connectivity scoring contract and decomposable generation-recall / verification-precision metrics.
+We introduce **IRSpectra-Bench**, a blind, mechanically scored peak-list benchmark scored on 500 compounds drawn from the **IRexp** spectral peak-list resource, with a fixed RDKit InChIKey-connectivity scoring contract and decomposable generation-recall / verification-precision metrics.
 On IRSpectra-Bench, a frontier model recovers 45.4% top-1 (227/500) and 49.8% generation recall (249/500).
-The bottleneck is candidate proposal, not verification: the n=500 forward-verify wall is 204 verified / 45 misranked / 251 never proposed.
+The bottleneck is candidate proposal: the n=500 forward-verify wall is 204 verified / 45 misranked / 251 never proposed.
 The same recall ≪ precision asymmetry replicates across four vendor families.
-This ICLR paper cites IRexp as infrastructure and does not re-present a Data Descriptor.
 
 This work was supported by NSERC funding reference number 596133-2025 (CREATE for Accelerated Discovery, AccelD), delivered through the Acceleration Consortium.
 
