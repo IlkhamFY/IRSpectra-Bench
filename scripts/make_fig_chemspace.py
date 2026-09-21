@@ -254,14 +254,14 @@ def draw(locked, expand, out: Path):
     ax_a.set_xlabel("molecular weight")
     ax_a.set_xlim(100, 860)
     ax_a.set_xticks([200, 400, 600, 800])
-    fs.panel(ax_a, "a", x=-0.22, y=1.12)
+    fs.panel(ax_a, "a", x=-0.22, y=1.03)
 
     ring_edges = np.array([0, 1, 2, 3, 4, 5, 6, np.inf])
     ring_labels = ["0", "1", "2", "3", "4", "5", "\u22656"]
     _stack_counts(ax_b, _vals(locked, "rings"), _vals(expand, "rings"), ring_labels, ring_edges)
     _clean_ax(ax_b)
     ax_b.set_xlabel("rings")
-    fs.panel(ax_b, "b", x=-0.14, y=1.12)
+    fs.panel(ax_b, "b", x=-0.14, y=1.03)
 
     # Observed C–F counts are {0,1,2,3,6}; the last bar is the single 6-bond molecule.
     cf_edges = np.array([0, 1, 2, 3, 4, np.inf])
@@ -269,14 +269,14 @@ def draw(locked, expand, out: Path):
     _stack_counts(ax_c, _vals(locked, "cf"), _vals(expand, "cf"), cf_labels, cf_edges)
     _clean_ax(ax_c)
     ax_c.set_xlabel("C–F bonds")
-    fs.panel(ax_c, "c", x=-0.14, y=1.12)
+    fs.panel(ax_c, "c", x=-0.14, y=1.03)
 
     n_edges = np.array([0, 1, 2, 3, 4, 5, np.inf])
     n_labels = ["0", "1", "2", "3", "4", "\u22655"]
     _stack_counts(ax_d, _vals(locked, "n"), _vals(expand, "n"), n_labels, n_edges)
     _clean_ax(ax_d)
     ax_d.set_xlabel("N atoms")
-    fs.panel(ax_d, "d", x=-0.14, y=1.12)
+    fs.panel(ax_d, "d", x=-0.14, y=1.03)
 
     # Legend in the reserved top strip (finish() first). loc=upper center at
     # y>1.0 clips "locked" / "expansion" ascenders against the figure edge.
