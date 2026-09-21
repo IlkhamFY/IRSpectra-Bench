@@ -1,0 +1,7 @@
+set,n,recall_ik14,top1,notes
+generation_finished_within_45s,15,15/15,4/5 on the 5 ranked sets; 10 sets above 80000 unique were not ranked,gold in every exhausted set
+ranked_unique_ik14_le_80000,5,5/5,4/5,GNN 13C chamfer; gnn top-3 also 4/5
+timeout_45s,14,not established,not ranked,partial SMILES deleted; not a demonstrated miss
+unsupported_formula,2,0/2,not ranked,MAYGEN rejected Sn and Si formulas
+declared_attempt_HA_le_12,31,15/15 on the 15 that finished,4/5 on the ranked 5,469 of the headline 500 were not attempted
+opus_on_the_same_15_finished,15,12/15 recall@3,11/15,"deposited candidates, same InChIKey-14; not exchangeable with enumerator recall@all"

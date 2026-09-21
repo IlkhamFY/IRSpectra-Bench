@@ -1,0 +1,87 @@
+{
+  "generator": "MAYGEN 1.8",
+  "ranker": "deposited nmrshiftdb GNN 13C chamfer (spectro-agent data/nmrshiftdb/gnn_c13.pt)",
+  "scoring": "RDKit InChIKey-14",
+  "declared_attempt": "headline compounds with heavy-atom count <= 12",
+  "attempted_n": 31,
+  "not_attempted_n": 469,
+  "timeout_s": 45,
+  "rank_cap_unique_ik14": 80000,
+  "counts": {
+    "generation_finished": 15,
+    "ranked": 5,
+    "finished_above_rank_cap": 10,
+    "timeout": 14,
+    "unsupported": 2
+  },
+  "quotable": {
+    "recall_where_generation_finished": "15/15",
+    "top1_on_ranked_subset": "4/5",
+    "gnn_top3_on_ranked_subset": "4/5",
+    "opus_top1_on_those_15": "11/15",
+    "opus_recall3_on_those_15": "12/15"
+  },
+  "do_not_quote": [
+    "15/31 is a stop-rule total only if timeouts and unsupported formulas are called misses. The 14 timeouts were not shown to lack the gold; the partial file was deleted.",
+    "4/31 is not a top-1. Top-1 was computed on 5 compounds.",
+    "n_smiles_scanned on unranked rows is the line where the gold key was found, not the size of the isomer set. The scan stopped at the hit.",
+    "This is not a score on the n=500 headline."
+  ],
+  "ranked_sets": [
+    {
+      "slice": "locked_194",
+      "qid": "R41",
+      "formula": "C6H13NO2",
+      "n_unique_ik14": 23708,
+      "recall": 1,
+      "top1": 1,
+      "gnn_top3": 1,
+      "opus_top1": 0,
+      "opus_recall": 0
+    },
+    {
+      "slice": "locked_194",
+      "qid": "R60",
+      "formula": "C9H16O",
+      "n_unique_ik14": 29172,
+      "recall": 1,
+      "top1": 0,
+      "gnn_top3": 0,
+      "opus_top1": 1,
+      "opus_recall": 1
+    },
+    {
+      "slice": "thinking_200",
+      "qid": "R110",
+      "formula": "C6H8O2",
+      "n_unique_ik14": 10872,
+      "recall": 1,
+      "top1": 1,
+      "gnn_top3": 1,
+      "opus_top1": 1,
+      "opus_recall": 1
+    },
+    {
+      "slice": "thinking_200",
+      "qid": "R187",
+      "formula": "C8H17BrO",
+      "n_unique_ik14": 1157,
+      "recall": 1,
+      "top1": 1,
+      "gnn_top3": 1,
+      "opus_top1": 1,
+      "opus_recall": 1
+    },
+    {
+      "slice": "thinking_200",
+      "qid": "R190",
+      "formula": "C11H24O",
+      "n_unique_ik14": 2426,
+      "recall": 1,
+      "top1": 1,
+      "gnn_top3": 1,
+      "opus_top1": 1,
+      "opus_recall": 1
+    }
+  ]
+}
