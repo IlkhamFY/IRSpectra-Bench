@@ -18,8 +18,13 @@ ATOM_LAB = {7: "N", 8: "O", 9: "F", 16: "S", 15: "P"}
 def _trim(img: Image.Image, pad: int = 10) -> Image.Image:
     arr = np.asarray(img)
     if arr.ndim == 3 and arr.shape[2] == 4:
-        ink = arr[:, :, 3] > 8
-        ink |= arr[:, :, :3].min(axis=2) < 248
+        visible = arr[:, :, 3] > 8
+        if visible.any() and float(visible.mean()) < 0.95:
+            # Real alpha (transparent canvas): crop to visible ink only.
+            # Do not treat punched (0,0,0,0) pixels as ink.
+            ink = visible
+        else:
+            ink = arr[:, :, :3].min(axis=2) < 248
     else:
         ink = arr.min(axis=2) < 248 if arr.ndim == 3 else arr < 248
     ys, xs = np.where(ink)
@@ -30,7 +35,47 @@ def _trim(img: Image.Image, pad: int = 10) -> Image.Image:
     return img.crop((l, t, r, b))
 
 
-def mol_image(smiles: str, w: int = 560, h: int = 400) -> Image.Image:
+def transparent_canvas(img: Image.Image, thresh: int = 248) -> Image.Image:
+    """Punch only the page-white *canvas* to alpha (Sci Data mol style).
+
+    Flood-fills near-white pixels connected to the image border. Interior
+    white knockout disks under heteroatom labels stay opaque so bonds do
+    not show through N/O/Br letters.
+    """
+    arr = np.array(img.convert("RGBA"))
+    h, w = arr.shape[:2]
+    white = arr[:, :, :3].min(axis=2) >= thresh
+    vis = np.zeros((h, w), dtype=bool)
+    stack: list[tuple[int, int]] = []
+
+    def push(y: int, x: int) -> None:
+        if 0 <= y < h and 0 <= x < w and not vis[y, x] and white[y, x]:
+            vis[y, x] = True
+            stack.append((y, x))
+
+    for x in range(w):
+        push(0, x)
+        push(h - 1, x)
+    for y in range(h):
+        push(y, 0)
+        push(y, w - 1)
+    while stack:
+        y, x = stack.pop()
+        push(y + 1, x)
+        push(y - 1, x)
+        push(y, x + 1)
+        push(y, x - 1)
+    arr[vis, 3] = 0
+    return Image.fromarray(arr)
+
+
+def mol_image(
+    smiles: str,
+    w: int = 560,
+    h: int = 400,
+    *,
+    transparent: bool = True,
+) -> Image.Image:
     """High-res RDKit Cairo drawing (amide H, aromatic rings, heteroatom colors)."""
     mol = PrepareMolForDrawing(Chem.MolFromSmiles(smiles))
     d = rdMolDraw2D.MolDraw2DCairo(w, h)
@@ -38,9 +83,13 @@ def mol_image(smiles: str, w: int = 560, h: int = 400) -> Image.Image:
     opt.bondLineWidth = 1.8
     opt.additionalAtomLabelPadding = 0.08
     opt.fixedFontSize = 18
+    if transparent and hasattr(opt, "clearBackground"):
+        opt.clearBackground = False
     d.DrawMolecule(mol)
     d.FinishDrawing()
     raw = Image.open(io.BytesIO(d.GetDrawingText())).convert("RGBA")
+    if transparent:
+        raw = transparent_canvas(raw)
     trimmed = _trim(raw, pad=18)
     return trimmed
 

@@ -22,6 +22,7 @@ Generation headline is separate and unchanged.
 ## Superseded (do not use on figures)
 - Old n=194 wall: verified 58 | mis-ranked 7 | never proposed 129; 65/194 (34%); 58/65 (89%); 28%→30%
 
-## Listing 1 (unchanged asset)
-Listing 1 JSON: exact fields from /workspace/IRexp_fresh/scientific_data.tex lst:example
-Molecule assets: /workspace/IRexp_fresh/figures/fig_example_mol_rdkit.{pdf,png}
+## Listing 1
+Listing 1 JSON: commercial-DoR `ILJNJJNKEOAREX-UHFFFAOYSA-N` (PMC12566713),
+not the Sci Data `lst:example` urea. Rebuild: `scripts/make_listing1.py`.
+Molecule: transparent-canvas RDKit via `scripts/drawmol.py`.

@@ -83,7 +83,7 @@ Use it only when labeled as **generation**. It is **not** the wall.
 | float | file | caption lock |
 |---|---|---|
 | Fig 1 | `figures/fig1_lead_overview.{pdf,png,svg}` | protocol + n=500 **fverify**: 249/500 recall, 204/249 verified\|pool, 40.8% verified; wall **204/45/251** |
-| Listing 1 | `figures/listing1_irexp_record.{pdf,png,svg}` | IRexp JSON + molecule (NTJIYHYWVZYBEX; commercial DoR) |
+| Listing 1 | `figures/listing1_irexp_record.{pdf,png,svg}` | IRexp JSON + molecule (ILJNJJNKEOAREX; commercial DoR) |
 | Wall | `figures/fig_wall_diagnostic.{pdf,png,svg}` | fverify **204/45/251** |
 | SI-only slice | `figures/fig_wall_fverify_slice.*` | 58/7/129 protocol-slice; not cited as the paper wall |
 
