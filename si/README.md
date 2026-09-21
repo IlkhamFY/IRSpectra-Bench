@@ -22,7 +22,7 @@ Instrumented fverify is a protocol-slice diagnostic, not a second wall.
 ## Sections
 
 1. Cross-reference to the main manuscript
-2. Reprinted figures (S1--S3)
+2. Reprinted figures (S1 protocol plate; Listing 1 live reprint; S2 wall)
 3. Blind protocol
 4. Scoring identities
 5. Validate-clean extras

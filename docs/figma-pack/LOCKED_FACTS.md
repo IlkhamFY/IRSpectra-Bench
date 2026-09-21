@@ -24,5 +24,5 @@ Generation headline is separate and unchanged.
 
 ## Listing 1
 Listing 1 JSON: commercial-DoR `ILJNJJNKEOAREX-UHFFFAOYSA-N` (PMC12566713),
-not the Sci Data `lst:example` urea. Rebuild: `scripts/make_listing1.py`.
-Molecule: transparent-canvas RDKit via `scripts/drawmol.py`.
+not the Sci Data `lst:example` urea. Live lstlisting in `main.tex`.
+Molecule: PubChem 3D CID 57398578 via `scripts/make_listing1.py`.
