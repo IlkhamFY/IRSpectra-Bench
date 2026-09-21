@@ -58,8 +58,8 @@
 IRSpectra-Bench: protocol, tables, cases, and reproducibility}
 \author{Anonymous authors\\[2pt]
 \textit{Companion to the ICLR 2027 submission}\\
-Molecular Structure Elucidation with Frontier Models:\\
-A Benchmark on Literature-Reported IR, $^1$H, and $^{13}$C NMR Peak Lists}
+Proposal, Not Ranking, Binds Structure Elucidation\\
+from Literature Peak Lists}
 \date{21 September 2026}
 
 \begin{document}
@@ -114,7 +114,7 @@ Listing~\texttt{lst:payload} &
   Reprinted below. \\
 Fig.~\texttt{fig-wall} &
   appendix (\texttt{fig\_wall\_diagnostic}) &
-  $n{=}500$ forward-verify wall $204/45/251$.
+  $n{=}500$ forward-verify diagnostic $204/45/251$.
   Reprinted as Fig.~\ref{si:fig:wall}. \\
 Fig.~\texttt{fig-robustness} &
   Fig.~2 &
@@ -179,7 +179,8 @@ SMILES and InChIKey are resource fields, not solver payload.}
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
-\caption{The reprint shows the $n{=}500$ forward-verify wall:
+\caption{The reprint shows the $n{=}500$ forward-verify diagnostic
+(not the generation wall):
 $204$ verified / $45$ misranked / $251$ never proposed;
 generation remains $227/500$ top-1 and $249/500$ recall.}
 \label{si:fig:wall}
@@ -210,7 +211,7 @@ the eligible IRexp corpus is 17.5\% simple / 82.5\% complex.
 Corpus-reweighted extras on a validate-clean subset are in
 \S\ref{si:extras} and are not $n{=}500$ figures.
 
-\subsection{Pre-registration}
+\subsection{Frozen roster}
 
 The code release records the frozen roster and the expand-500 campaign.
 
@@ -297,7 +298,7 @@ d(P,Q)
 where $\hat P(c)$ is predicted \emph{blind} to the observed list $P_{\mathrm{obs}}$.
 An instrumented diagnostic on a protocol slice is $58/65$
 (\S\ref{si:fverify}).
-The $n{=}500$ forward-verify wall is $204/45/251$
+The $n{=}500$ forward-verify diagnostic is $204/45/251$
 (\S\ref{si:fverify}; \texttt{data/fverify\_n500/WALL\_n500.md}).
 The expand-500 official arm score is $103/230$ verify vs $129/230$ self
 (\S\ref{si:fverify}).
@@ -449,7 +450,7 @@ simple 161/248 (65\%) top-1 / 172/248 (69\%) recall;
 complex 66/252 (26\%) / 77/252 (31\%).
 Self-rank precision $|$ recall: $227/249$ (91.2\%).
 The $n{=}519$ pooled print ($243/519$) is not the headline.
-The $n{=}500$ forward-verify wall is $204/45/251$ (\S\ref{si:fverify}).
+The $n{=}500$ forward-verify diagnostic is $204/45/251$ (\S\ref{si:fverify}).
 
 %======================================================================
 \section{Forward verification}
@@ -653,10 +654,6 @@ Haiku $\subset$ Sonnet $\subset$ Opus $\subset$ Fable is
 capability-sensitive but underpowered for adjacent ranks, with a
 protocol asymmetry.
 
-\paragraph{Difficulty variation.}
-Pre-registered draws differ in difficulty.
-The headline remains $n{=}500$ (Eq.~\ref{si:eq:pool}).
-
 %======================================================================
 \section{Prompts and deposit schema}
 \label{si:prompt}
@@ -816,8 +813,9 @@ the forward-verify row is the instrumented protocol slice (58/65).
 \section{IRexp resource and anonymity}
 \label{si:split}
 
-IRSpectra-Bench is the blind peak-list benchmark and the propose $\gg$
-verify diagnosis.
+IRSpectra-Bench is the frozen peak-list roster and the factorised
+diagnosis (generation wall $227/22/251$; forward-verify diagnostic
+$204/45/251$).
 IRexp is the spectral peak-list resource those problems are drawn from:
 121,233 records; 43,060 structure-linked; 33,201 full
 IR+$^1$H+$^{13}$C+structure quadruples (\texttt{irexp\_resolved}).
