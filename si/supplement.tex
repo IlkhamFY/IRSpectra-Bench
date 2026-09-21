@@ -113,9 +113,9 @@ Listing~\texttt{lst:payload} &
   SMILES and InChIKey are resource fields, not solver payload.
   Reprinted below. \\
 Fig.~\texttt{fig-wall} &
-  appendix (\texttt{fig\_wall\_diagnostic}) &
-  $n{=}500$ forward-verify wall $204/45/251$.
-  Reprinted as Fig.~\ref{si:fig:wall}. \\
+  moved here (\texttt{fig\_wall\_diagnostic}) &
+  $n{=}500$ forward-verify diagnostic $204/45/251$.
+  Fig.~\ref{si:fig:wall}. \\
 Fig.~\texttt{fig-robustness} &
   Fig.~2 &
   Formula-only, recency, and four-vendor controls (not reprinted). \\
@@ -127,13 +127,13 @@ Fig.~\texttt{fig3-method} &
   Inference ladder on the 60-compound arm
   (23\% $\to$ 27\% $\to$ 30\%).
   Reprinted as Fig.~\ref{si:fig:ladder}. \\
-App.\ cases &
-  Table~\texttt{tab:cases} (kept in main appendix) &
-  Same integers as \S\ref{si:cases}. \\
+worked cases &
+  Table~\texttt{tab:cases} (moved here) &
+  \S\ref{si:cases}. \\
 validate-clean extras &
   main headline one-liner; tables here &
   Scaffold / Tanimoto / stereo / size bins / corpus-reweight
-  (\S\ref{si:extras}). Not reprinted as appendix prose. \\
+  (\S\ref{si:extras}). \\
 lit.\ decomp.\ table &
   moved here (\S\ref{si:fverify} onward / literature) &
   Full top-1 / top-$k$ rows; not one collapse onto literature peak lists. \\
@@ -150,9 +150,10 @@ The pooled estimator (former main-text Eq.~(7)) lives only here.
 \section{Reprinted figures}
 \label{si:plates}
 
-Figures~\ref{si:fig:lead} and~\ref{si:fig:wall} reprint the main-text
-protocol plate and the $n{=}500$ forward-verify diagnostic so the supplement can be read
-alone. Listing~1 is reprinted with the same live lstlisting$+$framed
+Figure~\ref{si:fig:lead} reprints the main-text protocol plate.
+Figure~\ref{si:fig:wall} is the $n{=}500$ forward-verify diagnostic
+(moved here from the main text) so the supplement can be read alone.
+Listing~1 is reprinted with the same live lstlisting$+$framed
 layout (PubChem 3D, CID 57398578).
 Cohort chemistry and the 60-compound inference ladder live only here
 so the ICLR body can keep the narrative.
@@ -179,10 +180,14 @@ SMILES and InChIKey are resource fields, not solver payload.}
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
-\caption{The reprint shows the $n{=}500$ forward-verify wall:
-$204$ verified / $45$ misranked / $251$ never proposed;
-generation remains $227/500$ top-1 and $249/500$ recall.}
+\caption{The forward-verify diagnostic on the same $n{=}500$ pools
+(not the generation wall in main-text Figure~1):
+\textbf{204} verified / \textbf{45} misranked /
+\textbf{251} never proposed.
+Verified top-1 is $204/500$, a drop of 23 from self-rank $227/500$.
+Generation recall remains $249/500$.}
 \label{si:fig:wall}
+\label{fig:fig-wall}
 \end{figure}
 
 %======================================================================
@@ -210,7 +215,7 @@ the eligible IRexp corpus is 17.5\% simple / 82.5\% complex.
 Corpus-reweighted extras on a validate-clean subset are in
 \S\ref{si:extras} and are not $n{=}500$ figures.
 
-\subsection{Pre-registration}
+\subsection{Frozen roster}
 
 The code release records the frozen roster and the expand-500 campaign.
 
@@ -297,7 +302,7 @@ d(P,Q)
 where $\hat P(c)$ is predicted \emph{blind} to the observed list $P_{\mathrm{obs}}$.
 An instrumented diagnostic on a protocol slice is $58/65$
 (\S\ref{si:fverify}).
-The $n{=}500$ forward-verify wall is $204/45/251$
+The $n{=}500$ forward-verify diagnostic is $204/45/251$
 (\S\ref{si:fverify}; \texttt{data/fverify\_n500/WALL\_n500.md}).
 The expand-500 official arm score is $103/230$ verify vs $129/230$ self
 (\S\ref{si:fverify}).
@@ -449,13 +454,17 @@ simple 161/248 (65\%) top-1 / 172/248 (69\%) recall;
 complex 66/252 (26\%) / 77/252 (31\%).
 Self-rank precision $|$ recall: $227/249$ (91.2\%).
 The $n{=}519$ pooled print ($243/519$) is not the headline.
-The $n{=}500$ forward-verify wall is $204/45/251$ (\S\ref{si:fverify}).
+The $n{=}500$ forward-verify diagnostic is $204/45/251$ (\S\ref{si:fverify}).
 
 %======================================================================
-\section{Forward verification}
+\section{Forward-verify diagnostic}
 \label{si:fverify}
 
-\subsection{Forward-verify diagnostic}
+Figure~\ref{fig:fig-wall} is the $n{=}500$ forward-verify decomposition.
+Protocol-slice forward-verify and expand-500 official chamfer scores
+follow in this section.
+Validate-clean scaffold, size, and stereo extras are in \S\ref{si:extras};
+they are not a second wall.
 
 Classification:
 \textbf{verified} = recalled and chamfer-ranked first;
@@ -483,7 +492,7 @@ expand-500 cut & 200 & 90 & 26 & 84 \\
 \end{table}
 
 Recalled $=204+45=249/500$, matching committed generation recall.
-Appendix Figure~\texttt{fig-wall} shows this $204/45/251$ forward-verify diagnostic.
+Figure~\ref{fig:fig-wall} shows this $204/45/251$ forward-verify diagnostic.
 Figure~1 reports the generation wall
 ($249/500$ recall $\times$ $227/249$ self-rank $=45.4\%$ top-1; wall $227/22/251$).
 
@@ -553,31 +562,32 @@ Deranging observed $^{13}$C pairings collapses precision ($p{=}0.001$).
 \section{Worked cases}
 \label{si:cases}
 
-The three locked-slice modes in the main appendix, plus additional
+The three locked failure modes, plus additional
 panels that use already-reported numbers. Expansion qids reuse R22/R25.
 No SMILES are invented for R06/R26; only v3-R25 molecules are drawn
 (Figure~\ref{si:fig:r25}).
 
 \begin{table}[h]
-\caption{The case grid shows three failure modes, with the same integers
-as the main-text case table.}
+\caption{Worked cases show three failure modes from released candidate
+files ($^{13}$C chamfers in ppm; Tanimoto Morgan $r{=}2$).}
+\label{tab:cases}
 \centering
 \small
 \begin{tabular}{@{}llp{7.4cm}@{}}
 \toprule
-mode & id / formula & notes \\
+mode & id / formula & what failed \\
 \midrule
-Proposal miss &
+\textbf{Proposal miss} &
 main-R06 / C$_{29}$H$_{30}$FNO$_{2}$ &
 True acridinedione never in the 3-candidate pool
 (Tanimoto-0.90 regioisomer: 4-fluorophenyl / phenyl swapped).
 IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused. \\
-Verify-save &
+\textbf{Verify-save} &
 v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm). IR 1679~cm$^{-1}$.
 Figure~\ref{si:fig:r25}. \\
-Verify-fail &
+\textbf{Verify-fail} &
 v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$ &
 True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2);
 2-nitro ranked first. Chamfer 1.35 vs 1.36~ppm.
@@ -652,10 +662,6 @@ recall-bound.
 Haiku $\subset$ Sonnet $\subset$ Opus $\subset$ Fable is
 capability-sensitive but underpowered for adjacent ranks, with a
 protocol asymmetry.
-
-\paragraph{Difficulty variation.}
-Pre-registered draws differ in difficulty.
-The headline remains $n{=}500$ (Eq.~\ref{si:eq:pool}).
 
 %======================================================================
 \section{Prompts and deposit schema}
@@ -813,26 +819,26 @@ The solver-alone precision column on $n{=}500$ is self-ranking (227/249);
 the forward-verify row is the instrumented protocol slice (58/65).
 
 %======================================================================
-\section{IRexp resource and anonymity}
+\section{IRexp resource}
 \label{si:split}
+\label{app:dataset}
 
-IRSpectra-Bench is the blind peak-list benchmark and the propose $\gg$
-verify diagnosis.
-IRexp is the spectral peak-list resource those problems are drawn from:
-121,233 records; 43,060 structure-linked; 33,201 full
-IR+$^1$H+$^{13}$C+structure quadruples (\texttt{irexp\_resolved}).
-File schema and aggregate counts ship with the review copy
-(\texttt{SCHEMA.md}, \texttt{data/}).
-Benchmark construction details beyond the main-text contract
-(spectral validation filters, prompt-leakage audit, electrolyte SMARTS)
-live in the code release.
-
-Double-blind review copy:
+Peak lists for IRSpectra-Bench are drawn from IRexp (121,233 records;
+43,060 structure-linked; 33,201 full IR+$^1$H+$^{13}$C+structure
+quadruples; \texttt{irexp\_resolved}).
+IRSpectra-Bench is the frozen peak-list roster and the factorised
+diagnosis (generation wall $227/22/251$; forward-verify diagnostic
+$204/45/251$).
+During double-blind review the commercial redistributable pool is
+available from an anonymised copy (no author-identifying host):
 \url{https://anonymous.4open.science/r/peaklist-corpus-review-10C4/}.
-Named archival hosting is restored at camera-ready.
+Named archival hosting replaces that URL at camera-ready.
+File schema and aggregate counts ship with the copy
+(\texttt{SCHEMA.md}, \texttt{data/}).
+Spectral validation filters, the prompt-leakage audit and electrolyte
+SMARTS live in the code release.
 Fine-tunes must use \texttt{data/train\_no\_bench.jsonl.gz} so benchmark
 InChIKeys are withheld.
-
 Listing~1 is the IRexp-style JSON$+$molecule plate in the ICLR PDF.
 
 %======================================================================
