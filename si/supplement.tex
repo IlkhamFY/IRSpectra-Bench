@@ -55,7 +55,7 @@
 \graphicspath{{../figures/}{figures/}{./}}
 
 \title{Supplementary Information:\\
-IRSpectra-Bench --- protocol, scale tables, cases, and reproducibility}
+IRSpectra-Bench: protocol, tables, cases, and reproducibility}
 \author{Anonymous authors\\[2pt]
 \textit{Companion to the ICLR 2027 submission}\\
 Molecular Structure Elucidation with Frontier Models:\\
@@ -91,11 +91,11 @@ Unprefixed figure and listing numbers refer to the main manuscript.
 \renewcommand{\theequation}{S\arabic{equation}}
 
 %======================================================================
-\section{Cross-reference to the main manuscript}
+\section{Cross-reference to the main text}
 \label{si:map}
 
 \begin{table}[h]
-\caption{Main-text objects and their counterparts in this supplement.}
+\caption{The map shows main-text objects and their counterparts in this supplement.}
 \centering
 \small
 \begin{tabular}{@{}llp{7.2cm}@{}}
@@ -153,20 +153,18 @@ layout (PubChem 3D, CID 57398578).
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-\caption{Reprint of main-text Figure~1
-(\texttt{fig1\_lead\_overview}).
-Generate $249/500$ (49.8\%) recall in top~3;
+\caption{The reprint shows main-text Figure~1:
+generate $249/500$ (49.8\%) recall in top~3;
 select $204/249$ (81.9\%) verified $|$ pool
-($49.8\%\times 81.9\%=40.8\%$ verified).
-Wall: $204$ verified / $45$ misranked / $251$ never proposed.}
+($49.8\%\times 81.9\%=40.8\%$ verified);
+wall $204$ verified / $45$ misranked / $251$ never proposed.}
 \label{si:fig:lead}
 \end{figure}
 
 \begin{listing}[!ht]
 \input{../tex/listing1_body}
-\caption{Example IRexp JSON record
-(commercial DoR; reprint of main-text Listing~1;
-\texttt{ILJNJJNKEOAREX}) --- PubChem 3D CID 57398578.
+\caption{The reprint shows main-text Listing~1, an IRexp record
+(commercial DoR; \texttt{ILJNJJNKEOAREX}; PubChem CID 57398578):
 SMILES and InChIKey are resource fields, not solver payload.}
 \label{si:fig:listing}
 \end{listing}
@@ -174,11 +172,9 @@ SMILES and InChIKey are resource fields, not solver payload.}
 \begin{figure}[h]
 \centering
 \includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
-\caption{Reprint of the $n{=}500$ forward-verify wall
-(\texttt{fig\_wall\_diagnostic}):
-$204$ verified / $45$ misranked / $251$ never proposed.
-Source: spectro-agent \texttt{data/fverify\_n500/WALL\_n500.md}.
-Generation remains $227/500$ top-1 and $249/500$ recall.}
+\caption{The reprint shows the $n{=}500$ forward-verify wall:
+$204$ verified / $45$ misranked / $251$ never proposed;
+generation remains $227/500$ top-1 and $249/500$ recall.}
 \label{si:fig:wall}
 \end{figure}
 
@@ -186,7 +182,7 @@ Generation remains $227/500$ top-1 and $249/500$ recall.}
 \section{Blind protocol}
 \label{si:protocol}
 
-\subsection{Solver-facing contract}
+\subsection{Solver contract}
 
 Each IRSpectra-Bench item is a four-field JSON object. The solver sees
 \emph{only}
@@ -223,7 +219,7 @@ They record the frozen roster and the expand-500 campaign.
         R26, R31, R102, R105, R107, R138.
 \end{itemize}
 
-\subsection{Stopping and pooling rules}
+\subsection{Stopping and pooling}
 
 \begin{itemize}
   \item The $n{=}500$ roster is the pre-specified frozen list
@@ -337,7 +333,8 @@ totals (\texttt{scripts/validate\_benchmark.py};
 \texttt{data/benchmark\_expand/clean\_qids.json}).
 
 \begin{table}[h]
-\caption{Validate-clean extras. Same scorer; not the $n{=}500$ headline.}
+\caption{Validate-clean extras show scaffold and stereo metrics under
+the same scorer, not the $n{=}500$ headline.}
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
@@ -355,7 +352,7 @@ corpus-reweighted recall & \textbf{31.3\%} [25--37] & --- & --- \\
 \end{table}
 
 \begin{table}[h]
-\caption{Size bins on validate-clean $n{=}295$.}
+\caption{Size bins show top-1 and recall on validate-clean $n{=}295$.}
 \centering
 \begin{tabular}{@{}lrrr@{}}
 \toprule
@@ -374,7 +371,7 @@ the true Murcko scaffold.
 Named-ring annotation on that slice is rare and does not drive the result.
 
 %======================================================================
-\section{expand-500 generation}
+\section{expand-500 generation scores}
 \label{si:e500}
 
 Source: spectro-agent \texttt{data/benchmark\_expand\_500/NIGHT\_POOL\_2026-09-20.md}
@@ -383,8 +380,8 @@ The key was restored only for \texttt{score2} and then deleted.
 \texttt{answers2.jsonl} is not in the tree.
 
 \begin{table}[h]
-\caption{expand-500 generation (\texttt{score2}, InChIKey-14).
-No confidence intervals.}
+\caption{expand-500 scores show generation under \texttt{score2}
+(InChIKey-14; confidence intervals not reported).}
 \centering
 \begin{tabular}{@{}lrrr@{}}
 \toprule
@@ -416,7 +413,7 @@ overall recovered (top-3): 138/230 (60%)   top-1 exact: 129/230 (56%)
 \end{verbatim}
 
 %======================================================================
-\section{Headline generation}
+\section{Headline generation scores}
 \label{si:pools}
 
 The estimator is Eq.~\ref{si:eq:pool}. The paper headline is $n{=}500$.
@@ -426,8 +423,8 @@ Roster: frozen \texttt{qid} lists in the code release
 (\texttt{docs/headline500\_expand200\_qids.json}).
 
 \begin{table}[h]
-\caption{Headline generation on the frozen $n{=}500$ roster.
-Confidence intervals are not reported. This table is generation only.}
+\caption{Headline scores show generation on the frozen $n{=}500$ roster
+(confidence intervals not reported).}
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
@@ -450,7 +447,7 @@ The $n{=}500$ forward-verify wall is $204/45/251$ (\S\ref{si:fverify}).
 \section{Forward verification}
 \label{si:fverify}
 
-\subsection{$n{=}500$ unified wall}
+\subsection{$n{=}500$ wall}
 
 Source: spectro-agent \texttt{data/fverify\_n500/WALL\_n500.md}
 (\texttt{scripts/fverify\_n500\_wall.py}).
@@ -462,9 +459,8 @@ The paper wall is the $n{=}500$ row.
 Arm rows below are not the headline.
 
 \begin{table}[h]
-\caption{$n{=}500$ forward-verify wall, copied from
-\texttt{data/fverify\_n500/WALL\_n500.md}.
-No confidence intervals. Arm rows are not the headline.}
+\caption{The forward-verify wall shows the $n{=}500$ split
+(confidence intervals not reported; arm rows are not the headline).}
 \centering
 \small
 \begin{tabular}{@{}lrrrr@{}}
@@ -484,14 +480,14 @@ Main-text Figure~\texttt{fig-wall} reprints this $204/45/251$ wall.
 Figure~1 reports the same $n{=}500$ decomposition
 ($249/500$ recall $\times$ $204/249$ verified $|$ pool $=40.8\%$ verified).
 
-\subsection{Instrumented protocol slice}
+\subsection{Protocol-slice diagnostic}
 
 Source: \texttt{data/diagnosis.json} / \texttt{scripts/forward\_verify\_all.py}.
 This is a protocol-slice diagnostic, not a second $n{=}500$ wall.
 
 \begin{table}[h]
-\caption{Instrumented forward-verify diagnostic on a protocol slice.
-Not the $n{=}500$ wall ($204/45/251$).}
+\caption{A protocol-slice diagnostic shows forward verification,
+not the $n{=}500$ wall ($204/45/251$).}
 \centering
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -511,7 +507,7 @@ McNemar vs self-rank & --- & $p{=}0.55$ (7 gained, 4 lost) \\
 Self-ranking $227/249$ on $n{=}500$ is generation, not a substitute
 for $204/45/251$.
 
-\subsection{expand-500 official score}
+\subsection{Official expand-500 score}
 
 Source: spectro-agent \texttt{data/fverify\_expand\_500/STATUS.md},
 \texttt{results.txt}, and \texttt{NIGHT\_POOL\_2026-09-20.md}.
@@ -527,8 +523,8 @@ This arm score does not replace
 \texttt{data/fverify\_n500/WALL\_n500.md}.
 
 \begin{table}[h]
-\caption{expand-500 official chamfer score.
-Arm score, not the $n{=}500$ wall and not the headline.}
+\caption{Official expand-500 chamfer scores show an arm result,
+not the $n{=}500$ wall and not the headline.}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -563,8 +559,8 @@ No SMILES are invented for R06/R26; only v3-R25 molecules are drawn
 (Figure~\ref{si:fig:r25}).
 
 \begin{table}[h]
-\caption{Three-mode case grid. Same integers as
-main-text Table~\texttt{tab:cases}.}
+\caption{The case grid shows three failure modes, with the same integers
+as the main-text case table.}
 \centering
 \small
 \begin{tabular}{@{}llp{7.4cm}@{}}
@@ -590,14 +586,14 @@ IR 1652, 1530, 1352~cm$^{-1}$. \\
 \end{tabular}
 \end{table}
 
-\subsection{Proposal miss --- main-R06 / C$_{29}$H$_{30}$FNO$_{2}$}
+\subsection{Proposal miss: main-R06 / C$_{29}$H$_{30}$FNO$_{2}$}
 
 True acridinedione never enters the 3-candidate pool (Tanimoto-0.90
 regioisomer: 4-fluorophenyl / phenyl swapped). IR 1641, 1510~cm$^{-1}$;
 $^{13}$C 195.7. Verifier unused. Re-ranking cannot recover a structure
 that was never proposed (Eq.~\ref{si:eq:factor}).
 
-\subsection{Verify-save --- v3-R25 / C$_{10}$H$_{14}$N$_{2}$O}
+\subsection{Verify-save: v3-R25 / C$_{10}$H$_{14}$N$_{2}$O}
 
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm, Eq.~\ref{si:eq:chamfer}).
@@ -606,20 +602,20 @@ IR 1679~cm$^{-1}$. Main-text Figure~5; SI Figure~\ref{si:fig:r25}.
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.72\linewidth]{fig_mechanism.png}
-\caption{Locked v3-R25 verify-save (main-text Figure~5).
-Self-rank prefers 3-pyridyl; forward $^{13}$C recovers 2-pyridyl
+\caption{Case v3-R25 shows a verify-save (main-text Figure~5):
+self-rank prefers 3-pyridyl, while forward $^{13}$C recovers 2-pyridyl
 (chamfer 0.42 vs 1.30~ppm).}
 \label{si:fig:r25}
 \end{figure}
 
-\subsection{Verify-fail --- v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$}
+\subsection{Verify-fail: v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$}
 
 True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2); 2-nitro
 ranked first. Chamfer 1.35 vs 1.36~ppm. IR 1652, 1530, 1352~cm$^{-1}$.
 Ranking can fail when predicted $^{13}$C lists are nearly tied
 (McNemar $p{=}0.55$; 7 gained, 4 lost on the protocol slice).
 
-\subsection{Listing 1}
+\subsection{Example payload}
 
 Main-text Listing~1 is the live IRexp JSON record
 (C$_{12}$H$_{11}$BrN$_{4}$; InChIKey
@@ -630,7 +626,7 @@ Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
 The listing is reprinted above with the same lstlisting$+$framed layout.
 Locked v3-R25 remains the mechanism worked case (main-text Figure~5).
 
-\subsection{Additional reported panels}
+\subsection{Additional panels}
 
 \paragraph{Formula-only control ($n{=}60$).}
 Formula only: 3/60 (5\%) top-1 and 3/60 (5\%) recall.
@@ -662,10 +658,10 @@ Pre-registered draws differ in difficulty.
 The headline remains $n{=}500$ (Eq.~\ref{si:eq:pool}).
 
 %======================================================================
-\section{Prompt skeletons and deposit schema}
+\section{Prompts and deposit schema}
 \label{si:prompt}
 
-\subsection{Headline solver-facing skeleton}
+\subsection{Headline prompt}
 
 Wrapping instruction text was not captured on the headline Claude arm
 (main-text Limitations~(i)).
@@ -694,7 +690,7 @@ Listing~1 payload (solver-facing fields only; gold held out):
 }
 \end{lstlisting}
 
-\subsection{Forward-verify skeleton}
+\subsection{Forward-verify prompt}
 
 For each candidate SMILES, predict a $^{13}$C peak list \emph{without}
 seeing the observed list. Re-rank by $d(\hat P(c), P_{\mathrm{obs}})$
@@ -730,7 +726,8 @@ python scripts/forward_verify_all.py      # protocol-slice diagnostic
 \subsection{Headline model card}
 
 \begin{table}[h]
-\caption{Headline solver. Unrecorded fields are left blank rather than guessed.}
+\caption{The headline solver card shows recorded fields; unrecorded
+fields are left blank.}
 \centering
 \small
 \begin{tabular}{@{}lp{8.4cm}@{}}
@@ -757,10 +754,11 @@ scoring scripts & \texttt{scripts/score\_pooled.py}, \texttt{score\_main.py},
 \end{tabular}
 \end{table}
 
-\subsection{Cross-vendor card ($n{=}60$)}
+\subsection{Cross-vendor model card ($n{=}60$)}
 
 \begin{table}[h]
-\caption{Cross-vendor decomposition. Recall and precision use different denominators.}
+\caption{Cross-vendor scores show generation recall versus verification
+precision (different denominators).}
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
@@ -782,14 +780,15 @@ directional.
 A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 Reasoning-effort tier per vendor arm was not recorded.
 
-\subsection{Literature decomposition}
+\subsection{Literature comparison}
 
 Any system reporting top-1 $= a$ and top-$k = b$ implies
 recall $\geq b$ and conditional precision $\leq a/b$.
 Script: \texttt{scripts/literature\_decomposition.py}.
 
 \begin{table}[h]
-\caption{Selected literature decomposition rows (as in main-text Table~6).}
+\caption{Literature rows show selected systems, matching the main-text
+literature table.}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{4pt}
