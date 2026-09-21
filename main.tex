@@ -81,8 +81,9 @@
 
 \graphicspath{{figures/}{../figures/}{./}}
 
-% OpenReview title (clarity). The PDF is still one harness, not a populated
-% multi-system board; that limit stays in the abstract, not in the title.
+% OpenReview title (clarity). One NMR-only baseline (NMRTrans, IR unused)
+% is scored; IR-Agent/CASE/etc. are not. That limit stays in the abstract,
+% not in the title. NMRTrans is not an IR+NMR peer.
 \title{Molecular Structure Elucidation with Frontier Models: A Benchmark on Literature-Reported IR, $^1$H, and $^{13}$C NMR Peak Lists}
 
 \author{
@@ -117,13 +118,17 @@ We ask an operational question: given the molecular formula and
 can an off-the-shelf frontier model recover the correct constitution, and
 \textbf{which stage fails} when it does not?
 Recovery on curated libraries, simulated traces, or single-instrument
-absorbance is not a measurement of this input, and those systems are not
-scored here.
+absorbance is not a measurement of this input.
 
 We release \textbf{IRSpectra-Bench} as a frozen roster of
 \textbf{$n{=}500$} problems, an RDKit InChIKey-14 contract, and the
 prediction deposits a mechanical scorer can replay.
-The object is a factorised diagnosis, not a populated leaderboard.
+The object is a factorised diagnosis of one closed-book harness.
+One trained NMR-only baseline is scored on the same roster: NMRTrans,
+formula and printed $^1$H/$^{13}$C lists, IR unused (79/500 top-1; SI).
+It is not a full multi-modal peer of the IR+$^1$H+$^{13}$C task.
+IR-Agent, CASE and the other published elucidators named below remain
+unscored.
 On one closed-book frontier harness, generation top-1 is \textbf{45.4\%}
 (227/500) and recall is \textbf{49.8\%} (249/500).
 Self-ranking places the true structure first in $227/249$ cases (91.2\%).
@@ -209,8 +214,9 @@ and a high verifier score cannot be read as a solved elucidator.
   \item \textbf{A frozen roster and a mechanical scorer.}
         IRSpectra-Bench is $n{=}500$ literature peak-list problems and a fixed
         InChIKey-14 contract (Eq.~\ref{eq:ik14}).
-        Later systems deposit ranked SMILES. NMRTrans is the one score
-        cited below; the other systems in Section~\ref{sec:not-on-roster}
+        Later systems deposit ranked SMILES. NMRTrans is the one trained
+        NMR-only baseline scored below (IR unused; not a full multi-modal
+        peer). The other systems in Section~\ref{sec:not-on-roster}
         are not scored in this PDF.
   \item \textbf{The generation diagnosis} on one closed-book harness:
         recall $249/500$, self-rank $227/249$, wall $227/22/251$
@@ -257,12 +263,14 @@ Hu \textit{et al.}\ and NMRTrans invert one-dimensional NMR with multitask
 or set-transformer decoders~\citep{hu2024multitask,yang2026nmrtrans};
 Alberts and coworkers train infrared transformers on NIST experimental
 absorbance and report end-to-end top-$k$ SMILES~\citep{alberts2024ir,alberts2025benchmarks}.
-Each of these systems learns a joint map from spectral tokens to graphs
+Each of these systems learns a map from its own spectral tokens to graphs
 or strings.
 Because they are typically scored by a single top-1 or top-$k$ number, a
 failure of candidate generation is indistinguishable from a failure of
 ranking: both look like a miss.
-Only NMRTrans, among these maps, is run on the roster below (SI).
+Only NMRTrans, among these maps, is run on the roster below, and only as
+an NMR-only baseline: formula and printed $^1$H/$^{13}$C, IR unused (SI).
+That score is not an IR+$^1$H+$^{13}$C measurement.
 A top-$k$ on NIST absorbance or on a simulated trace does not say whether
 the true constitution was proposed from a printed three-list experimental
 section.
@@ -353,12 +361,17 @@ results.
 On this harness, 251 of 500 true structures never enter the pool,
 self-ranking misses 22, and a $^{13}$C ranker cannot create the missing
 251 (top-1 $227\to 204$).
-NMRTrans~\citep{yang2026nmrtrans} is the deposit counted with that script:
-formula and printed $^1$H/$^{13}$C lists, IR unused, 79/500 top-1 and
-102/500 recall, with 9/500 gold keys in its training split (SI).
-This roster is still not a cross-system comparison.
 Three further vendors appear only on a 60-compound arm
 (Section~\ref{sec:cross-vendor}).
+
+\paragraph{One NMR-only baseline.}
+NMRTrans~\citep{yang2026nmrtrans} is the one trained baseline scored on
+this same roster: formula and printed $^1$H/$^{13}$C lists, IR unused,
+79/500 top-1 and 102/500 recall, with 9/500 gold keys in its training
+split (SI).
+It is not a full multi-modal peer of the IR+$^1$H+$^{13}$C task.
+IR-Agent, CASE, Spectro, NMIRacle, the Alberts infrared transformers and
+SpectraLLM remain unscored.
 
 \FloatBarrier
 \section{IRSpectra-Bench}
@@ -560,6 +573,9 @@ $n{=}500$ roster, then the 60-compound controls
 The generation wall is the lead result.
 Forward verification is the secondary drop on the same pools.
 Systems named in Section~\ref{sec:not-on-roster} do not appear in these tables.
+NMRTrans is scored in the SI as an NMR-only baseline (formula and printed
+$^1$H/$^{13}$C; IR unused; 79/500 top-1).
+It is not an IR+$^1$H+$^{13}$C row in these tables.
 
 \subsection{Headline performance}
 \label{sec:headline}
@@ -782,8 +798,9 @@ Forward verification is the secondary drop, $227/500 \to 204/500$
 (see the SI).
 Table~\ref{tab:headline} places corpus-reweighted 26.5\% beside 45.4\%.
 They are the score of one closed-book harness.
-They are not a score for IR-Agent, CASE, or a trained
-spectra-to-structure model.
+They are not a score for IR-Agent or CASE, which remain unscored.
+NMRTrans is a separate trained NMR-only baseline on the same roster
+(79/500 top-1, IR unused; SI), not a full multi-modal peer.
 
 \paragraph{Reporting contract.}
 External work should deposit ranked SMILES and report (i)~top-1
@@ -849,6 +866,7 @@ Forward verification is diagnostic: top-1 falls from 227 to 204
 The 60-compound arm is not this result.
 We release the deposits and the scorer.
 The unscored systems in Section~\ref{sec:not-on-roster} were not run on this input.
+NMRTrans is the one trained NMR-only baseline that was (IR unused; SI).
 
 \section*{AI use statement}
 Frontier LLMs were used as \textbf{experimental solvers} under the consumer harness in
