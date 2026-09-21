@@ -15,3 +15,7 @@ __pycache__/
 *.pyc
 .env
 .venv/
+# generated compile outputs (not part of the ICLR source tree)
+*.bbl
+main.pdf
+si/supplement.pdf
