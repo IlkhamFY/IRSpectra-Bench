@@ -115,7 +115,7 @@ curated spectra.
 We ask an operational question: given the molecular formula and
 \textbf{literature-reported} IR, $^1$H, and $^{13}$C NMR \textbf{peak lists}
 --- printed wavenumbers and shift tables, not digitised images of spectra ---
-can an off-the-shelf frontier model recover the correct constitution, and
+can an out-of-the-box frontier model recover the correct constitution, and
 \textbf{which stage fails} when it does not?
 Recovery on curated libraries, simulated traces, or single-instrument
 absorbance is not a measurement of this input.
@@ -130,7 +130,7 @@ It is not a full multi-modal peer of the IR+$^1$H+$^{13}$C task.
 IR-Agent, CASE and the other published elucidators named below remain
 unscored.
 On one closed-book frontier harness, generation top-1 is \textbf{45.4\%}
-(227/500) and recall is \textbf{49.8\%} (249/500).
+(227/500) and recall (the fraction of problems whose true structure enters the proposed pool) is \textbf{49.8\%} (249/500).
 Self-ranking places the true structure first in $227/249$ cases (91.2\%).
 The generation wall is
 \textbf{227} exact top-1 / \textbf{22} in-pool not top-1 / \textbf{251} never proposed.
@@ -181,7 +181,7 @@ Reported recovery for the same model can invert with the harness
 which already shows that a single end-to-end number is not a stable
 property of the chemistry.
 The operational setting that matches how chemists read papers is stricter:
-an off-the-shelf model, a molecular formula (as from high-resolution mass
+an out-of-the-box model, a molecular formula (as from high-resolution mass
 spectrometry), IR/$^1$H/$^{13}$C lists as printed, a fixed
 molecular-representation scoring contract, and a measurement of
 \textbf{which stage binds} when recovery fails.
@@ -311,10 +311,10 @@ Table and retrieval features likewise condition ranking of structures
 that were already proposed.
 IRSpectra-Bench asks a different measurement on a different object:
 literature-reported IR+$^1$H+$^{13}$C peak lists plus formula, one
-off-the-shelf closed-book model, and explicit generation recall versus
+out-of-the-box closed-book model, and explicit generation recall versus
 verification precision $|$ recall
 (Eqs.~\ref{eq:top1}--\ref{eq:prec}).
-There is no IR-Agent or SpectraLLM row on this roster
+There is no IR-Agent or SpectraLLM row on this roster. This distinction makes the benchmark a diagnostic of where an elucidation pipeline loses the structure, rather than a leaderboard comparison across incompatible inputs. The title therefore emphasizes literature-reported peak lists: the input format determines whether proposal and verification can be separated.
 (Section~\ref{sec:not-on-roster}).
 
 A third regime compares architectures on a shared suite.
@@ -492,7 +492,7 @@ The $n{=}500$ headline does not carry confidence intervals.
 \label{sec:setup}
 
 The experiments run the problem of Section~\ref{sec:preliminaries} under a
-fixed closed-book harness: one off-the-shelf model family on the frozen
+fixed closed-book harness: one out-of-the-box model family on the frozen
 roster, a declared candidate budget, and an optional second ranker that
 cannot enlarge the pool.
 What follows specifies the payload, the solver, the scoring contract, and
@@ -863,7 +863,7 @@ The generation wall is $227$ exact top-1 / $22$ in-pool not top-1 /
 $251$ never proposed.
 Forward verification is diagnostic: top-1 falls from 227 to 204
 ($204$ verified / $45$ misranked / $251$ never proposed; SI).
-The 60-compound arm is not this result.
+The 60-compound arm is a separate evaluation, not this headline result.
 We release the deposits and the scorer.
 The unscored systems in Section~\ref{sec:not-on-roster} were not run on this input.
 NMRTrans is the one trained NMR-only baseline that was (IR unused; SI).
@@ -888,11 +888,11 @@ Licensing of redistributed numeric extractions is documented with the IRexp
 resource and dataset notices (PMC-OA terms are mixed --- not uniformly CC-BY; Chemotion is CC-BY-SA).
 
 \section*{Reproducibility statement}
-Training-free totals regenerate from released questions, gold InChIKey-14
-keys, frozen prediction JSONL and scoring scripts.
+Frozen prediction deposits and the scorer regenerate all training-free metrics.
+
 The InChIKey scorer is scripted.
-The consumer harness is not a pinned snapshot: temperature, seed and the
-headline wrapper were not captured (Section~\ref{sec:limitations}).
+Inference is not bit-reproducible without the recorded temperature, seed, or wrapper. 
+ (Section~\ref{sec:limitations}).
 Replay the deposits.
 A bit-exact regeneration of the subscription run is not available.
 Fine-tuning against the roster should use \texttt{data/train\_no\_bench.jsonl.gz}
