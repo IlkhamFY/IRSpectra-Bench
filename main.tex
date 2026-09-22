@@ -263,12 +263,14 @@ Hu \textit{et al.}\ and NMRTrans invert one-dimensional NMR with multitask
 or set-transformer decoders~\citep{hu2024multitask,yang2026nmrtrans};
 Alberts and coworkers train infrared transformers on NIST experimental
 absorbance and report end-to-end top-$k$ SMILES~\citep{alberts2024ir,alberts2025benchmarks}.
-Each of these systems learns a map from its own spectral tokens to graphs
-or strings.
+Each of these models is trained to turn the spectral format of its own
+corpus, such as a NIST infrared trace or a one-dimensional NMR list, into
+candidate structures written as molecular graphs or SMILES.
+That format is not the printed IR+$^1$H+$^{13}$C input used here.
 Because they are typically scored by a single top-1 or top-$k$ number, a
 failure of candidate generation is indistinguishable from a failure of
 ranking: both look like a miss.
-Only NMRTrans, among these maps, is run on the roster below, and only as
+Only NMRTrans, among these models, is run on the roster below, and only as
 an NMR-only baseline: formula and printed $^1$H/$^{13}$C, IR unused (SI).
 That score is not an IR+$^1$H+$^{13}$C measurement.
 A top-$k$ on NIST absorbance or on a simulated trace does not say whether
@@ -361,7 +363,7 @@ SpectraLLM were not run, because API access, licence and input do not
 match this printed three-list harness.
 
 \FloatBarrier
-\section{IRSpectra-Bench}
+\section{Methodology}
 \label{sec:benchmark}
 
 IRSpectra-Bench is a frozen roster, the InChIKey-14 contract, and the
@@ -387,8 +389,10 @@ the solver never sees the source paper.
 
 A solver returns a ranked pool $\mathcal{C}=(c_1,\ldots,c_k)$ with
 $k\leq 3$.
-Three rates are reported.
-Generation recall is the fraction of the $n{=}500$ roster for which
+Generation recall, top-1 and self-ranking precision $|$ recall are the
+IRSpectra-Bench scoring contract on this frozen $n{=}500$ roster under
+that candidate budget.
+Generation recall is the fraction of the roster for which
 $y^\star$ appears anywhere in $\mathcal{C}$.
 Top-1 is the fraction for which $c_1$ matches $y^\star$.
 Self-ranking precision $|$ recall is the fraction of recalled problems on
@@ -416,6 +420,8 @@ The evaluation set is a frozen roster of 500 question ids released with
 the code.
 Problems are drawn from the structure-complete split of IRexp
 (\texttt{irexp\_resolved})~\citep{yabbarov2026irexp}.
+The question ids are a pre-specified list, not an outcome-selected subset
+(SI).
 Histograms of molecular weight, ring count, C--F bonds and nitrogen
 atoms for the validate-clean subset ($n{=}295$: locked cohort plus
 clean expansion) are in the SI.
