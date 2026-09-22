@@ -113,15 +113,15 @@ $\dagger$\,\textit{E-mail:} yabbaroi@mcmaster.ca, vargashr@mcmaster.ca
 Frontier models are often presented as near-solved structure elucidators on
 curated spectra.
 We ask an operational question: given the molecular formula and
-\textbf{literature-reported} IR, $^1$H, and $^{13}$C NMR \textbf{peak lists}
---- printed wavenumbers and shift tables, not digitised images of spectra ---
+\textbf{literature-reported} IR, $^1$H, and $^{13}$C NMR \textbf{peak lists},
+printed wavenumbers and shift tables, not digitised images of spectra,
 can an out-of-the-box frontier model recover the correct constitution, and
 \textbf{which stage fails} when it does not?
 Recovery on curated libraries, simulated traces, or single-instrument
 absorbance is not a measurement of this input.
 
 We release \textbf{IRSpectra-Bench} as a frozen roster of
-\textbf{$n{=}500$} problems, an RDKit InChIKey-14 contract, and the
+\textbf{$500$} problems, an RDKit InChIKey-14 contract, and the
 prediction deposits a mechanical scorer can replay.
 The object is a factorised diagnosis of one closed-book harness.
 One trained NMR-only baseline is scored on the same roster: NMRTrans,
@@ -328,7 +328,7 @@ Those suites still need a stage contract if a win is to be attributed
 to a better proposer rather than a better ranker.
 
 \subsection{Heterogeneous peak lists and CASE}
-Most learned suites use simulated traces or single-instrument libraries
+Most learned suites use simulated spectra or single-instrument libraries
 such as NIST infrared or nmrshiftdb2-style
 collections~\citep{nist_webbook,kuhn2015nmrshiftdb2,alberts2025benchmarks}.
 Literature peak lists are author-transcribed, often incomplete (missing
@@ -373,10 +373,10 @@ Section~\ref{sec:not-on-roster} is the list of systems this section does not sco
 \subsection{Problem setup}
 \label{sec:preliminaries}
 
-An elucidation problem supplies a molecular formula $f$ (as from
+The molecular elucidation problem provides a molecular formula $f$ (as from
 high-resolution mass spectrometry) together with three author-transcribed
 lists: infrared band positions $I \subset \mathbb{R}_{+}$ in cm$^{-1}$,
-$^1$H multiplets $H$ (shifts, integrals and couplings as printed), and
+$^1$H multiplets $H$ (shifts, integrals, and couplings as printed), and
 $^{13}$C shifts $C \subset \mathbb{R}$ in ppm.
 The target is the covalent constitution $y^\star$ of the unknown,
 represented as a SMILES string and scored at the first fourteen characters
@@ -384,7 +384,7 @@ of the RDKit InChIKey (Eq.~\ref{eq:ik14}).
 Stereo, tautomer and salt-form distinctions that live in the remaining
 InChIKey characters are held out of the headline and reported on a
 validate-clean subset in the SI.
-No name, SMILES, scaffold or retrieved spectrum is part of the input;
+No name, SMILES, scaffold, or retrieved spectrum is part of the input;
 the solver never sees the source paper.
 
 A solver returns a ranked pool $\mathcal{C}=(c_1,\ldots,c_k)$ with
@@ -422,10 +422,10 @@ Problems are drawn from the structure-complete split of IRexp
 (\texttt{irexp\_resolved})~\citep{yabbarov2026irexp}.
 The question ids are a pre-specified list, not an outcome-selected subset
 (SI).
-Histograms of molecular weight, ring count, C--F bonds and nitrogen
+Histograms of molecular weight, ring count, C--F bonds, and nitrogen
 atoms for the validate-clean subset ($n{=}295$: locked cohort plus
 clean expansion) are in the SI.
-On that plate the median molecular weight is 306 and the median ring
+On that plate, the median molecular weight is 306 and the median ring
 count is two.
 The thinking-tier expand-500 cut is not in the plate.
 Listing~\ref{lst:payload} is the solver-facing contract: formula plus
@@ -435,7 +435,7 @@ printed peak lists; gold constitution is held out and scored offline.
 
 Difficulty is declared \emph{a priori} by RDKit ring analysis, before any
 solver is run: a problem is \emph{simple} if and only if it has at most
-two rings, no fused, spiro or bridgehead system, and at most 22 heavy
+two rings, no fused, spiro, or bridgehead system, and at most 22 heavy
 atoms; otherwise it is \emph{complex} (248/252 on $n{=}500$).
 The released roster is \textbf{near-50/50 by design} (248/252), against an
 eligible corpus that is 17.5\% simple / 82.5\% complex.
