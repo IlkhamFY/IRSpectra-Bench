@@ -345,33 +345,20 @@ rarely state whether the true structure was proposed at all.
 SpecX~\citep{xiang2026specx} bounds a related multi-modal spectroscopy
 task on simulated traces.
 
-\paragraph{Not on this roster.}
-\label{sec:not-on-roster}
-IR-Agent, CASE, Spectro, NMIRacle, the Alberts infrared transformers and
-SpectraLLM are not scored here.
-The reasons are API access, licence, and input mismatch, not a claim that
-they would lose.
-IR-Agent reads NIST absorbance through a tool stack we do not replay.
-CASE is exhaustive in the formula only with the 2D correlations these
-tables usually omit; a $k\leq 3$ closed-book decode is not that search.
-SpectraLLM, Spectro, NMIRacle and the Alberts models map simulated or
-single-library spectra.
-No input adapter was built, and none of those systems is entered in the
-results.
-On this harness, 251 of 500 true structures never enter the pool,
-self-ranking misses 22, and a $^{13}$C ranker cannot create the missing
-251 (top-1 $227\to 204$).
-Three further vendors appear only on a 60-compound arm
-(Section~\ref{sec:cross-vendor}).
-
-\paragraph{One NMR-only baseline.}
 NMRTrans~\citep{yang2026nmrtrans} is the one trained baseline scored on
-this same roster: formula and printed $^1$H/$^{13}$C lists, IR unused,
+this roster.
+It is publicly runnable on printed peak-list inputs that match the
+harness, so the score is a concrete trained comparator, and the NMR-only
+number makes the multi-modal gap explicit.
+Inputs are formula and printed $^1$H/$^{13}$C lists, IR unused:
 79/500 top-1 and 102/500 recall, with 9/500 gold keys in its training
 split (SI).
-It is not a full multi-modal peer of the IR+$^1$H+$^{13}$C task.
+It is not a full IR+$^1$H+$^{13}$C peer.
+
+\label{sec:not-on-roster}
 IR-Agent, CASE, Spectro, NMIRacle, the Alberts infrared transformers and
-SpectraLLM remain unscored.
+SpectraLLM were not run, because API access, licence and input do not
+match this printed three-list harness.
 
 \FloatBarrier
 \section{IRSpectra-Bench}
