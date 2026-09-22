@@ -442,7 +442,7 @@ the corpus-reweighted correction on a validate-clean subset.
 The reweighted rows are not an $n{=}500$ interval, and they are the number
 to quote for an arbitrary literature draw.
 
-A candidate $\hat y$ is correct at constitution if and only if the first
+A candidate $\hat y$ is correct at constitution \emph{iif} the first
 14 characters of the RDKit InChIKey match
 \begin{equation}
 \label{eq:ik14}
@@ -456,19 +456,16 @@ External submissions deposit up to three ranked SMILES per \texttt{qid}
 (\texttt{docs/LEADERBOARD.md}; \texttt{scripts/score\_submission.py}).
 With a ranked pool $\mathcal{C}_i=(c_{i1},\ldots,c_{ik})$, $k\leq 3$,
 \begin{align}
+\tiny
 \label{eq:top1}
-\mathrm{top\text{-}1}
-&\;=\;
-\frac1n\sum_{i=1}^n s(c_{i1}, y_i^\star),\\
+\mathrm{top\text{-}1} \;=\;
+\frac1n\sum_{i=1}^n s(c_{i1}, y_i^\star),&\quad \mathrm{prec.}|\mathrm{recall} \;=\;
+\frac{\sum_i s(c_{i1}, y_i^\star)}
+{\sum_i \mathbf{1}[y_i^\star\in\mathcal{C}_i]}\\
 \label{eq:recall}
 \mathrm{recall}@k
 &\;=\;
-\frac1n\sum_{i=1}^n \mathbf{1}\!\big[\exists\,j\leq k:\; s(c_{ij}, y_i^\star)=1\big],\\
-\label{eq:prec}
-\mathrm{prec.}|\mathrm{recall}
-&\;=\;
-\frac{\sum_i s(c_{i1}, y_i^\star)}
-{\sum_i \mathbf{1}[y_i^\star\in\mathcal{C}_i]}.
+\frac1n\sum_{i=1}^n \mathbf{1}\!\big[\exists\,j\leq k:\; s(c_{ij}, y_i^\star)=1\big].
 \end{align}
 Top-1 and recall@$k$ share the denominator $n$; precision $|$ recall is
 defined only on the recalled subset.
@@ -896,5 +893,10 @@ so roster InChIKeys are withheld.
 We acknowledge support from the Natural Sciences and Engineering Research Council of Canada (NSERC) through a CREATE training program. Institutional details and named funding references are omitted for double-blind review and will be restored in the camera-ready version.
 \bibliography{references}
 \bibliographystyle{iclr2027_conference}
+
+% ------------------------------------------------------------------------
+\newpage
+\appendix
+\section{Appendix}
 
 \end{document}
