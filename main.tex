@@ -263,12 +263,14 @@ Hu \textit{et al.}\ and NMRTrans invert one-dimensional NMR with multitask
 or set-transformer decoders~\citep{hu2024multitask,yang2026nmrtrans};
 Alberts and coworkers train infrared transformers on NIST experimental
 absorbance and report end-to-end top-$k$ SMILES~\citep{alberts2024ir,alberts2025benchmarks}.
-Each of these systems learns a map from its own spectral tokens to graphs
-or strings.
+Each of these models is trained to turn the spectral format of its own
+corpus, such as a NIST infrared trace or a one-dimensional NMR list, into
+candidate structures written as molecular graphs or SMILES.
+That format is not the printed IR+$^1$H+$^{13}$C input used here.
 Because they are typically scored by a single top-1 or top-$k$ number, a
 failure of candidate generation is indistinguishable from a failure of
 ranking: both look like a miss.
-Only NMRTrans, among these maps, is run on the roster below, and only as
+Only NMRTrans, among these models, is run on the roster below, and only as
 an NMR-only baseline: formula and printed $^1$H/$^{13}$C, IR unused (SI).
 That score is not an IR+$^1$H+$^{13}$C measurement.
 A top-$k$ on NIST absorbance or on a simulated trace does not say whether
@@ -345,36 +347,23 @@ rarely state whether the true structure was proposed at all.
 SpecX~\citep{xiang2026specx} bounds a related multi-modal spectroscopy
 task on simulated traces.
 
-\paragraph{Not on this roster.}
-\label{sec:not-on-roster}
-IR-Agent, CASE, Spectro, NMIRacle, the Alberts infrared transformers and
-SpectraLLM are not scored here.
-The reasons are API access, licence, and input mismatch, not a claim that
-they would lose.
-IR-Agent reads NIST absorbance through a tool stack we do not replay.
-CASE is exhaustive in the formula only with the 2D correlations these
-tables usually omit; a $k\leq 3$ closed-book decode is not that search.
-SpectraLLM, Spectro, NMIRacle and the Alberts models map simulated or
-single-library spectra.
-No input adapter was built, and none of those systems is entered in the
-results.
-On this harness, 251 of 500 true structures never enter the pool,
-self-ranking misses 22, and a $^{13}$C ranker cannot create the missing
-251 (top-1 $227\to 204$).
-Three further vendors appear only on a 60-compound arm
-(Section~\ref{sec:cross-vendor}).
-
-\paragraph{One NMR-only baseline.}
 NMRTrans~\citep{yang2026nmrtrans} is the one trained baseline scored on
-this same roster: formula and printed $^1$H/$^{13}$C lists, IR unused,
+this roster.
+It is publicly runnable on printed peak-list inputs that match the
+harness, so the score is a concrete trained comparator, and the NMR-only
+number makes the multi-modal gap explicit.
+Inputs are formula and printed $^1$H/$^{13}$C lists, IR unused:
 79/500 top-1 and 102/500 recall, with 9/500 gold keys in its training
 split (SI).
-It is not a full multi-modal peer of the IR+$^1$H+$^{13}$C task.
+It is not a full IR+$^1$H+$^{13}$C peer.
+
+\label{sec:not-on-roster}
 IR-Agent, CASE, Spectro, NMIRacle, the Alberts infrared transformers and
-SpectraLLM remain unscored.
+SpectraLLM were not run, because API access, licence and input do not
+match this printed three-list harness.
 
 \FloatBarrier
-\section{IRSpectra-Bench}
+\section{Methodology}
 \label{sec:benchmark}
 
 IRSpectra-Bench is a frozen roster, the InChIKey-14 contract, and the
@@ -400,8 +389,10 @@ the solver never sees the source paper.
 
 A solver returns a ranked pool $\mathcal{C}=(c_1,\ldots,c_k)$ with
 $k\leq 3$.
-Three rates are reported.
-Generation recall is the fraction of the $n{=}500$ roster for which
+Generation recall, top-1 and self-ranking precision $|$ recall are the
+IRSpectra-Bench scoring contract on this frozen $n{=}500$ roster under
+that candidate budget.
+Generation recall is the fraction of the roster for which
 $y^\star$ appears anywhere in $\mathcal{C}$.
 Top-1 is the fraction for which $c_1$ matches $y^\star$.
 Self-ranking precision $|$ recall is the fraction of recalled problems on
@@ -429,6 +420,8 @@ The evaluation set is a frozen roster of 500 question ids released with
 the code.
 Problems are drawn from the structure-complete split of IRexp
 (\texttt{irexp\_resolved})~\citep{yabbarov2026irexp}.
+The question ids are a pre-specified list, not an outcome-selected subset
+(SI).
 Histograms of molecular weight, ring count, C--F bonds and nitrogen
 atoms for the validate-clean subset ($n{=}295$: locked cohort plus
 clean expansion) are in the SI.
@@ -504,7 +497,7 @@ HRMS), \texttt{ir\_bands\_cm-1}, \texttt{h\_nmr}, \texttt{c\_nmr} --- peak
 lists as printed (Listing~\ref{lst:payload}).
 No name, SMILES, scaffold, atom-type hint or retrieved spectrum enters the
 prompt; the source paper is not fetched; ground truth is scored offline.
-The headline solver is Claude Opus via a consumer subscription,
+The headline solver is Claude Opus 5 via a consumer subscription,
 closed-book, with one sub-agent per batch and an RDKit formula check that
 rejects candidates whose elemental composition disagrees with $f$.
 The pooled $n{=}500$ roster mixes earlier no-thinking runs with the thinking-tier
@@ -535,7 +528,7 @@ Self-ranking and forward-verified re-ranking must be labelled separately:
 they share a pool but not a ranker, so their precision $|$ recall figures
 are not interchangeable.
 Headline protocol: at most three ranked SMILES per \texttt{qid}.
-On the 60-compound arm Claude Opus 5a returned mean 2.20 candidates versus 3.00
+On the 60-compound arm Claude Opus 5 returned mean 2.20 candidates versus 3.00
 for the other vendors, so recall rankings across vendors are approximate.
 \textbf{Generate-wide} (that arm only) runs ten independent solvers with
 up to six SMILES each, then pools and re-ranks; that budget is not the
@@ -664,7 +657,7 @@ recall $\ll$ precision split is a property of one vendor.
   \caption{Formula-only top-1 (3/60 versus 14/60), source-year bins, and
   the 60-compound sweep (not the $n{=}500$ headline).
   Panel~(c) generation recall: Grok 4.6 (32/60), Gemini 3.7 Flash (30/60),
-  GPT-5.6 Sol (25/60), Claude Opus 5a (19/60), Composer 2.5 (12/60),
+  GPT-5.6 Sol (25/60), Claude Opus 5 (19/60), Composer 2.5 (12/60),
   GPT-5.6 Luna (9/60), DeepSeek V4 Pro (8/60, partial formula gate)
   and Nemotron 3.5 (0/60).
   Composer 2.5, GPT-5.6 Luna, DeepSeek V4 Pro and Nemotron 3.5
@@ -679,7 +672,7 @@ recall $\ll$ precision split is a property of one vendor.
 
 The 60-compound arm repeats the closed-book payload on three further
 vendor families.
-It does not repeat the $n{=}500$ headline: Claude Opus 5a's top-1 on this arm is
+It does not repeat the $n{=}500$ headline: Claude Opus 5's top-1 on this arm is
 14/60 (23\%), not 227/500 (45.4\%).
 Grok 4.6, Gemini 3.7 Flash and GPT-5.6 Sol saw the same four fields and
 the same candidate contract.
@@ -689,12 +682,12 @@ row of Table~\ref{tab:cross-vendor}, on different denominators
 The precision column is chamfer re-ranking of each solver's pool, the
 same ranker as Section~\ref{sec:forward-verify}, not the solver's own
 order.
-Claude Opus 5a's self-rank top-1 on this arm remains 14/60; the 16/19 cell does
+Claude Opus 5's self-rank top-1 on this arm remains 14/60; the 16/19 cell does
 not multiply with 19/60 to that top-1.
 Bootstrap intervals on the paired forward-verify-minus-recall contrast
-separate for Claude Opus 5a (+52.5 points), GPT-5.6 Sol (+26.3) and Gemini
+separate for Claude Opus 5 (+52.5 points), GPT-5.6 Sol (+26.3) and Gemini
 (+23.3); Grok's contrast (+9.2) is directional.
-Candidate budgets differ (Claude Opus 5a mean 2.20 versus 3.00 for the others),
+Candidate budgets differ (Claude Opus 5 mean 2.20 versus 3.00 for the others),
 so recall rankings among vendors are approximate.
 A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 
@@ -711,7 +704,7 @@ Denominators differ.}
 \toprule
 model & generation recall & chamfer prec.$|$recall & chamfer, multi-cand. \\
 \midrule
-Claude Opus 5a & 19/60 = 32\% & 16/19 = 84\% & 10/13 = 77\% \\
+Claude Opus 5 & 19/60 = 32\% & 16/19 = 84\% & 10/13 = 77\% \\
 Grok 4.6 & 32/60 = 53\% & 20/32 = 62\% & 20/32 = 62\% \\
 Gemini 3.7 Flash & 30/60 = 50\% & 22/30 = 73\% & 22/30 = 73\% \\
 GPT-5.6 Sol & 25/60 = 42\% & 17/25 = 68\% & 16/24 = 67\% \\
@@ -873,7 +866,7 @@ NMRTrans is the one trained NMR-only baseline that was (IR unused; SI).
 
 \section*{AI use statement}
 Frontier LLMs were used as \textbf{experimental solvers} under the consumer harness in
-Sections~\ref{sec:setup}--\ref{sec:results} (Claude Opus on the headline cohort; three
+Sections~\ref{sec:setup}--\ref{sec:results} (Claude Opus 5 on the headline cohort; three
 other vendor families on the 60-compound arm), not as a substitute for author analysis,
 scoring, or claim-checking.
 Inference used no pinned model snapshot.
