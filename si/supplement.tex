@@ -767,7 +767,7 @@ fields are left blank.}
 \toprule
 item & value \\
 \midrule
-headline solver & Claude Opus, consumer subscription \\
+headline solver & Claude Opus 5, consumer subscription \\
 thinking tier & mixed: earlier rows none; expand-500 cut (200 of the $n{=}500$ headline) thinking-tier \\
 snapshot / seed / temperature / top\_p / top\_k / max\_tokens &
   not exposed; not recorded \\
@@ -777,9 +777,9 @@ fine-tuning & none on the headline arm \\
 paid API & no, for the core protocol \\
 hardware & consumer harness; no cluster job for inference \\
 scoring hardware & commodity CPU; RDKit InChIKey-14 \\
-cross-vendor arm & $n{=}60$; Claude Opus 5a, Grok 4.6, Gemini 3.7 Flash, GPT-5.6 Sol \\
-Claude Opus 5a candidates & 2.20 mean (others 3.00) on that arm --- recall rankings approximate \\
-expand-500 solver & Claude Opus thinking-tier; 200 of this arm is inside the $n{=}500$ headline \\
+cross-vendor arm & $n{=}60$; Claude Opus 5, Grok 4.6, Gemini 3.7 Flash, GPT-5.6 Sol \\
+Claude Opus 5 candidates & 2.20 mean (others 3.00) on that arm --- recall rankings approximate \\
+expand-500 solver & Claude Opus 5 thinking-tier; 200 of this arm is inside the $n{=}500$ headline \\
 Incomplete additional-model deposits & not scored; not pooled \\
 scoring scripts & \texttt{scripts/score\_pooled.py}, \texttt{score\_main.py},
   \texttt{benchmark\_v2.py score2} \\
@@ -793,14 +793,14 @@ scoring scripts & \texttt{scripts/score\_pooled.py}, \texttt{score\_main.py},
 \caption{Cross-vendor scores on $n{=}60$.
 Recall is pool membership.
 Both precision columns are chamfer forward-verify, not solver self-rank.
-Claude Opus 5a self-rank top-1 on this arm is 14/60.}
+Claude Opus 5 self-rank top-1 on this arm is 14/60.}
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
 \toprule
 model & generation recall & chamfer prec.$|$recall & chamfer, multi-cand. \\
 \midrule
-Claude Opus 5a & 19/60 = 32\% & 16/19 = 84\% & 10/13 = 77\% \\
+Claude Opus 5 & 19/60 = 32\% & 16/19 = 84\% & 10/13 = 77\% \\
 Grok 4.6 & 32/60 = 53\% & 20/32 = 62\% & 20/32 = 62\% \\
 Gemini 3.7 Flash & 30/60 = 50\% & 22/30 = 73\% & 22/30 = 73\% \\
 GPT-5.6 Sol & 25/60 = 42\% & 17/25 = 68\% & 16/24 = 67\% \\
@@ -809,7 +809,7 @@ GPT-5.6 Sol & 25/60 = 42\% & 17/25 = 68\% & 16/24 = 67\% \\
 \end{table}
 
 Verification precision exceeds generation recall in every arm.
-Bootstrap separates the paired gap for Claude Opus 5a ($+$52.5 points),
+Bootstrap separates the paired gap for Claude Opus 5 ($+$52.5 points),
 GPT-5.6 Sol ($+$26.3) and Gemini ($+$23.3); Grok's gap ($+$9.2) is
 directional.
 A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
