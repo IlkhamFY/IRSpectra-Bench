@@ -9,6 +9,11 @@
 \renewcommand{\theHfigure}{S\arabic{figure}}
 \renewcommand{\theHtable}{S\arabic{table}}
 \renewcommand{\theHequation}{S\arabic{equation}}
+% Main-text labels exist when this file is input from main.tex.
+% The standalone wrapper falls back to the current main numbers.
+\makeatletter
+\newcommand{\mainref}[2]{\@ifundefined{r@#1}{#2}{\ref{#1}}}
+\makeatother
 
 \noindent
 This appendix records the blind protocol, scoring identities, scale
@@ -31,7 +36,7 @@ Unprefixed figure and listing numbers refer to the main text.
 \centering
 \small
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}ll>{\raggedright\arraybackslash}p{5.4cm}@{}}
+\begin{tabular}{@{}ll>{\raggedright\arraybackslash}p{5.05cm}@{}}
 \toprule
 main label & object & role here \\
 \midrule
@@ -80,7 +85,7 @@ lit.\ decomp.\ table &
 \end{tabular}
 \end{table}
 
-Main-text Eqs.~\ref{eq:factor}, \ref{eq:ik14}, \ref{eq:metrics}, and \ref{eq:chamfer}
+Main-text Eqs.~\mainref{eq:factor}{1}, \mainref{eq:ik14}{2}, \mainref{eq:metrics}{3}, and \mainref{eq:chamfer}{4}
 (factorisation, InChIKey-14, the three rates, and $^{13}$C chamfer) are restated in
 \S\ref{si:eqs} with the same meaning.
 The pooled estimator lives only here.
@@ -195,7 +200,7 @@ Self-ranking and forward-verified re-ranking are reported separately.
 \subsection{Scoring identities}
 \label{si:eqs}
 
-The identities in this section restate main-text Eqs.~\ref{eq:factor}, \ref{eq:ik14}, \ref{eq:metrics}, and \ref{eq:chamfer}.
+The identities in this section restate main-text Eqs.~\mainref{eq:factor}{1}, \mainref{eq:ik14}{2}, \mainref{eq:metrics}{3}, and \mainref{eq:chamfer}{4}.
 The pool estimator (Eq.~\ref{si:eq:pool}) is not in the main text.
 
 A candidate $\hat y$ matches gold $y^\star$ at constitution iff
@@ -513,7 +518,7 @@ validate-clean & 224 & 135/224 (60.3\%) & 127/224 (56.7\%) & 103/224 (46.0\%) & 
 Coverage: 41/41 batches; 681/681 unique SMILES; 230/230 qids fully
 covered. Multi-candidate only: all-230 self 128/137, verify 102/137;
 clean-224 self 126/134, verify 102/134.
-\texttt{forward\_verify\_all.py} was not run (no expand-500
+\texttt{forward\_\allowbreak verify\_\allowbreak all.py} was not run (no expand-500
 \texttt{diagnosis.json}).
 
 HOSE-style lookup on the protocol-slice candidate sets ties
@@ -559,18 +564,18 @@ IR 1652, 1530, 1352~cm$^{-1}$. \\
 \end{tabular}
 \end{table}
 
-\subsubsection{Proposal miss: main-R06 / C$_{29}$H$_{30}$FNO$_{2}$}
+\subsubsection{Proposal miss: main-R06 / \texorpdfstring{C$_{29}$H$_{30}$FNO$_{2}$}{C29H30FNO2}}
 
 True acridinedione never enters the 3-candidate pool (Tanimoto-0.90
 regioisomer: 4-fluorophenyl / phenyl swapped). IR 1641, 1510~cm$^{-1}$;
 $^{13}$C 195.7. Verifier unused. Re-ranking cannot recover a structure
 that was never proposed (Eq.~\ref{si:eq:factor}).
 
-\subsubsection{Verify-save: v3-R25 / C$_{10}$H$_{14}$N$_{2}$O}
+\subsubsection{Verify-save: v3-R25 / \texorpdfstring{C$_{10}$H$_{14}$N$_{2}$O}{C10H14N2O}}
 
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm, Eq.~\ref{si:eq:chamfer}).
-IR 1679~cm$^{-1}$. Main-text Figure~\ref{fig:fig-mechanism}; Figure~\ref{si:fig:r25}.
+IR 1679~cm$^{-1}$. Main-text Figure~\mainref{fig:fig-mechanism}{3}; Figure~\ref{si:fig:r25}.
 
 \begin{figure}[ht]
 \centering
@@ -581,7 +586,7 @@ self-rank prefers 3-pyridyl, while forward $^{13}$C recovers 2-pyridyl
 \label{si:fig:r25}
 \end{figure}
 
-\subsubsection{Verify-fail: v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$}
+\subsubsection{Verify-fail: v3-R26 / \texorpdfstring{C$_{14}$H$_{11}$N$_{3}$O$_{3}$}{C14H11N3O3}}
 
 The true structure is the 3-nitrophenyl isomer, in the pool at
 self-rank 2.
@@ -593,24 +598,24 @@ Ranking can fail when predicted $^{13}$C lists are nearly tied
 \subsubsection{Example payload}
 
 Main-text Listing~1 is the live IRexp JSON record
-(C$_{12}$H$_{11}$BrN$_{4}$; PubChem CID 57398578;
-InChIKey \texttt{ILJNJJNKEOAREX-UHFFFAOYSA-N}).
+(C$_{12}$H$_{11}$BrN$_{4}$; PubChem CID 57398578).
+The InChIKey is \texttt{ILJNJJNKEOAREX-UHFFFAOYSA-N}.
 SMILES, InChIKey, and licence fields are resource metadata.
 Bench solvers see only formula and printed peak lists.
 Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
 The listing is reprinted above with the same lstlisting$+$framed layout.
 Locked v3-R25 remains the mechanism worked case (main-text Figure~3).
 
-\subsubsection{Formula-only control ($n{=}60$)}
+\subsubsection{Formula-only control \texorpdfstring{($n{=}60$)}{(n=60)}}
 \label{si:n60}
 Formula only: 3/60 (5\%) top-1 and 3/60 (5\%) recall.
 Formula $+$ IR $+$ $^1$H $+$ $^{13}$C: 14/60 (23\%) / 19/60 (32\%).
 Outcomes perfectly nested (McNemar $p{=}0.001$).
 
-\subsubsection{Source-paper year ($n{=}60$)}
+\subsubsection{Source-paper year \texorpdfstring{($n{=}60$)}{(n=60)}}
 \label{si:year}
 Accuracy is flat in source-paper year ($r{=}{-}0.007$;
-Figure~\ref{fig:fig-robustness}).
+Figure~\mainref{fig:fig-robustness}{2}).
 The correlation bounds verbatim recall of specific experimental sections.
 It does not exclude contamination.
 
@@ -629,7 +634,7 @@ $P(\mathrm{true}\in\mathrm{pool})$.
 $n{=}46$ literature electrolyte chemistry (not operando): 26\% top-1,
 recall-bound.
 
-\subsubsection{Four-model Claude ladder ($n{=}24$)}
+\subsubsection{Four-model Claude ladder \texorpdfstring{($n{=}24$)}{(n=24)}}
 \label{si:ladder24}
 A Haiku, Sonnet, Claude Opus 5, and Fable comparison on $n{=}24$ is underpowered
 for adjacent ranks and is not a headline result.
@@ -734,7 +739,7 @@ scoring scripts & \texttt{scripts/score\_pooled.py}, \texttt{score\_main.py},
 \end{tabular}
 \end{table}
 
-\subsubsection{Cross-vendor model card ($n{=}60$)}
+\subsubsection{Cross-vendor model card \texorpdfstring{($n{=}60$)}{(n=60)}}
 
 \begin{table}[ht]
 \caption{Cross-vendor scores on $n{=}60$.
