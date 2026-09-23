@@ -5,7 +5,7 @@
 % Overleaf: set main document to main.tex (repo root).
 % Headline n=500 generation only: 227/500 (45.4%) top-1; 249/500 (49.8%) recall.
 % Generation wall (Fig 1, lead): 227 exact top-1 / 22 in-pool not top-1 / 251 never proposed.
-% Forward-verify diagnostic (SI only): 204 / 45 / 251. Not "the wall" in abstract, conclusion, or Fig 1.
+% Forward-verify diagnostic (appendix): 204 / 45 / 251. Not "the wall" in abstract, conclusion, or Fig 1.
 % Self-rank 227 to forward-verify 204 is -23 on n=500. Do not write "barely moves top-1".
 % No CIs. Do not quote 243/519. Do not print a 194/106/200 results split in main prose.
 % Fig 1 = fig1_lead_overview (generation: 249/500 recall, 227/249 self-rank, 45.4% top-1; wall 227/22/251).
@@ -61,6 +61,14 @@
   aboveskip=0pt,
   belowskip=0pt,
   literate={-}{-}1
+}
+\lstdefinestyle{prompt}{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  columns=fullflexible,
+  keepspaces=true,
+  frame=single,
+  showstringspaces=false
 }
 \setlist{nosep,leftmargin=1.35em}
 \setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
@@ -128,7 +136,7 @@ $500$ problems, an RDKit InChIKey-14 contract, and the
 prediction deposits a mechanical scorer can replay.
 The object is a factorised diagnosis of one closed-book harness.
 One trained NMR-only baseline is scored on the same roster: NMRTrans,
-formula and printed $^1$H/$^{13}$C lists, IR unused (79/500 top-1; SI).
+formula and printed $^1$H/$^{13}$C lists, IR unused (79/500 top-1; Appendix~\ref{si:nmrtrans}).
 It is not a full multi-modal peer of the IR+$^1$H+$^{13}$C task.
 On one closed-book frontier harness, generation top-1 is 45.4\%
 (227/500) and recall (the fraction of problems whose true structure enters the proposed pool) is 49.8\% (249/500).
@@ -139,7 +147,7 @@ The roster is near-50/50 simple/complex; reweighted to the eligible corpus
 mix, top-1 on a validate-clean subset is 26.5\%.
 Forward verification of the same pools is a secondary drop, not a second wall:
 top-1 falls from 227/500 to 204/500 ($-23$;
-diagnostic $204/45/251$; see the SI).
+diagnostic $204/45/251$; Appendix~\ref{si:fverify}).
 On a 60-compound arm only, formula-only recovery is 3/60, accuracy is flat
 in source-paper year, and recall stays below precision across four vendor
 families.
@@ -230,7 +238,7 @@ and a high verifier score cannot be read as a solved elucidator.
 \end{enumerate}
 
 \paragraph{Peak-list resource.}
-Band and shift lists are taken from \citep{yabbarov2026irexp}, an anonymized review copy is included in the SI, a spectral peak-list
+Band and shift lists are taken from \citep{yabbarov2026irexp}, an anonymized review copy is in Appendix~\ref{si:split}, a spectral peak-list
 resource of 121,233 records (43,060 structure-linked; 33,201 full
 IR+$^1$H+$^{13}$C+structure quadruples)~.
 The $n{=}500$ roster is drawn from the structure-complete
@@ -270,7 +278,7 @@ failure of candidate generation is indistinguishable from a failure of
 ranking: both look like a miss.
 Only NMRTrans, among these models, is run on the roster below, and only as
 an NMR-only baseline: formula and printed $^1$H/$^{13}$C, IR unused
-(Supplementary Information, ``Offline peak-list baseline (NMRTrans)'').
+(Appendix~\ref{si:nmrtrans}).
 That score is not an IR+$^1$H+$^{13}$C measurement.
 A top-$k$ on NIST absorbance or on a simulated trace does not say whether
 the true constitution was proposed from a printed three-list experimental
@@ -350,8 +358,7 @@ NMRTrans~\citep{yang2026nmrtrans} is run here on formula and printed
 $^1$H/$^{13}$C lists, with IR unused, because the released model accepts
 that printed peak-list interface.
 The roster scores are 79/500 top-1 and 102/500 recall, with 9/500 gold
-keys in its training split (Supplementary Information, ``Offline
-peak-list baseline (NMRTrans)'').
+keys in its training split (Appendix~\ref{si:nmrtrans}).
 Those scores are the trained baseline obtained on this interface.
 It is not a full IR+$^1$H+$^{13}$C peer.
 
@@ -365,7 +372,7 @@ match this printed three-list harness.
 \label{sec:benchmark}
 
 IRSpectra-Bench is a frozen roster, the InChIKey-14 contract, and the
-three rates in Eq.~\ref{eq:factor}.
+three rates in Eq.~\ref{eq:factor} (Appendix~\ref{si:eqs}).
 Section~\ref{sec:not-on-roster} is the list of systems this section does not score.
 
 \subsection{Problem setup}
@@ -380,7 +387,7 @@ represented as a SMILES string and scored at the first fourteen characters
 of the RDKit InChIKey (Eq.~\ref{eq:ik14}).
 Stereo, tautomer and salt-form distinctions that live in the remaining
 InChIKey characters are held out of the headline and reported on a
-validate-clean subset in the SI.
+validate-clean subset (Appendix~\ref{si:extras}).
 No name, SMILES, scaffold, or retrieved spectrum is part of the input;
 the solver never sees the source paper.
 
@@ -398,7 +405,7 @@ An independent forward-verification ranker (Eq.~\ref{eq:chamfer}) may
 reorder the same pool; it cannot add a missing constitution.
 The $n{=}500$ forward-verify diagnostic then partitions the same pools into
 verified, misranked and never-proposed cells
-(see the SI); that split is not the generation wall.
+(Appendix~\ref{si:fverify}); that split is not the generation wall.
 Because top-1 factorises as recall times precision $|$ recall, a better
 ranker cannot raise recall, and the two rates must not be differenced.
 
@@ -417,11 +424,10 @@ the code.
 Problems are drawn from the structure-complete split of IRexp
 (\texttt{irexp\_resolved})~\citep{yabbarov2026irexp}.
 The question ids are a pre-specified list, not an outcome-selected subset
-(Supplementary Information, ``Blind protocol'', subsection ``Stopping and pooling'').
+(Appendix~\ref{si:stopping}).
 Histograms of molecular weight, ring count, C--F bonds, and nitrogen
 atoms for the validate-clean subset ($n{=}295$: locked cohort plus
-clean expansion) are in the Supplementary Information, section
-``Validate-clean extras''.
+clean expansion) are in Appendix~\ref{si:extras}.
 On that plate, the median molecular weight is $306~\mathrm{g{\cdot}mol^{-1}}$ and the median ring
 count is two rings.
 The thinking-tier expand-500 cut is not in the plate.
@@ -449,7 +455,7 @@ s(\hat y, y^\star)
 \mathbf{1}\!\big[\mathrm{IK}_{14}(\hat y)=\mathrm{IK}_{14}(y^\star)\big].
 \end{equation}
 Those 14 characters are the connectivity layer; stereo-sensitive InChIKey
-is reported on the validate-clean subset (SI).
+is reported on the validate-clean subset (Appendix~\ref{si:extras}).
 External submissions deposit up to three ranked SMILES per \texttt{qid}
 (\texttt{docs/LEADERBOARD.md}; \texttt{scripts/score\_submission.py}).
 With a ranked pool $\mathcal{C}_i=(c_{i1},\ldots,c_{ik})$, $k\leq 3$,
@@ -574,7 +580,7 @@ $n{=}500$ roster, then the 60-compound controls
 The generation wall is the lead result.
 Forward verification is the secondary drop on the same pools.
 Systems named in Section~\ref{sec:not-on-roster} do not appear in these tables.
-NMRTrans is scored in the SI as an NMR-only baseline (formula and printed
+NMRTrans is scored in Appendix~\ref{si:nmrtrans} as an NMR-only baseline (formula and printed
 $^1$H/$^{13}$C; IR unused; 79/500 top-1).
 It is not an IR+$^1$H+$^{13}$C row in these tables.
 
@@ -635,14 +641,14 @@ On the validate-clean subset, scaffold-level recovery is 64\% (80\% simple,
 48\% complex), with a mean best Tanimoto similarity of 0.66. Accuracy also
 decreases with molecular size: 67.9\% top-1 for molecules with
 $\leq 15$ heavy atoms, 42.8\% for 16--25, and 16.7\% above 25
-($n{=}53/152/90$; SI). Among 137 analysable top-1 misses in an instrumented
+($n{=}53/152/90$; Appendix~\ref{si:extras}). Among 137 analysable top-1 misses in an instrumented
 slice, \textbf{76.6\%} are constitutional isomers of the true structure,
 whereas only \textbf{22.6\%} share its Murcko scaffold. The typical failure
 therefore preserves composition but not the underlying connectivity, rather
 than representing a small regiochemical perturbation of the correct
 structure. A battery-electrolyte subset ($n{=}46$) is similarly
 recall-bound, with 26\% top-1 accuracy; results from the underpowered
-four-model Claude ladder are reported in the SI.
+four-model Claude ladder are reported in Appendix~\ref{si:ladder24}.
 
 % \subsection{Headline performance}
 % \label{sec:headline}
@@ -686,14 +692,14 @@ four-model Claude ladder are reported in the SI.
 % On the validate-clean subset, scaffold-level recovery is 64\% (simple
 % 80\%, complex 48\%) and mean best Tanimoto is 0.66; accuracy falls with
 % size (67.9\% top-1 at $\leq$15 heavy atoms, 42.8\% at 16--25, 16.7\%
-% above 25; $n{=}53/152/90$; SI).
+% above 25; $n{=}53/152/90$; Appendix~\ref{si:extras}).
 % On an instrumented slice, of 137 analysable top-1 misses, \textbf{76.6\%}
 % are constitutional isomers of the true structure; only \textbf{22.6\%}
 % share the true Murcko scaffold.
 % The typical miss is wrong connectivity at the right composition, not a
 % near-miss of regiochemistry.
 % A battery-electrolyte subset ($n{=}46$) is recall-bound (26\% top-1);
-% the underpowered four-model Claude ladder is in the SI.
+% the underpowered four-model Claude ladder is in Appendix~\ref{si:ladder24}.
 
 \subsection{Spectral controls}
 \label{sec:contamination}
@@ -718,9 +724,9 @@ formula + IR + $^1$H + $^{13}$C & 14/60 (23\%) & 19/60 (32\%) \\
 
 If the model were recovering constitutions from formula and pretraining
 memory alone, adding printed lists would not move the nested outcomes.
-It does: formula-only recovers 3/60, and every one of those three remains
+It does: formula-only recovers 3/60 (Appendix~\ref{si:n60}), and every one of those three remains
 recovered once IR and NMR lists are supplied (McNemar $p{=}0.001$).
-Accuracy is flat in source-paper year ($r{=}{-}0.007$), which bounds
+Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds
 verbatim recall of specific experimental sections but does not exclude
 contamination
 (Section~\ref{sec:limitations}).
@@ -805,16 +811,16 @@ On $n{=}500$, forward-verify top-1 is $204/500$, a drop of 23 from self-rank
 $227/500$.
 The forward-verify diagnostic --- not the generation wall --- is
 $204$ verified / $45$ misranked / $251$ never proposed
-(see the SI).
+(Appendix~\ref{si:fverify}).
 No re-ranking of an already-proposed pool repairs the $251$ compounds
 where the true structure never entered the list.
 
 \paragraph{Worked cases.}
-Three deposits instantiate these modes (see the SI).
+Three deposits instantiate these modes (Appendix~\ref{si:cases}).
 \textbf{main-R06} (C$_{29}$H$_{30}$FNO$_{2}$): true acridinedione never enters the 3-candidate
 pool (Tanimoto-0.90 regioisomer); verifier unused.
 \textbf{v3-R25} (C$_{10}$H$_{14}$N$_{2}$O): verify-save --- self-rank prefers 3-pyridyl,
-forward $^{13}$C recovers 2-pyridyl (chamfer 0.42 vs 1.30~ppm; Figure~\ref{fig:fig-mechanism}).
+forward $^{13}$C recovers 2-pyridyl (chamfer 0.42 vs 1.30~ppm; Figures~\ref{fig:fig-mechanism} and \ref{si:fig:r25}).
 \textbf{v3-R26} (C$_{14}$H$_{11}$N$_{3}$O$_{3}$): verify-fail --- true 3-nitrophenyl isomer in
 the pool but 2-nitro ranked first (chamfer 1.35 vs 1.36~ppm).
 
@@ -826,7 +832,7 @@ Ten solver agents, up to six candidates each, pooled and re-ranked on the
 $\to$ \textbf{30\%} (McNemar $p{=}0.34$); verification precision falls
 84\% $\to$ 72\% as noisier candidates enter.
 The training-free ceiling remains recall-limited
-(the 23\% $\to$ 27\% $\to$ 30\% ladder is reprinted in the SI).
+(the 23\% $\to$ 27\% $\to$ 30\% ladder is reprinted as Figure~\ref{si:fig:ladder}).
 
 \paragraph{Non-LLM verifiers.}
 The same candidate sets can be re-ranked without a language model.
@@ -847,7 +853,7 @@ recall moves.
 
 Published top-1 $= a$ and top-$k = b$ imply recall $\geq b$ and conditional
 precision $\leq a/b$ (\texttt{scripts/literature\_decomposition.py}).
-The SI rows (this work, NMR-Solver, NMRAgent, Espejo, Alberts, SpecX) are
+The rows in Appendix~\ref{si:lit} (this work, NMR-Solver, NMRAgent, Espejo, Alberts, SpecX) are
 separate published settings.
 They are not scores on this roster, and they are not one collapse onto
 literature peak lists.
@@ -863,12 +869,12 @@ On those deposits one closed-book harness self-ranks a proposed pool in
 $227/249$ cases and fails to propose the true constitution in 251 of 500
 (generation wall $227/22/251$; Figure~\ref{fig:fig1}).
 Forward verification is the secondary drop, $227/500 \to 204/500$
-(see the SI).
+(Appendix~\ref{si:fverify}).
 Table~\ref{tab:headline} places corpus-reweighted 26.5\% beside 45.4\%.
 They are the score of one closed-book harness.
 They are not a score for IR-Agent or CASE, which remain unscored.
 NMRTrans is a separate trained NMR-only baseline on the same roster
-(79/500 top-1, IR unused; SI), not a full multi-modal peer.
+(79/500 top-1, IR unused; Appendix~\ref{si:nmrtrans}), not a full multi-modal peer.
 
 \paragraph{Reporting contract.}
 External work should deposit ranked SMILES and report (i)~top-1
@@ -951,7 +957,7 @@ No expert-chemist audit of the printed lists was run, and the elucidators
 named in Section~\ref{sec:not-on-roster} were not run on this input.
 NMRTrans~\citep{yang2026nmrtrans} is the trained model scored on the
 roster, on formula and printed $^1$H/$^{13}$C lists with IR unused
-(Supplementary Information, ``Offline peak-list baseline (NMRTrans)'').
+(Appendix~\ref{si:nmrtrans}).
 It is not a full IR+$^1$H+$^{13}$C peer.
 We release the deposits and the scorer.
 
@@ -994,5 +1000,7 @@ We acknowledge support from the Natural Sciences and Engineering Research Counci
 \newpage
 \appendix
 \section{Appendix}
+\label{app:si}
+\input{si/appendix_body}
 
 \end{document}
