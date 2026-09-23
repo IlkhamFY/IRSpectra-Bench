@@ -76,12 +76,17 @@ literature rows &
 \end{tabular}
 \end{table}
 
-Figure~\mainref{fig:fig1}{1}, Figure~\mainref{fig:fig-mechanism}{3},
-and Listing~\mainref{lst:payload}{1} are in the main text.
+Figure~\mainref{fig:fig1}{1}, Figure~\mainref{fig:fig-robustness}{2},
+Figure~\mainref{fig:fig-mechanism}{3}, and Listing~\mainref{lst:payload}{1}
+are in the main text.
 Main-text Eqs.~\mainref{eq:factor}{1}, \mainref{eq:ik14}{2}, \mainref{eq:metrics}{3}, and \mainref{eq:chamfer}{4}
 (factorisation, InChIKey-14, the three rates, and $^{13}$C chamfer) are restated in
 \S\ref{si:eqs} with the same meaning.
 The pooled estimator lives only here.
+
+%======================================================================
+\subsection{Appendix figures}
+\label{si:plates}
 
 \begin{figure}[ht]
 \centering
@@ -94,6 +99,24 @@ as Figure~\mainref{fig:fig1}{1}
 Verified top-1 is $204/500$, a drop of 23 from self-rank $227/500$.
 Generation recall remains $249/500$.}
 \label{si:fig:wall}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{fig_chemspace.pdf}
+\caption{Molecular weight, ring count, C--F bonds, and nitrogen atoms
+on the validate-clean subset ($n{=}295$: locked cohort plus clean
+expansion; median MW $306~\mathrm{g{\cdot}mol^{-1}}$; median 2 rings).
+The thinking-tier expand-500 cut is separate from this subset.}
+\label{si:fig:chemspace}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.58\linewidth]{fig3_method.pdf}
+\caption{Inference ladder on the 60-compound arm:
+23\% $\to$ 27\% $\to$ 30\% (generate-wide recall $32\%\to 42\%$).}
+\label{si:fig:ladder}
 \end{figure}
 
 %======================================================================
@@ -233,31 +256,14 @@ Confidence intervals are not reported for $n{=}500$ or expand-500.
 \subsection{Validate-clean extras}
 \label{si:extras}
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.88\linewidth]{fig_chemspace.pdf}
-\caption{Molecular weight, ring count, C--F bonds, and nitrogen atoms
-on the validate-clean subset ($n{=}295$: locked cohort plus clean
-expansion; median MW $306~\mathrm{g{\cdot}mol^{-1}}$; median 2 rings).
-The thinking-tier expand-500 cut is not in this figure.}
-\label{si:fig:chemspace}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.58\linewidth]{fig3_method.pdf}
-\caption{Inference ladder on the 60-compound arm:
-23\% $\to$ 27\% $\to$ 30\% (generate-wide recall $32\%\to 42\%$).}
-\label{si:fig:ladder}
-\end{figure}
-
+Cohort chemistry is Figure~\ref{si:fig:chemspace}.
 On the pre-expansion validate-clean subset, $^{13}$C-overread flags
 (R12, R22, R25, R82, R91) were marked before the subset totals.
 They are not the six expand-500 flags listed above.
 
 \begin{table}[ht]
-\caption{Validate-clean extras show scaffold and stereo metrics under
-the same scorer, not the $n{=}500$ headline.}
+\caption{Scaffold and stereo metrics on the validate-clean subset
+($n{=}295$).}
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
