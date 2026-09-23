@@ -933,42 +933,21 @@ $^{13}$C peak lists, read by one closed-book harness and scored with an
 InChIKey-14 contract.
 On that harness, the failure that binds is generation recall: a ranker
 cannot insert a structure that never entered the pool.
-Generation is 45.4\% top-1 (227/500) and 49.8\% recall (249/500).
-The same pools separate a missing candidate from a mis-ranked one.
+Generation is 45.4\% top-1 (227/500).
 The generation wall is $227$ exact top-1, $22$ proposed but not placed
 first, and $251$ never proposed.
 Forward verification of those pools is a ranking diagnostic: top-1 falls
 from 227 to 204, and the $251$ never-proposed constitutions stay out.
 
 The balanced roster and the corpus reweighting are separate scores.
-The roster is balanced simple against complex, and on that roster the
-harness scores 45.4\% top-1.
-Reweighted to the eligible corpus, top-1 on a validate-clean subset is
-26.5\%, the figure for an arbitrary draw from the literature.
-The reweighted figure is not an interval on the $n{=}500$ rows.
-A single top-1 does not say which of the two scores was computed.
-
-The $n{=}60$ arm is a different measurement.
-It exists to report formula-only recovery, the recency check, and the
-cross-vendor comparison separately from the $n{=}500$ headline.
-Claude Opus 5's top-1 there is 14/60 (23\%).
+On the roster the harness scores 45.4\% top-1; reweighted to the eligible
+corpus, top-1 on a validate-clean subset is 26.5\%.
+A single top-1 does not say which of the two was computed.
 
 The deposits and the InChIKey-14 scorer are a diagnostic for follow-on
-work.
-On these frozen inputs, a true constitution that never enters the pool is
-a proposer failure, and one that enters but is not placed first is a
-ranker failure.
-A later deposit scored with the same contract shows whether a miss was
-a proposer failure or a ranker failure.
-The split is not a claim that literature-peak-list elucidation is solved.
-
-We release the deposits and the scorer.
-No expert-chemist audit of the printed lists was run, and the elucidators
-named in Section~\ref{sec:not-on-roster} were not run on this input.
-NMRTrans~\citep{yang2026nmrtrans} is the trained model scored on the
-roster, on formula and printed $^1$H/$^{13}$C lists with IR unused
-(Appendix~\ref{si:nmrtrans}).
-It is not a full IR+$^1$H+$^{13}$C peer.
+work: a true constitution that never enters the pool is a proposer
+failure; one that enters but is not placed first is a ranker failure.
+We release both.
 The claim stops at this harness.
 
 \section*{AI use statement}
