@@ -20,6 +20,10 @@
 \usepackage{iclr2027_conference,times}
 \usepackage{iftex}
 \usepackage{wrapfig}
+% \captionof for a table+figure row. Uses the class caption style.
+\makeatletter
+\providecommand{\captionof}[1]{\def\@captype{#1}\caption}
+\makeatother
 \ifPDFTeX
 \else
   % Official ICLR is Times. XeLaTeX cannot use times.sty (TU/ptm undefined).
@@ -237,13 +241,9 @@ JSON+molecule record.
 \begin{figure}[t]
   \centering
   \includegraphics[width=0.8\linewidth]{fig1_lead_overview.pdf}
-  \caption{Blind peak-list elucidation on $n{=}500$, one closed-book harness.
-  Formula plus printed lists $\rightarrow$ ranked pool $\rightarrow$ InChIKey-14
-  (Eq.~\ref{eq:ik14}).
-  Generation recall $249/500$ (49.8\%) in top~3; self-rank $227/249$ (91.2\%),
-  hence top-1 $45.4\%$.
-  Generation wall (solver self-rank):
-  $227$ exact top-1 / $22$ in-pool not top-1 / $251$ never proposed.}
+  \caption{$n{=}500$ closed-book elucidation.
+  Recall $249/500$ (49.8\%); self-rank $227/249$ (91.2\%); top-1 $45.4\%$.
+  Generation wall: $227$ exact / $22$ in pool but not first / $251$ never proposed.}
   \label{fig:fig1}
 \end{figure}
 
@@ -584,9 +584,9 @@ It is not an IR+$^1$H+$^{13}$C row in these tables.
 \begin{wraptable}{r}{0.47\textwidth}
 \vspace{-1.2\baselineskip}
 \centering
-\caption{Closed-book generation performance. Starred values are
-reweighted to the eligible-corpus composition
-(17.5\% simple / 82.5\% complex).}
+\caption{Closed-book generation ($n{=}500$ point estimates).
+$^{\ast}$ reweights to the corpus mix
+(17.5\% simple / 82.5\% complex), not an $n{=}500$ interval.}
 \label{tab:headline}
 \small
 \setlength{\tabcolsep}{4pt}
@@ -604,11 +604,6 @@ reweighted top-1$^{\ast}$ & \textbf{26.5\%} [21--32] \\
 reweighted recall$^{\ast}$ & 31.3\% [25--37] \\
 \bottomrule
 \end{tabular}
-
-\vspace{2pt}
-\parbox{0.44\textwidth}{\footnotesize
-The $n{=}500$ rows are point estimates. $^{\ast}$ are
-corpus-mix estimates and are not $n{=}500$ confidence intervals.}
 \vspace{-0.8\baselineskip}
 \end{wraptable}
 
@@ -703,11 +698,13 @@ four-model Claude ladder are reported in the SI.
 \subsection{Spectral controls}
 \label{sec:contamination}
 
-\begin{table}[ht]
-\caption{The formula-only control shows paired top-1 and recall on $n{=}60$.}
-\label{tab:formula-only}
+\begin{wraptable}{r}{0.62\textwidth}
+\vspace{-1.2\baselineskip}
 \centering
+\caption{Paired $n{=}60$: formula only versus full lists.}
+\label{tab:formula-only}
 \small
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}lrr@{}}
 \toprule
 condition & top-1 & recovered (top-3) \\
@@ -716,7 +713,8 @@ formula only & 3/60 (5\%) & 3/60 (5\%) \\
 formula + IR + $^1$H + $^{13}$C & 14/60 (23\%) & 19/60 (32\%) \\
 \bottomrule
 \end{tabular}
-\end{table}
+\vspace{-0.8\baselineskip}
+\end{wraptable}
 
 If the model were recovering constitutions from formula and pretraining
 memory alone, adding printed lists would not move the nested outcomes.
@@ -732,16 +730,12 @@ recall $\ll$ precision split is a property of one vendor.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.56\linewidth]{fig_robustness.pdf}
-  \caption{Formula-only top-1 (3/60 versus 14/60), source-year bins, and
-  the 60-compound sweep (not the $n{=}500$ headline).
-  Panel~(c) generation recall: Grok 4.6 (32/60), Gemini 3.7 Flash (30/60),
-  GPT-5.6 Sol (25/60), Claude Opus 5 (19/60), Composer 2.5 (12/60),
-  GPT-5.6 Luna (9/60), DeepSeek V4 Pro (8/60, partial formula gate)
-  and Nemotron 3.5 (0/60).
-  Composer 2.5, GPT-5.6 Luna, DeepSeek V4 Pro and Nemotron 3.5
-  are not rows in Table~\ref{tab:cross-vendor}.
-  Panel~(d) is forward-verify chamfer precision against recall, not
-  solver self-rank.}
+  \caption{$n{=}60$ controls, not the $n{=}500$ headline.
+  Formula-only top-1 is 3/60 versus 14/60.
+  Panel~(c) recall: Grok 4.6 32/60, Gemini 3.7 Flash 30/60,
+  GPT-5.6 Sol 25/60, Claude Opus 5 19/60, Composer 2.5 12/60,
+  GPT-5.6 Luna 9/60, DeepSeek V4 Pro 8/60, Nemotron 3.5 0/60.
+  Panel~(d) is chamfer precision against recall.}
   \label{fig:fig-robustness}
 \end{figure}
 
@@ -770,17 +764,17 @@ so recall rankings among vendors are approximate.
 A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 
 \begin{table}[ht]
-\caption{Cross-vendor scores on $n{=}60$.
-Generation recall is pool membership.
-Both precision columns are chamfer forward-verify of that pool, not
-solver self-rank.
-Denominators differ.}
-\label{tab:cross-vendor}
 \centering
-\small
-\begin{tabular}{@{}lrrr@{}}
+\begin{minipage}[t]{0.60\textwidth}
+\vspace{0pt}
+\caption{Cross-vendor $n{=}60$.
+Recall is pool membership; prec.$|$rec.\ and multi-cand.\ are chamfer re-rank, not self-rank.}
+\label{tab:cross-vendor}
+\footnotesize
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}lccc@{}}
 \toprule
-model & generation recall & chamfer prec.$|$recall & chamfer, multi-cand. \\
+model & recall & prec.$|$rec. & multi-cand. \\
 \midrule
 Claude Opus 5 & 19/60 = 32\% & 16/19 = 84\% & 10/13 = 77\% \\
 Grok 4.6 & 32/60 = 53\% & 20/32 = 62\% & 20/32 = 62\% \\
@@ -788,18 +782,18 @@ Gemini 3.7 Flash & 30/60 = 50\% & 22/30 = 73\% & 22/30 = 73\% \\
 GPT-5.6 Sol & 25/60 = 42\% & 17/25 = 68\% & 16/24 = 67\% \\
 \bottomrule
 \end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.36\textwidth}
+\vspace{0pt}
+\centering
+\includegraphics[width=\linewidth]{fig_mechanism.pdf}
+\captionof{figure}{v3-R25: self-rank picks 3-pyridyl; forward $^{13}$C picks 2-pyridyl (0.42 vs 1.30~ppm).}
+\label{fig:fig-mechanism}
+\end{minipage}
 \end{table}
 
 \subsection{Forward verification}
 \label{sec:forward-verify}
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.64\linewidth]{fig_mechanism.pdf}
-  \caption{Case v3-R25: self-rank prefers 3-pyridyl; forward $^{13}$C
-  recovers 2-pyridyl (chamfer 0.42 vs 1.30~ppm; see the SI).}
-  \label{fig:fig-mechanism}
-\end{figure}
 
 Forward verification asks whether an independent $^{13}$C ranker can
 repair the misses that remain after the solver has proposed a pool.
