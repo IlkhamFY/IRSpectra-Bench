@@ -761,6 +761,15 @@ contamination
 (Section~\ref{sec:limitations}).
 The lists are being used; the remaining question is whether the same
 recall $\ll$ precision split is a property of one vendor.
+A paired leave-one-modality arm (Claude Opus 5, thinking;
+Appendix~\ref{si:modality}), separate from Table~\ref{tab:formula-only}
+and the $n{=}500$ headline, has top-1 35/60 (58.3\%) on full lists,
+34/60 (56.7\%) without IR, 21/60 (35.0\%) without $^1$H,
+34/60 (56.7\%) without $^{13}$C, and 3/60 (5.0\%) on formula$+$IR.
+Only the $^1$H leave-one-out is significant (McNemar $p{=}0.001$;
+IR and $^{13}$C, $p{=}1.000$).
+Formula$+$IR matches the formula-only floor; without IR, recovered
+count rises from 38/60 (63.3\%) to 41/60 (68.3\%).
 
 \begin{figure}[ht]
   \centering
@@ -949,8 +958,12 @@ The unscored systems in Section~\ref{sec:not-on-roster} were not run.
 Forward-verify versus self-rank drops by 23 on $n{=}500$ and is unresolved
 on the protocol slice ($p{=}0.55$); generate-wide top-1 is unresolved
 ($p{=}0.34$); the $n{=}24$ ladder is underpowered.
-No expert-chemist audit was run, a leave-one-modality arm was abandoned,
-and extraction fidelity is inherited from IRexp rather than re-audited here.
+No expert-chemist audit was run.
+Leave-one-modality on paired $n{=}60$ was completed:
+$^1$H is the only significant leave-one-out ($58.3\%\to35.0\%$, McNemar $p{=}0.001$);
+IR and $^{13}$C do not (both $56.7\%$, $p{=}1.000$);
+formula$+$IR matches the formula-only floor ($5.0\%$).
+Extraction fidelity is inherited from IRexp rather than re-audited here.
 The battery subset is literature electrolyte chemistry, not operando cells;
 scoring is single-sample; the roster inherits PMC-OA organic bias.
 
