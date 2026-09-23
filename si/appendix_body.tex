@@ -13,6 +13,7 @@
 % The standalone wrapper falls back to the current main numbers.
 \makeatletter
 \DeclareRobustCommand{\mainref}[2]{\@ifundefined{r@#1}{#2}{\ref{#1}}}
+\providecommand{\captionof}[1]{\def\@captype{#1}\caption}
 \makeatother
 
 \noindent
@@ -55,6 +56,8 @@ Listing~\mainref{lst:payload}{1} &
 Figure~\mainref{fig:fig-robustness}{3} &
   Formula-only (\S\ref{si:n60}), source-paper year (\S\ref{si:year}),
   and four-vendor controls. \\
+leave-one-modality &
+  Paired $n{=}60$ arm, Claude Opus 5 (\S\ref{si:modality}). \\
 Figure~\mainref{fig:fig-mechanism}{4} &
   v3-R25 verify-save (\S\ref{si:cases}). \\
 Figure~\ref{si:fig:wall} &
@@ -554,6 +557,36 @@ Formula only: 3/60 (5\%) top-1 and 3/60 (5\%) recall.
 Formula $+$ IR $+$ $^1$H $+$ $^{13}$C: 14/60 (23\%) / 19/60 (32\%).
 Outcomes perfectly nested (McNemar $p{=}0.001$).
 
+\subsubsection{Leave-one-modality \texorpdfstring{($n{=}60$)}{(n=60)}}
+\label{si:modality}
+Paired leave-one-modality on Claude Opus 5 (thinking), the same 60 compounds
+in every condition.
+This arm is not Table~\mainref{tab:formula-only}{the formula-only ablation}
+and not the $n{=}500$ headline.
+McNemar tests paired top-1 against full lists.
+$b$ counts compounds correct on full lists only;
+$c$ counts compounds correct on the named condition only.
+Formula only is the pre-existing control.
+
+\begin{center}
+\captionof{table}{Leave-one-modality, paired $n{=}60$.
+Formula only is the pre-existing control.}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrl@{}}
+\toprule
+condition & top-1 & recovered (top-3) & McNemar vs full \\
+\midrule
+full & 35/60 (58.3\%) & 38/60 (63.3\%) & --- \\
+$-$IR & 34/60 (56.7\%) & 41/60 (68.3\%) & $b{=}4$, $c{=}3$, $p{=}1.000$ \\
+$-{}^1$H & 21/60 (35.0\%) & 27/60 (45.0\%) & $b{=}15$, $c{=}1$, $p{=}0.001$ \\
+$-{}^{13}$C & 34/60 (56.7\%) & 37/60 (61.7\%) & $b{=}3$, $c{=}2$, $p{=}1.000$ \\
+formula$+$IR & 3/60 (5.0\%) & 5/60 (8.3\%) & $b{=}32$, $c{=}0$, $p{=}0.000$ \\
+formula only & 3/60 (5.0\%) & 3/60 (5.0\%) & $b{=}32$, $c{=}0$, $p{=}0.000$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
 \subsubsection{Source-paper year \texorpdfstring{($n{=}60$)}{(n=60)}}
 \label{si:year}
 Accuracy is flat in source-paper year ($r{=}{-}0.007$;
@@ -858,5 +891,6 @@ Formula-only recovery on the 60-compound arm is 3/60 top-1 and 3/60 recall.
 NMRTrans (\S\ref{si:nmrtrans}) is one trained NMR-only baseline on this
 roster (IR unused; 79/500 top-1), not a full multi-modal peer and not a
 score for those systems.
-An expert-chemist audit and a leave-one-modality arm were not run.
+An expert-chemist audit was not run.
+Leave-one-modality on the paired $n{=}60$ arm is \S\ref{si:modality}.
 
