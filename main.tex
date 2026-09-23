@@ -635,7 +635,7 @@ selects the correct structure in 227/249 recalled cases, yielding an
 overall top-1 accuracy of 227/500 (45.4\%). The resulting generation wall
 is therefore 227 exact top-1 predictions, 22 candidates that were generated
 but incorrectly ranked, and 251 structures that were never proposed
-(Figure~\ref{fig:fig1}). Thus, most failures arise during candidate
+(Figure~\ref{fig:fig1}; Figure~\ref{fig:error-modes}). Thus, most failures arise during candidate
 generation rather than self-ranking.
 
 The evaluation roster is approximately balanced between simple and complex
@@ -665,6 +665,16 @@ than representing a small regiochemical perturbation of the correct
 structure. A battery-electrolyte subset ($n{=}46$) is similarly
 recall-bound, with 26\% top-1 accuracy; results from the underpowered
 four-model Claude ladder are reported in Appendix~\ref{si:ladder24}.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{fig_error_modes.pdf}
+  \caption{Generation outcomes under a closed-book agentic solve.
+  (a)~correct top-1; (b)~in pool, not top-1; (c)~never proposed;
+  (d)~blind agent prompt excerpt.
+  Locked generation wall on $n{=}500$: $227$ exact top-1 / $22$ in-pool not top-1 / $251$ never proposed.}
+  \label{fig:error-modes}
+\end{figure}
 
 % \subsection{Headline performance}
 % \label{sec:headline}
