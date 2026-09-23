@@ -922,20 +922,38 @@ scoring is single-sample; the roster inherits PMC-OA organic bias.
 \section{Conclusion}
 \label{sec:conclusion}
 
-IRSpectra-Bench is a frozen literature-peak-list roster and an InChIKey-14
-scorer.
-On one closed-book harness, generation is 45.4\% top-1 (227/500) and
-49.8\% recall (249/500), beside corpus-reweighted 26.5\% top-1 on a
-validate-clean subset.
-Generation is the binding stage: $227$ exact top-1 / $22$ in-pool not
-top-1 / $251$ never proposed; forward verification lowers top-1 from 227
-to 204 and leaves those $251$ never proposed.
-No expert-chemist audit of the printed lists was run.
-Those $251$ are recovered only when a proposer places them in the pool.
-Re-ranking does not recover them.
-The 60-compound arm is a separate evaluation, not this headline result.
+IRSpectra-Bench is a frozen roster of literature-reported IR, $^1$H, and
+$^{13}$C peak lists, read by one closed-book harness and scored with an
+InChIKey-14 contract.
+On that harness, generation is 45.4\% top-1 (227/500) and 49.8\% recall
+(249/500).
+The roster is balanced simple against complex; reweighted to the eligible
+corpus, top-1 on a validate-clean subset is 26.5\%.
+The balanced-roster figure and the reweighted figure answer different
+questions, and the second is the relevant one for an arbitrary draw from
+the literature.
+
+The same pools separate a missing candidate from a mis-ranked one.
+The generation wall is $227$ exact top-1, $22$ proposed but not placed
+first, and $251$ never proposed.
+Forward verification of those pools is a ranking diagnostic: top-1 falls
+from 227 to 204, and the $251$ never-proposed constitutions stay out.
+A ranker cannot insert a structure that never entered the pool, so on
+formula plus printed IR, $^1$H, and $^{13}$C lists the failure that binds
+is generation recall.
+The $n{=}60$ arm is a different measurement.
+Formula-only recovery, the recency check, and the cross-vendor comparison
+belong to that arm; they are not a restatement of the $n{=}500$ headline,
+and Claude Opus 5's top-1 there is 14/60 (23\%).
+
+The claim stops at this harness.
+No expert-chemist audit of the printed lists was run, and the elucidators
+named in Section~\ref{sec:not-on-roster} were not run on this input.
+NMRTrans~\citep{yang2026nmrtrans} is the trained model scored on the
+roster, on formula and printed $^1$H/$^{13}$C lists with IR unused
+(Supplementary Information, ``Offline peak-list baseline (NMRTrans)'').
+It is not a full IR+$^1$H+$^{13}$C peer.
 We release the deposits and the scorer.
-The unscored systems in Section~\ref{sec:not-on-roster} were not run on this input.
 
 \section*{AI use statement}
 Frontier LLMs were used as \textbf{experimental solvers} under the consumer harness in
