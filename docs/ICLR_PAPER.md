@@ -79,7 +79,7 @@ supply the missing **measurement infrastructure at scale**.
    figures, showing recall carries most of the collapse on real heterogeneous data.
 
 **Dataset pointer (not this paper's primary object).** Experimental band lists come from
-**IRexp** (121,233 records; 43,060 structure-linked; 33,201 full IR+¹H+¹³C+structure
+**IRexp** (121,233 records; 57,646 structure-linked; 39,118 full IR+¹H+¹³C+structure
 quadruples), released on Hugging Face (`ilkhamfy/IRexp`). Construction, licensing, and
 technical validation of the corpus are the subject of a companion *Scientific Data*
 manuscript (in preparation). This ICLR paper **cites** that resource and does not re-present
