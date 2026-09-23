@@ -1,0 +1,928 @@
+% Shared appendix body. Included from main.tex after \appendix
+% and from si/supplement.tex. Do not add a second title page.
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\setcounter{equation}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\renewcommand{\thetable}{S\arabic{table}}
+\renewcommand{\theequation}{S\arabic{equation}}
+\renewcommand{\theHfigure}{S\arabic{figure}}
+\renewcommand{\theHtable}{S\arabic{table}}
+\renewcommand{\theHequation}{S\arabic{equation}}
+% Main-text labels exist when this file is input from main.tex.
+% The standalone wrapper falls back to the current main numbers.
+\makeatletter
+\newcommand{\mainref}[2]{\@ifundefined{r@#1}{#2}{\ref{#1}}}
+\makeatother
+
+\noindent
+This appendix records the blind protocol, scoring identities, scale
+tables, worked cases, and reproducibility notes.
+Headline generation on the frozen $n{=}500$ roster is $227/500$ (45.4\%)
+top-1 and $249/500$ (49.8\%) recall; self-ranking precision $|$ recall is
+$227/249$ (91.2\%).
+Independent forward verification of the same pools is Figure~\ref{si:fig:wall}
+and \S\ref{si:fverify}.
+Confidence intervals are not reported for $n{=}500$.
+The $n{=}519$ pooled print ($243/519$) is not the headline.
+Unprefixed figure and listing numbers refer to the main text.
+
+%======================================================================
+\subsection{Cross-reference to the main text}
+\label{si:map}
+
+\begin{table}[ht]
+\caption{Main-text objects and where this appendix records them.}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}ll>{\raggedright\arraybackslash}p{5.05cm}@{}}
+\toprule
+main label & object & role here \\
+\midrule
+Fig.~\texttt{fig1} &
+  Fig.~1 (\texttt{fig1\_lead\_overview}) &
+  Protocol and $n{=}500$ generation:
+  $249/500$ recall $\times$ $227/249$ self-rank $=45.4\%$ top-1;
+  wall $227/22/251$. Reprinted as Fig.~\ref{si:fig:lead}. \\
+Fig.~\texttt{fig-chemspace} &
+  recorded below &
+  Validate-clean chemistry ($n{=}295$; median MW $306~\mathrm{g{\cdot}mol^{-1}}$; median 2 rings).
+  Not the thinking-tier cut. Fig.~\ref{si:fig:chemspace}. \\
+Listing~\texttt{lst:payload} &
+  Listing 1 (live lstlisting $+$ PubChem 3D) &
+  IRexp JSON$+$molecule (ILJNJJNKEOAREX; CID 57398578;
+  C$_{12}$H$_{11}$BrN$_{4}$).
+  SMILES and InChIKey are resource fields, not solver payload.
+  Reprinted below. \\
+Fig.~\texttt{fig-wall} &
+  reprinted below (\texttt{fig\_wall\_diagnostic}) &
+  $n{=}500$ forward-verify diagnostic $204/45/251$.
+  Fig.~\ref{si:fig:wall}. \\
+Fig.~\texttt{fig-robustness} &
+  Fig.~2 &
+  Formula-only (\S\ref{si:n60}), source-paper year (\S\ref{si:year}),
+  and four-vendor controls (figure not reprinted). \\
+Fig.~\texttt{fig-mechanism} &
+  Fig.~3 &
+  Locked v3-R25 verify-save. Reused in \S\ref{si:cases}. \\
+Fig.~\texttt{fig3-method} &
+  recorded below &
+  Inference ladder on the 60-compound arm
+  (23\% $\to$ 27\% $\to$ 30\%).
+  Reprinted as Fig.~\ref{si:fig:ladder}. \\
+worked cases &
+  Table~\ref{tab:cases} &
+  \S\ref{si:cases}. \\
+validate-clean extras &
+  main headline one-liner; tables here &
+  Scaffold / Tanimoto / stereo / size bins / corpus-reweight
+  (\S\ref{si:extras}). \\
+lit.\ decomp.\ table &
+  \S\ref{si:lit} &
+  Full top-1 / top-$k$ rows; not one collapse onto literature peak lists. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Main-text Eqs.~\mainref{eq:factor}{1}, \mainref{eq:ik14}{2}, \mainref{eq:metrics}{3}, and \mainref{eq:chamfer}{4}
+(factorisation, InChIKey-14, the three rates, and $^{13}$C chamfer) are restated in
+\S\ref{si:eqs} with the same meaning.
+The pooled estimator lives only here.
+
+%======================================================================
+\subsection{Reprinted figures}
+\label{si:plates}
+
+Figure~\ref{si:fig:lead} reprints the main-text protocol plate.
+Figure~\ref{si:fig:wall} is the $n{=}500$ forward-verify diagnostic
+reprinted with the protocol notes.
+Listing~1 is reprinted with the same live lstlisting$+$framed
+layout (PubChem 3D, CID 57398578).
+Cohort chemistry and the 60-compound inference ladder are recorded here.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
+\caption{Main-text Figure~1.
+Generate $249/500$ (49.8\%) recall in top~3;
+self-rank $227/249$ (91.2\%)
+($49.8\%\times 91.2\%=45.4\%$ top-1);
+generation wall $227$ exact top-1 / $22$ in-pool not top-1 /
+$251$ never proposed.}
+\label{si:fig:lead}
+\end{figure}
+
+\begin{listing}[!ht]
+\IfFileExists{tex/listing1_body.tex}{\input{tex/listing1_body}}{\input{../tex/listing1_body}}
+\caption{Main-text Listing~1, an IRexp record
+(commercial DoR; \texttt{ILJNJJNKEOAREX}; PubChem CID 57398578).
+SMILES and InChIKey are resource fields, not solver payload.}
+\label{si:fig:listing}
+\end{listing}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
+\caption{The forward-verify diagnostic on the same $n{=}500$ pools
+(not the generation wall in main-text Figure~1):
+\textbf{204} verified / \textbf{45} misranked /
+\textbf{251} never proposed.
+Verified top-1 is $204/500$, a drop of 23 from self-rank $227/500$.
+Generation recall remains $249/500$.}
+\label{si:fig:wall}
+\end{figure}
+
+%======================================================================
+\subsection{Blind protocol}
+\label{si:protocol}
+
+\subsubsection{Solver contract}
+
+Each IRSpectra-Bench item is a four-field JSON object. The solver sees
+\emph{only}
+\begin{center}
+\texttt{\{qid, formula, ir\_bands\_cm-1, h\_nmr, c\_nmr\}}.
+\end{center}
+No name, SMILES, InChIKey, scaffold, atom-type hint, retrieved spectrum,
+licence stamp, or PMC id enters the prompt
+(main-text Listing~1, adapted from one IRexp record).
+Gold constitution is scored offline by the InChIKey-14 indicator
+(\S\ref{si:eqs}).
+
+Difficulty is declared \emph{a priori} by RDKit ring analysis:
+\emph{simple} iff $\leq$2 rings, no fused/spiro/bridgehead system,
+$\leq$22 heavy atoms; else \emph{complex}.
+The $n{=}500$ headline is near-50/50 (248/252);
+the eligible IRexp corpus is 17.5\% simple / 82.5\% complex.
+Corpus-reweighted extras on a validate-clean subset are in
+\S\ref{si:extras} and are not $n{=}500$ figures.
+
+\subsubsection{Frozen roster}
+
+The code release records the frozen roster and the expand-500 campaign.
+
+\begin{itemize}
+  \item $n{=}500$ roster: frozen \texttt{qid} lists in the code release.
+        Sampler seeds for early draws were not captured; the released
+        roster is fixed and reusable but not exactly re-drawable.
+  \item expand-500 campaign: 115/115 simple/complex; seed 2026500;
+        0 collisions with any prior round.
+        Six $^{13}$C-overread flags known \emph{before} any solve:
+        R26, R31, R102, R105, R107, R138.
+\end{itemize}
+
+\subsubsection{Stopping and pooling}
+\label{si:stopping}
+
+\begin{itemize}
+  \item The $n{=}500$ roster is a pre-specified frozen \texttt{qid} list,
+        not an outcome-selected subset.
+  \item Gold keys for the expand-500 arm were used only for local scoring
+        and are not in the review copy.
+  \item Official expand-500 chamfer is $103/230$ verify vs $129/230$ self
+        (\S\ref{si:fverify}); confidence intervals were not computed on
+        that arm.
+\end{itemize}
+
+\subsubsection{Allowed tools}
+
+RDKit formula / parse check only. No web search. No retrieved spectrum.
+The pooled $n{=}500$ headline mixes no-thinking runs with the thinking-tier
+expand-500 cut (200 of 500).
+The two harnesses are not interchangeable; scoring is the same InChIKey-14 contract.
+
+A deposit is JSONL of \texttt{\{qid, candidates: [SMILES,\ldots]\}} under a
+stated budget. Headline budget: $\leq 3$ ranked SMILES per \texttt{qid}.
+Self-ranking and forward-verified re-ranking are reported separately.
+
+%======================================================================
+\subsection{Scoring identities}
+\label{si:eqs}
+
+The identities in this section restate main-text Eqs.~\mainref{eq:factor}{1}, \mainref{eq:ik14}{2}, \mainref{eq:metrics}{3}, and \mainref{eq:chamfer}{4}.
+The pool estimator (Eq.~\ref{si:eq:pool}) is not in the main text.
+
+A candidate $\hat y$ matches gold $y^\star$ at constitution iff
+\begin{equation}
+\label{si:eq:ik14}
+s(\hat y, y^\star)
+=\mathbf{1}\big[\mathrm{IK}_{14}(\hat y)=\mathrm{IK}_{14}(y^\star)\big].
+\end{equation}
+$\mathrm{IK}_{14}$ is the first 14 characters of the RDKit InChIKey
+(connectivity layer). Full stereo-sensitive InChIKey is reported only on
+validate-clean $n{=}295$ (\S\ref{si:extras}).
+
+With ranked pool $\mathcal{C}_i=(c_{i1},\ldots,c_{ik})$, $k\leq 3$,
+\begin{align}
+\label{si:eq:top1}
+\mathrm{top\text{-}1}
+&=\frac1n\sum_i s(c_{i1}, y_i^\star),\\
+\label{si:eq:recall}
+\mathrm{recall}@k
+&=\frac1n\sum_i \mathbf{1}\big[\exists\,j\leq k:\; s(c_{ij}, y_i^\star)=1\big],\\
+\label{si:eq:prec}
+\mathrm{prec.}|\mathrm{recall}
+&=\frac{\sum_i s(c_{i1}, y_i^\star)}{\sum_i \mathbf{1}[y_i^\star\in\mathcal{C}_i]}.
+\end{align}
+These are the three reportable numbers. They factorise as
+\begin{equation}
+\label{si:eq:factor}
+\mathrm{top\text{-}1}
+=(\mathrm{recall}@k)\times(\mathrm{prec.}|\mathrm{recall})
+\end{equation}
+when the same pool is used for both stages. The rates have different
+denominators and must not be differenced.
+Self-ranking $\mathrm{prec.}|\mathrm{recall}$ on $n{=}500$ is $227/249$
+(91.2\%), which is not forward-verify precision.
+
+Forward-verify re-ranks by symmetric chamfer on $^{13}$C peak sets
+$P,Q\subset\mathbb{R}$
+\begin{equation}
+\label{si:eq:chamfer}
+d(P,Q)
+=\frac1{|P|}\sum_{p\in P}\min_{q\in Q}|p-q|
++\frac1{|Q|}\sum_{q\in Q}\min_{p\in P}|q-p|,
+\end{equation}
+where $\hat P(c)$ is predicted \emph{blind} to the observed list $P_{\mathrm{obs}}$.
+An instrumented diagnostic on a protocol slice is $58/65$
+(\S\ref{si:fverify}).
+The $n{=}500$ forward-verify diagnostic is $204/45/251$
+(\S\ref{si:fverify}).
+The expand-500 official arm score is $103/230$ verify vs $129/230$ self
+(\S\ref{si:fverify}).
+
+A pool estimator on an index set $\mathcal{S}$ is
+\begin{equation}
+\label{si:eq:pool}
+\hat p_{\mathcal{S}}
+=\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} s(c_{i1}, y_i^\star).
+\end{equation}
+The ICLR headline uses $\mathcal{S}$ of size 500 (frozen \texttt{qid} list).
+The $n{=}519$ \texttt{score\_pooled.py} print ($243/519$) is not used.
+
+Confidence intervals on earlier validate-clean subsets are bootstrap
+95\% (\texttt{score\_main.boot}, seed 0, 2000 resamples).
+Paired model differences use McNemar with Holm correction.
+Confidence intervals are not reported for $n{=}500$ or expand-500.
+
+%======================================================================
+\subsection{Validate-clean extras}
+\label{si:extras}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.88\linewidth]{fig_chemspace.pdf}
+\caption{Molecular weight, ring count, C--F bonds, and nitrogen atoms
+on the validate-clean subset ($n{=}295$: locked cohort plus clean
+expansion; median MW $306~\mathrm{g{\cdot}mol^{-1}}$; median 2 rings).
+The thinking-tier expand-500 cut is not in this plate.}
+\label{si:fig:chemspace}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.58\linewidth]{fig3_method.pdf}
+\caption{Inference ladder on the 60-compound arm:
+23\% $\to$ 27\% $\to$ 30\% (generate-wide recall $32\%\to 42\%$).}
+\label{si:fig:ladder}
+\end{figure}
+
+These rows are not the $n{=}500$ headline.
+Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%).
+
+On the pre-expansion validate-clean subset, $^{13}$C-overread flags
+(R12, R22, R25, R82, R91) were marked before the subset totals.
+They are not the six expand-500 flags listed above.
+
+\begin{table}[ht]
+\caption{Validate-clean extras show scaffold and stereo metrics under
+the same scorer, not the $n{=}500$ headline.}
+\centering
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+metric & overall & simple & complex \\
+\midrule
+scaffold-level (best Tanimoto $\geq 0.45$) & 64\% & 80\% & 48\% \\
+mean best Tanimoto & 0.66 & 0.79 & 0.53 \\
+full InChIKey (stereo) top-1 & 93/295 (31.5\%) [26--37] & --- & --- \\
+full InChIKey recall & 108/295 (36.6\%) [31--42] & --- & --- \\
+corpus-reweighted top-1 & \textbf{26.5\%} [21--32] & --- & --- \\
+corpus-reweighted recall & \textbf{31.3\%} [25--37] & --- & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\caption{Size bins show top-1 and recall on validate-clean $n{=}295$.}
+\centering
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+heavy atoms & $n$ & top-1 & recall \\
+\midrule
+$\leq$15 & 53 & 36/53 (67.9\%) & 39/53 (73.6\%) \\
+16--25 & 152 & 65/152 (42.8\%) & 75/152 (49.3\%) \\
+$>$25 & 90 & 15/90 (16.7\%) & 16/90 (17.8\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+On an instrumented slice, of 137 analysable top-1 misses, 76.6\% are
+constitutional isomers of the true structure; 22.6\% share
+the true Murcko scaffold.
+%======================================================================
+\subsection{expand-500 generation scores}
+\label{si:e500}
+
+Gold keys for this arm were used only for local scoring and are not
+in the review copy.
+
+\begin{table}[ht]
+\caption{expand-500 scores show generation under \texttt{score2}
+(InChIKey-14; confidence intervals not reported).}
+\centering
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+set & $n$ & top-1 & recall@3 \\
+\midrule
+Claude Opus 5, all deposited & 230 & 129/230 (56.1\%) & 138/230 (60.0\%) \\
+\quad simple & 115 & 82/115 (71\%) & 87/115 (76\%) \\
+\quad complex & 115 & 47/115 (41\%) & 51/115 (44\%) \\
+validate-clean & 224 & 127/224 (56.7\%) & 135/224 (60.3\%) \\
+\quad simple & 110 & 81/110 (74\%) & 85/110 (77\%) \\
+\quad complex & 114 & 46/114 (40\%) & 50/114 (44\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Mean best Tanimoto (\texttt{score2} footer, all 230): simple 0.863; complex 0.645.
+Flagged qids (in 230, out of 224): R26, R31, R102, R105, R107, R138.
+Deposits: 230/230; \texttt{predictions2.jsonl} 230 lines, 690 candidates.
+Unique (formula, IR, $^{13}$C) vs \texttt{irexp\_resolved.jsonl.gz}: 230/230;
+0 prior-round InChIKey-14 collisions.
+This arm used a thinking-tier consumer protocol.
+200 of the validate-clean cut is inside the $n{=}500$ headline;
+the all-230 table is not interchangeable with the no-thinking rows.
+
+Verbatim \texttt{score2} footer:
+\begin{verbatim}
+overall recovered (top-3): 138/230 (60%)
+top-1 exact: 129/230 (56%)
+  simple  : recovered 87/115 (76%)
+            top1 82/115 (71%)  meanBestTani 0.863
+  complex : recovered 51/115 (44%)
+            top1 47/115 (41%)  meanBestTani 0.645
+\end{verbatim}
+
+%======================================================================
+\subsection{Headline generation scores}
+\label{si:pools}
+
+The estimator is Eq.~\ref{si:eq:pool}. The paper headline is $n{=}500$.
+Roster: frozen \texttt{qid} lists in the code release.
+
+\begin{table}[ht]
+\caption{Headline scores show generation on the frozen $n{=}500$ roster
+(confidence intervals not reported).}
+\centering
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+set & $n$ & top-1 & recall@3 \\
+\midrule
+\textbf{paper headline} & \textbf{500} & \textbf{227/500 (45.4\%)} & \textbf{249/500 (49.8\%)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The headline pools two consumer protocols.
+They are not a controlled comparison.
+
+\begin{table}[ht]
+\caption{Generation on the two protocols inside the $n{=}500$ headline
+(no confidence interval).
+$118+109=227$ and $133+116=249$.
+Not a second headline.}
+\centering
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+set & $n$ & top-1 & recall@3 \\
+\midrule
+earlier rows, no-thinking & 300 & 118/300 (39.3\%) & 133/300 (44.3\%) \\
+thinking-tier expand-500 cut & 200 & 109/200 (54.5\%) & 116/200 (58.0\%) \\
+\textbf{headline pool} & \textbf{500} & \textbf{227/500 (45.4\%)} & \textbf{249/500 (49.8\%)} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Strata on the $n{=}500$ headline (same InChIKey-14 rule):
+simple 161/248 (65\%) top-1 / 172/248 (69\%) recall;
+complex 66/252 (26\%) / 77/252 (31\%).
+Self-rank precision $|$ recall: $227/249$ (91.2\%).
+The $n{=}519$ pooled print ($243/519$) is not the headline.
+The $n{=}500$ forward-verify diagnostic is $204/45/251$ (\S\ref{si:fverify}).
+
+%======================================================================
+\subsection{Forward-verify diagnostic}
+\label{si:fverify}
+
+Figure~\ref{si:fig:wall} is the $n{=}500$ forward-verify decomposition.
+Protocol-slice forward-verify and expand-500 official chamfer scores
+follow in this section.
+Validate-clean scaffold, size, and stereo extras are in \S\ref{si:extras};
+they are not a second wall.
+
+Classification:
+\textbf{verified} = recalled and chamfer-ranked first;
+\textbf{misranked} = recalled, distractor first;
+\textbf{never-proposed} = true structure not in the candidate set.
+The forward-verify diagnostic is the $n{=}500$ row.
+The three arm rows sum to that diagnostic; they are not a second generation headline.
+
+\begin{table}[ht]
+\caption{Forward-verify split on $n{=}500$: $204/45/251$
+(no confidence interval).
+Arm rows sum to that split and are not the generation headline.}
+\centering
+\small
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+arm & $n$ & verified & misranked & never-proposed \\
+\midrule
+locked protocol slice & 194 & 58 & 7 & 129 \\
+Claude Opus 5 expansion & 106 & 56 & 12 & 38 \\
+expand-500 cut & 200 & 90 & 26 & 84 \\
+\textbf{$n{=}500$ diagnostic} & \textbf{500} & \textbf{204} & \textbf{45} & \textbf{251} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Recalled $=204+45=249/500$, matching committed generation recall.
+Figure~\ref{si:fig:wall} shows this $204/45/251$ forward-verify diagnostic.
+Figure~1 reports the generation wall
+($249/500$ recall $\times$ $227/249$ self-rank $=45.4\%$ top-1; wall $227/22/251$).
+
+\subsubsection{Protocol-slice diagnostic}
+
+Source: \texttt{data/diagnosis.json} / \texttt{scripts/forward\_verify\_all.py}.
+This is a protocol-slice diagnostic, not a second copy of the $n{=}500$ forward-verify split.
+
+\begin{table}[ht]
+\caption{A protocol-slice diagnostic shows forward verification,
+not the $n{=}500$ forward-verify split ($204/45/251$).}
+\centering
+\begin{tabular}{@{}lrr@{}}
+\toprule
+ & 60-compound arm & protocol slice \\
+\midrule
+generation recall & 19/60 (32\%) & 65/194 (33.5\%) \\
+top-1, solver self-ranking & 14/60 (23\%) & 55/194 (28.4\%) \\
+top-1, forward-verified re-ranking & 16/60 (27\%) & 58/194 (29.9\%) \\
+precision $|$ recall --- fverify & 16/19 (84\%) & 58/65 (89.2\%) \\
+multi-candidate only --- fverify & 10/13 (77\%) & 30/37 (81\%) \\
+derangement floor on $n{=}37$ & --- & 54.0\%; fverify $+$27.1 points \\
+McNemar vs self-rank & --- & $p{=}0.55$ (7 gained, 4 lost) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Self-ranking $227/249$ on $n{=}500$ is generation, not a substitute
+for $204/45/251$.
+
+\subsubsection{Official expand-500 score}
+
+Blind $^{13}$C campaign over 681 unique candidate SMILES
+(\texttt{f1}--\texttt{f41} all present).
+Verify does not beat self-rank.
+Headline generation remains $n{=}500$ ($227/500$, $249/500$).
+This arm score does not replace the $n{=}500$ forward-verify table.
+
+\begin{table}[ht]
+\caption{Official expand-500 chamfer scores show an arm result,
+not the $n{=}500$ forward-verify diagnostic and not the generation headline.}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lrrrrr@{}}
+\toprule
+set & $n$ & recall & self top-1 & verify top-1 & verify $|$ recall \\
+\midrule
+all deposited & 230 & 138/230 (60.0\%) & 129/230 (56.1\%) & 103/230 (44.8\%) & 103/138 (74.6\%) \\
+validate-clean & 224 & 135/224 (60.3\%) & 127/224 (56.7\%) & 103/224 (46.0\%) & 103/135 (76.3\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Coverage: 41/41 batches; 681/681 unique SMILES; 230/230 qids fully
+covered. Multi-candidate only: all-230 self 128/137, verify 102/137;
+clean-224 self 126/134, verify 102/134.
+\texttt{forward\_\allowbreak verify\_\allowbreak all.py} was not run (no expand-500
+\texttt{diagnosis.json}).
+
+HOSE-style lookup on the protocol-slice candidate sets ties
+self-ranking; a modest GNN reaches 59/65 (91\%) vs the LLM verifier's
+58/65 (89\%).
+Deranging observed $^{13}$C pairings collapses precision ($p{=}0.001$).
+
+%======================================================================
+\subsection{Worked cases}
+\label{si:cases}
+
+The three locked failure modes, plus panels that use already-reported
+numbers. Expansion qids reuse R22/R25.
+Only v3-R25 is drawn (Figure~\ref{si:fig:r25}).
+
+\begin{table}[ht]
+\caption{Worked cases show three failure modes from released candidate
+files ($^{13}$C chamfers in ppm; Tanimoto Morgan $r{=}2$).}
+\label{tab:cases}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{2.15cm}>{\raggedright\arraybackslash}p{3.15cm}>{\raggedright\arraybackslash}p{6.55cm}@{}}
+\toprule
+mode & id / formula & what failed \\
+\midrule
+\textbf{Proposal miss} &
+main-R06 / C$_{29}$H$_{30}$FNO$_{2}$ &
+True acridinedione never in the 3-candidate pool
+(Tanimoto-0.90 regioisomer: 4-fluorophenyl / phenyl swapped).
+IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused. \\
+\textbf{Verify-save} &
+v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
+True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
+Forward-verify recovers (chamfer 0.42 vs 1.30~ppm). IR 1679~cm$^{-1}$.
+Figure~\ref{si:fig:r25}. \\
+\textbf{Verify-fail} &
+v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$ &
+True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2);
+2-nitro ranked first. Chamfer 1.35 vs 1.36~ppm.
+IR 1652, 1530, 1352~cm$^{-1}$. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Proposal miss: main-R06 / \texorpdfstring{C$_{29}$H$_{30}$FNO$_{2}$}{C29H30FNO2}}
+
+True acridinedione never enters the 3-candidate pool (Tanimoto-0.90
+regioisomer: 4-fluorophenyl / phenyl swapped). IR 1641, 1510~cm$^{-1}$;
+$^{13}$C 195.7. Verifier unused. Re-ranking cannot recover a structure
+that was never proposed (Eq.~\ref{si:eq:factor}).
+
+\subsubsection{Verify-save: v3-R25 / \texorpdfstring{C$_{10}$H$_{14}$N$_{2}$O}{C10H14N2O}}
+
+True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
+Forward-verify recovers (chamfer 0.42 vs 1.30~ppm, Eq.~\ref{si:eq:chamfer}).
+IR 1679~cm$^{-1}$. Main-text Figure~\mainref{fig:fig-mechanism}{3}; Figure~\ref{si:fig:r25}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.72\linewidth]{fig_mechanism.pdf}
+\caption{Case v3-R25 shows a verify-save (main-text Figure~3):
+self-rank prefers 3-pyridyl, while forward $^{13}$C recovers 2-pyridyl
+(chamfer 0.42 vs 1.30~ppm).}
+\label{si:fig:r25}
+\end{figure}
+
+\subsubsection{Verify-fail: v3-R26 / \texorpdfstring{C$_{14}$H$_{11}$N$_{3}$O$_{3}$}{C14H11N3O3}}
+
+The true structure is the 3-nitrophenyl isomer, in the pool at
+self-rank 2.
+The 2-nitro isomer is ranked first (chamfer 1.35 vs 1.36~ppm).
+IR 1652, 1530, 1352~cm$^{-1}$.
+Ranking can fail when predicted $^{13}$C lists are nearly tied
+(McNemar $p{=}0.55$; 7 gained, 4 lost on the protocol slice).
+
+\subsubsection{Example payload}
+
+Main-text Listing~1 is the live IRexp JSON record
+(C$_{12}$H$_{11}$BrN$_{4}$; PubChem CID 57398578).
+The InChIKey is \texttt{ILJNJJNKEOAREX-UHFFFAOYSA-N}.
+SMILES, InChIKey, and licence fields are resource metadata.
+Bench solvers see only formula and printed peak lists.
+Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
+The listing is reprinted above with the same lstlisting$+$framed layout.
+Locked v3-R25 remains the mechanism worked case (main-text Figure~3).
+
+\subsubsection{Formula-only control \texorpdfstring{($n{=}60$)}{(n=60)}}
+\label{si:n60}
+Formula only: 3/60 (5\%) top-1 and 3/60 (5\%) recall.
+Formula $+$ IR $+$ $^1$H $+$ $^{13}$C: 14/60 (23\%) / 19/60 (32\%).
+Outcomes perfectly nested (McNemar $p{=}0.001$).
+
+\subsubsection{Source-paper year \texorpdfstring{($n{=}60$)}{(n=60)}}
+\label{si:year}
+Accuracy is flat in source-paper year ($r{=}{-}0.007$;
+Figure~\mainref{fig:fig-robustness}{2}).
+The correlation bounds verbatim recall of specific experimental sections.
+It does not exclude contamination.
+
+\subsubsection{Generate-wide (60-compound arm)}
+Ten independent solvers, up to six candidates each, pooled then re-ranked:
+recall $32\%\to 42\%$, top-1 $23\%\to 30\%$
+(McNemar $p{=}0.34$); verification precision falls $84\%\to72\%$.
+
+\subsubsection{IRexp-fine-tuned generator (locked slice)}
+Pooled with Claude Opus 5: recall $33.5\%\to54.1\%$, top-1 $28.4\%\to35.1\%$
+(McNemar $p{=}0.015$).
+Training is the intervention that has been observed to move
+$P(\mathrm{true}\in\mathrm{pool})$.
+
+\subsubsection{Battery-electrolyte subset}
+$n{=}46$ literature electrolyte chemistry (not operando): 26\% top-1,
+recall-bound.
+
+\subsubsection{Four-model Claude ladder \texorpdfstring{($n{=}24$)}{(n=24)}}
+\label{si:ladder24}
+A Haiku, Sonnet, Claude Opus 5, and Fable comparison on $n{=}24$ is underpowered
+for adjacent ranks and is not a headline result.
+
+%======================================================================
+\subsection{Prompts and deposit schema}
+\label{si:prompt}
+
+\subsubsection{Headline prompt}
+
+Wrapping instruction text was not captured on the headline Claude arm
+(main-text Experimental setup and Limitations: the headline wrapper
+was not captured).
+Only the per-compound four-field payload is released.
+The skeleton below is the contract, not a recovered verbatim system prompt.
+
+\begin{lstlisting}[style=prompt]
+You are given only:
+  formula          (as from HRMS)
+  ir_bands_cm-1    (author-transcribed experimental list)
+  h_nmr, c_nmr     (printed shift lists)
+Return <= 3 ranked SMILES.
+No name, no SMILES hint, no scaffold, no retrieved spectrum.
+Check molecular formula with RDKit before emitting a candidate.
+\end{lstlisting}
+
+Listing~1 payload (solver-facing fields only; gold held out):
+
+\begin{lstlisting}[style=irexpjson]
+{
+  "formula": "C12H11BrN4",
+  "ir_bands_cm-1": [3144.0, 3110.0, 3066.0, 2931.0,
+                    2863.0, 1632.0, 1589.0, 1565.0, 1485.0],
+  "h_nmr": "8.83 (s, 1H), 8.04 (s, 1H), 7.81 (d, J = 8.8 Hz, 2H), ...",
+  "c_nmr": "157.5, 140.3, 138.4, 132.4, 127.5, 120.4, 119.0, 116.4, 49.1"
+}
+\end{lstlisting}
+
+\subsubsection{Forward-verify prompt}
+
+For each candidate SMILES, predict a $^{13}$C peak list without seeing
+the observed list.
+Re-rank by chamfer distance (Eq.~\ref{si:eq:chamfer}).
+The instruction dispatched to the forward-prediction step was
+not captured; only the candidate SMILES and the resulting
+numeric lists are on disk for the protocol slice.
+
+\subsubsection{Cross-vendor harness}
+
+Verbatim prompts in the code release are the cross-vendor
+harness prompts, not the missing headline Claude wrapper.
+External submissions must document model version, prompt, and tool access
+(\texttt{docs/LEADERBOARD.md}).
+
+\subsubsection{Deposit schema}
+
+\begin{lstlisting}[style=irexpjson]
+{"qid": "R01", "candidates": ["SMILES_rank1", "SMILES_rank2", "SMILES_rank3"]}
+\end{lstlisting}
+
+Score locally (code release):
+\begin{verbatim}
+python scripts/score_submission.py
+    --predictions my_run.jsonl --name "YourModel-1.0"
+python scripts/score_pooled.py --stereo
+python scripts/forward_verify_all.py
+\end{verbatim}
+
+%======================================================================
+\subsection{Model cards}
+\label{si:card}
+
+\subsubsection{Headline model card}
+
+\begin{table}[ht]
+\caption{The headline solver card shows recorded fields; unrecorded
+fields are left blank.}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}p{8.5cm}@{}}
+\toprule
+item & value \\
+\midrule
+headline solver & Claude Opus 5, consumer subscription \\
+thinking tier & mixed: earlier rows none; expand-500 cut (200 of the $n{=}500$ headline) thinking-tier \\
+snapshot / seed / temperature / top\_p / top\_k / max\_tokens &
+  not exposed; not recorded \\
+candidate budget & $\leq 3$ SMILES / qid \\
+tool access & RDKit formula / parse check only; no web search \\
+fine-tuning & none on the headline arm \\
+paid API & no, for the core protocol \\
+hardware & consumer harness; no cluster job for inference \\
+scoring hardware & commodity CPU; RDKit InChIKey-14 \\
+cross-vendor arm & $n{=}60$; Claude Opus 5, Grok 4.6, Gemini 3.7 Flash, GPT-5.6 Sol \\
+Claude Opus 5 candidates & 2.20 mean (others 3.00) on that arm --- recall rankings approximate \\
+expand-500 solver & Claude Opus 5 thinking-tier; 200 of this arm is inside the $n{=}500$ headline \\
+Incomplete additional-model deposits & not scored; not pooled \\
+scoring scripts & \texttt{scripts/score\_pooled.py}, \texttt{score\_main.py},
+  \texttt{benchmark\_v2.py score2} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{Cross-vendor model card \texorpdfstring{($n{=}60$)}{(n=60)}}
+
+\begin{table}[ht]
+\caption{Cross-vendor scores on $n{=}60$.
+Recall is pool membership.
+Both precision columns are chamfer forward-verify, not solver self-rank.
+Claude Opus 5 self-rank top-1 on this arm is 14/60.}
+\centering
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+model & generation recall & chamfer prec.$|$recall & chamfer, multi-cand. \\
+\midrule
+Claude Opus 5 & 19/60 = 32\% & 16/19 = 84\% & 10/13 = 77\% \\
+Grok 4.6 & 32/60 = 53\% & 20/32 = 62\% & 20/32 = 62\% \\
+Gemini 3.7 Flash & 30/60 = 50\% & 22/30 = 73\% & 22/30 = 73\% \\
+GPT-5.6 Sol & 25/60 = 42\% & 17/25 = 68\% & 16/24 = 67\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Verification precision exceeds generation recall in every arm.
+Bootstrap separates the paired gap for Claude Opus 5 ($+$52.5 points),
+GPT-5.6 Sol ($+$26.3) and Gemini ($+$23.3); Grok's gap ($+$9.2) is
+directional.
+A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
+Reasoning-effort tier per vendor arm was not recorded.
+
+\subsubsection{Literature comparison}
+\label{si:lit}
+
+Any system reporting top-1 $= a$ and top-$k = b$ implies
+recall $\geq b$ and conditional precision $\leq a/b$.
+Script: \texttt{scripts/literature\_decomposition.py}.
+
+\begin{table}[ht]
+\caption{Selected published systems, connectivity-scored or as published.
+Separate settings, not scores on this roster.}
+\centering
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+system ($n$) & top-1 & top-$k$ ($k$) & recall & prec. \\
+\midrule
+this work, solver alone (500) & 45.4\% & 49.8\% (3) & 49.8\% & 91.2\% \\
+this work + forward-verify (slice) & 29.9\% & 33.5\% (3) & 33.5\% & 89.2\% \\
+NMR-Solver, literature (450) & 52.9\% & 67.3\% (10) & $\geq$67.3\% & $\leq$78.6\% \\
+NMRAgent, literature (450) & 61.6\% & 70.0\% (10) & $\geq$70.0\% & $\leq$88.0\% \\
+Espejo Morales, education (236) & 80.9\% & 90.0\% (5) & $\geq$90.0\% & $\leq$89.9\% \\
+Espejo Morales, industrial (34) & 20.6\% & 29.1\% (5) & $\geq$29.1\% & $\leq$70.9\% \\
+Alberts, 6--13 atoms, NIST IR (3,455) & 63.8\% & 84.0\% (10) & 84.0\% & 75.9\% \\
+SpecX, scaffold split, simulated (99,439) & 29.7\% & 50.6\% (10) & 50.6\% & 58.7\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These rows are separate published settings, not one paired collapse onto literature peak lists.
+The solver-alone precision column on $n{=}500$ is self-ranking (227/249);
+the forward-verify row is the instrumented protocol slice (58/65).
+
+%======================================================================
+\subsection{IRexp resource}
+\label{si:split}
+
+Peak lists for IRSpectra-Bench are drawn from IRexp (121,233 records;
+43,060 structure-linked; 33,201 full IR+$^1$H+$^{13}$C+structure
+quadruples; \texttt{irexp\_resolved}).
+IRSpectra-Bench is the frozen peak-list roster and the factorised
+diagnosis (generation wall $227/22/251$; forward-verify diagnostic
+$204/45/251$).
+During double-blind review the commercial redistributable pool is
+available from an anonymised copy (no author-identifying host):
+\begin{center}
+\url{https://anonymous.4open.science/r/peaklist-corpus-review-10C4/}
+\end{center}
+Named archival hosting replaces that URL at camera-ready.
+File schema and aggregate counts ship with the copy
+(\texttt{SCHEMA.md}, \texttt{data/}).
+Spectral validation filters, the prompt-leakage audit and electrolyte
+SMARTS live in the code release.
+Fine-tunes must use \texttt{data/train\_no\_bench.jsonl.gz} so benchmark
+InChIKeys are withheld.
+Listing~1 is the IRexp-style JSON$+$molecule plate in the ICLR PDF.
+
+%======================================================================
+\subsection{Offline peak-list baseline (NMRTrans)}
+\label{si:nmrtrans}
+
+NMRTrans (Yang et al., KDD 2026; arXiv:2602.10158;
+code commit \texttt{9a72756}; checkpoint
+\texttt{little1d/C-H-Formula}, file
+\texttt{nmrtrans-c-h-nmr-formula.ckpt}, 499/499 weights loaded)
+is a set transformer with a T5-small decoder.
+It reads a molecular formula and unordered $^1$H and $^{13}$C peak sets.
+It has no IR channel.
+This run is offline CPU inference, beam size 3, no sampling, and no paid API.
+Questions are the frozen $n{=}500$ roster
+(spectro-agent \texttt{48fcd30}).
+Gold is a unique match of formula, IR bands, and the $^{13}$C string
+into \texttt{irexp\_resolved} (500/500, none ambiguous).
+The generator did not see SMILES or InChIKeys.
+Scoring is RDKit InChIKey-14.
+No confidence intervals.
+
+Printed lists only.
+A $^1$H range becomes a midpoint and a half-width; a single shift has
+half-width 0.
+Multiplicity is mapped onto the model's split vocabulary; unknown
+patterns stay at the unknown index (87 peaks).
+Printed integrals and $J$ values are copied.
+76 of 4,298 proton peaks had no printed integral; those values were
+stored as 0 and were not filled in as 1H.
+A $^{13}$C shift is repeated only when the list prints an $n$C count;
+the model treats that repeat as its intensity channel.
+Nineteen shifts outside $[0,220]$ ppm were clamped by the published
+$/220$ normalisation.
+Nine formulae contain Se or Sn, which the released 12-element formula
+vector drops.
+IR bands were not passed in.
+
+\begin{table}[ht]
+\caption{NMRTrans on the $n{=}500$ roster (InChIKey-14, beam 3).
+No confidence intervals.
+Held-out drops gold keys that appear in the released NMRTrans
+train, validation, or test splits.}
+\centering
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+set & $n$ & top-1 & recall (top 3) \\
+\midrule
+all & 500 & 79/500 (15.8\%) & 102/500 (20.4\%) \\
+simple & 248 & 62/248 (25.0\%) & 79/248 (31.9\%) \\
+complex & 252 & 17/252 (6.7\%) & 23/252 (9.1\%) \\
+locked & 194 & 32/194 (16.5\%) & 39/194 (20.1\%) \\
+expansion & 106 & 12/106 (11.3\%) & 20/106 (18.9\%) \\
+expand-500 200-cut & 200 & 35/200 (17.5\%) & 43/200 (21.5\%) \\
+held out of released splits & 489 & 70/489 (14.3\%) & 92/489 (18.8\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Nine gold InChIKey-14 values occur in the released training split
+(8/9 top-1, 9/9 inside the beam) and two in the validation split
+(1/2 top-1).
+None of the 500 are in the released test split.
+Overlap is constitution identity, not a check that the same peak list
+was in the training file.
+86/500 rank-1 strings were not valid RDKit SMILES.
+Predictions are deposited under \texttt{data/baseline\_nmrtrans/}.
+NMR-Solver, SpectraLLM, IR-Agent, and commercial CASE were not rerun.
+
+%======================================================================
+\subsection{Reproducibility}
+\label{si:repro}
+
+Frozen questions, predictions, and scorers ship with the code release.
+The $n{=}500$ generation totals $227/500$ and $249/500$ regenerate from
+the released deposits.
+The $n{=}500$ forward-verify table is \S\ref{si:fverify}.
+The protocol-slice diagnostic is regenerated by
+\texttt{python scripts/forward\_verify\_all.py}.
+
+Expand-500 gold keys are withheld from the review copy.
+The official expand-500 chamfer score is 103/230 verify vs 129/230 self.
+
+The IRexp bibliographic entry is anonymous in the review copy;
+the dataset URL in the PDF is the anonymous.4open review copy.
+Fine-tunes should use \texttt{data/train\_no\_bench.jsonl.gz}.
+
+Inference is not bit-exact: no pinned snapshot, temperature, or seed
+was recorded. Distributional agreement of frozen deposits is the
+intended claim.
+Unrecorded fields: headline wrapper text; model snapshots; decoding
+parameters; sampler seeds.
+
+On-bench scores for IR-Agent, CASE, SpectraLLM, NMR-Solver, Spectro,
+NMIRacle and the Alberts transformers were not obtained.
+Those systems are blocked on input, licence, or compute, and no adapter
+was built.
+Formula-only recovery on the 60-compound arm is 3/60 top-1 and 3/60 recall.
+NMRTrans (\S\ref{si:nmrtrans}) is one trained NMR-only baseline on this
+roster (IR unused; 79/500 top-1), not a full multi-modal peer and not a
+score for those systems.
+An expert-chemist audit and a leave-one-modality arm were not run.
+
