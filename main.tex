@@ -258,15 +258,19 @@ Hu \textit{et al.}\ and NMRTrans invert one-dimensional NMR with multitask
 or set-transformer decoders~\citep{hu2024multitask,yang2026nmrtrans};
 Alberts and coworkers train infrared transformers on NIST experimental
 absorbance and report end-to-end top-$k$ SMILES~\citep{alberts2024ir,alberts2025benchmarks}.
-Each of these models is trained to turn the spectral format of its own
-corpus, such as a NIST infrared trace or a one-dimensional NMR list, into
-candidate structures written as molecular graphs or SMILES.
-That format is not compatible with the peak lists of IR+$^1$H+$^{13}$C reported in the literature.
+Each of these models is trained on the representation native to its own
+corpus, such as a NIST infrared trace or a one-dimensional NMR list, and
+emits candidate structures as molecular graphs or SMILES.
+Those training inputs are not the heterogeneous printed IR+$^1$H+$^{13}$C
+peak lists that IRSpectra-Bench supplies.
+Training and scoring on the native format does not make the model a
+solver for the lists used here.
 Because they are typically scored by a single top-1 or top-$k$ number, a
 failure of candidate generation is indistinguishable from a failure of
 ranking: both look like a miss.
 Only NMRTrans, among these models, is run on the roster below, and only as
-an NMR-only baseline: formula and printed $^1$H/$^{13}$C, IR unused (SI).
+an NMR-only baseline: formula and printed $^1$H/$^{13}$C, IR unused
+(Supplementary Information, ``Offline peak-list baseline (NMRTrans)'').
 That score is not an IR+$^1$H+$^{13}$C measurement.
 A top-$k$ on NIST absorbance or on a simulated trace does not say whether
 the true constitution was proposed from a printed three-list experimental
@@ -342,14 +346,13 @@ rarely state whether the true structure was proposed at all.
 SpecX~\citep{xiang2026specx} bounds a related multi-modal spectroscopy
 task on simulated traces.
 
-NMRTrans~\citep{yang2026nmrtrans} is the one trained baseline scored on
-this roster.
-It is publicly runnable on printed peak-list inputs that match the
-harness, so the score is a concrete trained comparator, and the NMR-only
-number makes the multi-modal gap explicit.
-Inputs are formula and printed $^1$H/$^{13}$C lists, IR unused:
-79/500 top-1 and 102/500 recall, with 9/500 gold keys in its training
-split (see Section XXX in the SI).
+NMRTrans~\citep{yang2026nmrtrans} is run here on formula and printed
+$^1$H/$^{13}$C lists, with IR unused, because the released model accepts
+that printed peak-list interface.
+The roster scores are 79/500 top-1 and 102/500 recall, with 9/500 gold
+keys in its training split (Supplementary Information, ``Offline
+peak-list baseline (NMRTrans)'').
+Those scores are the trained baseline obtained on this interface.
 It is not a full IR+$^1$H+$^{13}$C peer.
 
 \label{sec:not-on-roster}
@@ -384,8 +387,8 @@ the solver never sees the source paper.
 A solver returns a ranked pool $\mathcal{C}=(c_1,\ldots,c_k)$ with
 $k\leq 3$.
 Generation recall, top-1 and self-ranking precision $|$ recall are the
-IRSpectra-Bench scoring contract on this frozen $n{=}500$ roster under
-that candidate budget.
+evaluation protocol of this paper, defined for the frozen $n{=}500$
+IRSpectra-Bench roster under that candidate budget.
 Generation recall is the fraction of the roster for which
 $y^\star$ appears anywhere in $\mathcal{C}$.
 Top-1 is the fraction for which $c_1$ matches $y^\star$.
@@ -414,12 +417,13 @@ the code.
 Problems are drawn from the structure-complete split of IRexp
 (\texttt{irexp\_resolved})~\citep{yabbarov2026irexp}.
 The question ids are a pre-specified list, not an outcome-selected subset
-(see Section XXX in the SI).
+(Supplementary Information, ``Blind protocol'', subsection ``Stopping and pooling'').
 Histograms of molecular weight, ring count, C--F bonds, and nitrogen
 atoms for the validate-clean subset ($n{=}295$: locked cohort plus
-clean expansion) are in the Section XXX in the SI.
-On that plate, the median molecular weight is 306,  and the median ring
-count is two.
+clean expansion) are in the Supplementary Information, section
+``Validate-clean extras''.
+On that plate, the median molecular weight is $306~\mathrm{g{\cdot}mol^{-1}}$ and the median ring
+count is two rings.
 The thinking-tier expand-500 cut is not in the plate.
 Listing~\ref{lst:payload} is the solver-facing contract: formula plus
 printed peak lists; gold constitution is held out and scored offline.
@@ -937,6 +941,18 @@ The 60-compound arm is a separate evaluation, not this headline result.
 We release the deposits and the scorer.
 The unscored systems in Section~\ref{sec:not-on-roster} were not run on this input.
 NMRTrans is the one trained NMR-only baseline that was (IR unused; SI).
+
+The binding stage in that split is generation.
+Of the 500 problems, $251$ true constitutions are never proposed and $22$
+are proposed but not placed first; forward verification of the same pools
+lowers top-1 from $227$ to $204$, and the never-proposed count remains
+$251$.
+The measurement is one closed-book harness, and no expert-chemist audit of
+the printed lists was run.
+For multi-modal elucidation from a formula plus printed IR, $^1$H, and
+$^{13}$C lists, those $251$ constitutions are recovered only when a
+proposer places them in the pool.
+Re-ranking a pool already formed leaves them unrecovered.
 
 \section*{AI use statement}
 Frontier LLMs were used as \textbf{experimental solvers} under the consumer harness in
