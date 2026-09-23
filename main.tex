@@ -931,22 +931,43 @@ scoring is single-sample; the roster inherits PMC-OA organic bias.
 IRSpectra-Bench is a frozen roster of literature-reported IR, $^1$H, and
 $^{13}$C peak lists, read by one closed-book harness and scored with an
 InChIKey-14 contract.
-On that harness, the failure that binds is generation recall: a ranker
-cannot insert a structure that never entered the pool.
-Generation is 45.4\% top-1 (227/500).
-The generation wall is $227$ exact top-1, $22$ proposed but not placed
-first, and $251$ never proposed.
-Forward verification of those pools is a ranking diagnostic: top-1 falls
-from 227 to 204, and the $251$ never-proposed constitutions stay out.
+Each problem is the textual form of an experimental section: a molecular
+formula together with author-transcribed band positions and shift tables.
+The solver does not see the source paper, and the gold constitution is
+scored offline.
+The fourteen-character key fixes the covalent constitution that counts as
+correct, so the same scorer can replay a later deposit.
+The roster, the contract, and the deposits are a diagnosis of this
+harness.
+
+On that harness, the failure that binds is generation recall.
+Top-1 factorises into two stages with different denominators: whether the
+true constitution enters the proposed pool, and whether, given that it
+did, the ranker places it first.
+A ranker cannot insert a structure that never entered the pool.
+Forward verification of a finished pool is a ranking diagnostic in the
+same sense.
+It can change which proposed structure is placed first.
+It does not restore a constitution that was never proposed.
+Generation on the balanced roster is 45.4\% top-1, and most of what that
+figure misses was never proposed.
+The change that would move the headline is a better proposer.
 
 The balanced roster and the corpus reweighting are separate scores.
-On the roster the harness scores 45.4\% top-1; reweighted to the eligible
-corpus, top-1 on a validate-clean subset is 26.5\%.
-A single top-1 does not say which of the two was computed.
+The roster is balanced simple against complex by design, and on that
+roster the harness scores 45.4\% top-1.
+Reweighted to the eligible corpus, top-1 on a validate-clean subset is
+26.5\%, the figure for an arbitrary draw from the literature.
+The first is the score of the frozen roster.
+The second is the score of the same harness under the corpus mix.
+A reported top-1 has to say which of the two was computed.
 
-The deposits and the InChIKey-14 scorer are a diagnostic for follow-on
-work: a true constitution that never enters the pool is a proposer
-failure; one that enters but is not placed first is a ranker failure.
+The deposits and the InChIKey-14 scorer are the diagnostic for follow-on
+work.
+Under that contract, a true constitution that never enters the pool is a
+proposer failure, and one that enters but is not placed first is a ranker
+failure.
+A later deposit can be read as one or the other without a new scorer.
 We release both.
 The claim stops at this harness.
 
