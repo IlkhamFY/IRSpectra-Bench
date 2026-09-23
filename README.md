@@ -17,14 +17,14 @@ No CIs. Do not quote 243/519.
 ```
 README.md  LICENSE  main.tex  references.bib  latexmkrc  .gitignore
 cover_letter/
-figures/            # 6 PDF plates + Listing 1 PubChem PNG
+figures/            # 7 PDF plates + Listing 1 PubChem PNG
 scripts/
 si/supplement.tex
 tex/                # ICLR 2027 sty/bst, fancyhdr, natbib, listing1_body
 ```
 
-Figure PDFs: `fig1_lead_overview`, `fig_chemspace`, `fig_robustness`,
-`fig_mechanism`, `fig3_method`, `fig_wall_diagnostic`.
+Figure PDFs: `fig1_lead_overview`, `fig_error_modes`, `fig_chemspace`,
+`fig_robustness`, `fig_mechanism`, `fig3_method`, `fig_wall_diagnostic`.
 Listing 1 molecule art: `figures/listing1_mol_pubchem3d.png` (included
 via `tex/listing1_body.tex`).
 

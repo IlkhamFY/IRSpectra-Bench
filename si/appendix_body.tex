@@ -32,7 +32,7 @@ The $n{=}519$ pooled print ($243/519$) is not the headline.
 
 \begin{table}[ht]
 \caption{Main-text objects and the appendix sections that discuss them.
-Figures~\mainref{fig:fig1}{1}--\mainref{fig:fig-mechanism}{3} and
+Figures~\mainref{fig:fig1}{1}--\mainref{fig:fig-mechanism}{4} and
 Listing~\mainref{lst:payload}{1} are not repeated.
 Figures~\ref{si:fig:wall}--\ref{si:fig:ladder} appear only here.}
 \centering
@@ -45,14 +45,17 @@ object & role in this appendix \\
 Figure~\mainref{fig:fig1}{1} &
   $n{=}500$ generation: $249/500$ recall, $227/249$ self-rank,
   $45.4\%$ top-1; wall $227/22/251$. \\
+Figure~\mainref{fig:error-modes}{2} &
+  Generation outcomes on the same wall: correct top-1, in pool but not
+  top-1, never proposed, and the blind agent prompt. \\
 Listing~\mainref{lst:payload}{1} &
   IRexp record (ILJNJJNKEOAREX; CID 57398578;
   C$_{12}$H$_{11}$BrN$_{4}$).
   SMILES and InChIKey are resource fields, not solver payload. \\
-Figure~\mainref{fig:fig-robustness}{2} &
+Figure~\mainref{fig:fig-robustness}{3} &
   Formula-only (\S\ref{si:n60}), source-paper year (\S\ref{si:year}),
   and four-vendor controls. \\
-Figure~\mainref{fig:fig-mechanism}{3} &
+Figure~\mainref{fig:fig-mechanism}{4} &
   v3-R25 verify-save (\S\ref{si:cases}). \\
 Figure~\ref{si:fig:wall} &
   Forward-verify diagnostic on the same pools, $204/45/251$
@@ -76,8 +79,9 @@ literature rows &
 \end{tabular}
 \end{table}
 
-Figure~\mainref{fig:fig1}{1}, Figure~\mainref{fig:fig-robustness}{2},
-Figure~\mainref{fig:fig-mechanism}{3}, and Listing~\mainref{lst:payload}{1}
+Figure~\mainref{fig:fig1}{1}, Figure~\mainref{fig:error-modes}{2},
+Figure~\mainref{fig:fig-robustness}{3},
+Figure~\mainref{fig:fig-mechanism}{4}, and Listing~\mainref{lst:payload}{1}
 are in the main text.
 Main-text Eqs.~\mainref{eq:factor}{1}, \mainref{eq:ik14}{2}, \mainref{eq:metrics}{3}, and \mainref{eq:chamfer}{4}
 (factorisation, InChIKey-14, the three rates, and $^{13}$C chamfer) are restated in
@@ -480,7 +484,7 @@ Deranging observed $^{13}$C pairings collapses precision ($p{=}0.001$).
 The three failure modes below are taken from released candidate files.
 Later panels reuse already-reported numbers.
 Expansion qids reuse R22/R25.
-The verify-save drawing is Figure~\mainref{fig:fig-mechanism}{3}.
+The verify-save drawing is Figure~\mainref{fig:fig-mechanism}{4}.
 
 \begin{table}[ht]
 \caption{Worked cases show three failure modes from released candidate
@@ -502,7 +506,7 @@ IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused. \\
 v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm). IR 1679~cm$^{-1}$.
-Figure~\mainref{fig:fig-mechanism}{3}. \\
+Figure~\mainref{fig:fig-mechanism}{4}. \\
 \textbf{Verify-fail} &
 v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$ &
 True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2);
@@ -524,7 +528,7 @@ that was never proposed (Eq.~\ref{si:eq:factor}).
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm, Eq.~\ref{si:eq:chamfer}).
 IR 1679~cm$^{-1}$.
-The drawing is Figure~\mainref{fig:fig-mechanism}{3}.
+The drawing is Figure~\mainref{fig:fig-mechanism}{4}.
 
 \subsubsection{Verify-fail: v3-R26 / \texorpdfstring{C$_{14}$H$_{11}$N$_{3}$O$_{3}$}{C14H11N3O3}}
 
@@ -553,7 +557,7 @@ Outcomes perfectly nested (McNemar $p{=}0.001$).
 \subsubsection{Source-paper year \texorpdfstring{($n{=}60$)}{(n=60)}}
 \label{si:year}
 Accuracy is flat in source-paper year ($r{=}{-}0.007$;
-Figure~\mainref{fig:fig-robustness}{2}).
+Figure~\mainref{fig:fig-robustness}{3}).
 The correlation bounds verbatim recall of specific experimental sections.
 It does not exclude contamination.
 
