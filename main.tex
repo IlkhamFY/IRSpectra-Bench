@@ -534,6 +534,22 @@ Early sampler seeds were not stored, so the roster is reusable and not re-drawab
 \label{lst:payload}
 \end{listing}
 
+\paragraph{Scaffold splitting.}
+A Bemis--Murcko scaffold split is the appropriate hold-out when a model
+is trained on molecules and generalisation is measured on unseen scaffolds.
+That design does not apply to the headline solver.
+Claude Opus 5 is an out-of-the-box closed-book model; every compound on
+the frozen roster is an evaluation item, and the solver is not trained on
+a split of IRSpectra-Bench.
+Memorisation of a chemical neighbourhood, or of a particular paper, is
+examined with the contamination probes: formula only against the full
+lists, and accuracy against source-paper year
+(Section~\ref{sec:contamination}; Table~\ref{tab:formula-only};
+Appendix~\ref{si:year}).
+Murcko-scaffold comparisons on the validate-clean subset describe
+how close a prediction is to the reference; they are not a data-split
+protocol.
+
 \paragraph{Scoring contract and candidate budget.}
 A deposit is JSONL of \texttt{\{qid, candidates: [SMILES,\ldots]\}} under a
 stated budget.
@@ -566,7 +582,7 @@ Chamfer is assignment-free: it remains defined when $|P|\neq|Q|$, which
 is the usual case for incomplete printed $^{13}$C lists.
 This ranker uses the same candidate pool and therefore cannot raise
 generation recall.
-Controls, reported in order below, are formula-only and recency
+Controls, reported in order below, are a formula-only ablation and recency
 (Section~\ref{sec:contamination}); four-vendor replication on a
 60-compound arm (Section~\ref{sec:cross-vendor}); generate-wide sampling;
 HOSE lookup and GNN $^{13}$C verifiers; and a small IRexp-fine-tuned
@@ -701,13 +717,13 @@ four-model Claude ladder are reported in Appendix~\ref{si:ladder24}.
 % A battery-electrolyte subset ($n{=}46$) is recall-bound (26\% top-1);
 % the underpowered four-model Claude ladder is in Appendix~\ref{si:ladder24}.
 
-\subsection{Spectral controls}
+\subsection{Ablation of the printed lists}
 \label{sec:contamination}
 
 \begin{wraptable}{r}{0.62\textwidth}
 \vspace{-1.2\baselineskip}
 \centering
-\caption{Paired $n{=}60$: formula only versus full lists.}
+\caption{Ablation ($n{=}60$): formula only versus full lists.}
 \label{tab:formula-only}
 \small
 \setlength{\tabcolsep}{3pt}
@@ -722,6 +738,9 @@ formula + IR + $^1$H + $^{13}$C & 14/60 (23\%) & 19/60 (32\%) \\
 \vspace{-0.8\baselineskip}
 \end{wraptable}
 
+Table~\ref{tab:formula-only} is an ablation of the spectral input.
+The IR, $^1$H, and $^{13}$C lists are removed together, and the same
+$n{=}60$ compounds are read from the molecular formula alone.
 If the model were recovering constitutions from formula and pretraining
 memory alone, adding printed lists would not move the nested outcomes.
 It does: formula-only recovers 3/60 (Appendix~\ref{si:n60}), and every one of those three remains
@@ -913,7 +932,7 @@ subscription has no pinned snapshot, and the $n{=}500$ pool mixes
 no-thinking rows with a thinking-tier expand-500 cut (200 of 500).
 That mix is not a controlled comparison.
 Solver transcripts were audited for zero ground-truth access.
-Contamination is bounded by the formula-only drop ($23\%\to5\%$ on $n{=}60$)
+Contamination is bounded by the formula-only ablation ($23\%\to5\%$ on $n{=}60$)
 and flat recency ($r{=}{-}0.007$), and is not excluded.
 The object is printed band lists with formula supplied as from HRMS.
 The unscored systems in Section~\ref{sec:not-on-roster} were not run.
