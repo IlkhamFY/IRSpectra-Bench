@@ -692,40 +692,40 @@ four-model Claude ladder are reported in Appendix~\ref{si:ladder24}.
 % \midrule
 % top-1 exact constitution & \textbf{45.4\%} (227/500) \\
 % \quad simple ($n{=}248$) & 65\% (161/248) \\
-% \quad complex ($n{=}252$) & 26\% (66/252) \\
-% generation recall (top-3) & \textbf{49.8\%} (249/500) \\
+\quad complex ($n{=}252$) & 26\% (66/252) \\
+generation recall (top-3) & \textbf{49.8\%} (249/500) \\
 % self-rank prec.$|$recall & 91.2\% (227/249) \\
-% \midrule
-% corpus-reweighted top-1$^{\ast}$ & \textbf{26.5\%} [21--32] \\
+\midrule
+corpus-reweighted top-1$^{\ast}$ & \textbf{26.5\%} [21--32] \\
 % corpus-reweighted recall$^{\ast}$ & 31.3\% [25--37] \\
 % \bottomrule
-% \end{tabular}
+\end{tabular}
 % \end{table}
 
 % Table~\ref{tab:headline} is the generation cohort of one harness.
 % Recall $249/500$ and self-rank $227/249$ multiply to top-1 $227/500$ (45.4\%).
-% The generation wall is $227$ exact top-1 / $22$ in-pool not top-1 /
-% $251$ never proposed (Figure~\ref{fig:fig1}): 22 misses are self-rank,
-% 251 were never proposed.
-% The roster is balanced (248/252) against a corpus that is 17.5\% simple,
-% so the starred rows are the corpus-mix correction: 26.5\% top-1 [21--32]
-% and 31.3\% recall [25--37], not an $n{=}500$ interval.
-% Forward-verify top-1 on the same pools is $204/500$, a drop of 23 from
-% self-rank (Section~\ref{sec:forward-verify}); that ranker is not this wall.
-% Simple top-1 is 65\% (161/248) and complex top-1 is 26\% (66/252): once the
-% formula is fixed, fused and polycyclic systems admit many more constitutions
-% compatible with the same printed lists.
-% On the validate-clean subset, scaffold-level recovery is 64\% (simple
-% 80\%, complex 48\%) and mean best Tanimoto is 0.66; accuracy falls with
-% size (67.9\% top-1 at $\leq$15 heavy atoms, 42.8\% at 16--25, 16.7\%
-% above 25; $n{=}53/152/90$; Appendix~\ref{si:extras}).
-% On an instrumented slice, of 137 analysable top-1 misses, \textbf{76.6\%}
-% are constitutional isomers of the true structure; only \textbf{22.6\%}
-% share the true Murcko scaffold.
-% The typical miss is wrong connectivity at the right composition, not a
-% near-miss of regiochemistry.
-% A battery-electrolyte subset ($n{=}46$) is recall-bound (26\% top-1);
-% the underpowered four-model Claude ladder is in Appendix~\ref{si:ladder24}.
+The generation wall is $227$ exact top-1 / $22$ in-pool not top-1 /
+$251$ never proposed (Figure~\ref{fig:fig1}): 22 misses are self-rank,
+251 were never proposed.
+The roster is balanced (248/252) against a corpus that is 17.5\% simple,
+so the starred rows are the corpus-mix correction: 26.5\% top-1 [21--32]
+and 31.3\% recall [25--37], not an $n{=}500$ interval.
+Forward-verify top-1 on the same pools is $204/500$, a drop of 23 from
+self-rank (Section~\ref{sec:forward-verify}); that ranker is not this wall.
+Simple top-1 is 65\% (161/248) and complex top-1 is 26\% (66/252): once the
+formula is fixed, fused and polycyclic systems admit many more constitutions
+compatible with the same printed lists.
+On the validate-clean subset, scaffold-level recovery is 64\% (simple
+80\%, complex 48\%) and mean best Tanimoto is 0.66; accuracy falls with
+size (67.9\% top-1 at $\leq$15 heavy atoms, 42.8\% at 16--25, 16.7\%
+above 25; $n{=}53/152/90$; Appendix~\ref{si:extras}).
+On an instrumented slice, of 137 analysable top-1 misses, \textbf{76.6\%}
+are constitutional isomers of the true structure; only \textbf{22.6\%}
+share the true Murcko scaffold.
+The typical miss is wrong connectivity at the right composition, not a
+near-miss of regiochemistry.
+A battery-electrolyte subset ($n{=}46$) is recall-bound (26\% top-1);
+the underpowered four-model Claude ladder is in Appendix~\ref{si:ladder24}.
 
 \subsection{Ablation of the printed lists}
 \label{sec:contamination}
@@ -745,7 +745,7 @@ formula only & 3/60 (5\%) & 3/60 (5\%) \\
 formula + IR + $^1$H + $^{13}$C & 14/60 (23\%) & 19/60 (32\%) \\
 \bottomrule
 \end{tabular}
-\vspace{-0.7\baselineskip}
+\vspace{-0.8\baselineskip}
 \end{wraptable}
 
 Table~\ref{tab:formula-only} is an ablation of the spectral input.
@@ -793,7 +793,7 @@ Grok 4.6, Gemini 3.7 Flash and GPT-5.6 Sol saw the same four fields and
 the same candidate contract.
 Forward-verify precision $|$ recall exceeds generation recall in every
 row of Table~\ref{tab:cross-vendor}, on different denominators
-(Eqs.~\ref{eq:metrics}).
+(Eqs.~\ref{eq:recall}--\ref{eq:prec}).
 The precision column is chamfer re-ranking of each solver's pool, the
 same ranker as Section~\ref{sec:forward-verify}, not the solver's own
 order.
