@@ -142,7 +142,7 @@ diagnostic-metrics paper (not an LLM-agent race or solved-elucidation claim):
 Gates A–M in `check_manuscript.py`, all negative-tested — a deliberately injected defect
 of each class fails the gate:
 
-- dataset counts against the released files (121,233 / 43,060 / 33,201; licence pools
+- dataset counts against the released files (121,233 / 57,646 / 39,118; licence pools
   119,345 / 1,888)
 - every `a/b (c%)` internally consistent
 - citations resolve both ways; every referenced script, figure and data path exists
