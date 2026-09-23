@@ -12,7 +12,7 @@
 % Main-text labels exist when this file is input from main.tex.
 % The standalone wrapper falls back to the current main numbers.
 \makeatletter
-\newcommand{\mainref}[2]{\@ifundefined{r@#1}{#2}{\ref{#1}}}
+\DeclareRobustCommand{\mainref}[2]{\@ifundefined{r@#1}{#2}{\ref{#1}}}
 \makeatother
 
 \noindent
@@ -25,107 +25,70 @@ Independent forward verification of the same pools is Figure~\ref{si:fig:wall}
 and \S\ref{si:fverify}.
 Confidence intervals are not reported for $n{=}500$.
 The $n{=}519$ pooled print ($243/519$) is not the headline.
-Unprefixed figure and listing numbers refer to the main text.
 
 %======================================================================
 \subsection{Cross-reference to the main text}
 \label{si:map}
 
 \begin{table}[ht]
-\caption{Main-text objects and where this appendix records them.}
+\caption{Main-text objects and the appendix sections that discuss them.
+Figures~\mainref{fig:fig1}{1}--\mainref{fig:fig-mechanism}{3} and
+Listing~\mainref{lst:payload}{1} are not repeated.
+Figures~\ref{si:fig:wall}--\ref{si:fig:ladder} appear only here.}
 \centering
 \small
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}ll>{\raggedright\arraybackslash}p{5.05cm}@{}}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{9.2cm}@{}}
 \toprule
-main label & object & role here \\
+object & role in this appendix \\
 \midrule
-Fig.~\texttt{fig1} &
-  Fig.~1 (\texttt{fig1\_lead\_overview}) &
-  Protocol and $n{=}500$ generation:
-  $249/500$ recall $\times$ $227/249$ self-rank $=45.4\%$ top-1;
-  wall $227/22/251$. Reprinted as Fig.~\ref{si:fig:lead}. \\
-Fig.~\texttt{fig-chemspace} &
-  recorded below &
-  Validate-clean chemistry ($n{=}295$; median MW $306~\mathrm{g{\cdot}mol^{-1}}$; median 2 rings).
-  Not the thinking-tier cut. Fig.~\ref{si:fig:chemspace}. \\
-Listing~\texttt{lst:payload} &
-  Listing 1 (live lstlisting $+$ PubChem 3D) &
-  IRexp JSON$+$molecule (ILJNJJNKEOAREX; CID 57398578;
+Figure~\mainref{fig:fig1}{1} &
+  $n{=}500$ generation: $249/500$ recall, $227/249$ self-rank,
+  $45.4\%$ top-1; wall $227/22/251$. \\
+Listing~\mainref{lst:payload}{1} &
+  IRexp record (ILJNJJNKEOAREX; CID 57398578;
   C$_{12}$H$_{11}$BrN$_{4}$).
-  SMILES and InChIKey are resource fields, not solver payload.
-  Reprinted below. \\
-Fig.~\texttt{fig-wall} &
-  reprinted below (\texttt{fig\_wall\_diagnostic}) &
-  $n{=}500$ forward-verify diagnostic $204/45/251$.
-  Fig.~\ref{si:fig:wall}. \\
-Fig.~\texttt{fig-robustness} &
-  Fig.~2 &
+  SMILES and InChIKey are resource fields, not solver payload. \\
+Figure~\mainref{fig:fig-robustness}{2} &
   Formula-only (\S\ref{si:n60}), source-paper year (\S\ref{si:year}),
-  and four-vendor controls (figure not reprinted). \\
-Fig.~\texttt{fig-mechanism} &
-  Fig.~3 &
-  Locked v3-R25 verify-save. Reused in \S\ref{si:cases}. \\
-Fig.~\texttt{fig3-method} &
-  recorded below &
+  and four-vendor controls. \\
+Figure~\mainref{fig:fig-mechanism}{3} &
+  v3-R25 verify-save (\S\ref{si:cases}). \\
+Figure~\ref{si:fig:wall} &
+  Forward-verify diagnostic on the same pools, $204/45/251$
+  (\S\ref{si:fverify}). \\
+Figure~\ref{si:fig:chemspace} &
+  Validate-clean chemistry ($n{=}295$;
+  median MW $306~\mathrm{g{\cdot}mol^{-1}}$; median 2 rings).
+  The thinking-tier expand-500 cut is separate. \\
+Figure~\ref{si:fig:ladder} &
   Inference ladder on the 60-compound arm
-  (23\% $\to$ 27\% $\to$ 30\%).
-  Reprinted as Fig.~\ref{si:fig:ladder}. \\
-worked cases &
-  Table~\ref{tab:cases} &
-  \S\ref{si:cases}. \\
+  ($23\%\to 27\%\to 30\%$). \\
+Table~\ref{tab:cases} &
+  Worked cases (\S\ref{si:cases}). \\
 validate-clean extras &
-  main headline one-liner; tables here &
-  Scaffold / Tanimoto / stereo / size bins / corpus-reweight
+  Scaffold, Tanimoto, stereo, size bins, and corpus-reweight
   (\S\ref{si:extras}). \\
-lit.\ decomp.\ table &
-  \S\ref{si:lit} &
-  Full top-1 / top-$k$ rows; not one collapse onto literature peak lists. \\
+literature rows &
+  Top-1 / top-$k$ comparison (\S\ref{si:lit});
+  separate published settings. \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+Figure~\mainref{fig:fig1}{1}, Figure~\mainref{fig:fig-mechanism}{3},
+and Listing~\mainref{lst:payload}{1} are in the main text.
 Main-text Eqs.~\mainref{eq:factor}{1}, \mainref{eq:ik14}{2}, \mainref{eq:metrics}{3}, and \mainref{eq:chamfer}{4}
 (factorisation, InChIKey-14, the three rates, and $^{13}$C chamfer) are restated in
 \S\ref{si:eqs} with the same meaning.
 The pooled estimator lives only here.
 
-%======================================================================
-\subsection{Reprinted figures}
-\label{si:plates}
-
-Figure~\ref{si:fig:lead} reprints the main-text protocol plate.
-Figure~\ref{si:fig:wall} is the $n{=}500$ forward-verify diagnostic
-reprinted with the protocol notes.
-Listing~1 is reprinted with the same live lstlisting$+$framed
-layout (PubChem 3D, CID 57398578).
-Cohort chemistry and the 60-compound inference ladder are recorded here.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-\caption{Main-text Figure~1.
-Generate $249/500$ (49.8\%) recall in top~3;
-self-rank $227/249$ (91.2\%)
-($49.8\%\times 91.2\%=45.4\%$ top-1);
-generation wall $227$ exact top-1 / $22$ in-pool not top-1 /
-$251$ never proposed.}
-\label{si:fig:lead}
-\end{figure}
-
-\begin{listing}[!ht]
-\IfFileExists{tex/listing1_body.tex}{\input{tex/listing1_body}}{\input{../tex/listing1_body}}
-\caption{Main-text Listing~1, an IRexp record
-(commercial DoR; \texttt{ILJNJJNKEOAREX}; PubChem CID 57398578).
-SMILES and InChIKey are resource fields, not solver payload.}
-\label{si:fig:listing}
-\end{listing}
-
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
-\caption{The forward-verify diagnostic on the same $n{=}500$ pools
-(not the generation wall in main-text Figure~1):
+\caption{Forward-verify diagnostic on the same $n{=}500$ pools
+as Figure~\mainref{fig:fig1}{1}
+(generation wall $227/22/251$):
 \textbf{204} verified / \textbf{45} misranked /
 \textbf{251} never proposed.
 Verified top-1 is $204/500$, a drop of 23 from self-rank $227/500$.
@@ -146,7 +109,7 @@ Each IRSpectra-Bench item is a four-field JSON object. The solver sees
 \end{center}
 No name, SMILES, InChIKey, scaffold, atom-type hint, retrieved spectrum,
 licence stamp, or PMC id enters the prompt
-(main-text Listing~1, adapted from one IRexp record).
+(Listing~\mainref{lst:payload}{1}, adapted from one IRexp record).
 Gold constitution is scored offline by the InChIKey-14 indicator
 (\S\ref{si:eqs}).
 
@@ -156,7 +119,7 @@ $\leq$22 heavy atoms; else \emph{complex}.
 The $n{=}500$ headline is near-50/50 (248/252);
 the eligible IRexp corpus is 17.5\% simple / 82.5\% complex.
 Corpus-reweighted extras on a validate-clean subset are in
-\S\ref{si:extras} and are not $n{=}500$ figures.
+\S\ref{si:extras} and are not $n{=}500$ headline numbers.
 
 \subsubsection{Frozen roster}
 
@@ -258,7 +221,7 @@ A pool estimator on an index set $\mathcal{S}$ is
 \hat p_{\mathcal{S}}
 =\frac{1}{|\mathcal{S}|}\sum_{i\in\mathcal{S}} s(c_{i1}, y_i^\star).
 \end{equation}
-The ICLR headline uses $\mathcal{S}$ of size 500 (frozen \texttt{qid} list).
+The paper headline uses $\mathcal{S}$ of size 500 (frozen \texttt{qid} list).
 The $n{=}519$ \texttt{score\_pooled.py} print ($243/519$) is not used.
 
 Confidence intervals on earlier validate-clean subsets are bootstrap
@@ -276,7 +239,7 @@ Confidence intervals are not reported for $n{=}500$ or expand-500.
 \caption{Molecular weight, ring count, C--F bonds, and nitrogen atoms
 on the validate-clean subset ($n{=}295$: locked cohort plus clean
 expansion; median MW $306~\mathrm{g{\cdot}mol^{-1}}$; median 2 rings).
-The thinking-tier expand-500 cut is not in this plate.}
+The thinking-tier expand-500 cut is not in this figure.}
 \label{si:fig:chemspace}
 \end{figure}
 
@@ -287,9 +250,6 @@ The thinking-tier expand-500 cut is not in this plate.}
 23\% $\to$ 27\% $\to$ 30\% (generate-wide recall $32\%\to 42\%$).}
 \label{si:fig:ladder}
 \end{figure}
-
-These rows are not the $n{=}500$ headline.
-Self-ranking precision $|$ recall on $n{=}500$ is $227/249$ (91.2\%).
 
 On the pre-expansion validate-clean subset, $^{13}$C-overread flags
 (R12, R22, R25, R82, R91) were marked before the subset totals.
@@ -379,31 +339,16 @@ top-1 exact: 129/230 (56%)
 \subsection{Headline generation scores}
 \label{si:pools}
 
-The estimator is Eq.~\ref{si:eq:pool}. The paper headline is $n{=}500$.
+The estimator is Eq.~\ref{si:eq:pool}. The paper headline is $n{=}500$
+($227/500$ top-1, $249/500$ recall).
 Roster: frozen \texttt{qid} lists in the code release.
-
-\begin{table}[ht]
-\caption{Headline scores show generation on the frozen $n{=}500$ roster
-(confidence intervals not reported).}
-\centering
-\small
-\begin{tabular}{@{}lrrr@{}}
-\toprule
-set & $n$ & top-1 & recall@3 \\
-\midrule
-\textbf{paper headline} & \textbf{500} & \textbf{227/500 (45.4\%)} & \textbf{249/500 (49.8\%)} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
 The headline pools two consumer protocols.
 They are not a controlled comparison.
 
 \begin{table}[ht]
 \caption{Generation on the two protocols inside the $n{=}500$ headline
 (no confidence interval).
-$118+109=227$ and $133+116=249$.
-Not a second headline.}
+$118+109=227$ and $133+116=249$.}
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
@@ -421,30 +366,28 @@ Strata on the $n{=}500$ headline (same InChIKey-14 rule):
 simple 161/248 (65\%) top-1 / 172/248 (69\%) recall;
 complex 66/252 (26\%) / 77/252 (31\%).
 Self-rank precision $|$ recall: $227/249$ (91.2\%).
-The $n{=}519$ pooled print ($243/519$) is not the headline.
 The $n{=}500$ forward-verify diagnostic is $204/45/251$ (\S\ref{si:fverify}).
 
 %======================================================================
 \subsection{Forward-verify diagnostic}
 \label{si:fverify}
 
-Figure~\ref{si:fig:wall} is the $n{=}500$ forward-verify decomposition.
-Protocol-slice forward-verify and expand-500 official chamfer scores
-follow in this section.
-Validate-clean scaffold, size, and stereo extras are in \S\ref{si:extras};
-they are not a second wall.
+Figure~\ref{si:fig:wall} is the decomposition of those pools.
+Protocol-slice forward verification and the expand-500 chamfer scores
+follow.
+Validate-clean scaffold, size, and stereo extras are in \S\ref{si:extras}.
 
 Classification:
 \textbf{verified} = recalled and chamfer-ranked first;
 \textbf{misranked} = recalled, distractor first;
 \textbf{never-proposed} = true structure not in the candidate set.
 The forward-verify diagnostic is the $n{=}500$ row.
-The three arm rows sum to that diagnostic; they are not a second generation headline.
+The three arm rows sum to that diagnostic.
 
 \begin{table}[ht]
 \caption{Forward-verify split on $n{=}500$: $204/45/251$
 (no confidence interval).
-Arm rows sum to that split and are not the generation headline.}
+Arm rows sum to that split.}
 \centering
 \small
 \begin{tabular}{@{}lrrrr@{}}
@@ -459,19 +402,18 @@ expand-500 cut & 200 & 90 & 26 & 84 \\
 \end{tabular}
 \end{table}
 
-Recalled $=204+45=249/500$, matching committed generation recall.
-Figure~\ref{si:fig:wall} shows this $204/45/251$ forward-verify diagnostic.
-Figure~1 reports the generation wall
+Recalled $=204+45=249/500$, matching generation recall.
+Figure~\mainref{fig:fig1}{1} reports the generation wall
 ($249/500$ recall $\times$ $227/249$ self-rank $=45.4\%$ top-1; wall $227/22/251$).
 
 \subsubsection{Protocol-slice diagnostic}
 
 Source: \texttt{data/diagnosis.json} / \texttt{scripts/forward\_verify\_all.py}.
-This is a protocol-slice diagnostic, not a second copy of the $n{=}500$ forward-verify split.
+The rows below are the protocol slice, separate from the $n{=}500$ split ($204/45/251$).
 
 \begin{table}[ht]
-\caption{A protocol-slice diagnostic shows forward verification,
-not the $n{=}500$ forward-verify split ($204/45/251$).}
+\caption{Protocol-slice forward verification
+(separate from the $n{=}500$ split $204/45/251$).}
 \centering
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -500,8 +442,7 @@ Headline generation remains $n{=}500$ ($227/500$, $249/500$).
 This arm score does not replace the $n{=}500$ forward-verify table.
 
 \begin{table}[ht]
-\caption{Official expand-500 chamfer scores show an arm result,
-not the $n{=}500$ forward-verify diagnostic and not the generation headline.}
+\caption{Official expand-500 chamfer scores.}
 \centering
 \scriptsize
 \setlength{\tabcolsep}{3pt}
@@ -530,9 +471,10 @@ Deranging observed $^{13}$C pairings collapses precision ($p{=}0.001$).
 \subsection{Worked cases}
 \label{si:cases}
 
-The three locked failure modes, plus panels that use already-reported
-numbers. Expansion qids reuse R22/R25.
-Only v3-R25 is drawn (Figure~\ref{si:fig:r25}).
+The three failure modes below are taken from released candidate files.
+Later panels reuse already-reported numbers.
+Expansion qids reuse R22/R25.
+The verify-save drawing is Figure~\mainref{fig:fig-mechanism}{3}.
 
 \begin{table}[ht]
 \caption{Worked cases show three failure modes from released candidate
@@ -554,7 +496,7 @@ IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused. \\
 v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm). IR 1679~cm$^{-1}$.
-Figure~\ref{si:fig:r25}. \\
+Figure~\mainref{fig:fig-mechanism}{3}. \\
 \textbf{Verify-fail} &
 v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$ &
 True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2);
@@ -575,16 +517,8 @@ that was never proposed (Eq.~\ref{si:eq:factor}).
 
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm, Eq.~\ref{si:eq:chamfer}).
-IR 1679~cm$^{-1}$. Main-text Figure~\mainref{fig:fig-mechanism}{3}; Figure~\ref{si:fig:r25}.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.72\linewidth]{fig_mechanism.pdf}
-\caption{Case v3-R25 shows a verify-save (main-text Figure~3):
-self-rank prefers 3-pyridyl, while forward $^{13}$C recovers 2-pyridyl
-(chamfer 0.42 vs 1.30~ppm).}
-\label{si:fig:r25}
-\end{figure}
+IR 1679~cm$^{-1}$.
+The drawing is Figure~\mainref{fig:fig-mechanism}{3}.
 
 \subsubsection{Verify-fail: v3-R26 / \texorpdfstring{C$_{14}$H$_{11}$N$_{3}$O$_{3}$}{C14H11N3O3}}
 
@@ -597,14 +531,12 @@ Ranking can fail when predicted $^{13}$C lists are nearly tied
 
 \subsubsection{Example payload}
 
-Main-text Listing~1 is the live IRexp JSON record
+Listing~\mainref{lst:payload}{1} is the IRexp JSON record
 (C$_{12}$H$_{11}$BrN$_{4}$; PubChem CID 57398578).
 The InChIKey is \texttt{ILJNJJNKEOAREX-UHFFFAOYSA-N}.
 SMILES, InChIKey, and licence fields are resource metadata.
 Bench solvers see only formula and printed peak lists.
 Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
-The listing is reprinted above with the same lstlisting$+$framed layout.
-Locked v3-R25 remains the mechanism worked case (main-text Figure~3).
 
 \subsubsection{Formula-only control \texorpdfstring{($n{=}60$)}{(n=60)}}
 \label{si:n60}
@@ -627,7 +559,7 @@ recall $32\%\to 42\%$, top-1 $23\%\to 30\%$
 \subsubsection{IRexp-fine-tuned generator (locked slice)}
 Pooled with Claude Opus 5: recall $33.5\%\to54.1\%$, top-1 $28.4\%\to35.1\%$
 (McNemar $p{=}0.015$).
-Training is the intervention that has been observed to move
+Training on the same peak-list resource moves
 $P(\mathrm{true}\in\mathrm{pool})$.
 
 \subsubsection{Battery-electrolyte subset}
@@ -645,9 +577,8 @@ for adjacent ranks and is not a headline result.
 
 \subsubsection{Headline prompt}
 
-Wrapping instruction text was not captured on the headline Claude arm
-(main-text Experimental setup and Limitations: the headline wrapper
-was not captured).
+The headline Claude wrapper was not captured
+(main text, Experimental setup and Limitations).
 Only the per-compound four-field payload is released.
 The skeleton below is the contract, not a recovered verbatim system prompt.
 
@@ -661,17 +592,10 @@ No name, no SMILES hint, no scaffold, no retrieved spectrum.
 Check molecular formula with RDKit before emitting a candidate.
 \end{lstlisting}
 
-Listing~1 payload (solver-facing fields only; gold held out):
-
-\begin{lstlisting}[style=irexpjson]
-{
-  "formula": "C12H11BrN4",
-  "ir_bands_cm-1": [3144.0, 3110.0, 3066.0, 2931.0,
-                    2863.0, 1632.0, 1589.0, 1565.0, 1485.0],
-  "h_nmr": "8.83 (s, 1H), 8.04 (s, 1H), 7.81 (d, J = 8.8 Hz, 2H), ...",
-  "c_nmr": "157.5, 140.3, 138.4, 132.4, 127.5, 120.4, 119.0, 116.4, 49.1"
-}
-\end{lstlisting}
+The solver-facing fields of Listing~\mainref{lst:payload}{1} are
+\texttt{formula}, \texttt{ir\_bands\_cm-1}, \texttt{h\_nmr}, and
+\texttt{c\_nmr}.
+SMILES, InChIKey, and licence fields in that record are not part of the prompt.
 
 \subsubsection{Forward-verify prompt}
 
@@ -710,8 +634,8 @@ python scripts/forward_verify_all.py
 \subsubsection{Headline model card}
 
 \begin{table}[ht]
-\caption{The headline solver card shows recorded fields; unrecorded
-fields are left blank.}
+\caption{Headline solver card.
+Fields that were not recorded are marked as such.}
 \centering
 \small
 \setlength{\tabcolsep}{3pt}
@@ -822,7 +746,7 @@ Spectral validation filters, the prompt-leakage audit and electrolyte
 SMARTS live in the code release.
 Fine-tunes must use \texttt{data/train\_no\_bench.jsonl.gz} so benchmark
 InChIKeys are withheld.
-Listing~1 is the IRexp-style JSON$+$molecule plate in the ICLR PDF.
+One record is shown in Listing~\mainref{lst:payload}{1}.
 
 %======================================================================
 \subsection{Offline peak-list baseline (NMRTrans)}
