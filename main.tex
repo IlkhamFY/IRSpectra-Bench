@@ -314,7 +314,7 @@ IRSpectra-Bench asks a different measurement on a different object:
 literature-reported IR+$^1$H+$^{13}$C peak lists plus formula, one
 out-of-the-box closed-book model, and explicit generation recall versus
 verification precision $|$ recall
-(Eqs.~\ref{eq:top1}--\ref{eq:prec}).
+(Eqs.~\ref{eq:metrics}).
 There is no IR-Agent or SpectraLLM row on this roster. This distinction makes the benchmark a diagnostic of where an elucidation pipeline loses the structure, rather than a leaderboard comparison across incompatible inputs. The title therefore emphasizes literature-reported peak lists: the input format determines whether proposal and verification can be separated.
 (Section~\ref{sec:not-on-roster}).
 
@@ -933,26 +933,15 @@ scorer.
 On one closed-book harness, generation is 45.4\% top-1 (227/500) and
 49.8\% recall (249/500), beside corpus-reweighted 26.5\% top-1 on a
 validate-clean subset.
-The generation wall is $227$ exact top-1 / $22$ in-pool not top-1 /
-$251$ never proposed.
-Forward verification is diagnostic: top-1 falls from 227 to 204
-($204$ verified / $45$ misranked / $251$ never proposed; SI).
+Generation is the binding stage: $227$ exact top-1 / $22$ in-pool not
+top-1 / $251$ never proposed; forward verification lowers top-1 from 227
+to 204 and leaves those $251$ never proposed.
+No expert-chemist audit of the printed lists was run.
+Those $251$ are recovered only when a proposer places them in the pool.
+Re-ranking does not recover them.
 The 60-compound arm is a separate evaluation, not this headline result.
 We release the deposits and the scorer.
 The unscored systems in Section~\ref{sec:not-on-roster} were not run on this input.
-NMRTrans is the one trained NMR-only baseline that was (IR unused; SI).
-
-The binding stage in that split is generation.
-Of the 500 problems, $251$ true constitutions are never proposed and $22$
-are proposed but not placed first; forward verification of the same pools
-lowers top-1 from $227$ to $204$, and the never-proposed count remains
-$251$.
-The measurement is one closed-book harness, and no expert-chemist audit of
-the printed lists was run.
-For multi-modal elucidation from a formula plus printed IR, $^1$H, and
-$^{13}$C lists, those $251$ constitutions are recovered only when a
-proposer places them in the pool.
-Re-ranking a pool already formed leaves them unrecovered.
 
 \section*{AI use statement}
 Frontier LLMs were used as \textbf{experimental solvers} under the consumer harness in
