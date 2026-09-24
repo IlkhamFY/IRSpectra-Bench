@@ -246,9 +246,9 @@ JSON+molecule record.
 \begin{figure}[t]
   \centering
   \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
-  \caption{$n{=}500$ closed-book elucidation.
-  Recall $249/500$ (49.8\%); self-rank $227/249$ (91.2\%); top-1 $45.4\%$.
-  Generation wall: $227$ exact / $22$ in pool but not first / $251$ never proposed.}
+  \caption{Closed-book generation on the frozen $n{=}500$ roster.
+  Peak lists feed candidate generation and then selection from that pool.
+  The lower panel partitions the roster into exact top-1, in the pool but not ranked first, and never proposed.}
   \label{fig:fig1}
 \end{figure}
 
@@ -730,7 +730,7 @@ No re-ranking of an already-proposed pool repairs the $251$ compounds
 where the true structure never entered the list.
 
 \paragraph{Worked cases.}
-Three deposits instantiate these modes (Appendix~\ref{si:cases}).
+Three deposits instantiate these modes (Appendix~\ref{si:cases}; true and top-1 structures in Figure~\ref{si:fig:pred-grid}).
 \textbf{main-R06} (C$_{29}$H$_{30}$FNO$_{2}$): true acridinedione never enters the 3-candidate
 pool (Tanimoto-0.90 regioisomer); verifier unused.
 \textbf{v3-R25} (C$_{10}$H$_{14}$N$_{2}$O): verify-save --- self-rank prefers 3-pyridyl,
