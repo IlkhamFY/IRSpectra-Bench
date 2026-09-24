@@ -22,8 +22,7 @@ tables, worked cases, and reproducibility notes.
 Headline generation on the frozen $n{=}500$ roster is $227/500$ (45.4\%)
 top-1 and $249/500$ (49.8\%) recall; self-ranking precision $|$ recall is
 $227/249$ (91.2\%).
-Independent forward verification of the same pools is Figure~\ref{si:fig:wall}
-and \S\ref{si:fverify}.
+Independent forward verification of the same pools is \S\ref{si:fverify}.
 Confidence intervals are not reported for $n{=}500$.
 The $n{=}519$ pooled print ($243/519$) is not the headline.
 
@@ -35,7 +34,7 @@ The $n{=}519$ pooled print ($243/519$) is not the headline.
 \caption{Main-text objects and the appendix sections that discuss them.
 Figures~\mainref{fig:fig1}{1}--\mainref{fig:fig-mechanism}{4} and
 Listing~\mainref{lst:payload}{1} are not repeated.
-Figures~\ref{si:fig:wall}--\ref{si:fig:ladder} appear only here.}
+Figures~\ref{si:fig:chemspace}--\ref{si:fig:pred-grid} appear only here.}
 \centering
 \small
 \setlength{\tabcolsep}{4pt}
@@ -60,9 +59,9 @@ leave-one-modality &
   Paired $n{=}60$ arm, Claude Opus 5 (Table~\mainref{tab:formula-only}{2}). \\
 Figure~\mainref{fig:fig-mechanism}{4} &
   v3-R25 verify-save (\S\ref{si:cases}). \\
-Figure~\ref{si:fig:wall} &
+\S\ref{si:fverify} &
   Forward-verify diagnostic on the same pools, $204/45/251$
-  (\S\ref{si:fverify}). \\
+  (table in that section). \\
 Figure~\ref{si:fig:chemspace} &
   Validate-clean chemistry ($n{=}295$;
   median MW $306~\mathrm{g{\cdot}mol^{-1}}$; median 2 rings).
@@ -70,6 +69,9 @@ Figure~\ref{si:fig:chemspace} &
 Figure~\ref{si:fig:ladder} &
   Inference ladder on the 60-compound arm
   ($23\%\to 27\%\to 30\%$). \\
+Figure~\ref{si:fig:pred-grid} &
+  30 deposited cases: true structure beside the top-1 prediction
+  (exact top-1, in pool but not first, never proposed). \\
 Table~\ref{tab:cases} &
   Worked cases (\S\ref{si:cases}). \\
 validate-clean extras &
@@ -95,29 +97,16 @@ The pooled estimator lives only here.
 \subsection{Appendix figures}
 \label{si:plates}
 
-Figure~\ref{si:fig:wall} decomposes the same $n{=}500$ generation pools as
-main-text Figure~\mainref{fig:fig1}{1} under independent forward $^{13}$C-chamfer
-re-ranking (\S\ref{si:fverify}).
-Bars are verified top-1 (204), misranked (true in pool but not verified rank-1; 45),
-and never proposed (251).
-Generation recall remains $249/500$; verified top-1 is $204/500$
-(a drop of 23 from self-rank $227/500$).
-Figures~\ref{si:fig:chemspace} and~\ref{si:fig:ladder} give the validate-clean
-chemspace slice and the 60-compound inference ladder used later in
-\S\ref{si:n60}--\S\ref{si:ladder24}.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\linewidth]{fig_wall_diagnostic.pdf}
-\caption{Forward-verify diagnostic on the same $n{=}500$ pools
-as Figure~\mainref{fig:fig1}{1}
-(generation wall $227/22/251$):
-\textbf{204} verified / \textbf{45} misranked /
-\textbf{251} never proposed.
-Verified top-1 is $204/500$, a drop of 23 from self-rank $227/500$.
-Generation recall remains $249/500$.}
-\label{si:fig:wall}
-\end{figure}
+Figure~\ref{si:fig:chemspace} plots molecular weight, ring count,
+C--F bonds, and nitrogen count on the validate-clean subset
+(\S\ref{si:extras}).
+Figure~\ref{si:fig:ladder} is the inference ladder on the 60-compound arm
+(\S\ref{si:n60}--\S\ref{si:ladder24}).
+Figure~\ref{si:fig:pred-grid} places each deposited true structure beside
+the top-1 prediction for 30 representative cases of exact top-1, in the pool
+but not first, and never proposed.
+Structures and Tanimoto scores are taken only from released deposits; no
+structures are invented for illustration.
 
 \begin{figure}[ht]
 \centering
@@ -135,6 +124,15 @@ The thinking-tier expand-500 cut is separate from this subset.}
 \caption{Inference ladder on the 60-compound arm:
 23\% $\to$ 27\% $\to$ 30\% (generate-wide recall $32\%\to 42\%$).}
 \label{si:fig:ladder}
+\end{figure}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=\linewidth]{fig_pred_vs_true_grid.pdf}
+\caption{True vs top-1 predicted structures for 30 representative deposited
+IRSpectra-Bench cases (10 correct top-1, 10 in-pool miss, 10 never-proposed).
+Labels under each pair give qid, Morgan $r{=}2$ Tanimoto, and outcome.}
+\label{si:fig:pred-grid}
 \end{figure}
 
 %======================================================================
@@ -396,7 +394,7 @@ The $n{=}500$ forward-verify diagnostic is $204/45/251$ (\S\ref{si:fverify}).
 \subsection{Forward-verify diagnostic}
 \label{si:fverify}
 
-Figure~\ref{si:fig:wall} is the decomposition of those pools.
+The table in this section is the decomposition of those pools.
 Protocol-slice forward verification and the expand-500 chamfer scores
 follow.
 Validate-clean scaffold, size, and stereo extras are in \S\ref{si:extras}.
@@ -552,24 +550,6 @@ The 2-nitro isomer is ranked first (chamfer 1.35 vs 1.36~ppm).
 IR 1652, 1530, 1352~cm$^{-1}$.
 Ranking can fail when predicted $^{13}$C lists are nearly tied
 (McNemar $p{=}0.55$; 7 gained, 4 lost on the protocol slice).
-
-\subsubsection{Predicted vs true structures}
-\label{si:pred-grid}
-
-Figure~\ref{si:fig:pred-grid} shows paired true and top-1 predicted structures
-on 30 representative deposited cases (10 correct top-1, 10 in-pool miss, and
-10 never-proposed).
-Structures and Tanimoto scores are taken only from released deposits; no
-structures are invented for illustration.
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\linewidth]{fig_pred_vs_true_grid.pdf}
-\caption{True vs top-1 predicted structures for 30 representative deposited
-IRSpectra-Bench cases (10 correct top-1, 10 in-pool miss, 10 never-proposed).
-Labels under each pair give qid, Morgan $r{=}2$ Tanimoto, and outcome.}
-\label{si:fig:pred-grid}
-\end{figure}
 
 \subsubsection{Example payload}
 
