@@ -557,7 +557,7 @@ Formula only: 3/60 (5\%) top-1 and 3/60 (5\%) recall.
 Formula $+$ IR $+$ $^1$H $+$ $^{13}$C: 14/60 (23\%) / 19/60 (32\%).
 Outcomes perfectly nested (McNemar $p{=}0.001$).
 
-\subsubsection{Leave-one-modality \texorpdfstring{($n{=}60$)}{(n=60)}}
+\subsubsection{Ablation: Leave-one-modality \texorpdfstring{($n{=}60$)}{(n=60)}}
 \label{si:modality}
 Paired leave-one-modality on Claude Opus 5 (thinking), the same 60 compounds
 in every condition.
@@ -567,12 +567,6 @@ McNemar tests paired top-1 against full lists.
 $b$ counts compounds correct on full lists only;
 $c$ counts compounds correct on the named condition only.
 Formula only is the pre-existing control.
-Both $-{}^1$H ($p{=}0.001$) and $-$formula ($p{=}0.006$) drop
-significantly versus full lists; $-$IR and $-{}^{13}$C do not ($p{=}1.000$).
-Spectra-only ($-$formula) stays far above the formula$+$IR floor.
-Discordant $-$formula outcomes versus full lists: lost
-M010, M019, M020, M040, M051, M053, M054, M056, M057, M058, M060;
-gained M032.
 
 \begin{center}
 \captionof{table}{Leave-one-modality, paired $n{=}60$.
@@ -901,3 +895,8 @@ score for those systems.
 An expert-chemist audit was not run.
 Leave-one-modality on the paired $n{=}60$ arm is \S\ref{si:modality}.
 
+
+
+%======================================================================
+\subsection{Closed-Book Harness}
+\label{si:closed-book}
