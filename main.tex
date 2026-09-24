@@ -645,13 +645,13 @@ $f_{\cal M}$ + IR+$^1$H + $^{13}$C & 35/60 (58\%) & 38/60 (63\%) & --- \\
 $f_{\cal M}$ + $^1$H + $^{13}$C & 34/60 (57\%) & 41/60 (68\%) & 1.000 \\
 $f_{\cal M}$ + IR +$^{13}$C & 21/60 (35\%) & 27/60 (45\%) & 0.001 \\
 $f_{\cal M}$ + IR + $^1$H & 34/60 (57\%) & 37/60 (62\%) & 1.000 \\
-IR+$^1$H + $^{13}$C & -- & -- & --- \\
+IR+$^1$H + $^{13}$C & 25/60 (42\%) & 26/60 (43\%) & 0.006 \\
 \bottomrule
 \end{tabular}
 \vspace{-0.5\baselineskip}
 \end{wraptable}
 
-Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds verbatim recall but does not exclude contamination (Section~\ref{sec:limitations}). A separate paired leave-one-modality arm (Claude Opus 5, thinking; Appendix~\ref{si:modality}) shows that $^1$H carries the signal: removing it drops top-1 from 35/60 to 21/60 ($p{=}0.001$), removing IR or $^{13}$C does not ($p{=}1.000$), and formula$+$IR stays at the formula-only floor. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor.
+Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds verbatim recall but does not exclude contamination (Section~\ref{sec:limitations}). A separate paired leave-one-modality arm (Claude Opus 5, thinking; Appendix~\ref{si:modality}) shows that removing $^1$H drops top-1 from 35/60 to 21/60 ($p{=}0.001$) and removing the formula drops it to 25/60 ($p{=}0.006$); removing IR or $^{13}$C does not ($p{=}1.000$), formula$+$IR stays at the formula-only floor, and spectra-only remains well above it. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{fig_robustness.pdf}
@@ -836,8 +836,7 @@ on the protocol slice ($p{=}0.55$); generate-wide top-1 is unresolved
 ($p{=}0.34$); the $n{=}24$ ladder is underpowered.
 No expert-chemist audit was run.
 Leave-one-modality on paired $n{=}60$ was completed:
-$^1$H is the only significant leave-one-out ($58.3\%\to35.0\%$, McNemar $p{=}0.001$);
-IR and $^{13}$C do not (both $56.7\%$, $p{=}1.000$);
+Both $^1$H and $-$formula are significant leave-one-out effects: $^1$H drops from 35/60 to 21/60 ($p{=}0.001$), and removing formula drops to 25/60 ($p{=}0.006$); (IR and $^{13}$C do not (both $56.7$\%, $p{=}1.000$);
 formula$+$IR matches the formula-only floor ($5.0\%$).
 Extraction fidelity is inherited from IRexp rather than re-audited here.
 The battery subset is literature electrolyte chemistry, not operando cells;
