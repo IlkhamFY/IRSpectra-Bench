@@ -626,7 +626,9 @@ The resulting generation wall is therefore 227 exact top-1 predictions, 22 candi
 \subsection{Ablation of the printed lists}
 \label{sec:contamination}
 
-Figure~\ref{fig:fig-robustness}a is the nested formula-only control on the non-thinking $n{=}60$ roster (Appendix~\ref{si:n60}). Formula-only recovers 3/60 ($5\%$), and all three stay recovered once IR and NMR lists are supplied (full lists 14/60; McNemar $p{=}0.001$). On that nested arm, formula$+$IR stays at the formula-only floor ($5\%$).
+Figure~\ref{fig:fig-robustness}a is the nested formula-only control on the non-thinking $n{=}60$ roster (Appendix~\ref{si:n60}). Formula-only recovers 3/60 ($5\%$), and all three stay recovered once IR and NMR lists are supplied (full lists 14/60; McNemar $p{=}0.001$). On that nested arm, formula$+$IR stays at the formula-only floor ($5\%$; Appendix~\ref{si:n60}).
+
+Table~\ref{tab:formula-only} is the separate Claude thinking leave-one-modality arm on the same roster (full lists 35/60).
 
 \begin{wraptable}{r}{0.58\textwidth}
 \footnotesize
@@ -649,7 +651,7 @@ IR+$^1$H + $^{13}$C & 25/60 (42\%) & 26/60 (43\%) & 0.006 \\
 \vspace{-0.5\baselineskip}
 \end{wraptable}
 
-Accuracy is flat in source-paper year on the $n{=}194$ slice ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds verbatim recall but does not exclude contamination (Section~\ref{sec:limitations}). Table~\ref{tab:formula-only} is the Claude thinking leave-one-modality arm (full lists 35/60); Figure~\ref{fig:fig-robustness}a is the separate nested formula-only control (3/60 versus 14/60). Removing $^1$H drops top-1 from 35/60 to 21/60 ($p{=}0.001$) and removing the formula drops it to 25/60 ($p{=}0.006$); removing IR or $^{13}$C does not ($p{=}1.000$), and spectra-only remains well above the nested formula-only floor. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor.
+Accuracy is flat in source-paper year on the $n{=}194$ slice ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds verbatim recall but does not exclude contamination (Section~\ref{sec:limitations}). Removing $^1$H drops top-1 from 35/60 to 21/60 ($p{=}0.001$) and removing the formula drops it to 25/60 ($p{=}0.006$); removing IR or $^{13}$C does not ($p{=}1.000$), and spectra-only remains well above the nested formula-only floor. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{fig_robustness.pdf}
