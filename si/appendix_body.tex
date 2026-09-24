@@ -586,6 +586,34 @@ Formula only: 3/60 (5\%) top-1 and 3/60 (5\%) recall.
 Formula $+$ IR $+$ $^1$H $+$ $^{13}$C: 14/60 (23\%) / 19/60 (32\%).
 Outcomes perfectly nested (McNemar $p{=}0.001$).
 
+\subsubsection{Leave-one-modality \texorpdfstring{($n{=}60$)}{(n=60)}}
+\label{si:modality}
+Detailed McNemar companion to main-text Table~\mainref{tab:formula-only}{2}
+on the same paired $n{=}60$ Claude Opus 5 (thinking) compounds.
+$b$ = correct on full lists only; $c$ = correct on the named condition only.
+Full lists = $f_{\cal M}$+IR+$^1$H+$^{13}$C.
+$-$formula withholds the molecular formula (spectra-only: IR+$^1$H+$^{13}$C).
+Formula only is the pre-existing contamination control (not the leave-one full).
+
+\begin{center}
+\captionof{table}{Leave-one-modality and spectra-only ($-$formula), paired $n{=}60$.}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrl@{}}
+\toprule
+condition & top-1 & recovered (top-3) & McNemar vs full \\
+\midrule
+full & 35/60 (58.3\%) & 38/60 (63.3\%) & --- \\
+$-$IR & 34/60 (56.7\%) & 41/60 (68.3\%) & $b{=}4$, $c{=}3$, $p{=}1.000$ \\
+$-{}^1$H & 21/60 (35.0\%) & 27/60 (45.0\%) & $b{=}15$, $c{=}1$, $p{=}0.001$ \\
+$-{}^{13}$C & 34/60 (56.7\%) & 37/60 (61.7\%) & $b{=}3$, $c{=}2$, $p{=}1.000$ \\
+$-$formula & 25/60 (41.7\%) & 26/60 (43.3\%) & $b{=}11$, $c{=}1$, $p{=}0.006$ \\
+formula$+$IR & 3/60 (5.0\%) & 5/60 (8.3\%) & $b{=}32$, $c{=}0$, $p{=}0.000$ \\
+formula only & 3/60 (5.0\%) & 3/60 (5.0\%) & $b{=}32$, $c{=}0$, $p{=}0.000$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
 \subsubsection{Source-paper year \texorpdfstring{($n{=}60$)}{(n=60)}}
 \label{si:year}
 Accuracy is flat in source-paper year ($r{=}{-}0.007$;
@@ -905,10 +933,9 @@ no compound name, SMILES, InChIKey, scaffold hint, retrieved spectrum, or web se
 The only tool is an RDKit formula / parse check before a candidate is emitted.
 
 The $n{=}500$ headline uses Claude Opus 5 on a consumer harness.
-Thinking-tier mix matches the model card (\S\ref{si:card}): earlier rows
-without thinking; the expand-500 cut (200 of 500) on the thinking tier.
-Each deposit holds at most three ranked SMILES; scoring is RDKit InChIKey-14
-as in \S\ref{si:eqs}.
+Thinking-tier mix matches the model card: earlier rows without thinking; the
+expand-500 cut (200 of 500) on the thinking tier.
+Each deposit holds at most three ranked SMILES; scoring is RDKit InChIKey-14.
 The cross-vendor $n{=}60$ arm reuses the same payload with vendor-specific
 prompts in the code release.
 
