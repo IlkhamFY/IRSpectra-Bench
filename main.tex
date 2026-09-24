@@ -245,7 +245,7 @@ JSON+molecule record.
 
 \begin{figure}[t]
   \centering
-  \includegraphics[width=0.8\linewidth]{fig1_lead_overview.pdf}
+  \includegraphics[width=\linewidth]{fig1_lead_overview.pdf}
   \caption{$n{=}500$ closed-book elucidation.
   Recall $249/500$ (49.8\%); self-rank $227/249$ (91.2\%); top-1 $45.4\%$.
   Generation wall: $227$ exact / $22$ in pool but not first / $251$ never proposed.}
@@ -593,7 +593,7 @@ Forward verification is the secondary drop on the same pools.
 Systems named in Section~\ref{sec:not-on-roster} do not appear in these tables.
 NMRTrans is scored in Appendix~\ref{si:nmrtrans} as an NMR-only baseline (formula and printed
 $^1$H/$^{13}$C; IR unused; 79/500 top-1).
-It is not an IR+$^1$H+$^{13}$C row in these tables.
+These tables do not include an IR+$^1$H+$^{13}$C row.
 
 \subsection{Headline performance}
 \label{sec:headline}
@@ -651,7 +651,7 @@ IR+$^1$H + $^{13}$C & 25/60 (42\%) & 26/60 (43\%) & 0.006 \\
 \vspace{-0.5\baselineskip}
 \end{wraptable}
 
-Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds verbatim recall but does not exclude contamination (Section~\ref{sec:limitations}). A separate paired leave-one-modality arm (Claude Opus 5, thinking; Appendix~\ref{si:modality}) shows that removing $^1$H drops top-1 from 35/60 to 21/60 ($p{=}0.001$) and removing the formula drops it to 25/60 ($p{=}0.006$); removing IR or $^{13}$C does not ($p{=}1.000$), formula$+$IR stays at the formula-only floor, and spectra-only remains well above it. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor.
+Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds verbatim recall but does not exclude contamination (Section~\ref{sec:limitations}). A separate paired leave-one-modality arm (Claude Opus 5, thinking; Table~\ref{tab:formula-only}) shows that removing $^1$H drops top-1 from 35/60 to 21/60 ($p{=}0.001$) and removing the formula drops it to 25/60 ($p{=}0.006$); removing IR or $^{13}$C does not ($p{=}1.000$), formula$+$IR stays at the formula-only floor, and spectra-only remains well above it. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{fig_robustness.pdf}
