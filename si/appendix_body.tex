@@ -564,7 +564,7 @@ structures are invented for illustration.
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\linewidth,height=0.92\textheight,keepaspectratio]{fig_pred_vs_true_grid.pdf}
+\includegraphics[width=\linewidth]{fig_pred_vs_true_grid.pdf}
 \caption{True vs top-1 predicted structures on representative IRSpectra-Bench
 cases (correct top-1, in-pool miss, never-proposed). Labels give qid and
 Morgan $r{=}2$ Tanimoto.}
@@ -933,9 +933,10 @@ no compound name, SMILES, InChIKey, scaffold hint, retrieved spectrum, or web se
 The only tool is an RDKit formula / parse check before a candidate is emitted.
 
 The $n{=}500$ headline uses Claude Opus 5 on a consumer harness.
-Thinking-tier mix matches the model card: earlier rows without thinking; the
-expand-500 cut (200 of 500) on the thinking tier.
-Each deposit holds at most three ranked SMILES; scoring is RDKit InChIKey-14.
+Thinking-tier mix matches the model card (\S\ref{si:card}): earlier rows
+without thinking; the expand-500 cut (200 of 500) on the thinking tier.
+Each deposit holds at most three ranked SMILES; scoring is RDKit InChIKey-14
+as in \S\ref{si:eqs}.
 The cross-vendor $n{=}60$ arm reuses the same payload with vendor-specific
 prompts in the code release.
 
