@@ -156,20 +156,17 @@ families.
 \section{Introduction}
 \label{sec:introduction}
 
-Predicting the molecular structure of a chemical compound from spectra is the routine inverse problem
-of synthetic and materials chemistry.
-After a chemical reaction step, chemists validate this through
-mid-infrared spectra and one-dimensional NMR chemical shifts.
+Predicting the molecular structure of a chemical compound from spectral information, like mid-infrared spectra and one-dimensional NMR chemical shifts, is a routine task in synthetic chemistry, as it validates chemical reaction steps. 
 Infrared band positions encode functional groups and conjugation, for example,
-carbonyl stretches, O--H and N--H envelopes, aromatic C=C, and the paired
+carbonyl stretches, alcohols and amines envelopes, aromatic C=C, and the paired
 nitro bands that survive even a terse experimental section.
 NMR chemical shifts, multiplicities and integrals encode the number and
 neighbourhood of hydrogen ($^1$H  NMR) and carbon environments ($^{13}$C NMR).
 The form that enters the literature is rarely the instrument file.
-Experimental sections print \textbf{peak lists}: wavenumbers in cm$^{-1}$ and
+Experimental journals commonly report \textbf{peak lists}, wavenumbers in cm$^{-1}$ and
 shift tables in ppm, often with coupling constants, and only rarely with
-intensities or lineshape.
-Two-dimensional correlations (COSY, HSQC, HMBC) that classical
+intensities or lineshape, and not digitized spectra. 
+Furthermore, 2D correlations (COSY, HSQC, HMBC) that classical
 computer-assisted structure elucidation (CASE) uses to constrain
 connectivity~\citep{elyashberg2012case,elyashberg2015case} are frequently
 absent from those tables.
@@ -219,7 +216,7 @@ and a high verifier score cannot be read as a solved elucidator.
 \paragraph{Contributions.}
 \begin{enumerate}
   \item \textbf{A frozen roster and a mechanical scorer.}
-        IRSpectra-Bench is $n{=}500$ literature peak-list problems and a fixed
+        IRSpectra-Bench is a literature peak-list problems and a fixed
         InChIKey-14 contract (Eq.~\ref{eq:ik14}).
         Later systems deposit ranked SMILES. NMRTrans is the one trained
         NMR-only baseline scored below (IR unused; not a full multi-modal
@@ -240,7 +237,7 @@ and a high verifier score cannot be read as a solved elucidator.
 \paragraph{Peak-list resource.}
 Band and shift lists are taken from \citep{yabbarov2026irexp}, an anonymized review copy is in Appendix~\ref{si:split}, a spectral peak-list
 resource of 121,233 records (57,646 structure-linked; 39,118 full
-IR+$^1$H+$^{13}$C+structure quadruples)~.
+IR+$^1$H+$^{13}$C+structure quadruples).
 The $n{=}500$ roster is drawn from the structure-complete
 \texttt{irexp\_resolved} split; Listing~\ref{lst:payload} shows one
 JSON+molecule record.
@@ -262,9 +259,9 @@ JSON+molecule record.
 Paired corpora have produced strong in-distribution elucidators, and they
 set the default reporting language for the field. For example, \citep{chacko2024spectro,ottomano2025nmiracle} fuse infrared with NMR in encoder--decoder or
 generative setups~\citep{chacko2024spectro,ottomano2025nmiracle};
-Hu \textit{et al.}\ and NMRTrans invert one-dimensional NMR with multitask
+Hu \textit{et al.} and NMRTrans invert one-dimensional NMR with multitask
 or set-transformer decoders~\citep{hu2024multitask,yang2026nmrtrans};
-Alberts and coworkers train infrared transformers on NIST experimental
+Alberts and coworkers train a transformer-based architecture on NIST experimental
 absorbance and report end-to-end top-$k$ SMILES~\citep{alberts2024ir,alberts2025benchmarks}.
 Each of these models is trained on the representation native to its own
 corpus, such as a NIST infrared trace or a one-dimensional NMR list, and
@@ -301,8 +298,8 @@ Priessner already notes that a verifier cannot recover a structure that
 never entered the pool; we measure that failure on literature peak lists
 at $n{=}500$.
 SpectraLLM~\citep{su2025spectrallm} is a fine-tuned elucidator trained on
-simulated multi-spectral corpora, a different object from printed
-experimental lists.
+simulated multi-spectral corpora, a different object from printed/reported
+experimental peak lists.
 
 IR-Agent~\citep{noh2025iragent} is the closest concurrent infrared
 elucidator and the cleanest illustration of why the stage split matters.
@@ -319,12 +316,11 @@ candidate is first; it cannot put a missing constitution into the pool.
 Table and retrieval features likewise condition ranking of structures
 that were already proposed.
 IRSpectra-Bench asks a different measurement on a different object:
-literature-reported IR+$^1$H+$^{13}$C peak lists plus formula, one
+literature-reported IR+$^1$H+$^{13}$C peak lists plus molecular formula, one
 out-of-the-box closed-book model, and explicit generation recall versus
 verification precision $|$ recall
 (Eqs.~\ref{eq:metrics}).
-There is no IR-Agent or SpectraLLM row on this roster. This distinction makes the benchmark a diagnostic of where an elucidation pipeline loses the structure, rather than a leaderboard comparison across incompatible inputs. The title therefore emphasizes literature-reported peak lists: the input format determines whether proposal and verification can be separated.
-(Section~\ref{sec:not-on-roster}).
+There is no IR-Agent or SpectraLLM row on this roster. This distinction makes the benchmark a diagnostic of where an elucidation pipeline loses the structure, rather than a leaderboard comparison across incompatible inputs. The title therefore emphasizes literature-reported peak lists: the input format determines whether proposal and verification can be separated (see Section~\ref{sec:not-on-roster}).
 
 A third regime compares architectures on a shared suite.
 MolQuest~\citep{han2026molquest}, NMRGym~\citep{fang2026nmrgym} and
@@ -334,6 +330,7 @@ tooling stack wins.
 Those suites still need a stage contract if a win is to be attributed
 to a better proposer rather than a better ranker.
 
+\vspace{-0.75cm}
 \paragraph{Heterogeneous peak lists and CASE}
 Most learned suites use simulated spectra or single-instrument libraries
 such as NIST infrared or nmrshiftdb2-style
@@ -354,17 +351,15 @@ rarely state whether the true structure was proposed at all.
 SpecX~\citep{xiang2026specx} bounds a related multi-modal spectroscopy
 task on simulated traces.
 
+\label{sec:not-on-roster}
 NMRTrans~\citep{yang2026nmrtrans} is run here on formula and printed
 $^1$H/$^{13}$C lists, with IR unused, because the released model accepts
 that printed peak-list interface.
 The roster scores are 79/500 top-1 and 102/500 recall, with 9/500 gold
-keys in its training split (Appendix~\ref{si:nmrtrans}).
+keys in its training split (see Appendix~\ref{si:nmrtrans}).
 Those scores are the trained baseline obtained on this interface.
-It is not a full IR+$^1$H+$^{13}$C peer.
-
-\label{sec:not-on-roster}
-IR-Agent, CASE, Spectro, NMIRacle, the Alberts infrared transformers and
-SpectraLLM were not run, because API access, licence and input do not
+It is not a full IR+$^1$H+$^{13}$C peer. IR-Agent, CASE, Spectro, NMIRacle, the Alberts infrared transformers and
+SpectraLLM were not run, because API access, licence, and input do not
 match this printed three-list harness.
 
 \FloatBarrier
@@ -413,21 +408,21 @@ ranker cannot raise recall, and the two rates must not be differenced.
 Each of the 500 problems is exactly the textual form reported in
 open-access papers: formula plus IR band list plus $^1$H/$^{13}$C shift
 lists.
-The inputs are author-transcribed \textbf{band and shift lists}, not
+The inputs are author-transcribed IR band and chemical shift lists, not
 absorbance traces or FIDs, and therefore a different object from
 digitised-spectrum benchmarks~\citep{espejo2026agentic}.
 That is also the form a language model reads when it is asked to work
 from the literature rather than from an instrument file.
 
-The evaluation set is a frozen roster of 500 question ids released with
+The evaluation set is a frozen roster of 500 question IDs released with
 the code.
-Problems are drawn from the structure-complete split of IRexp
-(\texttt{irexp\_resolved})~\citep{yabbarov2026irexp}.
-The question ids are a pre-specified list, not an outcome-selected subset
+Problems are drawn from the structure-complete split of \citep{yabbarov2026irexp}
+(\texttt{irexp\_resolved}).
+The question IDs are a pre-specified list, not an outcome-selected subset
 (Appendix~\ref{si:stopping}).
 Histograms of molecular weight, ring count, C--F bonds, and nitrogen
 atoms for the validate-clean subset ($n{=}295$: locked cohort plus
-clean expansion) are in Appendix~\ref{si:extras}.
+clean expansion) of \citep{yabbarov2026irexp} data are in Appendix~\ref{si:extras}.
 On that plate, the median molecular weight is $306~\mathrm{g{\cdot}mol^{-1}}$ and the median ring
 count is two rings.
 The thinking-tier expand-500 cut is not in the plate.
@@ -497,7 +492,6 @@ The $n{=}500$ headline does not carry confidence intervals.
 
 \section{Experimental setup}
 \label{sec:setup}
-
 The experiments run the problem of Section~\ref{sec:preliminaries} under a
 fixed closed-book harness: one out-of-the-box model family on the frozen
 roster, a declared candidate budget, and an optional second ranker that
@@ -509,7 +503,7 @@ the probes that later sections use to interpret the generation wall.
 The solver sees four JSON fields per \texttt{qid}: \texttt{formula} (as from
 HRMS), \texttt{ir\_bands\_cm-1}, \texttt{h\_nmr}, \texttt{c\_nmr} --- peak
 lists as printed (Listing~\ref{lst:payload}).
-No name, SMILES, scaffold, atom-type hint or retrieved spectrum enters the
+No name, SMILES, scaffold, atom-type hint, or retrieved spectrum enters the
 prompt; the source paper is not fetched; ground truth is scored offline.
 The headline solver is Claude Opus 5 via a consumer subscription,
 closed-book, with one sub-agent per batch and an RDKit formula check that
@@ -536,7 +530,7 @@ Early sampler seeds were not stored, so the roster is reusable and not re-drawab
 
 \paragraph{Scaffold splitting.}
 A Bemis--Murcko scaffold split is the appropriate hold-out when a model
-is trained on molecules and generalisation is measured on unseen scaffolds.
+is trained on molecules, and generalization is measured on unseen scaffolds.
 That design does not apply to the headline solver.
 Claude Opus 5 is an out-of-the-box closed-book model; every compound on
 the frozen roster is an evaluation item, and the solver is not trained on
@@ -559,7 +553,7 @@ Self-ranking and forward-verified re-ranking must be labelled separately:
 they share a pool but not a ranker, so their precision $|$ recall figures
 are not interchangeable.
 Headline protocol: at most three ranked SMILES per \texttt{qid}.
-On the 60-compound arm Claude Opus 5 returned mean 2.20 candidates versus 3.00
+On the 60-compound arm, Claude Opus 5 returned a  mean of an 2.20 candidates versus 3.00
 for the other vendors, so recall rankings across vendors are approximate.
 \textbf{Generate-wide} (that arm only) runs ten independent solvers with
 up to six SMILES each, then pools and re-ranks; that budget is not the
@@ -603,175 +597,40 @@ It is not an IR+$^1$H+$^{13}$C row in these tables.
 \subsection{Headline performance}
 \label{sec:headline}
 
-\begin{wraptable}{r}{0.47\textwidth}
-\vspace{-1.2\baselineskip}
-\centering
-\caption{Closed-book generation ($n{=}500$ point estimates).
-$^{\ast}$ reweights to the corpus mix
-(17.5\% simple / 82.5\% complex), not an $n{=}500$ interval.}
-\label{tab:headline}
-\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lr@{}}
-\toprule
-metric & value \\
-\midrule
-top-1 exact constitution & \textbf{45.4\%} (227/500) \\
-\quad simple ($n{=}248$) & 65\% (161/248) \\
-\quad complex ($n{=}252$) & 26\% (66/252) \\
-generation recall (top-3) & \textbf{49.8\%} (249/500) \\
-self-rank prec.$|$recall & 91.2\% (227/249) \\
-\midrule
-reweighted top-1$^{\ast}$ & \textbf{26.5\%} [21--32] \\
-reweighted recall$^{\ast}$ & 31.3\% [25--37] \\
-\bottomrule
-\end{tabular}
-\vspace{-0.8\baselineskip}
-\end{wraptable}
-
-Table~\ref{tab:headline} summarizes the generation cohort of the
-closed-book harness. Generation recall is 249/500, and self-ranking
-selects the correct structure in 227/249 recalled cases, yielding an
-overall top-1 accuracy of 227/500 (45.4\%). The resulting generation wall
-is therefore 227 exact top-1 predictions, 22 candidates that were generated
-but incorrectly ranked, and 251 structures that were never proposed
-(Figure~\ref{fig:fig1}; Figure~\ref{fig:error-modes}). Thus, most failures arise during candidate
-generation rather than self-ranking.
-
-The evaluation roster is approximately balanced between simple and complex
-molecules (248/252), whereas only 17.5\% of the eligible corpus is simple.
-Reweighting to the corpus composition therefore reduces top-1 accuracy to
-26.5\% [21--32] and recall to 31.3\% [25--37]. 
-%These starred values arecorpus-mix estimates rather than intervals associated with the $n{=}500$ evaluation set.
-
-Forward verification on the same candidate pools achieves 204/500 top-1,
-23 fewer correct predictions than self-ranking
-(Section~\ref{sec:forward-verify}); this ranking effect is distinct from
-the generation wall. Performance also depends strongly on molecular
-complexity: top-1 accuracy is 65\% (161/248) for simple molecules but
-26\% (66/252) for complex molecules. Once the molecular formula is fixed,
-fused and polycyclic systems admit substantially more constitutions
-compatible with the reported spectral peak lists.
-
-On the validate-clean subset, scaffold-level recovery is 64\% (80\% simple,
-48\% complex), with a mean best Tanimoto similarity of 0.66. Accuracy also
-decreases with molecular size: 67.9\% top-1 for molecules with
-$\leq 15$ heavy atoms, 42.8\% for 16--25, and 16.7\% above 25
-($n{=}53/152/90$; Appendix~\ref{si:extras}). Among 137 analysable top-1 misses in an instrumented
-slice, \textbf{76.6\%} are constitutional isomers of the true structure,
-whereas only \textbf{22.6\%} share its Murcko scaffold. The typical failure
-therefore preserves composition but not the underlying connectivity, rather
-than representing a small regiochemical perturbation of the correct
-structure. A battery-electrolyte subset ($n{=}46$) is similarly
-recall-bound, with 26\% top-1 accuracy; results from the underpowered
-four-model Claude ladder are reported in Appendix~\ref{si:ladder24}.
-
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=\linewidth]{fig_error_modes.pdf}
-  \caption{Generation outcomes under a closed-book agentic solve.
-  (a)~correct top-1; (b)~in pool, not top-1; (c)~never proposed;
-  (d)~blind agent prompt excerpt.
-  Locked generation wall on $n{=}500$: $227$ exact top-1 / $22$ in-pool not top-1 / $251$ never proposed.}
-  \label{fig:error-modes}
-\end{figure}
-
-% \subsection{Headline performance}
-% \label{sec:headline}
-% \begin{table}[ht]
-% \caption{Generation scores for one closed-book harness.
-% The $n{=}500$ rows are point estimates (no confidence interval).
-% Starred rows reweight a validate-clean subset to the eligible corpus
-% mix (17.5\% simple / 82.5\% complex) and are not $n{=}500$ figures.}
-% \label{tab:headline}
-% \centering
-% \small
-% \begin{tabular}{@{}lr@{}}
-% \toprule
-% metric & value \\
-% \midrule
-% top-1 exact constitution & \textbf{45.4\%} (227/500) \\
-% \quad simple ($n{=}248$) & 65\% (161/248) \\
-\quad complex ($n{=}252$) & 26\% (66/252) \\
-generation recall (top-3) & \textbf{49.8\%} (249/500) \\
-% self-rank prec.$|$recall & 91.2\% (227/249) \\
-\midrule
-corpus-reweighted top-1$^{\ast}$ & \textbf{26.5\%} [21--32] \\
-% corpus-reweighted recall$^{\ast}$ & 31.3\% [25--37] \\
-% \bottomrule
-\end{tabular}
-% \end{table}
-
-% Table~\ref{tab:headline} is the generation cohort of one harness.
-% Recall $249/500$ and self-rank $227/249$ multiply to top-1 $227/500$ (45.4\%).
-The generation wall is $227$ exact top-1 / $22$ in-pool not top-1 /
-$251$ never proposed (Figure~\ref{fig:fig1}): 22 misses are self-rank,
-251 were never proposed.
-The roster is balanced (248/252) against a corpus that is 17.5\% simple,
-so the starred rows are the corpus-mix correction: 26.5\% top-1 [21--32]
-and 31.3\% recall [25--37], not an $n{=}500$ interval.
-Forward-verify top-1 on the same pools is $204/500$, a drop of 23 from
-self-rank (Section~\ref{sec:forward-verify}); that ranker is not this wall.
-Simple top-1 is 65\% (161/248) and complex top-1 is 26\% (66/252): once the
-formula is fixed, fused and polycyclic systems admit many more constitutions
-compatible with the same printed lists.
-On the validate-clean subset, scaffold-level recovery is 64\% (simple
-80\%, complex 48\%) and mean best Tanimoto is 0.66; accuracy falls with
-size (67.9\% top-1 at $\leq$15 heavy atoms, 42.8\% at 16--25, 16.7\%
-above 25; $n{=}53/152/90$; Appendix~\ref{si:extras}).
-On an instrumented slice, of 137 analysable top-1 misses, \textbf{76.6\%}
-are constitutional isomers of the true structure; only \textbf{22.6\%}
-share the true Murcko scaffold.
-The typical miss is wrong connectivity at the right composition, not a
-near-miss of regiochemistry.
-A battery-electrolyte subset ($n{=}46$) is recall-bound (26\% top-1);
-the underpowered four-model Claude ladder is in Appendix~\ref{si:ladder24}.
-
-\subsection{Ablation of the printed lists}
-\label{sec:contamination}
-
 \begin{wraptable}{r}{0.62\textwidth}
 \vspace{-1.2\baselineskip}
 \centering
-\caption{Ablation ($n{=}60$): formula only versus full lists.}
+\caption{Ablation ($n{=}60$). Top: formula-only control.
+Bottom: paired leave-one-modality arm ($p$: McNemar vs full lists).}
 \label{tab:formula-only}
 \small
 \setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}lrr@{}}
+\begin{tabular}{@{}lrrr@{}}
 \toprule
-condition & top-1 & recovered (top-3) \\
+condition & top-1 & top-3 & $p$ \\
 \midrule
-formula only & 3/60 (5\%) & 3/60 (5\%) \\
-formula + IR + $^1$H + $^{13}$C & 14/60 (23\%) & 19/60 (32\%) \\
+\multicolumn{4}{@{}l}{\emph{formula-only control}} \\
+formula only & 3/60 (5\%) & 3/60 (5\%) & \\
+formula + IR + $^1$H + $^{13}$C & 14/60 (23\%) & 19/60 (32\%) & 0.001 \\
+\midrule
+\multicolumn{4}{@{}l}{\emph{leave-one-modality}} \\
+full lists & 35/60 (58\%) & 38/60 (63\%) & --- \\
+$-$IR & 34/60 (57\%) & 41/60 (68\%) & 1.000 \\
+$-{}^1$H & 21/60 (35\%) & 27/60 (45\%) & 0.001 \\
+$-{}^{13}$C & 34/60 (57\%) & 37/60 (62\%) & 1.000 \\
+formula$+$IR & 3/60 (5\%) & 5/60 (8\%) & $<$0.001 \\
 \bottomrule
 \end{tabular}
 \vspace{-0.8\baselineskip}
 \end{wraptable}
 
-Table~\ref{tab:formula-only} is an ablation of the spectral input.
-The IR, $^1$H, and $^{13}$C lists are removed together, and the same
-$n{=}60$ compounds are read from the molecular formula alone.
-If the model were recovering constitutions from formula and pretraining
-memory alone, adding printed lists would not move the nested outcomes.
-It does: formula-only recovers 3/60 (Appendix~\ref{si:n60}), and every one of those three remains
-recovered once IR and NMR lists are supplied (McNemar $p{=}0.001$).
-Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds
-verbatim recall of specific experimental sections but does not exclude
-contamination
-(Section~\ref{sec:limitations}).
-The lists are being used; the remaining question is whether the same
-recall $\ll$ precision split is a property of one vendor.
-A paired leave-one-modality arm (Claude Opus 5, thinking;
-Appendix~\ref{si:modality}), separate from Table~\ref{tab:formula-only}
-and the $n{=}500$ headline, has top-1 35/60 (58.3\%) on full lists,
-34/60 (56.7\%) without IR, 21/60 (35.0\%) without $^1$H,
-34/60 (56.7\%) without $^{13}$C, and 3/60 (5.0\%) on formula$+$IR.
-Only the $^1$H leave-one-out is significant (McNemar $p{=}0.001$;
-IR and $^{13}$C, $p{=}1.000$).
-Formula$+$IR matches the formula-only floor; without IR, recovered
-count rises from 38/60 (63.3\%) to 41/60 (68.3\%).
-
-\begin{figure}[ht]
+Table~
+ef{tab:formula-only} ablates the spectral input on the same $n{=}60$ compounds. Formula-only recovers 3/60, and all three stay recovered once IR and NMR lists are supplied (McNemar $p{=}0.001$; Appendix~
+ef{si:n60}). Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~
+ef{si:year}), which bounds verbatim recall but does not exclude contamination (Section~
+ef{sec:limitations}). A separate paired leave-one-modality arm (Claude Opus 5, thinking; Appendix~
+ef{si:modality}) shows that $^1$H carries the signal: removing it drops top-1 from 35/60 to 21/60 ($p{=}0.001$), removing IR or $^{13}$C does not ($p{=}1.000$), and formula$+$IR stays at the formula-only floor. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor
+.\begin{figure}[ht]
   \centering
   \includegraphics[width=\linewidth]{fig_robustness.pdf}
   \caption{$n{=}60$ controls, not the $n{=}500$ headline.
