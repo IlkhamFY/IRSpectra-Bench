@@ -553,7 +553,7 @@ Self-ranking and forward-verified re-ranking must be labelled separately:
 they share a pool but not a ranker, so their precision $|$ recall figures
 are not interchangeable.
 Headline protocol: at most three ranked SMILES per \texttt{qid}.
-On the 60-compound arm, Claude Opus 5 returned a  mean of an 2.20 candidates versus 3.00
+On the 60-compound arm, Claude Opus 5 returned a mean of 2.20 candidates versus 3.00
 for the other vendors, so recall rankings across vendors are approximate.
 \textbf{Generate-wide} (that arm only) runs ten independent solvers with
 up to six SMILES each, then pools and re-ranks; that budget is not the
@@ -597,17 +597,46 @@ It is not an IR+$^1$H+$^{13}$C row in these tables.
 \subsection{Headline performance}
 \label{sec:headline}
 
+Table~\ref{tab:headline} summarizes the generation cohort of the closed-book harness. Generation recall is 249/500, and self-ranking selects the correct structure in 227/249 recalled cases, yielding an overall top-1 accuracy of 227/500 (45.4\%).
+
+\begin{wraptable}{r}{0.47\textwidth}
+\vspace{-1.2\baselineskip}
+\centering
+\caption{Closed-book generation ($n{=}500$ point estimates). $^{\ast}$ reweights to the corpus mix (17.5\% simple / 82.5\% complex), not an $n{=}500$ interval.}\label{tab:headline}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lr@{}}
+\toprule
+metric & value \\
+\midrule
+top-1 exact constitution & \textbf{45.4\%} (227/500) \\
+\quad simple ($n{=}248$) & 65\% (161/248) \\
+\quad complex ($n{=}252$) & 26\% (66/252) \\
+generation recall (top-3) & \textbf{49.8\%} (249/500) \\
+self-rank prec.$|$recall & 91.2\% (227/249) \\
+\midrule
+reweighted top-1$^{\ast}$ & \textbf{26.5\%} [21--32] \\
+reweighted recall$^{\ast}$ & 31.3\% [25--37] \\
+\bottomrule
+\end{tabular}
+\vspace{-0.8\baselineskip}
+\end{wraptable}
+
+The resulting generation wall is therefore 227 exact top-1 predictions, 22 candidates that were generated but incorrectly ranked, and 251 structures that were never proposed (Figure~\ref{fig:fig1}). Thus, most failures arise during candidate generation rather than self-ranking. The evaluation roster is approximately balanced between simple and complex molecules (248/252), whereas only 17.5\% of the eligible corpus is simple. Reweighting to the corpus composition therefore reduces top-1 accuracy to 26.5\% [21--32] and recall to 31.3\% [25--37]. Forward verification on the same candidate pools achieves 204/500 top-1, 23 fewer correct predictions than self-ranking (Section~\ref{sec:forward-verify}); this ranking effect is distinct from the generation wall. Performance also depends strongly on molecular complexity: top-1 accuracy is 65\% (161/248) for simple molecules but 26\% (66/252) for complex molecules. Once the molecular formula is fixed, fused and polycyclic systems admit substantially more constitutions compatible with the reported spectral peak lists. On the validate-clean subset, scaffold-level recovery is 64\% (80\% simple, 48\% complex), with a mean best Tanimoto similarity of 0.66. Accuracy also decreases with molecular size: 67.9\% top-1 for molecules with $\leq 15$ heavy atoms, 42.8\% for 16--25, and 16.7\% above 25 ($n{=}53/152/90$; Appendix~\ref{si:extras}). Among 137 analysable top-1 misses in an instrumented slice, \textbf{76.6\%} are constitutional isomers of the true structure, whereas only \textbf{22.6\%} share its Murcko scaffold. The typical failure therefore preserves composition but not the underlying connectivity, rather than representing a small regiochemical perturbation of the correct structure. A battery-electrolyte subset ($n{=}46$) is similarly recall-bound, with 26\% top-1 accuracy; results from the underpowered four-model Claude ladder are reported in Appendix~\ref{si:ladder24}.
+
+\subsection{Ablation of the printed lists}
+\label{sec:contamination}
+
+Table~\ref{tab:formula-only} is an ablation of the spectral input on the same $n{=}60$ compounds. Formula-only recovers 3/60, and all three stay recovered once IR and NMR lists are supplied (McNemar $p{=}0.001$; Appendix~\ref{si:n60}).
+
 \begin{wraptable}{r}{0.62\textwidth}
 \vspace{-1.2\baselineskip}
 \centering
-\caption{Ablation ($n{=}60$). Top: formula-only control.
-Bottom: paired leave-one-modality arm ($p$: McNemar vs full lists).}
-\label{tab:formula-only}
+\caption{Ablation ($n{=}60$): formula only versus full lists.}\label{tab:formula-only}
 \small
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}lrrr@{}}
-\toprule
-condition & top-1 & top-3 & $p$ \\
+\toprule condition & top-1 & top-3 & $p$ \\
 \midrule
 \multicolumn{4}{@{}l}{\emph{formula-only control}} \\
 formula only & 3/60 (5\%) & 3/60 (5\%) & \\
@@ -624,21 +653,12 @@ formula$+$IR & 3/60 (5\%) & 5/60 (8\%) & $<$0.001 \\
 \vspace{-0.8\baselineskip}
 \end{wraptable}
 
-Table~
-ef{tab:formula-only} ablates the spectral input on the same $n{=}60$ compounds. Formula-only recovers 3/60, and all three stay recovered once IR and NMR lists are supplied (McNemar $p{=}0.001$; Appendix~
-ef{si:n60}). Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~
-ef{si:year}), which bounds verbatim recall but does not exclude contamination (Section~
-ef{sec:limitations}). A separate paired leave-one-modality arm (Claude Opus 5, thinking; Appendix~
-ef{si:modality}) shows that $^1$H carries the signal: removing it drops top-1 from 35/60 to 21/60 ($p{=}0.001$), removing IR or $^{13}$C does not ($p{=}1.000$), and formula$+$IR stays at the formula-only floor. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor
-.\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\linewidth]{fig_robustness.pdf}
-  \caption{$n{=}60$ controls, not the $n{=}500$ headline.
-  (a)~formula-only top-1 is $3/60$ versus $14/60$ on full lists.
-  (b)~top-1 by source-paper year.
-  (c)~generation recall across vendors.
-  (d)~chamfer precision against recall.}
-  \label{fig:fig-robustness}
+Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds verbatim recall but does not exclude contamination (Section~\ref{sec:limitations}). A separate paired leave-one-modality arm (Claude Opus 5, thinking; Appendix~\ref{si:modality}) shows that $^1$H carries the signal: removing it drops top-1 from 35/60 to 21/60 ($p{=}0.001$), removing IR or $^{13}$C does not ($p{=}1.000$), and formula$+$IR stays at the formula-only floor. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{fig_robustness.pdf}
+\caption{$n{=}60$ controls, not the $n{=}500$ headline. (a)~formula-only top-1 is $3/60$ versus $14/60$ on full lists. (b)~top-1 by source-paper year. (c)~generation recall across vendors. (d)~chamfer precision against recall.}
+\label{fig:fig-robustness}
 \end{figure}
 
 \subsection{Cross-vendor replication}
@@ -652,7 +672,7 @@ Grok 4.6, Gemini 3.7 Flash and GPT-5.6 Sol saw the same four fields and
 the same candidate contract.
 Forward-verify precision $|$ recall exceeds generation recall in every
 row of Table~\ref{tab:cross-vendor}, on different denominators
-(Eqs.~\ref{eq:recall}--\ref{eq:prec}).
+(Eq.~\ref{eq:metrics}).
 The precision column is chamfer re-ranking of each solver's pool, the
 same ranker as Section~\ref{sec:forward-verify}, not the solver's own
 order.
