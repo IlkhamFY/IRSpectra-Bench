@@ -32,7 +32,7 @@ The $n{=}519$ pooled print ($243/519$) is not the headline.
 
 \begin{table}[ht]
 \caption{Main-text objects and the appendix sections that discuss them.
-Figures~\mainref{fig:fig1}{1}--\mainref{fig:fig-mechanism}{4} and
+Figures~\mainref{fig:fig1}{1}--\mainref{fig:fig-mechanism}{3} and
 Listing~\mainref{lst:payload}{1} are not repeated.
 Figures~\ref{si:fig:chemspace}--\ref{si:fig:pred-grid} appear only here.}
 \centering
@@ -45,19 +45,19 @@ object & role in this appendix \\
 Figure~\mainref{fig:fig1}{1} &
   $n{=}500$ generation: $249/500$ recall, $227/249$ self-rank,
   $45.4\%$ top-1; wall $227/22/251$. \\
-Figure~\mainref{fig:error-modes}{2} &
-  Generation outcomes on the same wall: correct top-1, in pool but not
-  top-1, never proposed, and the blind agent prompt. \\
 Listing~\mainref{lst:payload}{1} &
   IRexp record (ILJNJJNKEOAREX; CID 57398578;
   C$_{12}$H$_{11}$BrN$_{4}$).
   SMILES and InChIKey are resource fields, not solver payload. \\
-Figure~\mainref{fig:fig-robustness}{3} &
-  Formula-only (\S\ref{si:n60}), source-paper year (\S\ref{si:year}),
-  and four-vendor controls. \\
+Figure~\mainref{fig:fig-robustness}{2} &
+  (a)~Nested formula-only, non-thinking $n{=}60$ (\S\ref{si:n60});
+  (b)~source-paper year, $n{=}194$ (\S\ref{si:year});
+  (c)--(d)~vendor recall and chamfer, $n{=}60$. \\
 leave-one-modality &
-  Paired $n{=}60$ arm, Claude Opus 5 (Table~\mainref{tab:formula-only}{2}). \\
-Figure~\mainref{fig:fig-mechanism}{4} &
+  Thinking arm, full lists 35/60
+  (Table~\mainref{tab:formula-only}{2}).
+  Nested full lists are 14/60 (\S\ref{si:n60}). \\
+Figure~\mainref{fig:fig-mechanism}{3} &
   v3-R25 verify-save (\S\ref{si:cases}). \\
 \S\ref{si:fverify} &
   Forward-verify diagnostic on the same pools, $204/45/251$
@@ -84,9 +84,9 @@ literature rows &
 \end{tabular}
 \end{table}
 
-Figure~\mainref{fig:fig1}{1}, Figure~\mainref{fig:error-modes}{2},
-Figure~\mainref{fig:fig-robustness}{3},
-Figure~\mainref{fig:fig-mechanism}{4}, and Listing~\mainref{lst:payload}{1}
+Figure~\mainref{fig:fig1}{1},
+Figure~\mainref{fig:fig-robustness}{2},
+Figure~\mainref{fig:fig-mechanism}{3}, and Listing~\mainref{lst:payload}{1}
 are in the main text.
 Main-text Eqs.~\mainref{eq:factor}{1}, \mainref{eq:ik14}{2}, \mainref{eq:metrics}{3}, and \mainref{eq:chamfer}{4}
 (factorisation, InChIKey-14, the three rates, and $^{13}$C chamfer) are restated in
@@ -454,6 +454,9 @@ McNemar vs self-rank & --- & $p{=}0.55$ (7 gained, 4 lost) \\
 
 Self-ranking $227/249$ on $n{=}500$ is generation, not a substitute
 for $204/45/251$.
+The $14/60$ self-rank is the nested $n{=}60$ arm
+(Figure~\mainref{fig:fig-robustness}{2}a), not thinking leave-one full lists
+(Table~\mainref{tab:formula-only}{2}, $35/60$).
 
 \subsubsection{Official expand-500 score}
 
@@ -496,7 +499,7 @@ Deranging observed $^{13}$C pairings collapses precision ($p{=}0.001$).
 The three failure modes below are taken from released candidate files.
 Later panels reuse already-reported numbers.
 Expansion qids reuse R22/R25.
-The verify-save drawing is Figure~\mainref{fig:fig-mechanism}{4}.
+The verify-save drawing is Figure~\mainref{fig:fig-mechanism}{3}.
 
 \begin{table}[ht]
 \caption{Worked cases show three failure modes from released candidate
@@ -518,7 +521,7 @@ IR 1641, 1510~cm$^{-1}$; $^{13}$C 195.7. Verifier unused. \\
 v3-R25 / C$_{10}$H$_{14}$N$_{2}$O &
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm). IR 1679~cm$^{-1}$.
-Figure~\mainref{fig:fig-mechanism}{4}. \\
+Figure~\mainref{fig:fig-mechanism}{3}. \\
 \textbf{Verify-fail} &
 v3-R26 / C$_{14}$H$_{11}$N$_{3}$O$_{3}$ &
 True 3-nitrophenyl dihydroquinazolinone in pool (self-rank 2);
@@ -540,7 +543,7 @@ that was never proposed (Eq.~\ref{si:eq:factor}).
 True 2-pyridyl picolinamide at self-rank 3; self-rank 1 is 3-pyridyl.
 Forward-verify recovers (chamfer 0.42 vs 1.30~ppm, Eq.~\ref{si:eq:chamfer}).
 IR 1679~cm$^{-1}$.
-The drawing is Figure~\mainref{fig:fig-mechanism}{4}.
+The drawing is Figure~\mainref{fig:fig-mechanism}{3}.
 
 \subsubsection{Verify-fail: v3-R26 / \texorpdfstring{C$_{14}$H$_{11}$N$_{3}$O$_{3}$}{C14H11N3O3}}
 
@@ -562,16 +565,18 @@ Gold constitution is scored only by Eq.~\ref{si:eq:ik14}.
 
 \subsubsection{Formula-only control \texorpdfstring{($n{=}60$)}{(n=60)}}
 \label{si:n60}
+Nested contamination control on the non-thinking $n{=}60$ roster
+(Figure~\mainref{fig:fig-robustness}{2}a).
+The thinking leave-one-modality arm is a separate count
+(Table~\mainref{tab:formula-only}{2}, full lists 35/60).
 Formula only: 3/60 (5\%) top-1 and 3/60 (5\%) recall.
 Formula $+$ IR $+$ $^1$H $+$ $^{13}$C: 14/60 (23\%) / 19/60 (32\%).
 Outcomes perfectly nested (McNemar $p{=}0.001$).
 
-Paired leave-one-modality counts are in main-text Table~\mainref{tab:formula-only}{2}.
-
-\subsubsection{Source-paper year \texorpdfstring{($n{=}60$)}{(n=60)}}
+\subsubsection{Source-paper year \texorpdfstring{($n{=}194$)}{(n=194)}}
 \label{si:year}
-Accuracy is flat in source-paper year ($r{=}{-}0.007$;
-Figure~\mainref{fig:fig-robustness}{3}).
+Accuracy is flat in source-paper year on the $n{=}194$ slice ($r{=}{-}0.007$;
+Figure~\mainref{fig:fig-robustness}{2}b).
 The correlation bounds verbatim recall of specific experimental sections.
 It does not exclude contamination.
 
@@ -693,7 +698,8 @@ scoring scripts & \texttt{scripts/score\_pooled.py}, \texttt{score\_main.py},
 \caption{Cross-vendor scores on $n{=}60$.
 Recall is pool membership.
 Both precision columns are chamfer forward-verify, not solver self-rank.
-Claude Opus 5 self-rank top-1 on this arm is 14/60.}
+Claude Opus 5 self-rank top-1 on this nested arm is 14/60
+(thinking leave-one full lists are 35/60).}
 \centering
 \small
 \begin{tabular}{@{}lrrr@{}}
@@ -868,12 +874,12 @@ On-bench scores for IR-Agent, CASE, SpectraLLM, NMR-Solver, Spectro,
 NMIRacle and the Alberts transformers were not obtained.
 Those systems are blocked on input, licence, or compute, and no adapter
 was built.
-Formula-only recovery on the 60-compound arm is 3/60 top-1 and 3/60 recall.
+Formula-only recovery on the nested 60-compound control is 3/60 top-1 and 3/60 recall.
 NMRTrans (\S\ref{si:nmrtrans}) is one trained NMR-only baseline on this
 roster (IR unused; 79/500 top-1), not a full multi-modal peer and not a
 score for those systems.
 An expert-chemist audit was not run.
-Leave-one-modality on the paired $n{=}60$ arm is Table~\mainref{tab:formula-only}{2}.
+Leave-one-modality on the paired thinking $n{=}60$ arm is Table~\mainref{tab:formula-only}{2} (full lists 35/60).
 
 %======================================================================
 \subsection{Closed-Book Harness}

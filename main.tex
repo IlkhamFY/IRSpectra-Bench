@@ -536,9 +536,9 @@ the frozen roster is an evaluation item, and the solver is not trained on
 a split of IRSpectra-Bench.
 Memorisation of a chemical neighbourhood, or of a particular paper, is
 examined with the contamination probes: formula only against the full
-lists, and accuracy against source-paper year
-(Section~\ref{sec:contamination}; Table~\ref{tab:formula-only};
-Appendix~\ref{si:year}).
+lists on the nested control, and accuracy against source-paper year
+(Section~\ref{sec:contamination}; Figure~\ref{fig:fig-robustness};
+Appendix~\ref{si:n60}, \ref{si:year}).
 Murcko-scaffold comparisons on the validate-clean subset describe
 how close a prediction is to the reference; they are not a data-split
 protocol.
@@ -575,7 +575,7 @@ Chamfer is assignment-free: it remains defined when $|P|\neq|Q|$, which
 is the usual case for incomplete printed $^{13}$C lists.
 This ranker uses the same candidate pool and therefore cannot raise
 generation recall.
-Controls, reported in order below, are a formula-only ablation and recency
+Controls, reported in order below, are a nested formula-only ablation and recency
 (Section~\ref{sec:contamination}); four-vendor replication on a
 60-compound arm (Section~\ref{sec:cross-vendor}); generate-wide sampling;
 HOSE lookup and GNN $^{13}$C verifiers; and a small IRexp-fine-tuned
@@ -626,13 +626,13 @@ The resulting generation wall is therefore 227 exact top-1 predictions, 22 candi
 \subsection{Ablation of the printed lists}
 \label{sec:contamination}
 
-Table~\ref{tab:formula-only} is an ablation of the spectral input on the same $n{=}60$ compounds. Formula-only recovers 3/60, and all three stay recovered once IR and NMR lists are supplied (McNemar $p{=}0.001$; Appendix~\ref{si:n60}).
+Figure~\ref{fig:fig-robustness}a is the nested formula-only control on the non-thinking $n{=}60$ roster (Appendix~\ref{si:n60}). Formula-only recovers 3/60 ($5\%$), and all three stay recovered once IR and NMR lists are supplied (full lists 14/60; McNemar $p{=}0.001$). On that nested arm, formula$+$IR stays at the formula-only floor ($5\%$).
 
 \begin{wraptable}{r}{0.58\textwidth}
 \footnotesize
 \vspace{-1.2\baselineskip}
 \centering
-\caption{\footnotesize Leave-one-modality on $n{=}60$. $p$: McNemar vs full.}\label{tab:formula-only}
+\caption{\footnotesize Leave-one-modality (Claude thinking, $n{=}60$). $p$: McNemar vs full lists.}\label{tab:formula-only}
 \small
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}lrrr@{}}
@@ -649,11 +649,11 @@ IR+$^1$H + $^{13}$C & 25/60 (42\%) & 26/60 (43\%) & 0.006 \\
 \vspace{-0.5\baselineskip}
 \end{wraptable}
 
-Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds verbatim recall but does not exclude contamination (Section~\ref{sec:limitations}). A separate paired leave-one-modality arm (Claude Opus 5, thinking; Table~\ref{tab:formula-only}) shows that removing $^1$H drops top-1 from 35/60 to 21/60 ($p{=}0.001$) and removing the formula drops it to 25/60 ($p{=}0.006$); removing IR or $^{13}$C does not ($p{=}1.000$), formula$+$IR stays at the formula-only floor, and spectra-only remains well above it. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor.
+Accuracy is flat in source-paper year on the $n{=}194$ slice ($r{=}{-}0.007$; Appendix~\ref{si:year}), which bounds verbatim recall but does not exclude contamination (Section~\ref{sec:limitations}). Table~\ref{tab:formula-only} is the Claude thinking leave-one-modality arm (full lists 35/60); Figure~\ref{fig:fig-robustness}a is the separate nested formula-only control (3/60 versus 14/60). Removing $^1$H drops top-1 from 35/60 to 21/60 ($p{=}0.001$) and removing the formula drops it to 25/60 ($p{=}0.006$); removing IR or $^{13}$C does not ($p{=}1.000$), and spectra-only remains well above the nested formula-only floor. The lists are being used; the remaining question is whether the same recall $\ll$ precision split is a property of one vendor.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=\linewidth]{fig_robustness.pdf}
-\caption{$n{=}60$ controls. (a)~formula-only vs full lists. (b)~top-1 by source year. (c)~vendor generation recall. (d)~chamfer precision vs recall.}
+\caption{(a)~Nested formula-only control on the non-thinking $n{=}60$ roster (not Table~\ref{tab:formula-only}): formula-only $3/60$ versus full lists $14/60$. (b)~Top-1 by source-paper year ($n{=}194$). (c)~Vendor generation recall ($n{=}60$). (d)~Chamfer precision against recall ($n{=}60$).}
 \label{fig:fig-robustness}
 \end{figure}
 
@@ -662,8 +662,9 @@ Accuracy is flat in source-paper year ($r{=}{-}0.007$; Appendix~\ref{si:year}), 
 
 The 60-compound arm repeats the closed-book payload on three further
 vendor families.
-It does not repeat the $n{=}500$ headline: Claude Opus 5's top-1 on this arm is
-14/60 (23\%), not 227/500 (45.4\%).
+It does not repeat the $n{=}500$ headline or the thinking leave-one arm
+(Table~\ref{tab:formula-only}): Claude Opus 5's self-rank top-1 on this
+nested arm is 14/60 (23\%), not 227/500 (45.4\%).
 Grok 4.6, Gemini 3.7 Flash and GPT-5.6 Sol saw the same four fields and
 the same candidate contract.
 Forward-verify precision $|$ recall exceeds generation recall in every
@@ -717,7 +718,7 @@ Forward verification asks whether an independent $^{13}$C ranker can
 repair the misses that remain after the solver has proposed a pool.
 When the true structure is among the candidates on the 60-compound arm,
 the chamfer ranker selects it in $16/19$ cases (84\%).
-On this arm the margin over self-ranking (14/60 $\to$ 16/60 top-1) is small and
+On this nested arm the margin over self-ranking (14/60 $\to$ 16/60 top-1) is small and
 unresolved; we do not claim an accuracy advance on that arm.
 On $n{=}500$, forward-verify top-1 is $204/500$, a drop of 23 from self-rank
 $227/500$.
@@ -825,7 +826,9 @@ subscription has no pinned snapshot, and the $n{=}500$ pool mixes
 no-thinking rows with a thinking-tier expand-500 cut (200 of 500).
 That mix is not a controlled comparison.
 Solver transcripts were audited for zero ground-truth access.
-Contamination is bounded by the formula-only ablation ($23\%\to5\%$ on $n{=}60$)
+Contamination is bounded by the nested formula-only control
+(Figure~\ref{fig:fig-robustness}a; $23\%\to5\%$ on $n{=}60$,
+full lists $14/60$ to formula-only $3/60$)
 and flat recency ($r{=}{-}0.007$), and is not excluded.
 The object is printed band lists with formula supplied as from HRMS.
 The unscored systems in Section~\ref{sec:not-on-roster} were not run.
@@ -833,9 +836,8 @@ Forward-verify versus self-rank drops by 23 on $n{=}500$ and is unresolved
 on the protocol slice ($p{=}0.55$); generate-wide top-1 is unresolved
 ($p{=}0.34$); the $n{=}24$ ladder is underpowered.
 No expert-chemist audit was run.
-Leave-one-modality on paired $n{=}60$ was completed:
-Both $^1$H and $-$formula are significant leave-one-out effects: $^1$H drops from 35/60 to 21/60 ($p{=}0.001$), and removing formula drops to 25/60 ($p{=}0.006$); IR and $^{13}$C do not (both $56.7$\%, $p{=}1.000$);
-formula$+$IR matches the formula-only floor ($5.0\%$).
+Leave-one-modality on the paired thinking arm (Table~\ref{tab:formula-only}) was completed:
+Both $^1$H and $-$formula are significant leave-one-out effects: $^1$H drops from 35/60 to 21/60 ($p{=}0.001$), and removing formula drops to 25/60 ($p{=}0.006$); IR and $^{13}$C do not (both $56.7$\%, $p{=}1.000$).
 Extraction fidelity is inherited from IRexp rather than re-audited here.
 The battery subset is literature electrolyte chemistry, not operando cells;
 scoring is single-sample; the roster inherits PMC-OA organic bias.
