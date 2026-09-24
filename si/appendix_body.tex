@@ -57,7 +57,7 @@ Figure~\mainref{fig:fig-robustness}{3} &
   Formula-only (\S\ref{si:n60}), source-paper year (\S\ref{si:year}),
   and four-vendor controls. \\
 leave-one-modality &
-  Paired $n{=}60$ arm, Claude Opus 5 (\S\ref{si:modality}). \\
+  Paired $n{=}60$ arm, Claude Opus 5 (Table~\mainref{tab:formula-only}{2}). \\
 Figure~\mainref{fig:fig-mechanism}{4} &
   v3-R25 verify-save (\S\ref{si:cases}). \\
 Figure~\ref{si:fig:wall} &
@@ -94,6 +94,17 @@ The pooled estimator lives only here.
 %======================================================================
 \subsection{Appendix figures}
 \label{si:plates}
+
+Figure~\ref{si:fig:wall} decomposes the same $n{=}500$ generation pools as
+main-text Figure~\mainref{fig:fig1}{1} under independent forward $^{13}$C-chamfer
+re-ranking (\S\ref{si:fverify}).
+Bars are verified top-1 (204), misranked (true in pool but not verified rank-1; 45),
+and never proposed (251).
+Generation recall remains $249/500$; verified top-1 is $204/500$
+(a drop of 23 from self-rank $227/500$).
+Figures~\ref{si:fig:chemspace} and~\ref{si:fig:ladder} give the validate-clean
+chemspace slice and the 60-compound inference ladder used later in
+\S\ref{si:n60}--\S\ref{si:ladder24}.
 
 \begin{figure}[ht]
 \centering
@@ -542,6 +553,24 @@ IR 1652, 1530, 1352~cm$^{-1}$.
 Ranking can fail when predicted $^{13}$C lists are nearly tied
 (McNemar $p{=}0.55$; 7 gained, 4 lost on the protocol slice).
 
+\subsubsection{Predicted vs true structures}
+\label{si:pred-grid}
+
+Figure~\ref{si:fig:pred-grid} shows paired true and top-1 predicted structures
+on representative deposited cases spanning correct top-1, in-pool miss, and
+never-proposed outcomes.
+Structures and Tanimoto scores are taken only from released deposits; no
+structures are invented for illustration.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\linewidth]{fig_pred_vs_true_grid.pdf}
+\caption{True vs top-1 predicted structures on representative IRSpectra-Bench
+cases (correct top-1, in-pool miss, never-proposed). Labels give qid and
+Morgan $r{=}2$ Tanimoto.}
+\label{si:fig:pred-grid}
+\end{figure}
+
 \subsubsection{Example payload}
 
 Listing~\mainref{lst:payload}{1} is the IRexp JSON record
@@ -557,36 +586,7 @@ Formula only: 3/60 (5\%) top-1 and 3/60 (5\%) recall.
 Formula $+$ IR $+$ $^1$H $+$ $^{13}$C: 14/60 (23\%) / 19/60 (32\%).
 Outcomes perfectly nested (McNemar $p{=}0.001$).
 
-\subsubsection{Ablation: Leave-one-modality \texorpdfstring{($n{=}60$)}{(n=60)}}
-\label{si:modality}
-Paired leave-one-modality on Claude Opus 5 (thinking), the same 60 compounds
-in every condition.
-This arm is not Table~\mainref{tab:formula-only}{the formula-only ablation}
-and not the $n{=}500$ headline.
-McNemar tests paired top-1 against full lists.
-$b$ counts compounds correct on full lists only;
-$c$ counts compounds correct on the named condition only.
-Formula only is the pre-existing control.
-
-\begin{center}
-\captionof{table}{Leave-one-modality, paired $n{=}60$.
-Formula only is the pre-existing control.}
-\small
-\setlength{\tabcolsep}{4pt}
-\begin{tabular}{@{}lrrl@{}}
-\toprule
-condition & top-1 & recovered (top-3) & McNemar vs full \\
-\midrule
-full & 35/60 (58.3\%) & 38/60 (63.3\%) & --- \\
-$-$IR & 34/60 (56.7\%) & 41/60 (68.3\%) & $b{=}4$, $c{=}3$, $p{=}1.000$ \\
-$-{}^1$H & 21/60 (35.0\%) & 27/60 (45.0\%) & $b{=}15$, $c{=}1$, $p{=}0.001$ \\
-$-{}^{13}$C & 34/60 (56.7\%) & 37/60 (61.7\%) & $b{=}3$, $c{=}2$, $p{=}1.000$ \\
-$-$formula & 25/60 (41.7\%) & 26/60 (43.3\%) & $b{=}11$, $c{=}1$, $p{=}0.006$ \\
-formula$+$IR & 3/60 (5.0\%) & 5/60 (8.3\%) & $b{=}32$, $c{=}0$, $p{=}0.000$ \\
-formula only & 3/60 (5.0\%) & 3/60 (5.0\%) & $b{=}32$, $c{=}0$, $p{=}0.000$ \\
-\bottomrule
-\end{tabular}
-\end{center}
+Paired leave-one-modality counts are in main-text Table~\mainref{tab:formula-only}{2}.
 
 \subsubsection{Source-paper year \texorpdfstring{($n{=}60$)}{(n=60)}}
 \label{si:year}
@@ -893,10 +893,29 @@ NMRTrans (\S\ref{si:nmrtrans}) is one trained NMR-only baseline on this
 roster (IR unused; 79/500 top-1), not a full multi-modal peer and not a
 score for those systems.
 An expert-chemist audit was not run.
-Leave-one-modality on the paired $n{=}60$ arm is \S\ref{si:modality}.
-
-
+Leave-one-modality on the paired $n{=}60$ arm is Table~\mainref{tab:formula-only}{2}.
 
 %======================================================================
 \subsection{Closed-Book Harness}
 \label{si:closed-book}
+
+The closed-book harness is the operational form of the Blind protocol
+(\S\ref{si:protocol}).
+Each solver call receives only the four-field peak-list payload
+\texttt{\{qid, formula, ir\_bands\_cm-1, h\_nmr, c\_nmr\}}:
+no compound name, SMILES, InChIKey, scaffold hint, retrieved spectrum, or web search.
+The only tool is an RDKit formula / parse check before a candidate is emitted.
+
+The $n{=}500$ headline uses Claude Opus 5 on a consumer harness.
+Thinking-tier mix matches the model card (\S\ref{si:card}): earlier rows
+without thinking; the expand-500 cut (200 of 500) on the thinking tier.
+Each deposit holds at most three ranked SMILES; scoring is RDKit InChIKey-14
+as in \S\ref{si:eqs}.
+The cross-vendor $n{=}60$ arm reuses the same payload with vendor-specific
+prompts in the code release.
+
+What was not recorded is unchanged from the model card and Reproducibility
+(\S\ref{si:repro}): headline wrapper text, model snapshots, temperature, and
+sampler seeds.
+Frozen deposits are the intended reproducibility claim, not bit-exact
+re-inference.
