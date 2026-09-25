@@ -658,15 +658,25 @@ python scripts/forward_verify_all.py
 \end{verbatim}
 
 %======================================================================
+% Headline card is too tall to sit in the leftover space at the bottom of a
+% page. Start the section on a new page when it will not fit, so the heading
+% stays with the pinned table instead of a caption-only orphan.
+\par
+\ifdim\pagegoal<\maxdimen
+  \ifdim\dimexpr\pagegoal-\pagetotal\relax<0.58\textheight
+    \newpage
+  \fi
+\fi
 \subsection{Model cards}
 \label{si:card}
 
 \subsubsection{Headline model card}
 
-\begin{table}[ht]
-\caption{Headline solver card.
-Fields that were not recorded are marked as such.}
+\begin{center}
+\begin{minipage}{\linewidth}
 \centering
+\captionof{table}{Headline solver card.
+Fields that were not recorded are marked as such.}
 \small
 \setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}>{\raggedright\arraybackslash}p{4.3cm}>{\raggedright\arraybackslash}p{8.5cm}@{}}
@@ -691,17 +701,20 @@ scoring scripts & \texttt{scripts/score\_pooled.py}, \texttt{score\_main.py},
   \texttt{benchmark\_v2.py score2} \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{minipage}
+\end{center}
+\FloatBarrier
 
 \subsubsection{Cross-vendor model card \texorpdfstring{($n{=}60$)}{(n=60)}}
 
-\begin{table}[ht]
-\caption{Cross-vendor scores on $n{=}60$.
+\begin{center}
+\begin{minipage}{\linewidth}
+\centering
+\captionof{table}{Cross-vendor scores on $n{=}60$.
 Recall is pool membership.
 Both precision columns are chamfer forward-verify, not solver self-rank.
 Claude Opus 5 self-rank top-1 on this nested arm is 14/60
 (thinking leave-one full lists are 35/60).}
-\centering
 \small
 \begin{tabular}{@{}lrrr@{}}
 \toprule
@@ -713,7 +726,8 @@ Gemini 3.7 Flash & 30/60 = 50\% & 22/30 = 73\% & 22/30 = 73\% \\
 GPT-5.6 Sol & 25/60 = 42\% & 17/25 = 68\% & 16/24 = 67\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{minipage}
+\end{center}
 
 Verification precision exceeds generation recall in every arm.
 Bootstrap separates the paired gap for Claude Opus 5 ($+$52.5 points),
@@ -721,6 +735,7 @@ GPT-5.6 Sol ($+$26.3) and Gemini ($+$23.3); Grok's gap ($+$9.2) is
 directional.
 A clean-clone control for Grok bounds key leakage (McNemar $p{=}0.39$).
 Reasoning-effort tier per vendor arm was not recorded.
+\FloatBarrier
 
 \subsubsection{Literature comparison}
 \label{si:lit}
@@ -729,10 +744,11 @@ Any system reporting top-1 $= a$ and top-$k = b$ implies
 recall $\geq b$ and conditional precision $\leq a/b$.
 Script: \texttt{scripts/literature\_decomposition.py}.
 
-\begin{table}[ht]
-\caption{Selected published systems, connectivity-scored or as published.
-Separate settings, not scores on this roster.}
+\begin{center}
+\begin{minipage}{\linewidth}
 \centering
+\captionof{table}{Selected published systems, connectivity-scored or as published.
+Separate settings, not scores on this roster.}
 \scriptsize
 \setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}lrrrr@{}}
@@ -749,11 +765,13 @@ Alberts, 6--13 atoms, NIST IR (3,455) & 63.8\% & 84.0\% (10) & 84.0\% & 75.9\% \
 SpecX, scaffold split, simulated (99,439) & 29.7\% & 50.6\% (10) & 50.6\% & 58.7\% \\
 \bottomrule
 \end{tabular}
-\end{table}
+\end{minipage}
+\end{center}
 
 These rows are separate published settings, not one paired collapse onto literature peak lists.
 The solver-alone precision column on $n{=}500$ is self-ranking (227/249);
 the forward-verify row is the instrumented protocol slice (58/65).
+\FloatBarrier
 
 %======================================================================
 \subsection{IRexp resource}
