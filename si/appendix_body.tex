@@ -649,7 +649,10 @@ External submissions must document model version, prompt, and tool access
 {"qid": "R01", "candidates": ["SMILES_rank1", "SMILES_rank2", "SMILES_rank3"]}
 \end{lstlisting}
 
-Score locally (code release):
+Score locally (code release).
+Frozen deposits and scorers are in the anonymous review mirror at
+\url{https://anonymous.4open.science/r/peaklist-corpus-review-10C4/}
+(\texttt{scripts/} and \texttt{SCHEMA.md}):
 \begin{verbatim}
 python scripts/score_submission.py
     --predictions my_run.jsonl --name "YourModel-1.0"
@@ -869,7 +872,8 @@ NMR-Solver, SpectraLLM, IR-Agent, and commercial CASE were not rerun.
 \subsection{Reproducibility}
 \label{si:repro}
 
-Frozen questions, predictions, and scorers ship with the code release.
+Frozen questions, predictions, and scorers ship with the code release
+(\url{https://anonymous.4open.science/r/peaklist-corpus-review-10C4/}).
 The $n{=}500$ generation totals $227/500$ and $249/500$ regenerate from
 the released deposits.
 The $n{=}500$ forward-verify table is \S\ref{si:fverify}.
